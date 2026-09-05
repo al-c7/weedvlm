@@ -1,0 +1,17 @@
+[project]
+name = "weedvlm"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Alex Christie", email = "alex.christie@my.jcu.edu.au" }
+]
+requires-python = ">=3.14"
+dependencies = []
+
+[project.scripts]
+weedvlm = "weedvlm:main"
+
+[build-system]
+requires = ["uv_build>=0.12.3,<0.13.0"]
+build-backend = "uv_build"
