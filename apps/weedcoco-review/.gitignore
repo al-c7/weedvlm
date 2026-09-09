@@ -1,0 +1,9 @@
+fixtures/images/
+fixtures/dataset.json
+fixtures/dataset.review.json
+review.json
+*.review.json
+
+# Review output files people drop in this directory via --out
+/*.json
+!/deno.json
