@@ -1,0 +1,45 @@
+{
+  "name": "Vegetable Crops Detection (VCD) - Maize",
+  "published": "2022-03-16",
+  "description": "This article introduces a dataset of vegetable crops. Maize (Zea mays) (this part), bean (Phaseolus vulgaris) and leek (Allium ampeloprasum) crops at an early stage of development (between 2 and 5 weeks from seeding of transplanting). Whole plants and stems have been annotated with bounding boxes. Collected under a shrouded platform with artificial light.\n\nData in Brief publication available here:\nhttps://www.sciencedirect.com/science/article/pii/S2352340922002463\n\nEvery dataset in Weed-AI includes imagery of crops or pasture with weeds annotated, and is available in an MS-COCO derived format with standardised agricultural metadata.",
+  "authors": [
+    "Louis Lac",
+    "Barna Keresztes",
+    "Marine Louargant",
+    "Marc Donias",
+    "Jean-Pierre Da Costa"
+  ],
+  "citation": "Lac, L., Keresztes, B., Louargant, M., Donias, M., & Da Costa, J. P. (2022). An annotated image dataset of vegetable crops at an early stage of growth for proximal sensing applications. Data in Brief, 42, 108035.",
+  "license": "https://creativecommons.org/licenses/by/4.0/",
+  "images": 1101,
+  "annotation_statistics": [
+    {
+      "category": "crop: zea mays (stem)",
+      "images": 1087,
+      "segments": 0,
+      "bounding_boxes": 2269
+    },
+    {
+      "category": "crop: zea mays (whole-plant)",
+      "images": 1101,
+      "segments": 0,
+      "bounding_boxes": 2259
+    }
+  ],
+  "properties": {
+    "Crop Type": "zea mays",
+    "BBCH Growth Stage Range": "12 to 15",
+    "Soil Colour": "grey",
+    "Surface Cover": "none",
+    "Surface Coverage": "0-25%",
+    "Location": "+46.339312,+3.432381",
+    "Camera Make": "Basler acA2500-gc",
+    "Camera Lens": "C125-0418-5M F1.8 f 4 mm Basler",
+    "Camera Lens Focallength": "4mm",
+    "Camera Height": "400mm",
+    "Camera Field of View": "126.9",
+    "Lighting": "artificial",
+    "Photography Description": "Images collected under artificially controlled light conditions. A hull isolates the camera from the exterior and two 20 W led panels provide a constant and homogeneous scene illumination (source: Data in Brief).",
+    "Weather Description": "Collected under shrouded conditions"
+  }
+}

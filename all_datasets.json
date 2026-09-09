@@ -1,0 +1,2081 @@
+[
+  {
+    "name": "ImageWeeds (field_peas)",
+    "published": "2023-06-02",
+    "description": "An Image dataset consisting of weeds in multiple formats to advance computer vision algorithms for real-time weed identification and spot spraying application\n\nEvery dataset in Weed-AI includes imagery of crops or pasture with weeds annotated, and is available in an MS-COCO derived format with standardised agricultural metadata.",
+    "authors": [
+      "Nitin Rai"
+    ],
+    "citation": "https://data.mendeley.com/datasets/8kjcztbjz2/2",
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "images": 70,
+    "annotation_statistics": [
+      {
+        "category": "weed: bassia scoparia",
+        "images": 35,
+        "segments": 0,
+        "bounding_boxes": 75
+      },
+      {
+        "category": "weed: erigeron canadensis",
+        "images": 26,
+        "segments": 0,
+        "bounding_boxes": 47
+      },
+      {
+        "category": "weed: amaranthus retroflexus",
+        "images": 13,
+        "segments": 0,
+        "bounding_boxes": 32
+      },
+      {
+        "category": "weed: amaranthus tuberculatus",
+        "images": 16,
+        "segments": 0,
+        "bounding_boxes": 40
+      },
+      {
+        "category": "weed: ambrosia artemisiifolia",
+        "images": 35,
+        "segments": 0,
+        "bounding_boxes": 69
+      }
+    ],
+    "properties": {
+      "Crop Type": "field peas",
+      "BBCH Growth Stage Range": "12 to 29",
+      "Soil Colour": "dark brown",
+      "Surface Cover": "cereal",
+      "Surface Coverage": "0-25%",
+      "Location": "+46.9005,-97.21136",
+      "Camera Make": "DJI Phantom 4 Pro V2.0",
+      "Camera Lens": "f/2.8 wide-angle lens",
+      "Camera Lens Focallength": "24mm",
+      "Camera Height": "3700mm",
+      "Camera Angle": "70\u00b0",
+      "Camera Field of View": "84",
+      "Lighting": "natural",
+      "Photography Description": "Images over trial area taken with DJI Phantom 4 Pro v2.0.",
+      "Weather Description": "Mostly sunny, variable, cloudy"
+    }
+  },
+  {
+    "name": "20200701 - Narrabri Chickpea BFLYS",
+    "published": "2021-02-19",
+    "description": "Crop photography with weeds annotated.\n\nEvery dataset in Weed-AI includes imagery of crops or pasture with weeds annotated, and is available in an MS-COCO derived format with standardised agricultural metadata.",
+    "authors": [
+      "Guy Coleman"
+    ],
+    "citation": null,
+    "license": "https://creativecommons.org/licenses/by/4.0/legalcode",
+    "images": 31,
+    "annotation_statistics": [
+      {
+        "category": "weed: lolium rigidum",
+        "images": 17,
+        "segments": 0,
+        "bounding_boxes": 98
+      },
+      {
+        "category": "weed: rapistrum rugosum",
+        "images": 2,
+        "segments": 0,
+        "bounding_boxes": 6
+      },
+      {
+        "category": "weed: sonchus oleraceus",
+        "images": 30,
+        "segments": 0,
+        "bounding_boxes": 94
+      }
+    ],
+    "properties": {
+      "Crop Type": "chickpeas",
+      "BBCH Growth Stage Range": "14 to 17",
+      "Soil Colour": "grey",
+      "Surface Cover": "cereal",
+      "Surface Coverage": "25-50%",
+      "Location": "-30.272457,+149.80183",
+      "Camera Make": "FLIR BFS 70S7C-C",
+      "Camera Lens": "Computar 1.1\" 12mm f/2.8 12MP Ultra Low Distortion Lens (C-Mount)",
+      "Camera Lens Focallength": "12mm",
+      "Camera Height": "1500mm",
+      "Camera Angle": "90\u00b0",
+      "Camera Field of View": "variable",
+      "Lighting": "natural",
+      "Photography Description": "Images of turnipweed collected in a wheat crop in the late evening with sun low in the sky, bounding box labels.",
+      "Weather Description": "clear, late evening, minimal sun"
+    }
+  },
+  {
+    "name": "RadishWheatDataset - 45DEG",
+    "published": "2022-03-20",
+    "description": "Images collected of wild radish (Raphanus raphanistrum) at four distinct growth stages in a wheat field using a Raspberry Pi HQ camera mounted on a tripod. The collection angle is varied - this dataset the angle is at an angle of 45 degrees.\n\nThis dataset also contains images collected looking straight down, at 60 degrees and at 30 degrees (from the horizontal).\n\nEvery dataset in Weed-AI includes imagery of crops or pasture with weeds annotated, and is available in an MS-COCO derived format with standardised agricultural metadata.",
+    "authors": [
+      "Gilbert Rayner"
+    ],
+    "citation": null,
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "images": 294,
+    "annotation_statistics": [
+      {
+        "category": "weed: raphanus raphanistrum (BBCH10-13)",
+        "images": 55,
+        "segments": 0,
+        "bounding_boxes": 239
+      },
+      {
+        "category": "weed: raphanus raphanistrum (BBCH14-15)",
+        "images": 169,
+        "segments": 0,
+        "bounding_boxes": 380
+      },
+      {
+        "category": "weed: raphanus raphanistrum (BBCH15-51)",
+        "images": 217,
+        "segments": 0,
+        "bounding_boxes": 602
+      },
+      {
+        "category": "weed: raphanus raphanistrum (BBCH52-62)",
+        "images": 56,
+        "segments": 0,
+        "bounding_boxes": 87
+      }
+    ],
+    "properties": {
+      "Crop Type": "wheat",
+      "BBCH Growth Stage Range": "13 to 29",
+      "Soil Colour": "grey",
+      "Surface Cover": "cereal",
+      "Surface Coverage": "0-25%",
+      "Location": "-34.021837,+150.66637",
+      "Camera Make": "Raspberry Pi High Quality Camera",
+      "Camera Lens": "Edmund Optics UC Series",
+      "Camera Lens Focallength": "12mm",
+      "Camera Height": "1250mm",
+      "Camera Angle": "45\u00b0",
+      "Camera Field of View": "27",
+      "Lighting": "natural",
+      "Photography Description": "tripod mounted Raspberry Pi HQ Camera mounted at 45 degrees.",
+      "Emr Channels": "visual",
+      "Weather Description": "patchy cloud cover"
+    }
+  },
+  {
+    "name": "RadishWheatDataset",
+    "published": "2022-03-20",
+    "description": "Images of four growth stages of wild radish (Raphanus raphanistrum) in wheat on sandy soil. Collected using a Raspberry Pi HQ camera directly above the wheat. Part of a series of four different datasets with different angles of collection.\n\nEvery dataset in Weed-AI includes imagery of crops or pasture with weeds annotated, and is available in an MS-COCO derived format with standardised agricultural metadata.",
+    "authors": [
+      "Gilbert Rayner"
+    ],
+    "citation": null,
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "images": 552,
+    "annotation_statistics": [
+      {
+        "category": "weed: raphanus raphanistrum (BBCH10-13)",
+        "images": 97,
+        "segments": 0,
+        "bounding_boxes": 184
+      },
+      {
+        "category": "weed: raphanus raphanistrum (BBCH14-15)",
+        "images": 144,
+        "segments": 0,
+        "bounding_boxes": 174
+      },
+      {
+        "category": "weed: raphanus raphanistrum (BBCH15-51)",
+        "images": 372,
+        "segments": 0,
+        "bounding_boxes": 552
+      },
+      {
+        "category": "weed: raphanus raphanistrum (BBCH52-62)",
+        "images": 85,
+        "segments": 0,
+        "bounding_boxes": 102
+      }
+    ],
+    "properties": {
+      "Crop Type": "wheat",
+      "BBCH Growth Stage Range": "13 to 29",
+      "Soil Colour": "grey",
+      "Surface Cover": "cereal",
+      "Surface Coverage": "0-25%",
+      "Location": "-34.021837,+150.66637",
+      "Camera Make": "Raspberry Pi High Quality Camera",
+      "Camera Lens": "Edmund Optics UC Series",
+      "Camera Lens Focallength": "12mm",
+      "Camera Height": "1250mm",
+      "Camera Angle": "90\u00b0",
+      "Camera Field of View": "27",
+      "Lighting": "natural",
+      "Photography Description": "Images collected from a camera mounted on a tripod",
+      "Emr Channels": "visual",
+      "Weather Description": "patchy cloud cover"
+    }
+  },
+  {
+    "name": "ImageWeeds (brassica)",
+    "published": "2023-06-02",
+    "description": "An Image dataset consisting of weeds in multiple formats to advance computer vision algorithms for real-time weed identification and spot spraying application.\n\nEvery dataset in Weed-AI includes imagery of crops or pasture with weeds annotated, and is available in an MS-COCO derived format with standardised agricultural metadata.",
+    "authors": [
+      "Nitin Rai"
+    ],
+    "citation": "https://data.mendeley.com/datasets/8kjcztbjz2/2",
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "images": 44,
+    "annotation_statistics": [
+      {
+        "category": "weed: bassia scoparia",
+        "images": 27,
+        "segments": 0,
+        "bounding_boxes": 61
+      },
+      {
+        "category": "weed: erigeron canadensis",
+        "images": 23,
+        "segments": 0,
+        "bounding_boxes": 35
+      },
+      {
+        "category": "weed: amaranthus retroflexus",
+        "images": 12,
+        "segments": 0,
+        "bounding_boxes": 24
+      },
+      {
+        "category": "weed: amaranthus tuberculatus",
+        "images": 22,
+        "segments": 0,
+        "bounding_boxes": 47
+      },
+      {
+        "category": "weed: ambrosia artemisiifolia",
+        "images": 25,
+        "segments": 0,
+        "bounding_boxes": 67
+      }
+    ],
+    "properties": {
+      "Crop Type": "brassica",
+      "BBCH Growth Stage Range": "12 to 29",
+      "Soil Colour": "dark brown",
+      "Surface Cover": "cereal",
+      "Surface Coverage": "0-25%",
+      "Location": "+46.9005,-97.21136",
+      "Camera Make": "DJI Phantom 4 Pro V2.0",
+      "Camera Lens": "f/2.8 wide-angle lens",
+      "Camera Lens Focallength": "24mm",
+      "Camera Height": "3700mm",
+      "Camera Angle": "70\u00b0",
+      "Camera Field of View": "84",
+      "Lighting": "natural",
+      "Photography Description": "Images over trial area taken with DJI Phantom 4 Pro v2.0.",
+      "Weather Description": "Mostly sunny, variable, cloudy"
+    }
+  },
+  {
+    "name": "Vegetable Crops Detection (VCD) - Maize",
+    "published": "2022-03-16",
+    "description": "This article introduces a dataset of vegetable crops. Maize (Zea mays) (this part), bean (Phaseolus vulgaris) and leek (Allium ampeloprasum) crops at an early stage of development (between 2 and 5 weeks from seeding of transplanting). Whole plants and stems have been annotated with bounding boxes. Collected under a shrouded platform with artificial light.\n\nData in Brief publication available here:\nhttps://www.sciencedirect.com/science/article/pii/S2352340922002463\n\nEvery dataset in Weed-AI includes imagery of crops or pasture with weeds annotated, and is available in an MS-COCO derived format with standardised agricultural metadata.",
+    "authors": [
+      "Louis Lac",
+      "Barna Keresztes",
+      "Marine Louargant",
+      "Marc Donias",
+      "Jean-Pierre Da Costa"
+    ],
+    "citation": "Lac, L., Keresztes, B., Louargant, M., Donias, M., & Da Costa, J. P. (2022). An annotated image dataset of vegetable crops at an early stage of growth for proximal sensing applications. Data in Brief, 42, 108035.",
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "images": 1101,
+    "annotation_statistics": [
+      {
+        "category": "crop: zea mays (stem)",
+        "images": 1087,
+        "segments": 0,
+        "bounding_boxes": 2269
+      },
+      {
+        "category": "crop: zea mays (whole-plant)",
+        "images": 1101,
+        "segments": 0,
+        "bounding_boxes": 2259
+      }
+    ],
+    "properties": {
+      "Crop Type": "zea mays",
+      "BBCH Growth Stage Range": "12 to 15",
+      "Soil Colour": "grey",
+      "Surface Cover": "none",
+      "Surface Coverage": "0-25%",
+      "Location": "+46.339312,+3.432381",
+      "Camera Make": "Basler acA2500-gc",
+      "Camera Lens": "C125-0418-5M F1.8 f 4 mm Basler",
+      "Camera Lens Focallength": "4mm",
+      "Camera Height": "400mm",
+      "Camera Field of View": "126.9",
+      "Lighting": "artificial",
+      "Photography Description": "Images collected under artificially controlled light conditions. A hull isolates the camera from the exterior and two 20 W led panels provide a constant and homogeneous scene illumination (source: Data in Brief).",
+      "Weather Description": "Collected under shrouded conditions"
+    }
+  },
+  {
+    "name": "CornWeed",
+    "published": "2023-05-23",
+    "description": "This dataset contains 3574 hand labelled images with bounding boxes provided in both YOLO and COCO dataset format. Additionally there are 4981 unlabelled images for testing purposes. All the images are hand labelled with bounding boxes with several labellers and reviewed. The dataset contains two class IDs namely maize and weeds.\n\nAvailable on Zenodo: https://zenodo.org/records/7961764\n\nEvery dataset in Weed-AI includes imagery of crops or pasture with weeds annotated, and is available in an MS-COCO derived format with standardised agricultural metadata.",
+    "authors": [
+      "Naeem Iqbal",
+      "Christoph Manss",
+      "Christian Scholz",
+      "Daniel Konig",
+      "Matthias Igelbrink",
+      "Arno Ruckelshausen"
+    ],
+    "citation": "N. Iqbal, C. Manss, C. Scholz, D. K\u00f6nig, M. Igelbrink and A. Ruckelshausen, \"AI-Based Maize and Weeds Detection on the Edge with CornWeed Dataset,\" 2023 18th Conference on Computer Science and Intelligence Systems (FedCSIS), Warsaw, Poland, 2023, pp. 577-584, doi: 10.15439/2023F2125.",
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "images": 3574,
+    "annotation_statistics": [
+      {
+        "category": "crop: zea mays",
+        "images": 3571,
+        "segments": 0,
+        "bounding_boxes": 23985
+      },
+      {
+        "category": "weed: UNSPECIFIED",
+        "images": 3573,
+        "segments": 0,
+        "bounding_boxes": 257740
+      }
+    ],
+    "properties": {
+      "Crop Type": "zea mays",
+      "BBCH Growth Stage Range": "13 to 19",
+      "Soil Colour": "brown",
+      "Surface Cover": "cereal",
+      "Surface Coverage": "0-25%",
+      "Location": "+52.281646,+8.020254",
+      "Camera Make": "Intel Realsense D435i",
+      "Camera Lens": "Unspecified - inbuilt",
+      "Camera Lens Focallength": "1.88mm",
+      "Camera Height": "500mm",
+      "Camera Angle": "90\u00b0",
+      "Camera Field of View": "77",
+      "Ground Speed (m/s)": "3.6",
+      "Lighting": "natural",
+      "Photography Description": "Images collected from the Bonirob robot and a tractor-drawn implement under natural lighting conditions with the Intel Realsense D435i. Two resolutions were used - 640 x 480 and 1280 x 720",
+      "Weather Description": "Collected outdoors under variable daylight with cloudy and sunny conditions."
+    }
+  },
+  {
+    "name": "Emerging ryegrass seedlings in a fallow soil",
+    "published": "2022-09-21",
+    "description": "ryegrass seedlings annotated.\n\nEvery dataset in Weed-AI includes imagery of crops or pasture with weeds annotated, and is available in an MS-COCO derived format with standardised agricultural metadata.",
+    "authors": [
+      "Lorenzo Leon"
+    ],
+    "citation": null,
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "images": 14,
+    "annotation_statistics": [
+      {
+        "category": "weed: lolium multiflorum",
+        "images": 14,
+        "segments": 2806,
+        "bounding_boxes": 2806
+      }
+    ],
+    "properties": {
+      "Crop Type": "fallow",
+      "BBCH Growth Stage Range": "9 to 10",
+      "Soil Colour": "dark brown",
+      "Surface Cover": "none",
+      "Surface Coverage": "0-25%",
+      "Location": "-36.531637773161556,-71.9219354387671",
+      "Camera Make": "IPad Pro camera system",
+      "Camera Lens": "Wide: 12MP, \u0192/1.8 aperture",
+      "Camera Lens Focallength": "3.3mm",
+      "Camera Height": "100mm",
+      "Camera Angle": "90\u00b0",
+      "Camera Field of View": "125",
+      "Lighting": "natural",
+      "Photography Description": "Images of ryegrass seedlings emerging from the soil in a fallow. The illumination was natural, and the weather condition was sunny. Pictures were collected with an IPad Pro camera.",
+      "Weather Description": "Sunny day"
+    }
+  },
+  {
+    "name": "ImageWeeds (zea mays)",
+    "published": "2023-06-02",
+    "description": "An Image dataset consisting of weeds in multiple formats to advance computer vision algorithms for real-time weed identification and spot spraying application.\n\nEvery dataset in Weed-AI includes imagery of crops or pasture with weeds annotated, and is available in an MS-COCO derived format with standardised agricultural metadata.",
+    "authors": [
+      "Nitin Rai"
+    ],
+    "citation": "https://data.mendeley.com/datasets/8kjcztbjz2/2",
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "images": 94,
+    "annotation_statistics": [
+      {
+        "category": "weed: bassia scoparia",
+        "images": 48,
+        "segments": 0,
+        "bounding_boxes": 104
+      },
+      {
+        "category": "weed: erigeron canadensis",
+        "images": 39,
+        "segments": 0,
+        "bounding_boxes": 62
+      },
+      {
+        "category": "weed: amaranthus retroflexus",
+        "images": 31,
+        "segments": 0,
+        "bounding_boxes": 68
+      },
+      {
+        "category": "weed: amaranthus tuberculatus",
+        "images": 40,
+        "segments": 0,
+        "bounding_boxes": 88
+      },
+      {
+        "category": "weed: ambrosia artemisiifolia",
+        "images": 53,
+        "segments": 0,
+        "bounding_boxes": 129
+      }
+    ],
+    "properties": {
+      "Crop Type": "zea mays",
+      "BBCH Growth Stage Range": "12 to 29",
+      "Soil Colour": "dark brown",
+      "Surface Cover": "cereal",
+      "Surface Coverage": "0-25%",
+      "Location": "+46.9005,-97.21136",
+      "Camera Make": "DJI Phantom 4 Pro V2.0",
+      "Camera Lens": "f/2.8 wide-angle lens",
+      "Camera Lens Focallength": "24mm",
+      "Camera Height": "3700mm",
+      "Camera Angle": "70\u00b0",
+      "Camera Field of View": "84",
+      "Lighting": "natural",
+      "Photography Description": "Images over trial area taken with DJI Phantom 4 Pro v2.0.",
+      "Weather Description": "Mostly sunny, variable, cloudy"
+    }
+  },
+  {
+    "name": "Danish Winter Radish Weeds",
+    "published": "2025-04-07",
+    "description": "Images collected with a Samsung S21 phone as part of the YouTube tutorial for how to annotate and upload images to the Weed-AI platform. \n\nEvery dataset in Weed-AI includes imagery of crops or pasture with weeds annotated, and is available in an MS-COCO derived format with standardised agricultural metadata.",
+    "authors": [
+      "Guy Coleman"
+    ],
+    "citation": null,
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "images": 30,
+    "annotation_statistics": [
+      {
+        "category": "weed: raphanus raphanistrum",
+        "images": 30,
+        "segments": 0,
+        "bounding_boxes": 84
+      }
+    ],
+    "properties": {
+      "Crop Type": "lolium perenne",
+      "BBCH Growth Stage Range": "17 to 23",
+      "Soil Colour": "grey",
+      "Surface Cover": "none",
+      "Surface Coverage": "na",
+      "Location": "+55.676153,+12.311847",
+      "Camera Make": "Samsung S21 SM-G991B",
+      "Camera Lens": "S21 Inbuilt lens",
+      "Camera Lens Focallength": "5mm",
+      "Camera Height": "1500mm",
+      "Camera Angle": "90\u00b0",
+      "Camera Field of View": "67.8",
+      "Lighting": "natural",
+      "Photography Description": "Images collected with a Samsung S21 on an overcast day in winter with no sunlight.",
+      "Weather Description": "Overcast weather, no sunlight, dark wintery conditions"
+    }
+  },
+  {
+    "name": "20210317 - Wild radish in wheat",
+    "published": "2021-03-17",
+    "description": "Crop photography with weeds annotated.\n\nEvery dataset in Weed-AI includes imagery of crops or pasture with weeds annotated, and is available in an MS-COCO derived format with standardised agricultural metadata.",
+    "authors": [
+      "Guy Coleman"
+    ],
+    "citation": null,
+    "license": "https://creativecommons.org/licenses/by/4.0/legalcode",
+    "images": 41,
+    "annotation_statistics": [
+      {
+        "category": "weed: raphanus raphanistrum",
+        "images": 41,
+        "segments": 0,
+        "bounding_boxes": 258
+      }
+    ],
+    "properties": {
+      "Crop Type": "wheat",
+      "BBCH Growth Stage Range": "12 to 18",
+      "Soil Colour": "grey",
+      "Surface Cover": "none",
+      "Surface Coverage": "0-25%",
+      "Location": "-34.021182,+150.66476",
+      "Camera Make": "Samsung SM-G950F",
+      "Camera Lens": "Samsung S8 GH64-06165A",
+      "Camera Lens Focallength": "4mm",
+      "Camera Height": "1500mm",
+      "Camera Angle": "90\u00b0",
+      "Camera Field of View": "variable",
+      "Lighting": "natural",
+      "Photography Description": "Late afternoon data collection using a Samsung S8 phone camera on auto mode. Cloud cover with patchy sunlight.",
+      "Weather Description": "Overcast with patchy sunlight through breaks in clouds. Later afternoon."
+    }
+  },
+  {
+    "name": "Palmer amaranth Growth Stage - 8 (PAGS8)",
+    "published": "2023-10-17",
+    "description": "Images of Palmer amaranth at eight different growth stages collected in cotton at the Texas A&M University farm in College Station, Texas. The dataset is a benchmark for growth stage detection under highly variable conditions in a morphologically challenging plant species.\n\nEvery dataset in Weed-AI includes imagery of crops or pasture with weeds annotated, and is available in an MS-COCO derived format with standardised agricultural metadata.",
+    "authors": [
+      "Guy Coleman",
+      "Matthew Kutugata",
+      "Michael Walsh",
+      "Muthukumar Bagavathiannan"
+    ],
+    "citation": "https://arxiv.org/abs/2307.15816",
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "images": 614,
+    "annotation_statistics": [
+      {
+        "category": "weed: amaranthus palmeri (BBCH10-12)",
+        "images": 65,
+        "segments": 0,
+        "bounding_boxes": 509
+      },
+      {
+        "category": "weed: amaranthus palmeri (BBCH13-16)",
+        "images": 121,
+        "segments": 0,
+        "bounding_boxes": 314
+      },
+      {
+        "category": "weed: amaranthus palmeri (BBCH17-19)",
+        "images": 175,
+        "segments": 0,
+        "bounding_boxes": 246
+      },
+      {
+        "category": "weed: amaranthus palmeri (BBCH51-59)",
+        "images": 63,
+        "segments": 0,
+        "bounding_boxes": 68
+      },
+      {
+        "category": "weed: amaranthus palmeri (BBCH60-69)",
+        "images": 57,
+        "segments": 0,
+        "bounding_boxes": 65
+      },
+      {
+        "category": "weed: amaranthus palmeri (BBCH13-29 - bushy)",
+        "images": 237,
+        "segments": 0,
+        "bounding_boxes": 361
+      },
+      {
+        "category": "weed: amaranthus palmeri (BBCH51-59 - bushy)",
+        "images": 170,
+        "segments": 0,
+        "bounding_boxes": 202
+      },
+      {
+        "category": "weed: amaranthus palmeri (BBCH60-69 - bushy)",
+        "images": 147,
+        "segments": 0,
+        "bounding_boxes": 175
+      }
+    ],
+    "properties": {
+      "Crop Type": "cotton",
+      "BBCH Growth Stage Range": "12 to 65",
+      "Soil Colour": "red brown",
+      "Surface Cover": "cereal",
+      "Surface Coverage": "0-25%",
+      "Location": "+30.537516,-96.422415",
+      "Camera Make": "FLIR BFS 70S7C-C",
+      "Camera Lens": "Computar 1.1\" 12mm f/2.8 12MP Ultra Low Distortion Lens (C-Mount)",
+      "Camera Lens Focallength": "12mm",
+      "Camera Height": "1500mm",
+      "Camera Angle": "90\u00b0",
+      "Camera Field of View": "72",
+      "Lighting": "natural",
+      "Photography Description": "Collection of images of palmer amaranth in cotton rows in College Station, Texas at the Texas A&M University farm. Collected under variable lighting conditions between 12 - 3pm.",
+      "Weather Description": "Variable cloudy, partial cloud and full sun conditions."
+    }
+  },
+  {
+    "name": "20200827 - Cobbity Wheat BFLY",
+    "published": "2021-02-19",
+    "description": "Crop photography with weeds annotated.\n\nEvery dataset in Weed-AI includes imagery of crops or pasture with weeds annotated, and is available in an MS-COCO derived format with standardised agricultural metadata.",
+    "authors": [
+      "Guy Coleman"
+    ],
+    "citation": null,
+    "license": "https://creativecommons.org/licenses/by/4.0/legalcode",
+    "images": 39,
+    "annotation_statistics": [
+      {
+        "category": "weed: rapistrum rugosum",
+        "images": 29,
+        "segments": 0,
+        "bounding_boxes": 40
+      },
+      {
+        "category": "weed: raphanus raphanistrum",
+        "images": 14,
+        "segments": 0,
+        "bounding_boxes": 16
+      }
+    ],
+    "properties": {
+      "Crop Type": "wheat",
+      "BBCH Growth Stage Range": "16 to 24",
+      "Soil Colour": "grey",
+      "Surface Cover": "cereal",
+      "Surface Coverage": "0-25%",
+      "Location": "-34.020932,+150.664883",
+      "Camera Make": "FLIR BF 23S6C-C",
+      "Camera Lens": "Tamron Compact 5MP C-Mount 12mm Lens",
+      "Camera Lens Focallength": "12mm",
+      "Camera Height": "1500mm",
+      "Camera Angle": "90\u00b0",
+      "Camera Field of View": "variable",
+      "Lighting": "natural",
+      "Photography Description": "Images of turnipweed in wheat in sandy, grey soils with overcast conditions",
+      "Weather Description": "overcast"
+    }
+  },
+  {
+    "name": "RoboWeedMap",
+    "published": "2022-05-09",
+    "description": "weed dataset with thier corresponding annotations.\n\nEvery dataset in Weed-AI includes imagery of crops or pasture with weeds annotated, and is available in an MS-COCO derived format with standardised agricultural metadata.",
+    "authors": [
+      "Nima Teimouri"
+    ],
+    "citation": "https://www.mdpi.com/2073-4395/12/5/1167",
+    "license": "https://www.agrointelli.com/",
+    "images": 1147,
+    "annotation_statistics": [
+      {
+        "category": "weed: poaceae",
+        "images": 884,
+        "segments": 0,
+        "bounding_boxes": 19221
+      },
+      {
+        "category": "weed: brassicaceae",
+        "images": 1076,
+        "segments": 0,
+        "bounding_boxes": 41810
+      }
+    ],
+    "properties": {
+      "Crop Type": "barley",
+      "BBCH Growth Stage Range": "na",
+      "Soil Colour": "variable",
+      "Surface Cover": "other",
+      "Surface Coverage": "na",
+      "Location": "+55.566451,+10.123196",
+      "Camera Make": "HVCAM",
+      "Camera Lens": "cneider Kreuznach Xenon-Topaz 2.0/25",
+      "Camera Lens Focallength": "25mm",
+      "Camera Height": "1500mm",
+      "Camera Angle": "90\u00b0",
+      "Camera Field of View": "25",
+      "Ground Speed (m/s)": "5",
+      "Lighting": "artificial",
+      "Photography Description": "Xenon Ring Flash",
+      "Emr Channels": "na",
+      "Weather Description": "Various weather condition"
+    }
+  },
+  {
+    "name": "Amsinckia in chickpeas",
+    "published": "2023-01-23",
+    "description": "Amsinckia in chickpeas\n\nEvery dataset in Weed-AI includes imagery of crops or pasture with weeds annotated, and is available in an MS-COCO derived format with standardised agricultural metadata.",
+    "authors": [
+      "Brad Plant"
+    ],
+    "citation": null,
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "images": 124,
+    "annotation_statistics": [
+      {
+        "category": "weed: amsinckia (rosette)",
+        "images": 124,
+        "segments": 0,
+        "bounding_boxes": 1101
+      }
+    ],
+    "properties": {
+      "Crop Type": "chickpeas",
+      "BBCH Growth Stage Range": "33 to 39",
+      "Soil Colour": "brown",
+      "Surface Cover": "cereal",
+      "Surface Coverage": "50-75%",
+      "Location": "-35.105657,+142.780617",
+      "Camera Make": "Google",
+      "Camera Lens": "Pixel 6 Pro",
+      "Camera Lens Focallength": "1.9mm",
+      "Camera Height": "1500mm",
+      "Camera Angle": "80\u00b0",
+      "Camera Field of View": "82",
+      "Lighting": "natural",
+      "Photography Description": "Handheld",
+      "Weather Description": "unknown"
+    }
+  },
+  {
+    "name": "DeepWeeds",
+    "published": "2019-02-14",
+    "description": "A multiclass weed species image dataset for deep learning at classification level. Photos of rangeland pasture classified for different weed species. NOTE: 14 duplicate images identified in the original DeepWeeds image dataset have been removed.\n\nEvery dataset in Weed-AI includes imagery of crops or pasture with weeds annotated, and is available in an MS-COCO derived format with standardised agricultural metadata.",
+    "authors": [
+      "Alex Olsen"
+    ],
+    "citation": "A. Olsen, D. A. Konovalov, B. Philippa, P. Ridd, J. C. Wood, J. Johns, W. Banks, B. Girgenti, O. Kenny, J. Whinney, B. Calvert, M. Rahimi Azghadi, and R. D. White, \u201cDeepWeeds: A Multiclass Weed Species Image Dataset for Deep Learning,\u201d Scientific Reports, vol. 9, no. 2058, 2 2019. [Online]. Available: doi.org/10.1038/s41598-018-38343-3",
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "images": 17492,
+    "annotation_statistics": [
+      {
+        "category": "none",
+        "images": 9091,
+        "segments": 0,
+        "bounding_boxes": 0
+      },
+      {
+        "category": "weed: lantana camara",
+        "images": 1064,
+        "segments": 0,
+        "bounding_boxes": 0
+      },
+      {
+        "category": "weed: vachellia nilotica",
+        "images": 1062,
+        "segments": 0,
+        "bounding_boxes": 0
+      },
+      {
+        "category": "weed: chromolaena odorata",
+        "images": 1072,
+        "segments": 0,
+        "bounding_boxes": 0
+      },
+      {
+        "category": "weed: ziziphus mauritiana",
+        "images": 1125,
+        "segments": 0,
+        "bounding_boxes": 0
+      },
+      {
+        "category": "weed: parkinsonia aculeata",
+        "images": 1031,
+        "segments": 0,
+        "bounding_boxes": 0
+      },
+      {
+        "category": "weed: gutierrezia sarothrae",
+        "images": 1016,
+        "segments": 0,
+        "bounding_boxes": 0
+      },
+      {
+        "category": "weed: cryptostegia grandiflora",
+        "images": 1009,
+        "segments": 0,
+        "bounding_boxes": 0
+      },
+      {
+        "category": "weed: parthenium hysterophorus",
+        "images": 1022,
+        "segments": 0,
+        "bounding_boxes": 0
+      }
+    ],
+    "properties": {
+      "Crop Type": "pasture",
+      "BBCH Growth Stage Range": "na",
+      "Soil Colour": "variable",
+      "Surface Cover": "none",
+      "Surface Coverage": "na",
+      "Location": "-26,+150",
+      "Camera Make": "FLIR Blackfly 23S6C",
+      "Camera Lens": "Fujinon CF25HA-1",
+      "Camera Lens Focallength": "25mm",
+      "Camera Height": "1000mm",
+      "Camera Angle": "90\u00b0",
+      "Camera Field of View": "28",
+      "Lighting": "natural",
+      "Photography Description": "Dataset collected by camera mounted on tripod facing directly down as described in publication.",
+      "Weather Description": "variable weather in rangeland areas"
+    }
+  },
+  {
+    "name": "20201014 - Cobbity Wheat BFLY",
+    "published": "2021-02-19",
+    "description": "Crop photography with weeds annotated.\n\nEvery dataset in Weed-AI includes imagery of crops or pasture with weeds annotated, and is available in an MS-COCO derived format with standardised agricultural metadata.",
+    "authors": [
+      "Guy Coleman"
+    ],
+    "citation": null,
+    "license": "https://creativecommons.org/licenses/by/4.0/legalcode",
+    "images": 101,
+    "annotation_statistics": [
+      {
+        "category": "weed: lolium rigidum",
+        "images": 55,
+        "segments": 0,
+        "bounding_boxes": 94
+      },
+      {
+        "category": "weed: rapistrum rugosum",
+        "images": 71,
+        "segments": 0,
+        "bounding_boxes": 174
+      }
+    ],
+    "properties": {
+      "Crop Type": "wheat",
+      "BBCH Growth Stage Range": "43 to 51",
+      "Soil Colour": "grey",
+      "Surface Cover": "cereal",
+      "Surface Coverage": "0-25%",
+      "Location": "-34.020932,+150.664883",
+      "Camera Make": "FLIR BF 23S6C-C",
+      "Camera Lens": "Tamron Compact 5MP C-Mount 12mm Lens",
+      "Camera Lens Focallength": "12mm",
+      "Camera Height": "1500mm",
+      "Camera Angle": "90\u00b0",
+      "Camera Field of View": "variable",
+      "Lighting": "artificial",
+      "Photography Description": "Images of turnipweed and annual ryegrass in wheat in sandy, grey soils at night time with artificial illumination",
+      "Weather Description": "night time"
+    }
+  },
+  {
+    "name": "Precision Sustainable Ag 2021 OpenCV Competition",
+    "published": "2021-12-02",
+    "description": "Images of potted plants under greenhouse conditions spanning 6 weeks.\n\nEvery dataset in Weed-AI includes imagery of crops or pasture with weeds annotated, and is available in an MS-COCO derived format with standardised agricultural metadata.",
+    "authors": [
+      "Precision Sustainable Ag"
+    ],
+    "citation": null,
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "images": 727,
+    "annotation_statistics": [
+      {
+        "category": "weed: poaceae",
+        "images": 235,
+        "segments": 0,
+        "bounding_boxes": 698
+      },
+      {
+        "category": "weed: chenopodium album",
+        "images": 166,
+        "segments": 0,
+        "bounding_boxes": 373
+      },
+      {
+        "category": "weed: helianthus annuus",
+        "images": 149,
+        "segments": 0,
+        "bounding_boxes": 283
+      },
+      {
+        "category": "weed: vigna unguiculata",
+        "images": 148,
+        "segments": 0,
+        "bounding_boxes": 272
+      },
+      {
+        "category": "weed: erigeron canadensis",
+        "images": 112,
+        "segments": 0,
+        "bounding_boxes": 247
+      },
+      {
+        "category": "weed: abutilon theophrasti",
+        "images": 81,
+        "segments": 0,
+        "bounding_boxes": 149
+      },
+      {
+        "category": "weed: trifolium incarnatum",
+        "images": 359,
+        "segments": 0,
+        "bounding_boxes": 1422
+      }
+    ],
+    "properties": {
+      "Crop Type": "fallow",
+      "BBCH Growth Stage Range": "5 to 55",
+      "Soil Colour": "black",
+      "Surface Cover": "none",
+      "Surface Coverage": "na",
+      "Location": "+39.02615,-76.923243",
+      "Camera Make": "Luxonis OAK-D 12mp https://shop.luxonis.com/products/1098obcenclosure",
+      "Camera Lens": "RGB",
+      "Camera Lens Focallength": "11.04mm",
+      "Camera Height": "1000mm",
+      "Camera Angle": "90\u00b0",
+      "Camera Field of View": "83",
+      "Lighting": "natural",
+      "Photography Description": "Images are of potted plants taken in a greenhouse. Week 1 contains plants roughly 4 weeks after germination. Week 2 plants were taken 7 days after germination. Week3, 4, 5, and 6 thereafter. BBCH may not be accurate as various species were present. Images were taken for the 2021 OpenCV competition for the BenchBotics team which won 3rd place in the North American Division.",
+      "Weather Description": "mostly sunny"
+    }
+  },
+  {
+    "name": "ImageWeeds (flax)",
+    "published": "2023-06-02",
+    "description": "An Image dataset consisting of weeds in multiple formats to advance computer vision algorithms for real-time weed identification and spot spraying application.\n\nEvery dataset in Weed-AI includes imagery of crops or pasture with weeds annotated, and is available in an MS-COCO derived format with standardised agricultural metadata.",
+    "authors": [
+      "Nitin Rai"
+    ],
+    "citation": "https://data.mendeley.com/datasets/8kjcztbjz2/2",
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "images": 115,
+    "annotation_statistics": [
+      {
+        "category": "weed: bassia scoparia",
+        "images": 60,
+        "segments": 0,
+        "bounding_boxes": 145
+      },
+      {
+        "category": "weed: erigeron canadensis",
+        "images": 48,
+        "segments": 0,
+        "bounding_boxes": 80
+      },
+      {
+        "category": "weed: amaranthus retroflexus",
+        "images": 36,
+        "segments": 0,
+        "bounding_boxes": 80
+      },
+      {
+        "category": "weed: amaranthus tuberculatus",
+        "images": 36,
+        "segments": 0,
+        "bounding_boxes": 73
+      },
+      {
+        "category": "weed: ambrosia artemisiifolia",
+        "images": 53,
+        "segments": 0,
+        "bounding_boxes": 139
+      }
+    ],
+    "properties": {
+      "Crop Type": "flax",
+      "BBCH Growth Stage Range": "12 to 29",
+      "Soil Colour": "dark brown",
+      "Surface Cover": "cereal",
+      "Surface Coverage": "0-25%",
+      "Location": "+46.9005,-97.21136",
+      "Camera Make": "DJI Phantom 4 Pro V2.0",
+      "Camera Lens": "f/2.8 wide-angle lens",
+      "Camera Lens Focallength": "24mm",
+      "Camera Height": "3700mm",
+      "Camera Angle": "70\u00b0",
+      "Camera Field of View": "84",
+      "Lighting": "natural",
+      "Photography Description": "Images over trial area taken with DJI Phantom 4 Pro v2.0.",
+      "Weather Description": "Mostly sunny, variable, cloudy"
+    }
+  },
+  {
+    "name": "RadishWheatDataset - 60DEG",
+    "published": "2022-03-20",
+    "description": "Images collected of wild radish (Raphanus raphanistrum) at four distinct growth stages in a wheat field using a Raspberry Pi HQ camera mounted on a tripod. The collection angle is varied - this dataset the angle is at an angle of 30 degrees from the horizontal or 60 degrees from the vertical.\n\nThis dataset also contains images collected looking straight down, at 45 degrees and at 60 degrees (from the horizontal).\n\nEvery dataset in Weed-AI includes imagery of crops or pasture with weeds annotated, and is available in an MS-COCO derived format with standardised agricultural metadata.",
+    "authors": [
+      "Gilbert Rayner"
+    ],
+    "citation": null,
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "images": 130,
+    "annotation_statistics": [
+      {
+        "category": "weed: raphanus raphanistrum (BBCH10-13)",
+        "images": 30,
+        "segments": 0,
+        "bounding_boxes": 309
+      },
+      {
+        "category": "weed: raphanus raphanistrum (BBCH14-15)",
+        "images": 89,
+        "segments": 0,
+        "bounding_boxes": 416
+      },
+      {
+        "category": "weed: raphanus raphanistrum (BBCH15-51)",
+        "images": 77,
+        "segments": 0,
+        "bounding_boxes": 310
+      },
+      {
+        "category": "weed: raphanus raphanistrum (BBCH52-62)",
+        "images": 22,
+        "segments": 0,
+        "bounding_boxes": 54
+      }
+    ],
+    "properties": {
+      "Crop Type": "wheat",
+      "BBCH Growth Stage Range": "13 to 29",
+      "Soil Colour": "grey",
+      "Surface Cover": "cereal",
+      "Surface Coverage": "0-25%",
+      "Location": "-34.021837,+150.66637",
+      "Camera Make": "Raspberry Pi High Quality Camera",
+      "Camera Lens": "Edmund Optics UC Series",
+      "Camera Lens Focallength": "12mm",
+      "Camera Height": "1250mm",
+      "Camera Angle": "30\u00b0",
+      "Camera Field of View": "27",
+      "Lighting": "natural",
+      "Photography Description": "tripod mount of the Raspberry Pi HQ camera",
+      "Emr Channels": "visual",
+      "Weather Description": "patchy cloud cover"
+    }
+  },
+  {
+    "name": "Multiple weed species detection",
+    "published": "2024-11-21",
+    "description": "An annotated image database for cocklebur, dandelion, common waterhemp, common lambsquarters and palmer amaranth collected at Cornell University Musgrave Research Farm and Kansas State University Agricultural Research Center. \n\nImages were collected at varying heights and angles with a GoPro Hero 8 under variable field and weather conditions\n\nEvery dataset in Weed-AI includes imagery of crops or pasture with weeds annotated, and is available in an MS-COCO derived format with standardised agricultural metadata.",
+    "authors": [
+      "Akhilesh Sharma",
+      "Vipan  Kumar",
+      "Louis Longchamps"
+    ],
+    "citation": "https://www.sciencedirect.com/science/article/pii/S2772375524002533#abs0001",
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "images": 905,
+    "annotation_statistics": [
+      {
+        "category": "weed: chenopodium album",
+        "images": 311,
+        "segments": 0,
+        "bounding_boxes": 464
+      },
+      {
+        "category": "weed: amaranthus palmeri",
+        "images": 260,
+        "segments": 0,
+        "bounding_boxes": 493
+      },
+      {
+        "category": "weed: xanthium strumarium",
+        "images": 83,
+        "segments": 0,
+        "bounding_boxes": 96
+      },
+      {
+        "category": "weed: taraxacum officinale",
+        "images": 99,
+        "segments": 0,
+        "bounding_boxes": 144
+      },
+      {
+        "category": "weed: amaranthus tuberculatus",
+        "images": 152,
+        "segments": 0,
+        "bounding_boxes": 197
+      }
+    ],
+    "properties": {
+      "Crop Type": "fallow",
+      "BBCH Growth Stage Range": "na",
+      "Soil Colour": "grey",
+      "Surface Cover": "cereal",
+      "Surface Coverage": "0-25%",
+      "Location": "+42.733798,-76.658726",
+      "Camera Make": "GoPro",
+      "Camera Lens": "GoPro Hero 8",
+      "Camera Lens Focallength": "16mm",
+      "Camera Height": "1000mm",
+      "Camera Field of View": "variable",
+      "Lighting": "natural",
+      "Photography Description": "Images of the weed species were manually collected at early growth stages using a GoPro Hero 8 camera. These images included weed seedlings captured at varying heights and orientations, set against diverse backgrounds and under different weather conditions.\n\nAs described in Sharma et al. 2024: https://www.sciencedirect.com/science/article/pii/S2772375524002533#sec0002",
+      "Weather Description": "Diverse weather conditions"
+    }
+  },
+  {
+    "name": "Vegetable Crops Detection (VCD) - Beans",
+    "published": "2022-03-16",
+    "description": "This article introduces a dataset of vegetable crops. Maize (Zea mays), bean (Phaseolus vulgaris) (in this part) and leek (Allium ampeloprasum) crops at an early stage of development (between 2 and 5 weeks from seeding of transplanting). Whole plants and stems have been annotated with bounding boxes. Collected under a shrouded platform with artificial light.\n\nData in Brief publication available here:\nhttps://www.sciencedirect.com/science/article/pii/S2352340922002463\n\nEvery dataset in Weed-AI includes imagery of crops or pasture with weeds annotated, and is available in an MS-COCO derived format with standardised agricultural metadata.",
+    "authors": [
+      "Louis Lac",
+      "Barna Keresztes",
+      "Marine Louargant",
+      "Marc Donias",
+      "Jean-Pierre Da Costa"
+    ],
+    "citation": "Lac, L., Keresztes, B., Louargant, M., Donias, M., & Da Costa, J. P. (2022). An annotated image dataset of vegetable crops at an early stage of growth for proximal sensing applications. Data in Brief, 42, 108035.",
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "images": 770,
+    "annotation_statistics": [
+      {
+        "category": "crop: phaseolus vulgaris (stem)",
+        "images": 770,
+        "segments": 0,
+        "bounding_boxes": 2915
+      },
+      {
+        "category": "crop: phaseolus vulgaris (whole-plant)",
+        "images": 770,
+        "segments": 0,
+        "bounding_boxes": 2910
+      }
+    ],
+    "properties": {
+      "Crop Type": "phaseolus vulgaris",
+      "BBCH Growth Stage Range": "12 to 15",
+      "Soil Colour": "grey",
+      "Surface Cover": "none",
+      "Surface Coverage": "0-25%",
+      "Location": "+46.339312,+3.432381",
+      "Camera Make": "Basler acA2500-gc",
+      "Camera Lens": "C125-0418-5M F1.8 f 4 mm Basler",
+      "Camera Lens Focallength": "4mm",
+      "Camera Height": "400mm",
+      "Camera Field of View": "126.9",
+      "Lighting": "artificial",
+      "Photography Description": "Images collected under artificially controlled light conditions. A hull isolates the camera from the exterior and two 20 W led panels provide a constant and homogeneous scene illumination (source: Data in Brief).",
+      "Weather Description": "Collected under shrouded conditions"
+    }
+  },
+  {
+    "name": "Danish thistles",
+    "published": "2024-11-24",
+    "description": "Thistles of varying growth stages in barley stubble near Copenhagen, Denmark. Collected with an S21 phone camera under overcast conditions and annotated with Roboflow.\n\nEvery dataset in Weed-AI includes imagery of crops or pasture with weeds annotated, and is available in an MS-COCO derived format with standardised agricultural metadata.",
+    "authors": [
+      "Guy Coleman"
+    ],
+    "citation": null,
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "images": 243,
+    "annotation_statistics": [
+      {
+        "category": "weed: cirsium vulgare",
+        "images": 243,
+        "segments": 0,
+        "bounding_boxes": 482
+      }
+    ],
+    "properties": {
+      "Crop Type": "fallow",
+      "BBCH Growth Stage Range": "na",
+      "Soil Colour": "dark brown",
+      "Surface Cover": "cereal",
+      "Surface Coverage": "75-100%",
+      "Location": "+55.675473,+12.303226",
+      "Camera Make": "Samsung S21 SM-G991B",
+      "Camera Lens": "Samsung S21",
+      "Camera Lens Focallength": "5mm",
+      "Camera Height": "1200mm",
+      "Camera Field of View": "67.8",
+      "Lighting": "natural",
+      "Photography Description": "Images collected directly above thistle plants in a barley stubble cropping system using a Samsung S21 phone camera.",
+      "Weather Description": "Overcast conditions."
+    }
+  },
+  {
+    "name": "Palmer amaranth - Cornell",
+    "published": "2024-11-21",
+    "description": "Images of Palmer amaranth annotated with bounding box in fallow, corn and soybeans \n\nEvery dataset in Weed-AI includes imagery of crops or pasture with weeds annotated, and is available in an MS-COCO derived format with standardised agricultural metadata.",
+    "authors": [
+      "Akhilesh Sharma"
+    ],
+    "citation": null,
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "images": 995,
+    "annotation_statistics": [
+      {
+        "category": "weed: amaranthus palmeri",
+        "images": 993,
+        "segments": 0,
+        "bounding_boxes": 1405
+      }
+    ],
+    "properties": {
+      "Crop Type": "fallow",
+      "BBCH Growth Stage Range": "na",
+      "Soil Colour": "grey",
+      "Surface Cover": "cereal",
+      "Surface Coverage": "0-25%",
+      "Location": "+42.733798,-76.658726",
+      "Camera Make": "GoPro Hero 8",
+      "Camera Lens": "GoPro Hero 8",
+      "Camera Lens Focallength": "16mm",
+      "Camera Height": "1000mm",
+      "Camera Field of View": "variable",
+      "Lighting": "natural",
+      "Photography Description": "Images collected outdoors",
+      "Weather Description": "Mixed conditions"
+    }
+  },
+  {
+    "name": "ImageWeeds (glycine max)",
+    "published": "2023-06-02",
+    "description": "An Image dataset consisting of weeds in multiple formats to advance computer vision algorithms for real-time weed identification and spot spraying application\n\nEvery dataset in Weed-AI includes imagery of crops or pasture with weeds annotated, and is available in an MS-COCO derived format with standardised agricultural metadata.",
+    "authors": [
+      "Nitin Rai"
+    ],
+    "citation": "https://data.mendeley.com/datasets/8kjcztbjz2/2",
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "images": 81,
+    "annotation_statistics": [
+      {
+        "category": "weed: bassia scoparia",
+        "images": 35,
+        "segments": 0,
+        "bounding_boxes": 63
+      },
+      {
+        "category": "weed: erigeron canadensis",
+        "images": 40,
+        "segments": 0,
+        "bounding_boxes": 74
+      },
+      {
+        "category": "weed: amaranthus retroflexus",
+        "images": 19,
+        "segments": 0,
+        "bounding_boxes": 36
+      },
+      {
+        "category": "weed: amaranthus tuberculatus",
+        "images": 13,
+        "segments": 0,
+        "bounding_boxes": 34
+      },
+      {
+        "category": "weed: ambrosia artemisiifolia",
+        "images": 29,
+        "segments": 0,
+        "bounding_boxes": 77
+      }
+    ],
+    "properties": {
+      "Crop Type": "glycine max",
+      "BBCH Growth Stage Range": "12 to 29",
+      "Soil Colour": "dark brown",
+      "Surface Cover": "cereal",
+      "Surface Coverage": "0-25%",
+      "Location": "+46.9005,-97.21136",
+      "Camera Make": "DJI Phantom 4 Pro V2.0",
+      "Camera Lens": "f/2.8 wide-angle lens",
+      "Camera Lens Focallength": "24mm",
+      "Camera Height": "3700mm",
+      "Camera Angle": "70\u00b0",
+      "Camera Field of View": "84",
+      "Lighting": "natural",
+      "Photography Description": "Images over trial area taken with DJI Phantom 4 Pro v2.0.",
+      "Weather Description": "Mostly sunny, variable, cloudy"
+    }
+  },
+  {
+    "name": "20190712 - Northern WA Wheatbelt Blue Lupins",
+    "published": "2021-06-08",
+    "description": "In-crop (narrow leaf lupin) annotations of individual blue lupin leaves. Collected 12th July 2019 from the northern West Australian wheatbelt using the iPhone XS rear inbuilt camera.\n\nEvery dataset in Weed-AI includes imagery of crops or pasture with weeds annotated, and is available in an MS-COCO derived format with standardised agricultural metadata.",
+    "authors": [
+      "Richard Quinlan",
+      "Nick McKenna",
+      "Peter Newman",
+      "Guy Coleman"
+    ],
+    "citation": null,
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "images": 217,
+    "annotation_statistics": [
+      {
+        "category": "weed: lupinus cosentinii",
+        "images": 217,
+        "segments": 0,
+        "bounding_boxes": 4879
+      }
+    ],
+    "properties": {
+      "Crop Type": "lupins",
+      "BBCH Growth Stage Range": "22 to 29",
+      "Soil Colour": "dark brown",
+      "Surface Cover": "cereal",
+      "Surface Coverage": "25-50%",
+      "Location": "-28.776944,+114.604108",
+      "Camera Make": "Apple",
+      "Camera Lens": "iPhone XS",
+      "Camera Lens Focallength": "4mm",
+      "Camera Height": "1500mm",
+      "Camera Angle": "90\u00b0",
+      "Camera Field of View": "80",
+      "Lighting": "natural",
+      "Photography Description": "A dataset of in-crop images of blue lupins collected using an iPhone XS held at shoulder height during the 2019 Australian season. Images were collected in the northern wheatbelt of Western Australia. Every blue lupin leaf has been annotated as \"Blue Lupins\".",
+      "Weather Description": "Clear, sunny day. Collected in mid afternoon."
+    }
+  },
+  {
+    "name": "Palmer amaranth",
+    "published": "2021-08-31",
+    "description": "A set of images collected in a cotton field with dense Palmer amaranth infestation. Uploaded as a test dataset for a webinar on the upload process.\n\nEvery dataset in Weed-AI includes imagery of crops or pasture with weeds annotated, and is available in an MS-COCO derived format with standardised agricultural metadata.",
+    "authors": [
+      "Guy Coleman"
+    ],
+    "citation": null,
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "images": 13,
+    "annotation_statistics": [
+      {
+        "category": "weed: amaranthus palmeri",
+        "images": 13,
+        "segments": 0,
+        "bounding_boxes": 155
+      }
+    ],
+    "properties": {
+      "Crop Type": "cotton",
+      "BBCH Growth Stage Range": "10 to 11",
+      "Soil Colour": "red brown",
+      "Surface Cover": "cereal",
+      "Surface Coverage": "0-25%",
+      "Location": "+30.536423,-96.423187",
+      "Camera Make": "FLIR Blackfly S 70S7C-C",
+      "Camera Lens": "Computar 1.1\" 12mm f/2.8 12MP Ultra Low Distortion Lens (C-Mount)",
+      "Camera Lens Focallength": "12mm",
+      "Camera Height": "1500mm",
+      "Camera Angle": "90\u00b0",
+      "Camera Field of View": "62",
+      "Lighting": "natural",
+      "Photography Description": "Images collected using backpack data collector, 1.5m above ground on a patchy cloud day.",
+      "Weather Description": "Patchy cloud"
+    }
+  },
+  {
+    "name": "Vegetable Crops Detection (VCD) - Leeks",
+    "published": "2022-03-16",
+    "description": "This article introduces a dataset of vegetable crops. Maize (Zea mays), bean (Phaseolus vulgaris) and leek (Allium ampeloprasum) (this part) crops at an early stage of development (between 2 and 5 weeks from seeding of transplanting). Whole plants and stems have been annotated with bounding boxes. Collected under a shrouded platform with artificial light.\n\nData in Brief publication available here:\nhttps://www.sciencedirect.com/science/article/pii/S2352340922002463\n\nEvery dataset in Weed-AI includes imagery of crops or pasture with weeds annotated, and is available in an MS-COCO derived format with standardised agricultural metadata.",
+    "authors": [
+      "Louis Lac",
+      "Barna Keresztes",
+      "Marine Louargant",
+      "Marc Donias",
+      "Jean-Pierre Da Costa"
+    ],
+    "citation": "Lac, L., Keresztes, B., Louargant, M., Donias, M., & Da Costa, J. P. (2022). An annotated image dataset of vegetable crops at an early stage of growth for proximal sensing applications. Data in Brief, 42, 108035.",
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "images": 601,
+    "annotation_statistics": [
+      {
+        "category": "crop: allium ampeloprasum (stem)",
+        "images": 601,
+        "segments": 0,
+        "bounding_boxes": 3192
+      },
+      {
+        "category": "crop: allium ampeloprasum (whole-plant)",
+        "images": 601,
+        "segments": 0,
+        "bounding_boxes": 3070
+      }
+    ],
+    "properties": {
+      "Crop Type": "allium ampeloprasum",
+      "BBCH Growth Stage Range": "12 to 15",
+      "Soil Colour": "grey",
+      "Surface Cover": "none",
+      "Surface Coverage": "0-25%",
+      "Location": "+46.339312,+3.432381",
+      "Camera Make": "Basler acA2500-gc",
+      "Camera Lens": "C125-0418-5M F1.8 f 4 mm Basler",
+      "Camera Lens Focallength": "4mm",
+      "Camera Height": "400mm",
+      "Camera Field of View": "126.9",
+      "Lighting": "artificial",
+      "Photography Description": "Images collected under artificially controlled light conditions. A hull isolates the camera from the exterior and two 20 W led panels provide a constant and homogeneous scene illumination (source: Data in Brief).",
+      "Weather Description": "Collected under shrouded conditions"
+    }
+  },
+  {
+    "name": "20200701 - Narrabri Chickpea BFLY",
+    "published": "2021-02-19",
+    "description": "Crop photography with weeds annotated.\n\nEvery dataset in Weed-AI includes imagery of crops or pasture with weeds annotated, and is available in an MS-COCO derived format with standardised agricultural metadata.",
+    "authors": [
+      "Guy Coleman"
+    ],
+    "citation": null,
+    "license": "https://creativecommons.org/licenses/by/4.0/legalcode",
+    "images": 41,
+    "annotation_statistics": [
+      {
+        "category": "weed: lolium rigidum",
+        "images": 22,
+        "segments": 0,
+        "bounding_boxes": 100
+      },
+      {
+        "category": "weed: rapistrum rugosum",
+        "images": 5,
+        "segments": 0,
+        "bounding_boxes": 5
+      },
+      {
+        "category": "weed: sonchus oleraceus",
+        "images": 30,
+        "segments": 0,
+        "bounding_boxes": 74
+      }
+    ],
+    "properties": {
+      "Crop Type": "chickpeas",
+      "BBCH Growth Stage Range": "14 to 17",
+      "Soil Colour": "grey",
+      "Surface Cover": "cereal",
+      "Surface Coverage": "25-50%",
+      "Location": "-30.272457,+149.80183",
+      "Camera Make": "FLIR BF 23S6C-C",
+      "Camera Lens": "Tamron Compact 5MP C-Mount 12mm Lens",
+      "Camera Lens Focallength": "12mm",
+      "Camera Height": "1500mm",
+      "Camera Angle": "90\u00b0",
+      "Camera Field of View": "variable",
+      "Lighting": "natural",
+      "Photography Description": "Images of turnipweed collected in a wheat crop in the evening with sun low in the sky, bounding box labels.",
+      "Weather Description": "clear, mix full sun and low sun"
+    }
+  },
+  {
+    "name": "20190728 - Narrabri Wheat",
+    "published": "2021-02-18",
+    "description": "Crop photography with weeds annotated.\n\nEvery dataset in Weed-AI includes imagery of crops or pasture with weeds annotated, and is available in an MS-COCO derived format with standardised agricultural metadata.",
+    "authors": [
+      "Guy Coleman"
+    ],
+    "citation": null,
+    "license": "https://creativecommons.org/licenses/by/4.0/legalcode",
+    "images": 184,
+    "annotation_statistics": [
+      {
+        "category": "weed: lolium rigidum",
+        "images": 138,
+        "segments": 0,
+        "bounding_boxes": 1950
+      },
+      {
+        "category": "weed: rapistrum rugosum",
+        "images": 52,
+        "segments": 0,
+        "bounding_boxes": 94
+      },
+      {
+        "category": "weed: sonchus oleraceus",
+        "images": 30,
+        "segments": 0,
+        "bounding_boxes": 36
+      }
+    ],
+    "properties": {
+      "Crop Type": "wheat",
+      "BBCH Growth Stage Range": "12 to 18",
+      "Soil Colour": "grey",
+      "Surface Cover": "cereal",
+      "Surface Coverage": "0-25%",
+      "Location": "-30.272457,+149.80183",
+      "Camera Make": "FLIR BF 23S6C",
+      "Camera Lens": "Tamron Compact 5MP C-Mount 16mm Lens",
+      "Camera Lens Focallength": "16mm",
+      "Camera Height": "1200mm",
+      "Camera Angle": "90\u00b0",
+      "Camera Field of View": "variable",
+      "Lighting": "artificial",
+      "Photography Description": "Images of annual ryegrass turnipweed collected in a wheat crop under artifical illumuination.",
+      "Weather Description": "artificial illumination"
+    }
+  },
+  {
+    "name": "RadishWheatDataset - 30DEG",
+    "published": "2022-03-20",
+    "description": "Images collected of wild radish (Raphanus raphanistrum) at four distinct growth stages in a wheat field using a Raspberry Pi HQ camera mounted on a tripod. The collection angle is varied - this dataset the angle is at an angle of 60 degrees from the horizontal or 30 degrees from the vertical.\n\nThis dataset also contains images collected looking straight down, at 45 degrees and at 30 degrees (from the horizontal).\n\nEvery dataset in Weed-AI includes imagery of crops or pasture with weeds annotated, and is available in an MS-COCO derived format with standardised agricultural metadata.",
+    "authors": [
+      "Gilbert Rayner"
+    ],
+    "citation": null,
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "images": 437,
+    "annotation_statistics": [
+      {
+        "category": "weed: raphanus raphanistrum (BBCH10-13)",
+        "images": 67,
+        "segments": 0,
+        "bounding_boxes": 206
+      },
+      {
+        "category": "weed: raphanus raphanistrum (BBCH14-15)",
+        "images": 201,
+        "segments": 0,
+        "bounding_boxes": 349
+      },
+      {
+        "category": "weed: raphanus raphanistrum (BBCH15-51)",
+        "images": 284,
+        "segments": 0,
+        "bounding_boxes": 507
+      },
+      {
+        "category": "weed: raphanus raphanistrum (BBCH52-62)",
+        "images": 33,
+        "segments": 0,
+        "bounding_boxes": 43
+      }
+    ],
+    "properties": {
+      "Crop Type": "wheat",
+      "BBCH Growth Stage Range": "13 to 29",
+      "Soil Colour": "grey",
+      "Surface Cover": "cereal",
+      "Surface Coverage": "0-25%",
+      "Location": "-34.021837,+150.66637",
+      "Camera Make": "Raspberry Pi High Quality Camera",
+      "Camera Lens": "Edmund Optics UC Series",
+      "Camera Lens Focallength": "12mm",
+      "Camera Height": "1250mm",
+      "Camera Angle": "60\u00b0",
+      "Camera Field of View": "27",
+      "Lighting": "natural",
+      "Photography Description": "tripod mount",
+      "Emr Channels": "visual",
+      "Weather Description": "patchy cloud cover"
+    }
+  },
+  {
+    "name": "20201014 - Cobbity Wheat BFLYS",
+    "published": "2021-02-21",
+    "description": "Crop photography with weeds annotated.\n\nEvery dataset in Weed-AI includes imagery of crops or pasture with weeds annotated, and is available in an MS-COCO derived format with standardised agricultural metadata.",
+    "authors": [
+      "Guy Coleman"
+    ],
+    "citation": null,
+    "license": "https://creativecommons.org/licenses/by/4.0/legalcode",
+    "images": 129,
+    "annotation_statistics": [
+      {
+        "category": "weed: lolium rigidum",
+        "images": 71,
+        "segments": 0,
+        "bounding_boxes": 131
+      },
+      {
+        "category": "weed: rapistrum rugosum",
+        "images": 90,
+        "segments": 0,
+        "bounding_boxes": 241
+      }
+    ],
+    "properties": {
+      "Crop Type": "wheat",
+      "BBCH Growth Stage Range": "43 to 51",
+      "Soil Colour": "grey",
+      "Surface Cover": "cereal",
+      "Surface Coverage": "0-25%",
+      "Location": "-34.020932,+150.664883",
+      "Camera Make": "FLIR BFS 70S7C-C",
+      "Camera Lens": "Computar 1.1\" 12mm f/2.8 12MP Ultra Low Distortion Lens (C-Mount)",
+      "Camera Lens Focallength": "12mm",
+      "Camera Height": "1500mm",
+      "Camera Angle": "90\u00b0",
+      "Camera Field of View": "variable",
+      "Lighting": "artificial",
+      "Photography Description": "Images of turnipweed and annual ryegrass collected in a wheat crop at night with artificial lighting, bounding box labels.",
+      "Weather Description": "night, artificial lighting"
+    }
+  },
+  {
+    "name": "Brownlow Hill Fireweed",
+    "published": "2022-06-01",
+    "description": "Evening collection of images over fireweed plants of various growth stages and flowering patterns. Collected over pasture/grass areas. \n\nEvery dataset in Weed-AI includes imagery of crops or pasture with weeds annotated, and is available in an MS-COCO derived format with standardised agricultural metadata.",
+    "authors": [
+      "Guy Coleman"
+    ],
+    "citation": null,
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "images": 20,
+    "annotation_statistics": [
+      {
+        "category": "weed: senecio madagascariensis",
+        "images": 20,
+        "segments": 0,
+        "bounding_boxes": 20
+      }
+    ],
+    "properties": {
+      "Crop Type": "pasture",
+      "BBCH Growth Stage Range": "na",
+      "Soil Colour": "dark brown",
+      "Surface Cover": "woodchips",
+      "Surface Coverage": "0-25%",
+      "Location": "-34.035563,+150.653633",
+      "Camera Make": "Sony Alpha A7R IV",
+      "Camera Lens": "Sony Sonnar T* FE 55mm f/1.8 ZA Lens",
+      "Camera Lens Focallength": "55mm",
+      "Camera Height": "1200mm",
+      "Camera Angle": "90\u00b0",
+      "Camera Field of View": "43",
+      "Lighting": "natural",
+      "Photography Description": "Evening data collection, directly over the weed. f/16, 1/100 shutter speed",
+      "Weather Description": "Patchy cloud, low sun, evening conditions with low light."
+    }
+  },
+  {
+    "name": "20190729 - Annual Ryegrass and Turnipweed in Wheat",
+    "published": "2021-02-20",
+    "description": "Crop photography with weeds annotated.\n\nEvery dataset in Weed-AI includes imagery of crops or pasture with weeds annotated, and is available in an MS-COCO derived format with standardised agricultural metadata.",
+    "authors": [
+      "Guy Coleman"
+    ],
+    "citation": null,
+    "license": "https://creativecommons.org/licenses/by/4.0/legalcode",
+    "images": 27,
+    "annotation_statistics": [
+      {
+        "category": "weed: lolium rigidum",
+        "images": 27,
+        "segments": 0,
+        "bounding_boxes": 315
+      },
+      {
+        "category": "weed: rapistrum rugosum",
+        "images": 2,
+        "segments": 0,
+        "bounding_boxes": 2
+      }
+    ],
+    "properties": {
+      "Crop Type": "wheat",
+      "BBCH Growth Stage Range": "12 to 18",
+      "Soil Colour": "grey",
+      "Surface Cover": "cereal",
+      "Surface Coverage": "0-25%",
+      "Location": "-30.272457,+149.80183",
+      "Camera Make": "FLIR BF 23S6C",
+      "Camera Lens": "Tamron Compact 5MP C-Mount 16mm Lens",
+      "Camera Lens Focallength": "16mm",
+      "Camera Height": "1200mm",
+      "Camera Angle": "90\u00b0",
+      "Camera Field of View": "variable",
+      "Lighting": "natural",
+      "Photography Description": "Images of annual ryegrass turnipweed collected in a wheat crop under full sun.",
+      "Weather Description": "full sun"
+    }
+  },
+  {
+    "name": "ImageWeeds (beta vulgaris)",
+    "published": "2023-06-02",
+    "description": "An Image dataset consisting of weeds in multiple formats to advance computer vision algorithms for real-time weed identification and spot spraying application\n\nEvery dataset in Weed-AI includes imagery of crops or pasture with weeds annotated, and is available in an MS-COCO derived format with standardised agricultural metadata.",
+    "authors": [
+      "Nitin Rai"
+    ],
+    "citation": "https://data.mendeley.com/datasets/8kjcztbjz2/2",
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "images": 27,
+    "annotation_statistics": [
+      {
+        "category": "weed: bassia scoparia",
+        "images": 13,
+        "segments": 0,
+        "bounding_boxes": 26
+      },
+      {
+        "category": "weed: erigeron canadensis",
+        "images": 10,
+        "segments": 0,
+        "bounding_boxes": 14
+      },
+      {
+        "category": "weed: amaranthus retroflexus",
+        "images": 2,
+        "segments": 0,
+        "bounding_boxes": 4
+      },
+      {
+        "category": "weed: amaranthus tuberculatus",
+        "images": 7,
+        "segments": 0,
+        "bounding_boxes": 20
+      },
+      {
+        "category": "weed: ambrosia artemisiifolia",
+        "images": 19,
+        "segments": 0,
+        "bounding_boxes": 43
+      }
+    ],
+    "properties": {
+      "Crop Type": "beta vulgaris",
+      "BBCH Growth Stage Range": "12 to 29",
+      "Soil Colour": "dark brown",
+      "Surface Cover": "cereal",
+      "Surface Coverage": "0-25%",
+      "Location": "+46.9005,-97.21136",
+      "Camera Make": "DJI Phantom 4 Pro V2.0",
+      "Camera Lens": "f/2.8 wide-angle lens",
+      "Camera Lens Focallength": "24mm",
+      "Camera Height": "3700mm",
+      "Camera Angle": "70\u00b0",
+      "Camera Field of View": "84",
+      "Lighting": "natural",
+      "Photography Description": "Images over trial area taken with DJI Phantom 4 Pro v2.0.",
+      "Weather Description": "Mostly sunny, variable, cloudy"
+    }
+  },
+  {
+    "name": "Wild carrot flowers in canola",
+    "published": "2021-08-30",
+    "description": "Crop photography with weeds annotated.\n\nEvery dataset in Weed-AI includes imagery of crops or pasture with weeds annotated, and is available in an MS-COCO derived format with standardised agricultural metadata.",
+    "authors": [
+      "Lorenzo Leon "
+    ],
+    "citation": null,
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "images": 52,
+    "annotation_statistics": [
+      {
+        "category": "weed: daucus carota",
+        "images": 52,
+        "segments": 0,
+        "bounding_boxes": 3774
+      }
+    ],
+    "properties": {
+      "Crop Type": "canola",
+      "BBCH Growth Stage Range": "86 to 87",
+      "Soil Colour": "not visible",
+      "Surface Cover": "oilseed",
+      "Surface Coverage": "75-100%",
+      "Location": "-36.530173,+71.911407",
+      "Camera Make": "DJI Drone Camera",
+      "Camera Lens": "Aperture: f/2.8, Shooting Range: 1 m to \u221e",
+      "Camera Lens Focallength": "35mm",
+      "Camera Height": "6000mm",
+      "Camera Angle": "90\u00b0",
+      "Camera Field of View": "83",
+      "Ground Speed (m/s)": "2",
+      "Lighting": "natural",
+      "Photography Description": "Images of wild carrot inflorescences in a canola crop under natural illumination and collected with a drone at 6 meters altitude. The weather condition was sunny and dry. Canola was close to commercial harvest.",
+      "Emr Channels": "Visual",
+      "Weather Description": "Sunny and dry weather"
+    }
+  },
+  {
+    "name": "Broadleaf Weeds in Common Couch",
+    "published": "2022-04-28",
+    "description": "Top down images collected with a Samsung S21 phone camera of dandelion, hairy fleabane and annual sowthistle over common couch grass in Perth, Western Australia. Images were collected in the evening after sunset.\n\nEvery dataset in Weed-AI includes imagery of crops or pasture with weeds annotated, and is available in an MS-COCO derived format with standardised agricultural metadata.",
+    "authors": [
+      "Guy Coleman"
+    ],
+    "citation": null,
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "images": 78,
+    "annotation_statistics": [
+      {
+        "category": "weed: sonchus oleraceus",
+        "images": 4,
+        "segments": 0,
+        "bounding_boxes": 4
+      },
+      {
+        "category": "weed: erigeron bonariensis",
+        "images": 22,
+        "segments": 0,
+        "bounding_boxes": 30
+      },
+      {
+        "category": "weed: taraxacum officinale",
+        "images": 75,
+        "segments": 0,
+        "bounding_boxes": 533
+      }
+    ],
+    "properties": {
+      "Crop Type": "elymus repens",
+      "BBCH Growth Stage Range": "na",
+      "Soil Colour": "not visible",
+      "Surface Cover": "none",
+      "Surface Coverage": "na",
+      "Location": "-32.021802,+115.763709",
+      "Camera Make": "Samsung S21 SM-G991B",
+      "Camera Lens": "inbuilt",
+      "Camera Lens Focallength": "5mm",
+      "Camera Height": "1200mm",
+      "Camera Angle": "90\u00b0",
+      "Camera Field of View": "78",
+      "Lighting": "natural",
+      "Photography Description": "Top down photos using a Samsung S21 phone camera, waist high over couch grass. Naturally lit in the evening with no sun.",
+      "Weather Description": "Clear evening with no direct sun"
+    }
+  },
+  {
+    "name": "LincolnBeet",
+    "published": "2021-09-22",
+    "description": "The lincolnbeet dataset is an object detection dataset designed to encourage research in the identification of items in environments with high levels of occlusion, and in the development of better approaches to evaluate object detection models in practical scenarios. This dataset was introduced in the paper:\n\n\"Towards practical object detection for weed spraying in precision agriculture\". Adrian Salazar-Gomez, Madeleine Darbyshire, Junfeng Gao, Elizabeth I Sklar, and Simon Parsons.\n\nEvery dataset in Weed-AI includes imagery of crops or pasture with weeds annotated, and is available in an MS-COCO derived format with standardised agricultural metadata.",
+    "authors": [
+      "Adrian Salazar-Gomez",
+      "Madeleine Darbyshire",
+      "Junfeng Gao",
+      "Elizabeth I Sklar",
+      "Simon Parsons"
+    ],
+    "citation": "https://www.frontiersin.org/journals/plant-science/articles/10.3389/fpls.2023.1183277/full",
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "images": 4307,
+    "annotation_statistics": [
+      {
+        "category": "weed: UNSPECIFIED",
+        "images": 3136,
+        "segments": 0,
+        "bounding_boxes": 22208
+      },
+      {
+        "category": "crop: beta vulgaris",
+        "images": 4064,
+        "segments": 0,
+        "bounding_boxes": 16026
+      }
+    ],
+    "properties": {
+      "Crop Type": "beta vulgaris",
+      "BBCH Growth Stage Range": "10 to 17",
+      "Soil Colour": "dark brown",
+      "Surface Cover": "other",
+      "Surface Coverage": "25-50%",
+      "Location": "+53.229258,-0.53462",
+      "Camera Make": "Unspecified - 12MP and 64MP",
+      "Camera Lens": "CAM1: 12MP 26mm f1.6 CAM2: 64MP, 29mm f2.0",
+      "Camera Lens Focallength": "26mm",
+      "Camera Height": "500mm",
+      "Camera Field of View": "variable",
+      "Lighting": "natural",
+      "Photography Description": "For all the scanning sessions, the distance from the camera to the ground was approximately 50cm. Two cameras were used; one with 12 megapixels, 26mm focal length and an f1.6 aperture and a camera with 64 megapixels, 29mm focal length and an aperture of f2.0. The original size of pictures from both cameras was 2160 \u00d7 3840 pixels. The fields used for the LB dataset are in Lincoln, UK, at different locations with conditions as the type of soil, distribution of the plants, and weed varieties.\n\nFrom: Salazar Gomez et al. (2021).",
+      "Weather Description": "Variable weather conditions"
+    }
+  },
+  {
+    "name": "Danish pasture weeds - wild radish creeping thistle",
+    "published": "2025-01-20",
+    "description": "Images collected with a Samsung S21 Phone Camera collected over a perennial ryegrass and clover mixed pasture/fodder in Denmark. Dataset is used as an example showing the upload process for Weed-AI.\n\nEvery dataset in Weed-AI includes imagery of crops or pasture with weeds annotated, and is available in an MS-COCO derived format with standardised agricultural metadata.",
+    "authors": [
+      "Guy Coleman"
+    ],
+    "citation": null,
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "images": 10,
+    "annotation_statistics": [
+      {
+        "category": "weed: cirsium arvense",
+        "images": 10,
+        "segments": 0,
+        "bounding_boxes": 76
+      },
+      {
+        "category": "weed: raphanus raphanistrum",
+        "images": 10,
+        "segments": 0,
+        "bounding_boxes": 23
+      }
+    ],
+    "properties": {
+      "Crop Type": "pasture",
+      "BBCH Growth Stage Range": "22 to 25",
+      "Soil Colour": "dark brown",
+      "Surface Cover": "oilseed",
+      "Surface Coverage": "0-25%",
+      "Location": "+55.712797,+12.213646",
+      "Camera Make": "Samsung SM-G991B",
+      "Camera Lens": "S21 Phone Camera",
+      "Camera Lens Focallength": "5mm",
+      "Camera Height": "1500mm",
+      "Camera Angle": "90\u00b0",
+      "Camera Field of View": "78",
+      "Lighting": "natural",
+      "Photography Description": "Images collected of wild radish and thistle under natural lighting on an overcast day. No direct sunlight and low light conditions.",
+      "Weather Description": "Cloudy, overcast no direct sun."
+    }
+  },
+  {
+    "name": "CottonWeedDet12",
+    "published": "2023-01-13",
+    "description": "The dataset CottonWeedDet12 consists of 5648 RGB images of 12-class weeds that are common in cotton fields in the southern U.S. states, with a total of 9370 bounding boxes. These images were acquired by either smartphones or hand-held digital cameras, under natural field light condition and throughout June to September of 2021. The images were manually labeled by qualified personnel for weed identification, and the labeling process was done using the VGG Image Annotator (version 2.10).\n\nThe dataset, at the time of publication, is the largest publicly available multi-class dataset dedicated to weed detection. It expects to facilitate communicate efforts to exploit state-of-the-art deep learning method to push weed recognition to the next level. With the WeedDet12 dataset, a performance benchmark of a suite of YOLO object detectors has been built for weed detection. Detailed documentation of the dataset, model benchmarking and performance results is given in an accompanying journal paper paper: Dang, F., Chen, D., Lu, Y., Li, Z., 2023. YOLOWeeds: A novel benchmark of YOLO object detectors for multi-class weed detection in cotton production systems. Computers and Electronics in Agriculture. https://doi.org/10.1016/j.compag.2023.107655 \n\nEvery dataset in Weed-AI includes imagery of crops or pasture with weeds annotated, and is available in an MS-COCO derived format with standardised agricultural metadata.",
+    "authors": [
+      "Fengying Dang",
+      "Dong Chen",
+      "Yuzhen Lu",
+      "Zhaojian Li"
+    ],
+    "citation": "https://www.sciencedirect.com/science/article/abs/pii/S0168169923000431",
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "images": 5648,
+    "annotation_statistics": [
+      {
+        "category": "weed: eclipta",
+        "images": 576,
+        "segments": 0,
+        "bounding_boxes": 865
+      },
+      {
+        "category": "weed: ipomoea indica",
+        "images": 1149,
+        "segments": 0,
+        "bounding_boxes": 1344
+      },
+      {
+        "category": "weed: eleusine indica",
+        "images": 183,
+        "segments": 0,
+        "bounding_boxes": 214
+      },
+      {
+        "category": "weed: sida rhombifolia",
+        "images": 433,
+        "segments": 0,
+        "bounding_boxes": 486
+      },
+      {
+        "category": "weed: physalis angulata",
+        "images": 111,
+        "segments": 0,
+        "bounding_boxes": 123
+      },
+      {
+        "category": "weed: senna obtusifolia",
+        "images": 198,
+        "segments": 0,
+        "bounding_boxes": 243
+      },
+      {
+        "category": "weed: amaranthus palmeri",
+        "images": 305,
+        "segments": 0,
+        "bounding_boxes": 348
+      },
+      {
+        "category": "weed: euphorbia maculata",
+        "images": 671,
+        "segments": 0,
+        "bounding_boxes": 956
+      },
+      {
+        "category": "weed: portulaca oleracea",
+        "images": 652,
+        "segments": 0,
+        "bounding_boxes": 992
+      },
+      {
+        "category": "weed: mollugo verticillata",
+        "images": 564,
+        "segments": 0,
+        "bounding_boxes": 962
+      },
+      {
+        "category": "weed: amaranthus tuberculatus",
+        "images": 1413,
+        "segments": 0,
+        "bounding_boxes": 1959
+      },
+      {
+        "category": "weed: ambrosia artemisiifolia",
+        "images": 512,
+        "segments": 0,
+        "bounding_boxes": 896
+      }
+    ],
+    "properties": {
+      "Crop Type": "fallow",
+      "BBCH Growth Stage Range": "na",
+      "Soil Colour": "variable",
+      "Surface Cover": "cereal",
+      "Surface Coverage": "0-25%",
+      "Location": "+33.453808,-88.790587",
+      "Camera Make": "iPhoneSE, iPhone11Pro, NIKON D3300, Canon EOS4000D",
+      "Camera Lens": "Mixed",
+      "Camera Height": "400mm",
+      "Camera Angle": "90\u00b0",
+      "Camera Field of View": "variable",
+      "Lighting": "natural",
+      "Photography Description": "From the publication: The weed dataset, CottonWeedDet12 was collected using different hand-held smartphones and digital color cameras (with resolution of more than 10 megapixels). Images were collected under natural field light conditions and different weather conditions (e. g., sunny, cloudy, and overcast) at varying stages of weed growth and different field sites. Regular visits to cotton fields, after crop emergence until canopy closure, were conducted throughout June to September of 2021 for weed image collection. Images are largely centered on each plant.",
+      "Weather Description": "Collected under all conditions, sunny, cloudy and overcast"
+    }
+  },
+  {
+    "name": "ImageWeeds (lentils)",
+    "published": "2023-06-02",
+    "description": "An Image dataset consisting of weeds in multiple formats to advance computer vision algorithms for real-time weed identification and spot spraying application\n\nEvery dataset in Weed-AI includes imagery of crops or pasture with weeds annotated, and is available in an MS-COCO derived format with standardised agricultural metadata.",
+    "authors": [
+      "Nitin Rai"
+    ],
+    "citation": "https://data.mendeley.com/datasets/8kjcztbjz2/2",
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "images": 28,
+    "annotation_statistics": [
+      {
+        "category": "weed: bassia scoparia",
+        "images": 18,
+        "segments": 0,
+        "bounding_boxes": 45
+      },
+      {
+        "category": "weed: erigeron canadensis",
+        "images": 11,
+        "segments": 0,
+        "bounding_boxes": 16
+      },
+      {
+        "category": "weed: amaranthus retroflexus",
+        "images": 8,
+        "segments": 0,
+        "bounding_boxes": 15
+      },
+      {
+        "category": "weed: amaranthus tuberculatus",
+        "images": 16,
+        "segments": 0,
+        "bounding_boxes": 44
+      },
+      {
+        "category": "weed: ambrosia artemisiifolia",
+        "images": 20,
+        "segments": 0,
+        "bounding_boxes": 40
+      }
+    ],
+    "properties": {
+      "Crop Type": "lentils",
+      "BBCH Growth Stage Range": "12 to 29",
+      "Soil Colour": "dark brown",
+      "Surface Cover": "cereal",
+      "Surface Coverage": "0-25%",
+      "Location": "+46.9005,-97.21136",
+      "Camera Make": "DJI Phantom 4 Pro V2.0",
+      "Camera Lens": "f/2.8 wide-angle lens",
+      "Camera Lens Focallength": "24mm",
+      "Camera Height": "3700mm",
+      "Camera Angle": "70\u00b0",
+      "Camera Field of View": "84",
+      "Lighting": "natural",
+      "Photography Description": "Images over trial area taken with DJI Phantom 4 Pro v2.0.",
+      "Weather Description": "Mostly sunny, variable, cloudy"
+    }
+  }
+]
