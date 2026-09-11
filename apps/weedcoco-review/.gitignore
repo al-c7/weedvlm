@@ -1,0 +1,6 @@
+fixtures/images/
+fixtures/dataset.json
+fixtures/dataset.review.json
+review.json
+*.review.json
+/imageweeds-test.json

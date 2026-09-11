@@ -1,0 +1,181 @@
+{
+  "dataset": "/home/alex/Projects/weedvlm/.datasets/ImageWeeds-lentils/weedcoco.json",
+  "updated_at": "2026-09-09T06:15:43.664Z",
+  "decisions": {
+    "0": {
+      "file_name": "UASs_120.jpg",
+      "decision": "bad",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:15:40.972Z"
+    },
+    "1": {
+      "file_name": "UASs_121.jpg",
+      "decision": "good",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:15:25.790Z"
+    },
+    "2": {
+      "file_name": "UASs_123.jpg",
+      "decision": "good",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:15:39.110Z"
+    },
+    "3": {
+      "file_name": "UASs_124.jpg",
+      "decision": "good",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:14:48.045Z"
+    },
+    "4": {
+      "file_name": "UASs_137.jpg",
+      "decision": "bad",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:15:43.664Z"
+    },
+    "5": {
+      "file_name": "UASs_157.jpg",
+      "decision": "bad",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:15:39.963Z"
+    },
+    "6": {
+      "file_name": "UASs_159.jpg",
+      "decision": "bad",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:15:26.641Z"
+    },
+    "7": {
+      "file_name": "UASs_180.jpg",
+      "decision": "bad",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:15:02.069Z"
+    },
+    "8": {
+      "file_name": "UASs_181.jpg",
+      "decision": "bad",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:15:19.545Z"
+    },
+    "9": {
+      "file_name": "UASs_224.jpg",
+      "decision": "bad",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:15:38.123Z"
+    },
+    "10": {
+      "file_name": "UASs_236.jpg",
+      "decision": "bad",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:15:05.675Z"
+    },
+    "11": {
+      "file_name": "UASs_237.jpg",
+      "decision": "bad",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:15:07.391Z"
+    },
+    "12": {
+      "file_name": "UASs_288.jpg",
+      "decision": "bad",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:14:49.642Z"
+    },
+    "13": {
+      "file_name": "UASs_316.jpg",
+      "decision": "bad",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:15:34.754Z"
+    },
+    "14": {
+      "file_name": "UASs_328.jpg",
+      "decision": "bad",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:15:20.568Z"
+    },
+    "15": {
+      "file_name": "UASs_377.jpg",
+      "decision": "bad",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:15:36.136Z"
+    },
+    "16": {
+      "file_name": "UASs_496.jpg",
+      "decision": "bad",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:15:21.592Z"
+    },
+    "17": {
+      "file_name": "UASs_502.jpg",
+      "decision": "good",
+      "annotations": {
+        "92": "bad",
+        "93": "bad"
+      },
+      "reviewed_at": "2026-09-09T06:14:47.113Z"
+    },
+    "18": {
+      "file_name": "UASs_503.jpg",
+      "decision": "good",
+      "annotations": {
+        "98": "bad"
+      },
+      "reviewed_at": "2026-09-09T06:15:33.209Z"
+    },
+    "19": {
+      "file_name": "UASs_504.jpg",
+      "decision": "good",
+      "annotations": {
+        "105": "bad"
+      },
+      "reviewed_at": "2026-09-09T06:15:15.846Z"
+    },
+    "20": {
+      "file_name": "UASs_505.jpg",
+      "decision": "good",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:15:42.157Z"
+    },
+    "21": {
+      "file_name": "UASs_506.jpg",
+      "decision": "good",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:15:06.651Z"
+    },
+    "22": {
+      "file_name": "UASs_507.jpg",
+      "decision": "bad",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:15:17.866Z"
+    },
+    "23": {
+      "file_name": "UASs_509.jpg",
+      "decision": "bad",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:15:37.149Z"
+    },
+    "24": {
+      "file_name": "UASs_510.jpg",
+      "decision": "bad",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:15:03.329Z"
+    },
+    "25": {
+      "file_name": "UASs_660.jpg",
+      "decision": "good",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:14:58.656Z"
+    },
+    "26": {
+      "file_name": "UASs_661.jpg",
+      "decision": "good",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:15:04.835Z"
+    },
+    "27": {
+      "file_name": "UASs_93.jpg",
+      "decision": "bad",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:15:22.635Z"
+    }
+  }
+}

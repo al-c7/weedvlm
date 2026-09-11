@@ -7,7 +7,10 @@ authors = [
     { name = "Alex Christie", email = "alex.christie@my.jcu.edu.au" }
 ]
 requires-python = ">=3.14"
-dependencies = []
+dependencies = [
+    "bs4>=0.0.2",
+    "pandas>=3.0.5",
+]
 
 [project.scripts]
 weedvlm = "weedvlm:main"
@@ -15,3 +18,8 @@ weedvlm = "weedvlm:main"
 [build-system]
 requires = ["uv_build>=0.12.3,<0.13.0"]
 build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "ipykernel>=7.3.0",
+]
