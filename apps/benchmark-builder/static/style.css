@@ -1,0 +1,264 @@
+:root {
+  color-scheme: light dark;
+  --accent: #3a7d44;
+  --reject: #b23a3a;
+  --border: #d8d8d2;
+  font-family: system-ui, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: canvas;
+  color: canvastext;
+}
+
+.muted {
+  color: gray;
+  font-size: 0.9em;
+}
+
+.topbar {
+  display: flex;
+  align-items: baseline;
+  gap: 1em;
+  padding: 0.75em 1.25em;
+  border-bottom: 1px solid var(--border);
+}
+.topbar h1 {
+  font-size: 1.1em;
+  margin: 0;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  min-height: calc(100vh - 3em);
+}
+
+.sidebar {
+  border-right: 1px solid var(--border);
+  padding: 1em;
+  overflow-y: auto;
+}
+.sidebar h2 {
+  font-size: 0.85em;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: gray;
+  margin: 1.4em 0 0.5em;
+}
+.sidebar h2:first-of-type {
+  margin-top: 0;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  margin: 0.4em 0;
+}
+.row input {
+  margin-left: auto;
+  width: 5em;
+}
+
+button {
+  cursor: pointer;
+  border: 1px solid var(--border);
+  background: canvas;
+  color: canvastext;
+  border-radius: 6px;
+  padding: 0.4em 0.8em;
+  font-size: 0.9em;
+}
+button.primary {
+  background: var(--accent);
+  color: white;
+  border-color: var(--accent);
+  width: 100%;
+  margin-top: 0.5em;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4em;
+}
+
+.task-card {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.7em 0.9em;
+  margin-bottom: 0.6em;
+}
+.task-card.active {
+  border-color: var(--accent);
+}
+.task-card h3.task-name {
+  margin: 0 0 0.4em;
+  font-size: 0.95em;
+}
+.task-card .task-stats {
+  margin: 0.4em 0;
+}
+.task-card button.btn-browse {
+  width: 100%;
+}
+
+.viewer {
+  padding: 1em 1.5em;
+}
+.empty-state {
+  color: gray;
+}
+
+.class-table {
+  border-collapse: collapse;
+  width: 100%;
+  max-width: 720px;
+}
+.class-table th,
+.class-table td {
+  text-align: left;
+  padding: 0.4em 0.7em;
+  border-bottom: 1px solid var(--border);
+}
+.class-table tbody tr {
+  cursor: pointer;
+}
+.class-table tbody tr:hover {
+  background: color-mix(in srgb, var(--accent) 8%, canvas);
+}
+
+.thumb-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 0.75em;
+  margin-top: 0.75em;
+}
+.thumb {
+  cursor: pointer;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+}
+.thumb:hover {
+  border-color: var(--accent);
+}
+.thumb img {
+  display: block;
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  background: var(--border);
+}
+.thumb-caption {
+  padding: 0.3em 0.5em;
+  font-size: 0.75em;
+  color: gray;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.thumb-flagged {
+  border-color: var(--reject);
+}
+
+.viewer-header {
+  display: flex;
+  gap: 1em;
+  align-items: baseline;
+  flex-wrap: wrap;
+  margin: 0.75em 0 0.5em;
+}
+.badge {
+  background: var(--border);
+  border-radius: 999px;
+  padding: 0.1em 0.7em;
+  font-size: 0.8em;
+}
+.badge-muted {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: gray;
+}
+.badge-flagged {
+  background: var(--reject);
+  color: white;
+}
+
+.image-stage {
+  display: inline-block;
+  max-width: 100%;
+}
+.image-stage img {
+  display: block;
+  max-width: 100%;
+  max-height: 65vh;
+  border-radius: 4px;
+}
+
+.question-text {
+  font-size: 1.15em;
+  font-weight: 600;
+  margin: 0.85em 0 0.4em;
+}
+
+.choice-list {
+  list-style: none;
+  margin: 0 0 0.75em;
+  padding: 0;
+  max-width: 640px;
+}
+.choice-list li {
+  padding: 0.5em 0.75em;
+  margin-bottom: 0.4em;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+.choice-list li.correct {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 18%, canvas);
+  font-weight: 600;
+}
+.label-swatch {
+  display: inline-block;
+  width: 0.9em;
+  height: 0.9em;
+  border-radius: 3px;
+  margin-right: 0.5em;
+  vertical-align: -0.1em;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+}
+
+.answer-panel {
+  max-width: 640px;
+  margin: 0 0 0.75em;
+  padding: 0.6em 0.9em;
+  border: 1px solid var(--accent);
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--accent) 12%, canvas);
+}
+.answer-panel dt {
+  font-size: 0.8em;
+  color: gray;
+  margin-top: 0.4em;
+}
+.answer-panel dt:first-child {
+  margin-top: 0;
+}
+.answer-panel dd {
+  margin: 0;
+  font-weight: 600;
+}
+
+.decision-bar {
+  display: flex;
+  gap: 0.6em;
+  margin-top: 0.75em;
+  flex-wrap: wrap;
+}

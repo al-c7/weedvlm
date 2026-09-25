@@ -1,0 +1,11 @@
+{
+  "seed": 42,
+  "exclude_flagged": true,
+  "tasks": {
+    "species_id_multiple_choice": { "questions_per_class": 18, "num_classes": 25 },
+    "species_id_open_ended": { "questions_per_class": 5, "num_classes": 15 },
+    "fine_grained_id": { "questions_per_class": 150, "num_classes": 2 },
+    "species_localisation": { "questions_per_class": 18, "num_classes": 25 },
+    "density_estimation": { "questions_per_class": 40, "num_classes": 4 }
+  }
+}

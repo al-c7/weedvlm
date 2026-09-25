@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Question Preview</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <h1>Question Preview</h1>
+      <div id="summary" class="muted"></div>
+    </header>
+
+    <div class="layout">
+      <aside class="sidebar">
+        <section>
+          <h2>Filter</h2>
+          <label class="row">
+          Dataset
+          <select id="filter-dataset"></select>
+        </label>
+          <label class="row">
+          Question type
+          <select id="filter-type"></select>
+        </label>
+          <label class="row">
+          <input id="filter-flagged-only" type="checkbox" />
+          Only flagged
+        </label>
+          <label class="row">
+          <input id="shuffle-order" type="checkbox" checked />
+          Shuffle order
+        </label>
+          <button id="build-queue" class="primary">Build preview queue</button>
+        </section>
+
+        <section>
+          <h2>Progress</h2>
+          <div id="progress" class="muted">No queue yet</div>
+          <div class="progress-bar">
+            <div id="progress-fill"></div>
+          </div>
+        </section>
+      </aside>
+
+      <main class="viewer" id="viewer">
+        <p class="empty-state">Pick filters and build a preview queue to start.</p>
+      </main>
+    </div>
+
+    <template id="viewer-template">
+      <div class="viewer-header">
+        <span id="viewer-position"></span>
+        <span id="viewer-badge" class="badge"></span>
+        <span id="viewer-annotated" class="badge badge-muted"></span>
+        <span id="viewer-source" class="muted"></span>
+        <span id="save-status" class="muted"></span>
+      </div>
+      <div class="image-stage">
+        <img id="viewer-image" alt="question image" />
+      </div>
+      <p id="viewer-question" class="question-text"></p>
+      <ul id="choice-list" class="choice-list"></ul>
+      <dl id="answer-panel" class="answer-panel" hidden></dl>
+      <div class="decision-bar">
+        <button id="btn-prev">&larr; Prev (←)</button>
+        <button id="btn-reveal">Reveal answer (Space)</button>
+        <button id="btn-flag" class="reject">Flag issue (B)</button>
+        <button id="btn-unflag" class="accept">Looks good (G)</button>
+        <button id="btn-next">Next (→) &rarr;</button>
+      </div>
+      <p class="hint muted">
+      Shortcuts: Space reveal answer &middot; G looks good &middot; B flag issue &middot; ←/→
+      navigate
+    </p>
+    </template>
+
+    <script type="module" src="/app.js"></script>
+  </body>
+</html>

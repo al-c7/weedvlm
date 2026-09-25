@@ -1,0 +1,143 @@
+# Example configuration for the question-generation pipeline
+# (src/weedvlm/generate-*.py). Pass it with --config:
+#
+#   uv run src/weedvlm/generate-all-questions.py --config config.example.yaml
+#
+# Every field is optional and shown here at its built-in default, except
+# where noted -- copy this file, delete what you don't need to change,
+# and pass the rest. A CLI flag passed explicitly always overrides the
+# matching value from the config file for that one run.
+
+# Fixed RNG seed, for reproducible sampling (species-ID/open-ended
+# selection, fine-grained pair sampling, localisation baseline sampling,
+# and the class-balancing limits below). Default: unseeded.
+seed: 42
+
+# Which review-*.json files to load. Default: every review-*.json under
+# apps/weedcoco-review.
+# review_paths:
+#   - apps/weedcoco-review/review-cropandweed.json
+
+# Used by generate-all-questions.py (--out-dir fallback).
+out_dir: questions/
+
+# Used by the individual generate-<task>-questions.py scripts (--out
+# fallback) when not run through generate-all-questions.py.
+outputs:
+  species_id: questions/species-id.json
+  fine_grained: questions/fine-grained.json
+  density: questions/density.json
+  localisation: questions/localisation.json
+
+# Where box-annotated images get rendered to. Default: 'rendered/'
+# alongside out_dir (generate-all) or the --out file (individual
+# scripts).
+rendered_images_dir: questions/rendered
+
+# Processes to use for image-heavy steps (rendering the selected
+# questions' box-annotated images, fine-grained's mean-colour pass).
+# Default: every CPU. Doesn't affect output -- a seeded run is identical
+# at any worker count.
+# workers: 8
+
+# Which tasks generate-all-questions.py runs (ignored by the individual
+# generate-<task>-questions.py scripts, which only ever generate their
+# own task).
+tasks:
+  species_id: true
+  fine_grained: true
+  density: true
+  localisation: true
+
+# Fraction of the selected species-ID MC questions (boxed + unannotated) to also
+# ask open-ended.
+open_ended_fraction: 0.2
+
+# Fraction of the crop-localisation questions to keep as a baseline set.
+baseline_fraction: 0.1
+
+# species_id and localisation select from a large, open-ended pool of
+# species: num_species picks an EXACT-size subset of that pool, and
+# questions_per_species then asks for EXACTLY that many questions
+# targeting *each* selected species. Total output size is therefore
+# exactly num_species x questions_per_species (e.g. 25 species x 20
+# questions/species = 500 questions). Species are first filtered to
+# ones that can supply questions_per_species questions before
+# num_species are chosen among them, so a request only fails when
+# there genuinely aren't enough qualifying species -- not because
+# random selection happened to land on a low-supply one. This is what
+# guards against the class imbalance called out in docs/SPECIES-ID.md
+# (e.g. one common species dominating a task because it appears in far
+# more images than the rest). Both unset (null) by default.
+#
+# fine_grained and density instead have a small, fixed, known class
+# set (same_species/different_species; none/low/medium/high) -- there's
+# no subset of classes to pick, so every class is always kept, and
+# questions_per_class asks for EXACTLY that many questions for *each*
+# of them (there's no num_species/num_classes knob here, since "which
+# classes" isn't a choice). Total output size is (2 or 4) x
+# questions_per_class. Unset (null) by default.
+#
+# All of these fail loudly (not silently under-deliver, or pad one
+# class's count to make a grand total work) if a class/species can't
+# supply its exact quota -- loosen the task's image-selection
+# thresholds or lower the question count if that happens.
+
+# Species identification (docs/SPECIES-ID.md).
+species_id:
+  role: weed
+  num_choices: 4
+  min_area_fraction: 0.2   # min fraction of the image a species' boxes must cover
+  min_largest_area_fraction: 0.0   # min fraction of the image the species' largest box must cover
+  num_species: 30              # e.g. 25 -- select exactly this many species
+  questions_per_species: 20    # e.g. 20 -- exactly this many boxed MC questions per selected species
+  # Unannotated (no boxes, single-weed-species images) questions per
+  # selected species, on top of the boxed ones -- same species, and only
+  # species that can supply this many are selected. 0 = none, null =
+  # every qualifying one. Total unannotated = num_species x this.
+  unannotated_questions_per_species: 5
+
+# Fine-grained same/different species ID (docs/FINEGRAINED-ID.md). The
+# 2 classes (same_species/different_species) are always both kept.
+fine_grained:
+  role: weed
+  area_similarity_ratio: 0.25      # smaller/larger bbox area ratio for a candidate pair
+  colour_similarity_ratio: 0.9     # mean-crop-colour similarity (1.0 = identical)
+  min_total_area_fraction: 0.2  # min image fraction the pair's boxes must cover combined
+  min_largest_area_fraction: 0.05
+  max_centre_offset: 0.85          # 0 (centre) to 1 (corner)
+  # min_largest_area_fraction applies to the larger box of the pair (not
+  # each box) so same- and different-species pairs face the same size
+  # test -- per-box would let "one tiny box" leak the answer.
+  max_pairs_per_image: 6           # usually the binding constraint on question count
+  questions_per_class: 200    # e.g. 100 -- exactly this many questions per class (total = 2x this)
+
+# Weed density estimation (docs/WEED-DENSITY.md). A scene qualifies for
+# a category once it clears either the count or the coverage threshold.
+# All 4 categories (none/low/medium/high) are always kept.
+density:
+  role: weed
+  min_largest_area_fraction: 0.0   # min fraction of the image the largest weed box must cover (weed-free images exempt)
+  low_count: 1
+  medium_count: 5
+  high_count: 15
+  low_coverage: 0.02
+  medium_coverage: 0.08
+  high_coverage: 0.20
+  questions_per_class: 75    # e.g. 50 -- exactly this many boxed questions per category (total = 4x this)
+  # Unannotated questions per category, drawn from the selected boxed
+  # questions' images (so at most questions_per_class). 0 = none, null =
+  # all of them.
+  unannotated_questions_per_class: 25
+
+# Species localisation / set-of-marks (docs/WEED-LOCALISATION.md).
+# num_species/questions_per_species apply only to the main weed-
+# localisation set -- the crop baseline (baseline_fraction, above) is
+# sampled separately and isn't subject to either.
+localisation:
+  min_species: 2                   # min distinct species present to ask about
+  min_total_area_fraction: 0.2    # min image fraction the union of all boxes must cover
+  min_largest_area_fraction: 0.05  # applies to EVERY labelled species' largest box
+  max_centre_offset: 0.6           # 0 (centre) to 1 (corner)
+  num_species: 20              # e.g. 25 -- select exactly this many species
+  questions_per_species: 20    # e.g. 20 -- exactly this many questions per selected species

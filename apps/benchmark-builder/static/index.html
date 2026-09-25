@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Benchmark Builder</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <h1>Benchmark Builder</h1>
+      <div id="summary" class="muted"></div>
+    </header>
+
+    <div class="layout">
+      <aside class="sidebar">
+        <section>
+          <h2>Tasks</h2>
+          <div id="task-cards"></div>
+        </section>
+
+        <section>
+          <h2>Run settings</h2>
+          <label class="row">
+            Seed
+            <input id="cfg-seed" type="number" />
+          </label>
+          <label class="row">
+            <input id="cfg-exclude-flagged" type="checkbox" />
+            Exclude flagged questions
+          </label>
+          <div class="actions">
+            <button id="btn-save-config" class="primary">Save config</button>
+            <button id="btn-export" class="primary">Export benchmark</button>
+          </div>
+          <div id="config-status" class="muted"></div>
+        </section>
+      </aside>
+
+      <main class="viewer" id="main">
+        <p class="empty-state">Loading&hellip;</p>
+      </main>
+    </div>
+
+    <template id="task-card-template">
+      <div class="task-card">
+        <h3 class="task-name"></h3>
+        <label class="row">
+          Questions / class
+          <input class="input-per-class" type="number" min="0" />
+        </label>
+        <label class="row">
+          Num classes
+          <input class="input-num-classes" type="number" min="0" />
+        </label>
+        <div class="task-stats muted"></div>
+        <button class="btn-browse">Browse selection</button>
+      </div>
+    </template>
+
+    <script type="module" src="/app.js"></script>
+  </body>
+</html>
