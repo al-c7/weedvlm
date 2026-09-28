@@ -25,9 +25,9 @@ at least `min_largest_area_fraction` -- so a species present only as
 many tiny seedlings, or one mid-size plant among specks, is dropped.
 
 `select_species_id_questions` then picks the final boxed and
-unannotated sets over one shared species selection, each with its own
-per-species quota, so the number of unannotated questions is controlled
-independently of the boxed ones. A subset of either set's questions can
+unannotated sets: num_species species for the boxed set, of which
+unannotated_num_species also get unannotated questions, so the number
+of unannotated questions is controlled independently of the boxed ones. A subset of either set's questions can
 then be turned into open-ended ablations via
 `weedvlm.pipeline.open_ended`.
 """
@@ -38,7 +38,7 @@ import random
 from collections.abc import Sequence
 from pathlib import Path
 
-from weedvlm.pipeline.balance import InsufficientQuestionsError, select_questions
+from weedvlm.pipeline.balance import InsufficientQuestionsError
 from weedvlm.pipeline.render import plan_species_boxes
 from weedvlm.types.dataset import ReviewedImage, SpeciesAnnotation
 from weedvlm.types.questions import MultipleChoiceQuestion, QuestionSource, QuestionType
@@ -203,50 +203,81 @@ def select_species_id_questions(
     *,
     num_species: int | None,
     questions_per_species: int | None,
-    unannotated_questions_per_species: int | None,
+    unannotated_num_species: int | None,
     rng: random.Random | None = None,
 ) -> tuple[list[MultipleChoiceQuestion], list[MultipleChoiceQuestion]]:
-    """(boxed, unannotated) final selections over the same species.
-    Species are chosen exactly as select_questions does for the boxed
-    set, except that when unannotated_questions_per_species is set, only
-    species that can also supply that many unannotated questions are
-    eligible. Each chosen species then supplies exactly
-    questions_per_species boxed and unannotated_questions_per_species
-    unannotated questions (0 for none). None leaves either count
-    unconstrained. Raises InsufficientQuestionsError if the quotas can't
-    be met."""
+    """(boxed, unannotated) final selections. num_species species are
+    chosen for the boxed set, and unannotated_num_species of those also
+    get unannotated questions (0 for none, None for every chosen species
+    that can supply them) -- each chosen species supplying exactly
+    questions_per_species questions of each kind it's chosen for. The
+    unannotated species are picked first, from the species that can
+    meet the quota under both conditions, and the rest of num_species
+    from those that can meet it boxed, so a request only fails when the
+    data genuinely can't meet it. None for num_species/
+    questions_per_species leaves that dimension unconstrained. Raises
+    InsufficientQuestionsError if the quotas can't be met."""
     rng = rng or random.Random()
 
-    eligible_boxed = list(boxed)
-    if unannotated_questions_per_species:
-        unannotated_counts: dict[str, int] = {}
-        for q in unannotated:
-            unannotated_counts[q.benchmark_class] = unannotated_counts.get(q.benchmark_class, 0) + 1
-        eligible_boxed = [
-            q
-            for q in boxed
-            if unannotated_counts.get(q.benchmark_class, 0) >= unannotated_questions_per_species
-        ]
-    try:
-        selected_boxed = select_questions(
-            eligible_boxed,
-            num_classes=num_species,
-            questions_per_class=questions_per_species,
-            rng=rng,
-        )
-    except InsufficientQuestionsError as e:
-        if not unannotated_questions_per_species:
-            raise
-        raise InsufficientQuestionsError(
-            f"{e} (Only species with at least unannotated_questions_per_species="
-            f"{unannotated_questions_per_species} unannotated questions were eligible -- "
-            f"lowering that also helps.)"
-        ) from e
+    boxed_by_species = _group_by_class(boxed)
+    unannotated_by_species = _group_by_class(unannotated)
+    quota = questions_per_species or 1
+    boxed_eligible = [s for s, qs in boxed_by_species.items() if len(qs) >= quota]
+    both_eligible = [
+        s for s in boxed_eligible if len(unannotated_by_species.get(s, [])) >= quota
+    ]
 
-    selected_species = {q.benchmark_class for q in selected_boxed}
-    selected_unannotated = select_questions(
-        [q for q in unannotated if q.benchmark_class in selected_species],
-        questions_per_class=unannotated_questions_per_species,
-        rng=rng,
-    )
-    return selected_boxed, selected_unannotated
+    if unannotated_num_species is None:
+        if num_species is None:
+            species = boxed_eligible
+        else:
+            _require(num_species, len(boxed_eligible), len(boxed_by_species), quota, "")
+            species = rng.sample(boxed_eligible, num_species)
+        unannotated_species = [s for s in species if s in both_eligible]
+    else:
+        if num_species is not None and unannotated_num_species > num_species:
+            raise InsufficientQuestionsError(
+                f"unannotated_num_species={unannotated_num_species} can't exceed "
+                f"num_species={num_species} -- unannotated species are a subset of the "
+                f"selected species."
+            )
+        _require(
+            unannotated_num_species,
+            len(both_eligible),
+            len(boxed_by_species),
+            quota,
+            " under both the boxed and unannotated conditions",
+        )
+        unannotated_species = rng.sample(both_eligible, unannotated_num_species)
+        rest = [s for s in boxed_eligible if s not in unannotated_species]
+        if num_species is None:
+            species = [*unannotated_species, *rest]
+        else:
+            _require(num_species, len(boxed_eligible), len(boxed_by_species), quota, "")
+            species = [*unannotated_species, *rng.sample(rest, num_species - len(unannotated_species))]
+
+    def take(by_species: dict[str, list[MultipleChoiceQuestion]], names: list[str]):
+        if questions_per_species is None:
+            return [q for s in names for q in by_species[s]]
+        return [q for s in names for q in rng.sample(by_species[s], questions_per_species)]
+
+    return take(boxed_by_species, species), take(unannotated_by_species, unannotated_species)
+
+
+def _group_by_class(
+    questions: Sequence[MultipleChoiceQuestion],
+) -> dict[str, list[MultipleChoiceQuestion]]:
+    grouped: dict[str, list[MultipleChoiceQuestion]] = {}
+    for q in questions:
+        grouped.setdefault(q.benchmark_class, []).append(q)
+    return grouped
+
+
+def _require(requested: int, eligible: int, total: int, quota: int, condition: str) -> None:
+    if requested > eligible:
+        raise InsufficientQuestionsError(
+            f"Requested exactly {requested} species with at least {quota} qualifying "
+            f"questions each{condition}, but only {eligible} of the {total} species with any "
+            f"qualifying boxed questions meet that. Lower num_species/unannotated_num_species, "
+            f"lower questions_per_species, or loosen this task's image-selection thresholds."
+        )

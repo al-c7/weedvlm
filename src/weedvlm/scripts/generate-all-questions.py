@@ -1,9 +1,9 @@
 """
-Generates every question type in one pass from one or more reviewed
-WeedCOCO datasets: species ID (boxed + unannotated + an open-ended
-ablation of both), fine-grained ID, density estimation, and species
-localisation (+ crop baseline) -- so you don't need to invoke each
-generate-*.py script separately with the same --review list.
+Generates every question type in one pass from one or more WeedCOCO
+datasets: species ID (boxed + unannotated + an open-ended ablation of
+both), fine-grained ID, density estimation, and species localisation
+(+ crop baseline) -- so you don't need to invoke each generate-*.py
+script separately with the same --dataset list.
 
 Each task is still written to its own file (species-id.json,
 fine-grained.json, density.json, localisation.json) inside --out-dir,
@@ -14,60 +14,60 @@ tasks share one rendered-images directory.
 Usage:
     python src/weedvlm/generate-all-questions.py --out-dir questions/
 
-By default this pulls from every reviewed dataset (every review-*.json
-under apps/weedcoco-review); pass --review (repeatably) to restrict to
-specific ones:
+By default this pulls from every dataset.json under .datasets/; pass
+--dataset (repeatably) to restrict to specific ones:
     python src/weedvlm/generate-all-questions.py \
-        --review apps/weedcoco-review/review-cropandweed.json \
-        --review apps/weedcoco-review/review-zeamays.json \
+        --dataset .datasets/CropAndWeed/weedcoco.json \
+        --dataset .datasets/ImageWeeds-zeamays/weedcoco.json \
         --out-dir questions/
 
 Pass --config <file.yaml> (see config.example.yaml at the repo root) to
 tune per-task image-selection/size parameters and choose which tasks
-run -- everything the individual generate-*.py scripts expose, in one
-file. A CLI flag passed explicitly always overrides the config file's
+run. A CLI flag passed explicitly always overrides the config file's
 value for that field.
-
-Species-id and localisation additionally support an exact species
-selection (species_id.num_species/questions_per_species,
-localisation.num_species/questions_per_species): num_species picks an
-exact-size subset of the species pool, and each picked species then
-supplies exactly questions_per_species questions, so the task's total
-output size is exactly num_species * questions_per_species.
-Fine-grained and density instead have a small, fixed, known class set
-(same_species/different_species; none/low/medium/high) -- every class
-is always kept, and fine_grained.questions_per_class /
-density.questions_per_class asks for exactly that many questions per
-class, so their total output size is (2 or 4) * questions_per_class.
-Species-id and density's unannotated questions are sized separately
-(species_id.unannotated_questions_per_species,
-density.unannotated_questions_per_class), on top of those totals.
-There's no single CLI flag for any of these here since the right
-numbers differ per task -- use --config.
 """
 
 import argparse
 import json
 import random
+import shlex
 import sys
+from datetime import UTC, datetime
 from pathlib import Path
 
-from weedvlm.pipeline.balance import InsufficientQuestionsError, select_questions
-from weedvlm.pipeline.config import load_pipeline_config, resolve_config_path
-from weedvlm.pipeline.density import (
+from weedvlm.generation.balance import InsufficientQuestionsError, select_questions
+from weedvlm.generation.config import (
+    GENERATION_CONFIG_NAME,
+    load_pipeline_config,
+    resolve_config_path,
+)
+from weedvlm.generation.density import (
     generate_density_estimation_questions,
     select_density_questions,
 )
-from weedvlm.pipeline.fine_grained import generate_fine_grained_questions
-from weedvlm.pipeline.load import load_images
-from weedvlm.pipeline.render import render_all
-from weedvlm.pipeline.localisation import generate_species_localisation_questions
-from weedvlm.pipeline.open_ended import generate_open_ended_questions
-from weedvlm.pipeline.species_id import (
+from weedvlm.generation.fine_grained import generate_fine_grained_questions
+from weedvlm.generation.load import load_images
+from weedvlm.generation.render import render_all
+from weedvlm.generation.localisation import generate_species_localisation_questions
+from weedvlm.generation.open_ended import generate_open_ended_questions
+from weedvlm.generation.species_id import (
     generate_species_id_mc_questions,
     generate_species_id_unannotated_questions,
     select_species_id_questions,
 )
+
+
+def _write_generation_config(config_path: Path | None, path: Path) -> None:
+    """Records exactly how this output was generated -- the config
+    file's text plus the command line (whose flags override it) -- so
+    the benchmark's provenance survives later edits to the config.
+    export-benchmark-parquet.py embeds this in the Parquet export."""
+    header = f"# Generated {datetime.now(UTC).isoformat()} by: {shlex.join(sys.argv)}\n"
+    if config_path is None:
+        body = "# No config file -- built-in defaults plus the command line above.\n"
+    else:
+        body = f"# Config file: {config_path}\n" + config_path.read_text(encoding="utf-8")
+    path.write_text(header + body, encoding="utf-8")
 
 
 def _write(questions: list, path: Path) -> None:
@@ -85,30 +85,13 @@ def main() -> None:
         help="YAML config file (default: config.example.yaml at the repo root, if it exists)",
     )
     parser.add_argument(
-        "--review",
-        action="append",
-        type=Path,
-        dest="review_paths",
-        default=None,
-        help="Path to a review-*.json file (repeatable). Default: config's review_paths, or "
-        "every review-*.json under apps/weedcoco-review.",
-    )
-    parser.add_argument(
         "--dataset",
         action="append",
         type=Path,
         dest="dataset_paths",
         default=None,
-        help="Path to a raw WeedCOCO dataset.json (repeatable) -- bypasses "
-        "apps/weedcoco-review filtering entirely, using every image/annotation as-is. Implies "
-        "--raw-datasets. Default: config's dataset_paths.",
-    )
-    parser.add_argument(
-        "--raw-datasets",
-        action="store_true",
-        help="Use raw WeedCOCO datasets with no review filtering (auto-discovers every "
-        "dataset.json under .datasets/ unless --dataset is given). Default: config's "
-        "use_raw_datasets.",
+        help="Path to a WeedCOCO dataset.json (repeatable), using every image/annotation as-is. "
+        "Default: config's dataset_paths, or every dataset.json under .datasets/.",
     )
     parser.add_argument(
         "--out-dir",
@@ -159,9 +142,7 @@ def main() -> None:
     def merged(cli_value, cfg_value):
         return cli_value if cli_value is not None else cfg_value
 
-    review_paths = args.review_paths or cfg.review_paths
     dataset_paths = args.dataset_paths or cfg.dataset_paths
-    use_raw_datasets = args.raw_datasets or cfg.use_raw_datasets
     out_dir = args.out_dir or cfg.out_dir
     if out_dir is None:
         parser.error("--out-dir is required (or set out_dir in --config)")
@@ -183,19 +164,11 @@ def main() -> None:
 
     rng = random.Random(seed)
 
-    source_paths, images, using_raw = load_images(
-        review_paths=review_paths, dataset_paths=dataset_paths, use_raw_datasets=use_raw_datasets
+    source_paths, images = load_images(dataset_paths)
+    print(
+        f"Using {len(source_paths)} dataset(s): "
+        f"{', '.join(p.parent.name for p in source_paths)}"
     )
-    if using_raw:
-        print(
-            f"Using {len(source_paths)} raw dataset(s) (no review filtering): "
-            f"{', '.join(p.parent.name for p in source_paths)}"
-        )
-    else:
-        print(
-            f"Using {len(source_paths)} review file(s): "
-            f"{', '.join(p.name for p in source_paths)}"
-        )
 
     tasks: dict[str, list] = {}
 
@@ -226,7 +199,7 @@ def main() -> None:
                 species_unannotated,
                 num_species=species_cfg.num_species,
                 questions_per_species=species_cfg.questions_per_species,
-                unannotated_questions_per_species=species_cfg.unannotated_questions_per_species,
+                unannotated_num_species=species_cfg.unannotated_num_species,
                 rng=rng,
             )
         except InsufficientQuestionsError as e:
@@ -273,12 +246,12 @@ def main() -> None:
             rendered_images_dir,
             role=density_cfg.role,
             min_largest_area_fraction=density_cfg.min_largest_area_fraction,
-            low_count=density_cfg.low_count,
-            medium_count=density_cfg.medium_count,
-            high_count=density_cfg.high_count,
-            low_coverage=density_cfg.low_coverage,
-            medium_coverage=density_cfg.medium_coverage,
-            high_coverage=density_cfg.high_coverage,
+            count_scale=density_cfg.count_scale,
+            coverage_scale=density_cfg.coverage_scale,
+            medium_score=density_cfg.medium_score,
+            high_score=density_cfg.high_score,
+            medium_min_count=density_cfg.medium_min_count,
+            high_min_count=density_cfg.high_min_count,
         )
         try:
             density_boxed, density_unannotated = select_density_questions(
@@ -344,6 +317,7 @@ def main() -> None:
         _write(questions, out_dir / filename)
 
     _write(all_questions, out_dir / "all-questions.json")
+    _write_generation_config(config_path, out_dir / GENERATION_CONFIG_NAME)
 
     print(f"Wrote {len(all_questions)} questions total to {out_dir}")
     print("  all-questions.json combines all of the above")

@@ -43,11 +43,11 @@ where available.
 The VLM will be instructued to provide it's answer in a structured JSON format.
 Since many VLMs are focused on writing code, providing their answers in this
 format is unlikely to cause any degradations in performance for the VLM itself.
-The VLM shall provide 2 fields in it's JSON structured response, a `label`
+The VLM shall provide 2 fields in it's JSON structured response, an `answer`
 field that defines the actual label that the VLM has selected. For multiple
 choice questions, this should exactly match the option in terms of spelling and
 punctuation. An additional `reasoning` field will be required, which features
-the post-hoc reasoning for the VLMs decision.
+the post-hoc reasoning for the VLMs decision, limited to about 2 sentences.
 
 ## Image selection
 

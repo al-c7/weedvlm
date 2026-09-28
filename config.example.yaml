@@ -3,9 +3,10 @@
 #
 #   uv run src/weedvlm/generate-all-questions.py --config config.example.yaml
 #
-# Every field is optional and shown here at its built-in default, except
-# where noted -- copy this file, delete what you don't need to change,
-# and pass the rest. A CLI flag passed explicitly always overrides the
+# Every field is optional -- anything left out falls back to its built-in
+# default (see src/weedvlm/pipeline/config.py). The values below are
+# tuned to run against the current datasets under .datasets/, not set
+# to the defaults. A CLI flag passed explicitly always overrides the
 # matching value from the config file for that one run.
 
 # Fixed RNG seed, for reproducible sampling (species-ID/open-ended
@@ -13,10 +14,10 @@
 # and the class-balancing limits below). Default: unseeded.
 seed: 42
 
-# Which review-*.json files to load. Default: every review-*.json under
-# apps/weedcoco-review.
-# review_paths:
-#   - apps/weedcoco-review/review-cropandweed.json
+# Which WeedCOCO dataset.json files to load. Default: every
+# dataset.json under .datasets/.
+# dataset_paths:
+#   - .datasets/CropAndWeed/weedcoco.json
 
 # Used by generate-all-questions.py (--out-dir fallback).
 out_dir: questions/
@@ -70,13 +71,20 @@ baseline_fraction: 0.1
 # (e.g. one common species dominating a task because it appears in far
 # more images than the rest). Both unset (null) by default.
 #
+# species_id's unannotated questions are sized separately:
+# unannotated_num_species of the selected species also get
+# questions_per_species unannotated questions each, so the unannotated
+# total is unannotated_num_species x questions_per_species.
+#
 # fine_grained and density instead have a small, fixed, known class
 # set (same_species/different_species; none/low/medium/high) -- there's
 # no subset of classes to pick, so every class is always kept, and
 # questions_per_class asks for EXACTLY that many questions for *each*
 # of them (there's no num_species/num_classes knob here, since "which
 # classes" isn't a choice). Total output size is (2 or 4) x
-# questions_per_class. Unset (null) by default.
+# questions_per_class. Unset (null) by default. density's unannotated
+# questions are sized separately by unannotated_questions_per_class
+# (4 x that many in total), drawn from the selected boxed images.
 #
 # All of these fail loudly (not silently under-deliver, or pad one
 # class's count to make a grand total work) if a class/species can't
@@ -87,44 +95,57 @@ baseline_fraction: 0.1
 species_id:
   role: weed
   num_choices: 4
-  min_area_fraction: 0.2   # min fraction of the image a species' boxes must cover
-  min_largest_area_fraction: 0.0   # min fraction of the image the species' largest box must cover
-  num_species: 30              # e.g. 25 -- select exactly this many species
-  questions_per_species: 20    # e.g. 20 -- exactly this many boxed MC questions per selected species
-  # Unannotated (no boxes, single-weed-species images) questions per
-  # selected species, on top of the boxed ones -- same species, and only
-  # species that can supply this many are selected. 0 = none, null =
-  # every qualifying one. Total unannotated = num_species x this.
-  unannotated_questions_per_species: 5
+  min_area_fraction: 0.1   # min fraction of the image a species' boxes must cover
+  min_largest_area_fraction: 0.05   # min fraction of the image the species' largest box must cover
+  num_species: 20              # select exactly this many species (15 qualify at 20 qs/species)
+  questions_per_species: 40    # exactly this many boxed MC questions per selected species
+  # How many of the selected species also get unannotated (no boxes,
+  # single-weed-species images) questions, questions_per_species each,
+  # on top of their boxed ones. 0 = none, null = every selected species
+  # that can supply them. Total unannotated = this x questions_per_species.
+  # 11 species can supply 20 unannotated questions at the thresholds above.
+  unannotated_num_species: 10
 
 # Fine-grained same/different species ID (docs/FINEGRAINED-ID.md). The
 # 2 classes (same_species/different_species) are always both kept.
 fine_grained:
   role: weed
-  area_similarity_ratio: 0.25      # smaller/larger bbox area ratio for a candidate pair
+  area_similarity_ratio: 0.6      # smaller/larger bbox area ratio for a candidate pair
   colour_similarity_ratio: 0.9     # mean-crop-colour similarity (1.0 = identical)
   min_total_area_fraction: 0.2  # min image fraction the pair's boxes must cover combined
-  min_largest_area_fraction: 0.05
+  min_largest_area_fraction: 0.1
   max_centre_offset: 0.85          # 0 (centre) to 1 (corner)
   # min_largest_area_fraction applies to the larger box of the pair (not
   # each box) so same- and different-species pairs face the same size
   # test -- per-box would let "one tiny box" leak the answer.
   max_pairs_per_image: 6           # usually the binding constraint on question count
-  questions_per_class: 200    # e.g. 100 -- exactly this many questions per class (total = 2x this)
+  questions_per_class: 200         # exactly this many questions per class (total = 2x this)
 
-# Weed density estimation (docs/WEED-DENSITY.md). A scene qualifies for
-# a category once it clears either the count or the coverage threshold.
-# All 4 categories (none/low/medium/high) are always kept.
+# Weed density estimation (docs/WEED-DENSITY.md). All 4 categories
+# (none/low/medium/high) are always kept.
+#
+# Category rule: weed count and weed coverage are each placed on a log
+# scale from 0 (at the scale's low end) to 1 (at its high end, capped),
+# and averaged into a 0-1 density score. Neither decides alone --
+# coverage alone mostly measures camera distance (one close-up weed can
+# fill the frame), count alone ignores how much ground the weeds take.
+#   none:   no weeds
+#   low:    score < medium_score, or too few weeds for medium
+#   medium: score >= medium_score and >= medium_min_count weeds
+#   high:   score >= high_score and >= high_min_count weeds
+# e.g. 1 weed filling the frame -> low; 3 big weeds (30%) -> medium;
+# 15 seedlings (3%) -> medium; 10 weeds (25%) -> high; 30 seedlings
+# (3%) -> high.
 density:
   role: weed
   min_largest_area_fraction: 0.0   # min fraction of the image the largest weed box must cover (weed-free images exempt)
-  low_count: 1
-  medium_count: 5
-  high_count: 15
-  low_coverage: 0.02
-  medium_coverage: 0.08
-  high_coverage: 0.20
-  questions_per_class: 75    # e.g. 50 -- exactly this many boxed questions per category (total = 4x this)
+  count_scale: [1, 40]             # weed counts scoring 0 and 1 (raise the top to make many small seedlings less "dense")
+  coverage_scale: [0.01, 0.4]      # coverage fractions scoring 0 and 1
+  medium_score: 0.3
+  high_score: 0.6
+  medium_min_count: 2              # a single plant is never medium/high, however much it covers
+  high_min_count: 5
+  questions_per_class: 75          # exactly this many boxed questions per category (total = 4x this)
   # Unannotated questions per category, drawn from the selected boxed
   # questions' images (so at most questions_per_class). 0 = none, null =
   # all of them.
@@ -137,7 +158,10 @@ density:
 localisation:
   min_species: 2                   # min distinct species present to ask about
   min_total_area_fraction: 0.2    # min image fraction the union of all boxes must cover
-  min_largest_area_fraction: 0.05  # applies to EVERY labelled species' largest box
-  max_centre_offset: 0.6           # 0 (centre) to 1 (corner)
-  num_species: 20              # e.g. 25 -- select exactly this many species
-  questions_per_species: 20    # e.g. 20 -- exactly this many questions per selected species
+  # A species is only asked about if its largest box covers this much
+  # of the image; smaller species are still numbered, as distractors.
+  # One image yields a question per qualifying species.
+  min_largest_area_fraction: 0.05
+  max_centre_offset: 0.85           # 0 (centre) to 1 (corner)
+  num_species: 15                  # select exactly this many species
+  questions_per_species: 20        # exactly this many questions per selected species

@@ -14,7 +14,7 @@ from __future__ import annotations
 from pathlib import Path
 
 import yaml
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, model_validator
 
 from weedvlm.types.species import Role
 
@@ -52,16 +52,17 @@ class ClassBalance(BaseModel):
 
 class SpeciesIdConfig(SpeciesSelection):
     """num_species/questions_per_species size the boxed set.
-    unannotated_questions_per_species separately sizes the unannotated
-    set, over the same selected species (see
-    weedvlm.pipeline.species_id.select_species_id_questions): 0 for
-    none, None for every qualifying one."""
+    unannotated_num_species separately sizes the unannotated set: that
+    many of the selected species also get questions_per_species
+    unannotated questions each (see
+    weedvlm.pipeline.species_id.select_species_id_questions). 0 for
+    none, None for every selected species that can supply them."""
 
     role: Role = "weed"
     num_choices: int = 4
     min_area_fraction: float = 0.01
     min_largest_area_fraction: float = 0.0
-    unannotated_questions_per_species: int | None = None
+    unannotated_num_species: int | None = None
 
 
 class FineGrainedConfig(ClassBalance):
@@ -79,17 +80,36 @@ class DensityConfig(ClassBalance):
     unannotated_questions_per_class separately sizes the unannotated
     set, drawn from the same images as the selected boxed questions
     (see weedvlm.pipeline.density.select_density_questions): 0 for
-    none, None for all of them."""
+    none, None for all of them.
+
+    The rest set the density rule (see
+    weedvlm.pipeline.density.classify_density): count_scale and
+    coverage_scale are the (low, high) anchors each is log-scaled
+    between, medium_score/high_score the cut-offs on their averaged
+    score, and medium_min_count/high_min_count the fewest weeds a scene
+    needs for each category."""
 
     role: Role = "weed"
     min_largest_area_fraction: float = 0.0
     unannotated_questions_per_class: int | None = None
-    low_count: int = 1
-    medium_count: int = 5
-    high_count: int = 15
-    low_coverage: float = 0.02
-    medium_coverage: float = 0.08
-    high_coverage: float = 0.20
+    count_scale: tuple[float, float] = (1, 40)
+    coverage_scale: tuple[float, float] = (0.01, 0.4)
+    medium_score: float = 0.3
+    high_score: float = 0.6
+    medium_min_count: int = 2
+    high_min_count: int = 5
+
+    @model_validator(mode="after")
+    def _check_density_rule(self) -> DensityConfig:
+        for name, (low, high) in (
+            ("count_scale", self.count_scale),
+            ("coverage_scale", self.coverage_scale),
+        ):
+            if not 0 < low < high:
+                raise ValueError(f"density.{name} must be [low, high] with 0 < low < high")
+        if not 0 <= self.medium_score <= self.high_score <= 1:
+            raise ValueError("density scores must satisfy 0 <= medium_score <= high_score <= 1")
+        return self
 
 
 class LocalisationConfig(SpeciesSelection):
@@ -128,13 +148,8 @@ class Outputs(BaseModel):
 
 class PipelineConfig(BaseModel):
     seed: int | None = None
-    review_paths: list[Path] | None = None
-    # Raw-dataset (no review filtering) alternative to review_paths --
-    # see weedvlm.pipeline.load.load_images. use_raw_datasets: true with
-    # dataset_paths left at its default reads every dataset.json under
-    # .datasets/; dataset_paths given outright implies raw mode even if
-    # use_raw_datasets isn't set.
-    use_raw_datasets: bool = False
+    # Which WeedCOCO dataset.json files to load. Default: every
+    # dataset.json under .datasets/ (see weedvlm.pipeline.load.load_images).
     dataset_paths: list[Path] | None = None
     out_dir: Path | None = None
     rendered_images_dir: Path | None = None
@@ -152,6 +167,10 @@ class PipelineConfig(BaseModel):
     density: DensityConfig = Field(default_factory=DensityConfig)
     localisation: LocalisationConfig = Field(default_factory=LocalisationConfig)
 
+
+# Written into out_dir by generate-all-questions.py: the config text and
+# command line that produced that output (see export-benchmark-parquet.py).
+GENERATION_CONFIG_NAME = "generation-config.yaml"
 
 # src/weedvlm/pipeline/config.py -> repo root
 DEFAULT_CONFIG_PATH = Path(__file__).resolve().parents[3] / "config.example.yaml"

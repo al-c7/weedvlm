@@ -19,16 +19,15 @@ python src/weedvlm/generate-all-questions.py --out-dir questions/
 ```
 
 This runs every task (species ID, fine-grained ID, density estimation, species localisation) in one
-pass and, by default, pulls from **every** reviewed dataset (every `review-*.json` under
-`apps/weedcoco-review`) -- no need to list them or run each generator separately. It writes one file
-per task (`species-id.json`, `fine-grained.json`, `density.json`, `localisation.json`) plus
-`all-questions.json` combining all of them, so the previewer can be pointed at either the whole set
-or a single task. Pass `--review` (repeatably) to restrict to specific datasets instead of all of
-them.
+pass and, by default, pulls from **every** dataset (every `weedcoco.json` under `.datasets/`) -- no
+need to list them or run each generator separately. It writes one file per task (`species-id.json`,
+`fine-grained.json`, `density.json`, `localisation.json`) plus `all-questions.json` combining all of
+them, so the previewer can be pointed at either the whole set or a single task. Pass `--dataset`
+(repeatably) to restrict to specific datasets instead of all of them.
 
 To generate a single task, or to tune task-specific options (area/colour similarity thresholds,
 per-image caps, choice counts, etc) beyond what `generate-all-questions.py` exposes, use the
-individual scripts instead -- they take the same `--review` default:
+individual scripts instead -- they take the same `--dataset` default:
 
 ```sh
 python src/weedvlm/generate-species-id-questions.py --out questions/species-id.json
@@ -37,7 +36,7 @@ python src/weedvlm/generate-density-questions.py --out questions/density.json
 python src/weedvlm/generate-localisation-questions.py --out questions/localisation.json
 ```
 
-Every script prints which review file(s) it used, and writes a `rendered/` directory of
+Every script prints which dataset(s) it used, and writes a `rendered/` directory of
 box-annotated images alongside its output. Run any script with `--help` for its full set of options.
 Every question records which dataset its source image came from (`source.dataset_name`), so
 combining datasets never loses that trail.
@@ -51,12 +50,12 @@ deno task serve
 ```
 
 With no `--questions` given, this defaults to `<repo root>/questions/all-questions.json` -- i.e.
-whatever `generate-all-questions.py` last wrote, covering every reviewed dataset and task. If that
+whatever `generate-all-questions.py` last wrote, covering every dataset and task. If that
 file doesn't exist yet, the server prints a reminder to run `generate-all-questions.py` first and
 exits.
 
 Pass `--questions` (repeatably) to review specific files instead -- individual task files, files
-from a restricted `--review` generation run, or several runs at once:
+from a restricted `--dataset` generation run, or several runs at once:
 
 ```sh
 deno task serve \

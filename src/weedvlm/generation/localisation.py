@@ -6,6 +6,13 @@ is never told which number corresponds to which species. For each
 species present, ask which number contains it; the VLM answers with a
 label rather than a species name.
 
+An image yields a question for each species in it that's large enough
+to find (its largest box clears `min_largest_area_fraction`), so one
+image is reused across every qualifying target species. Species below
+that floor are still numbered -- they're real plants in the picture,
+and leaving them unboxed would be misleading -- but are only ever
+distractor options, never a target.
+
 Called once with role="weed" for the main task, and once with
 role="crop" for the baseline task described in the spec (a small set
 of easier questions -- crop species are typically fewer and more
@@ -14,10 +21,8 @@ itself, independent of weed-identification difficulty).
 
 An image also has to clear the task spec's image-selection criteria to
 be used at all: the union of every labelled box's area must clear
-`min_total_area_fraction`, *every* species' largest box must clear
-`min_largest_area_fraction` (each species gets a number the VLM has to
-find, so none can be present only as specks), and the boxes'
-area-weighted centre of mass mustn't sit too close to a corner
+`min_total_area_fraction`, at least one species must clear
+`min_largest_area_fraction`, and the boxes' area-weighted centre of mass mustn't sit too close to a corner
 (`max_centre_offset` -- see
 `weedvlm.pipeline.geometry.centre_offset_fraction` for the
 0=centre/1=corner scale). Defaults are deliberately loose (tuned to
@@ -47,25 +52,32 @@ def _group_by_species(
     return grouped
 
 
+def _target_species(
+    grouped: dict[str, list[SpeciesAnnotation]],
+    image: ReviewedImage,
+    min_largest_area_fraction: float,
+) -> set[str]:
+    """The species large enough to be asked about: those whose largest
+    box clears min_largest_area_fraction of the image."""
+    image_area = image.width * image.height
+    return {
+        name
+        for name, annotations in grouped.items()
+        if max(w * h for _, _, w, h in (a.bbox for a in annotations)) / image_area
+        >= min_largest_area_fraction
+    }
+
+
 def _passes_selection(
     grouped: dict[str, list[SpeciesAnnotation]],
     image: ReviewedImage,
     min_total_area_fraction: float,
-    min_largest_area_fraction: float,
     max_centre_offset: float,
 ) -> bool:
     image_area = image.width * image.height
-    if image_area == 0:
-        return False
-
     all_boxes = [a.bbox for anns in grouped.values() for a in anns]
     if rectangle_union_area(all_boxes) / image_area < min_total_area_fraction:
         return False
-
-    for annotations in grouped.values():
-        largest_area = max(w * h for _, _, w, h in (a.bbox for a in annotations))
-        if largest_area / image_area < min_largest_area_fraction:
-            return False
 
     offset = centre_offset_fraction(centre_of_mass(all_boxes), image.width, image.height)
     return offset <= max_centre_offset
@@ -87,11 +99,12 @@ def generate_species_localisation_questions(
     questions = []
     for image in images:
         grouped = _group_by_species(image, role)
-        if len(grouped) < min_species:
+        if len(grouped) < min_species or image.width * image.height == 0:
             continue
 
-        if not _passes_selection(
-            grouped, image, min_total_area_fraction, min_largest_area_fraction, max_centre_offset
+        targets = _target_species(grouped, image, min_largest_area_fraction)
+        if not targets or not _passes_selection(
+            grouped, image, min_total_area_fraction, max_centre_offset
         ):
             continue
 
@@ -110,6 +123,8 @@ def generate_species_localisation_questions(
         choices = [str(i + 1) for i in range(len(species_names))]
 
         for name, annotations in grouped.items():
+            if name not in targets:
+                continue
             display_name = annotations[0].species.display_name
             questions.append(
                 MultipleChoiceQuestion(

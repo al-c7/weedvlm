@@ -1,0 +1,82 @@
+# Example configuration for the evaluation pipeline
+# (src/weedvlm/run-evaluation.py). Pass it with --config:
+#
+#   uv run src/weedvlm/run-evaluation.py --config evaluation.example.yaml
+#
+# The API key comes from OPENROUTER_API_KEY, in the environment or in a
+# .env file at the repo root.
+
+# Where the generated questions are (the out_dir of
+# generate-all-questions.py).
+questions_dir: questions/
+
+# The config those questions were generated with. The density prompt
+# explains the category rules using its thresholds, so they always match
+# how the ground truth was labelled. Default: generation-config.yaml
+# inside questions_dir (which generate-all-questions.py writes).
+# generation_config: questions/generation-config.yaml
+
+# Results go to <output_dir>/<run_name>/ -- responses.jsonl (appended as
+# each answer lands), responses.json (everything, when the run ends),
+# progress.json (live status), run.log (retries and errors).
+#
+# Re-running with the same run_name resumes it: answered questions are
+# skipped, failed or unfinished ones are asked again. Changing a model's
+# temperature/extra_body (max_tokens excepted) under an existing run_name is refused
+# (it would mix incomparable answers); use a new run_name for that.
+output_dir: results/
+run_name: mini-model-run
+
+# Which tasks to run. species_id includes its open-ended ablation.
+tasks:
+  species_id: true
+  fine_grained: true
+  density: true
+  localisation: true
+
+# OpenRouter model ids. A bare id uses the defaults below; a mapping
+# overrides them for that model. extra_body is merged into the request
+# as-is (OpenRouter's `reasoning`, `provider` routing, etc.).
+models:
+  - z-ai/glm-5.3-flashx
+  # - id: anthropic/claude-sonnet-4.5
+  #   max_tokens: 2048
+  # - id: qwen/qwen3-vl-235b-a22b-thinking
+  #   max_tokens: 8192          # reasoning models spend this on thinking
+  #   extra_body:
+  #     reasoning: {effort: low}
+
+# Requests in flight at once, across all models (1-32). Each request
+# carries a base64 image, and OpenRouter rate-limits per key and per
+# upstream provider, so more isn't always faster -- 429s pause every
+# worker, but they still cost time.
+concurrency: 8
+
+defaults:
+  temperature: 0.0
+  # A reply cut off by this limit is recorded as a failure (with a hint
+  # to raise it) and not retried. Reasoning models spend much of it on
+  # hidden thinking -- Gemini needed well over 1024. Raising it and
+  # re-running the same run_name re-asks only the truncated questions.
+  max_tokens: 1024
+  timeout_seconds: 120
+
+retry:
+  max_retries: 5             # transient errors: 429, 5xx, timeouts, dropped connections
+  max_parse_retries: 2       # replies that arrive but hold no usable JSON answer
+  backoff_base_seconds: 2    # doubles each retry, with jitter, honouring Retry-After
+  backoff_max_seconds: 60
+  # Stop sending a model further questions after this many failed in a row
+  # (typo'd model id, no image support, provider down). Its remaining
+  # questions stay pending for the next run. 0 disables.
+  model_failure_threshold: 25
+
+# Smoke test before spending real money: run only a seeded random subset
+# of this many questions from each enabled task. Not a benchmark-sizing
+# knob -- leave unset for the full benchmark.
+# max_questions_per_task: 2000
+seed: 0
+
+# Seconds between progress.json writes (and log lines when not on a
+# terminal).
+progress_interval_seconds: 5

@@ -36,9 +36,14 @@ where available.
 
 ## Response format
 
-JSON format as specied previously, with `density-category`,
-`estimated-number-of-weeds`, and `estimated-weed-coverage` instead of the
-`species` field. The `reasoning` field should still be provided.
+JSON format as specified previously: `answer` holds the density category
+(matching one of the provided categories exactly) and `reasoning` the
+explanation (about 2 sentences). Two further fields carry the numeric
+estimates: `estimated_weed_count` and `estimated_weed_coverage_percent`.
+
+The prompt also explains the density category rules to the VLM (how weed count
+and coverage combine into a score, and the thresholds for each category), using
+the thresholds the questions were generated with.
 
 ## Image selection
 

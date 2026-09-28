@@ -4,8 +4,9 @@ estimate the number of weeds in an image and the fraction of the image
 area they cover, under both the boxed and unannotated image conditions
 for the same source image.
 
-`classify_density` buckets the ground truth into a category using count
-and coverage thresholds; the VLM is shown the same fixed category
+`classify_density` buckets the ground truth into a category using a
+combined count/coverage score (see its docstring); the VLM is shown the
+same fixed category
 vocabulary (`DENSITY_CHOICES`) and must pick one, in addition to its two
 numeric estimates, per the task spec. Coverage accounts for overlapping
 boxes via `rectangle_union_area` rather than naively summing box areas.
@@ -23,6 +24,7 @@ source images are used under each condition.
 
 from __future__ import annotations
 
+import math
 import random
 from collections.abc import Sequence
 from enum import StrEnum
@@ -52,27 +54,60 @@ class DensityCategory(StrEnum):
     HIGH = "high"
 
 
+def _log_scale(value: float, low: float, high: float) -> float:
+    """value's position between low (0.0) and high (1.0) on a log scale,
+    clamped to [0, 1]. Log because both weed count and coverage are
+    heavily right-skewed -- going from 1 to 2 weeds matters as much as
+    from 10 to 20."""
+    if value <= low:
+        return 0.0
+    return min(1.0, math.log(value / low) / math.log(high / low))
+
+
+def density_score(
+    weed_count: int,
+    coverage_fraction: float,
+    *,
+    count_scale: tuple[float, float] = (1, 40),
+    coverage_scale: tuple[float, float] = (0.01, 0.4),
+) -> float:
+    """0.0 (sparse) to 1.0 (dense): the mean of weed count and coverage,
+    each placed on a log scale between its (low, high) anchors."""
+    return (
+        _log_scale(weed_count, *count_scale) + _log_scale(coverage_fraction, *coverage_scale)
+    ) / 2
+
+
 def classify_density(
     weed_count: int,
     coverage_fraction: float,
     *,
-    # Category thresholds are placeholders -- pending real data to tune
-    # against, a scene qualifies for a category once it clears either
-    # the count or the coverage threshold for that level.
-    low_count: int = 1,
-    medium_count: int = 5,
-    high_count: int = 15,
-    low_coverage: float = 0.02,
-    medium_coverage: float = 0.08,
-    high_coverage: float = 0.20,
+    count_scale: tuple[float, float] = (1, 40),
+    coverage_scale: tuple[float, float] = (0.01, 0.4),
+    medium_score: float = 0.3,
+    high_score: float = 0.6,
+    medium_min_count: int = 2,
+    high_min_count: int = 5,
 ) -> DensityCategory:
-    if weed_count >= high_count or coverage_fraction >= high_coverage:
+    """Buckets a scene by `density_score`, which weighs count and
+    coverage together rather than letting either decide alone: coverage
+    alone mostly measures how close the camera was (one weed shot close
+    up can fill the frame), and count alone ignores how much of the
+    field the weeds actually take up. Low below medium_score, medium
+    from medium_score, high from high_score -- except a scene needs at
+    least medium_min_count / high_min_count weeds to be rated medium /
+    high, so a single close-up plant is never "dense". No weeds at all
+    is always NONE."""
+    if weed_count == 0:
+        return DensityCategory.NONE
+    score = density_score(
+        weed_count, coverage_fraction, count_scale=count_scale, coverage_scale=coverage_scale
+    )
+    if score >= high_score and weed_count >= high_min_count:
         return DensityCategory.HIGH
-    if weed_count >= medium_count or coverage_fraction >= medium_coverage:
+    if score >= medium_score and weed_count >= medium_min_count:
         return DensityCategory.MEDIUM
-    if weed_count >= low_count or coverage_fraction >= low_coverage:
-        return DensityCategory.LOW
-    return DensityCategory.NONE
+    return DensityCategory.LOW
 
 
 def generate_density_estimation_questions(
