@@ -7,7 +7,7 @@ a question's benchmark_class.
 Two distinct situations, both handled by select_questions depending on
 whether num_classes is given:
 
-- species-id / localisation: benchmark_class is a species name drawn
+- species-id / grounded VQA: benchmark_class is a species name drawn
   from a large, open-ended pool. num_classes picks an exact-size subset
   of that pool -- species are first filtered to the ones that can
   actually supply questions_per_class questions (so a request never

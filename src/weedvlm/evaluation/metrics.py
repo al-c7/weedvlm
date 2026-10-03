@@ -24,7 +24,7 @@ import pandas as pd
 from weedvlm.evaluation.scoring import DENSITY_CATEGORIES, ScoredResponse
 
 # Suites where "which class was predicted" is meaningful enough for F1.
-# (Open-ended answers are free text; localisation's answer is a box
+# (Open-ended answers are free text; grounded VQA's answer is a box
 # number, not a class.)
 _F1_SUITES = ("species_id/multiple_choice", "fine_grained", "density")
 

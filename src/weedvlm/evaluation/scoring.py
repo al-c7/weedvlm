@@ -95,7 +95,7 @@ def _is_unsure(text: str) -> bool:
 
 
 def _label(answer: Any) -> str:
-    """A localisation label: 2, 2.0, "2", "Box 2" and "#2" all mean "2"."""
+    """A grounded-VQA label: 2, 2.0, "2", "Box 2" and "#2" all mean "2"."""
     if isinstance(answer, int | float) and not isinstance(answer, bool):
         return str(int(answer)) if float(answer).is_integer() else str(answer)
     text = _light(answer)
@@ -154,9 +154,9 @@ def suite_name(task: str, question: QuestionBase) -> str:
             return f"species_id/open_ended/{condition}"
         case DensityEstimationQuestion():
             return f"density/{condition}"
-    if question.question_type == QuestionType.SPECIES_LOCALISATION:
-        # The crop baseline is rendered to *_loc_crop.jpg (pipeline.localisation).
-        return "localisation/crop_baseline" if "_loc_crop" in Path(question.image_path).name else "localisation/weed"
+    if question.question_type == QuestionType.GROUNDED_VQA:
+        # The crop baseline is rendered to *_gvqa_crop.jpg (pipeline.grounded_vqa).
+        return "grounded_vqa/crop_baseline" if "_gvqa_crop" in Path(question.image_path).name else "grounded_vqa/weed"
     if question.question_type == QuestionType.FINE_GRAINED_ID:
         return "fine_grained"
     return f"species_id/multiple_choice/{condition}"
@@ -205,13 +205,13 @@ def _chance(question: QuestionBase) -> float | None:
 
 def _score_choice(question: MultipleChoiceQuestion, answer: Any) -> tuple[str, str | None]:
     """(outcome, matched option) for a multiple-choice answer."""
-    localisation = question.question_type == QuestionType.SPECIES_LOCALISATION
-    given = _label(answer) if localisation else _light(answer)
-    options = {(_label(c) if localisation else _light(c)): c for c in question.choices}
+    grounded_vqa = question.question_type == QuestionType.GROUNDED_VQA
+    given = _label(answer) if grounded_vqa else _light(answer)
+    options = {(_label(c) if grounded_vqa else _light(c)): c for c in question.choices}
     if given in options:
         matched = options[given]
         return ("correct" if matched == question.choices[question.answer_index] else "incorrect"), matched
-    if not localisation and _is_unsure(given):
+    if not grounded_vqa and _is_unsure(given):
         return "unsure", None
     return "invalid", None
 
@@ -293,7 +293,7 @@ class JoinResult:
     scored: list[ScoredResponse]
     # Responses that can't be scored against the current question files:
     # the question is gone, or its image is no longer the one the model
-    # was shown (so e.g. localisation's box numbering may not match the
+    # was shown (so e.g. grounded VQA's box numbering may not match the
     # answer key).
     missing_questions: list[str]
     changed_images: list[str]

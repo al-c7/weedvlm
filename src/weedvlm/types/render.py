@@ -3,7 +3,7 @@ A pending box-annotated render: everything needed to draw one image,
 without having drawn it yet. Generators attach one of these to each
 box-annotated question (alongside the image_path it'll be written to)
 instead of rendering straight away, so only the questions that survive
-selection ever get rendered -- see `weedvlm.pipeline.render.render_all`.
+selection ever get rendered -- see `weedvlm.generation.render.render_all`.
 """
 
 from __future__ import annotations

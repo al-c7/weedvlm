@@ -21,9 +21,9 @@ from weedvlm.types.species import Role
 
 class SpeciesSelection(BaseModel):
     """Exact species selection for a task's final question list (see
-    weedvlm.pipeline.balance), for tasks whose benchmark_class is a
+    weedvlm.generation.balance), for tasks whose benchmark_class is a
     species name drawn from a large, open-ended pool (species-id,
-    localisation) -- num_species picks an exact-size subset of that
+    grounded VQA) -- num_species picks an exact-size subset of that
     pool. Species are filtered to ones that can supply
     questions_per_species questions before num_species are chosen from
     among them, and every chosen species then supplies exactly that
@@ -55,7 +55,7 @@ class SpeciesIdConfig(SpeciesSelection):
     unannotated_num_species separately sizes the unannotated set: that
     many of the selected species also get questions_per_species
     unannotated questions each (see
-    weedvlm.pipeline.species_id.select_species_id_questions). 0 for
+    weedvlm.generation.species_id.select_species_id_questions). 0 for
     none, None for every selected species that can supply them."""
 
     role: Role = "weed"
@@ -79,11 +79,11 @@ class DensityConfig(ClassBalance):
     """questions_per_class sizes the boxed set.
     unannotated_questions_per_class separately sizes the unannotated
     set, drawn from the same images as the selected boxed questions
-    (see weedvlm.pipeline.density.select_density_questions): 0 for
+    (see weedvlm.generation.density.select_density_questions): 0 for
     none, None for all of them.
 
     The rest set the density rule (see
-    weedvlm.pipeline.density.classify_density): count_scale and
+    weedvlm.generation.density.classify_density): count_scale and
     coverage_scale are the (low, high) anchors each is log-scaled
     between, medium_score/high_score the cut-offs on their averaged
     score, and medium_min_count/high_min_count the fewest weeds a scene
@@ -112,10 +112,10 @@ class DensityConfig(ClassBalance):
         return self
 
 
-class LocalisationConfig(SpeciesSelection):
+class GroundedVqaConfig(SpeciesSelection):
     """num_species/questions_per_species here apply only to the main
-    weed-localisation set -- the crop baseline is sampled separately (as
-    baseline_fraction of the crop-localisation questions) and isn't
+    grounded-weed-VQA set -- the crop baseline is sampled separately (as
+    baseline_fraction of the crop grounded-VQA questions) and isn't
     subject to either."""
 
     min_species: int = 2
@@ -132,7 +132,7 @@ class TaskToggles(BaseModel):
     species_id: bool = True
     fine_grained: bool = True
     density: bool = True
-    localisation: bool = True
+    grounded_vqa: bool = True
 
 
 class Outputs(BaseModel):
@@ -143,13 +143,13 @@ class Outputs(BaseModel):
     species_id: Path | None = None
     fine_grained: Path | None = None
     density: Path | None = None
-    localisation: Path | None = None
+    grounded_vqa: Path | None = None
 
 
 class PipelineConfig(BaseModel):
     seed: int | None = None
     # Which WeedCOCO dataset.json files to load. Default: every
-    # dataset.json under .datasets/ (see weedvlm.pipeline.load.load_images).
+    # dataset.json under .datasets/ (see weedvlm.generation.load.load_images).
     dataset_paths: list[Path] | None = None
     out_dir: Path | None = None
     rendered_images_dir: Path | None = None
@@ -165,7 +165,7 @@ class PipelineConfig(BaseModel):
     species_id: SpeciesIdConfig = Field(default_factory=SpeciesIdConfig)
     fine_grained: FineGrainedConfig = Field(default_factory=FineGrainedConfig)
     density: DensityConfig = Field(default_factory=DensityConfig)
-    localisation: LocalisationConfig = Field(default_factory=LocalisationConfig)
+    grounded_vqa: GroundedVqaConfig = Field(default_factory=GroundedVqaConfig)
 
 
 # Written into out_dir by generate-all-questions.py: the config text and

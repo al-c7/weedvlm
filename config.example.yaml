@@ -10,7 +10,7 @@
 # matching value from the config file for that one run.
 
 # Fixed RNG seed, for reproducible sampling (species-ID/open-ended
-# selection, fine-grained pair sampling, localisation baseline sampling,
+# selection, fine-grained pair sampling, grounded-VQA baseline sampling,
 # and the class-balancing limits below). Default: unseeded.
 seed: 42
 
@@ -28,7 +28,7 @@ outputs:
   species_id: questions/species-id.json
   fine_grained: questions/fine-grained.json
   density: questions/density.json
-  localisation: questions/localisation.json
+  grounded_vqa: questions/grounded-vqa.json
 
 # Where box-annotated images get rendered to. Default: 'rendered/'
 # alongside out_dir (generate-all) or the --out file (individual
@@ -48,16 +48,16 @@ tasks:
   species_id: true
   fine_grained: true
   density: true
-  localisation: true
+  grounded_vqa: true
 
 # Fraction of the selected species-ID MC questions (boxed + unannotated) to also
 # ask open-ended.
 open_ended_fraction: 0.2
 
-# Fraction of the crop-localisation questions to keep as a baseline set.
+# Fraction of the crop grounded-VQA questions to keep as a baseline set.
 baseline_fraction: 0.1
 
-# species_id and localisation select from a large, open-ended pool of
+# species_id and grounded_vqa select from a large, open-ended pool of
 # species: num_species picks an EXACT-size subset of that pool, and
 # questions_per_species then asks for EXACTLY that many questions
 # targeting *each* selected species. Total output size is therefore
@@ -151,11 +151,11 @@ density:
   # all of them.
   unannotated_questions_per_class: 25
 
-# Species localisation / set-of-marks (docs/WEED-LOCALISATION.md).
-# num_species/questions_per_species apply only to the main weed-
-# localisation set -- the crop baseline (baseline_fraction, above) is
+# Grounded weed VQA / set-of-marks (docs/GROUNDED-WEED-VQA.md).
+# num_species/questions_per_species apply only to the main grounded-
+# weed-VQA set -- the crop baseline (baseline_fraction, above) is
 # sampled separately and isn't subject to either.
-localisation:
+grounded_vqa:
   min_species: 2                   # min distinct species present to ask about
   min_total_area_fraction: 0.2    # min image fraction the union of all boxes must cover
   # A species is only asked about if its largest box covers this much

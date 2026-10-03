@@ -17,8 +17,8 @@ jobs behind whatever questions survived selection, in parallel.
   colour that's unique per label (never per species name -- the label
   is the only thing shown), so a question can refer to "box 1" /
   "box 2" and a reviewer can tell same-labelled boxes apart from
-  different-labelled ones at a glance (fine-grained ID, species
-  localisation).
+  different-labelled ones at a glance (fine-grained ID, grounded
+  weed VQA).
 """
 
 from __future__ import annotations
@@ -28,7 +28,7 @@ from pathlib import Path
 
 from PIL import Image as PILImage, ImageDraw, ImageFont
 
-from weedvlm.pipeline.parallel import parallel_map
+from weedvlm.generation.parallel import parallel_map
 from weedvlm.types.dataset import ReviewedImage
 from weedvlm.types.questions import QuestionBase
 from weedvlm.types.render import Box, RenderJob
@@ -38,9 +38,9 @@ BOX_COLOUR = (255, 0, 0)
 # One colour per label, cycled if there are more labels than colours.
 # Chosen to stay distinguishable from soil/foliage backgrounds and from
 # each other. Mirrored exactly (same order) in
-# apps/question-preview/static/app.js's LABEL_PALETTE, so a box's colour
+# apps/review/static/shared.js's LABEL_PALETTE, so a box's colour
 # in a rendered image always matches its choice's swatch in the
-# previewer -- keep the two in sync if this changes.
+# review app -- keep the two in sync if this changes.
 LABEL_PALETTE_HEX = [
     "#e6194b",  # red
     "#4363d8",  # blue
@@ -182,7 +182,7 @@ def render_all(questions: Iterable[QuestionBase], *, workers: int | None = None)
     """Renders every distinct pending render behind the given (already
     selected) questions, across `workers` processes (default: every
     CPU). Several questions can share one rendered image (e.g. every
-    species asked about in a localisation image, or an open-ended
+    species asked about in a grounded-VQA image, or an open-ended
     ablation and its MC original), so jobs are de-duplicated by output
     path. Returns the number of images rendered."""
     jobs_by_path: dict[Path, RenderJob] = {}

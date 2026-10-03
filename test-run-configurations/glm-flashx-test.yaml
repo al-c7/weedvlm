@@ -32,7 +32,7 @@ tasks:
   species_id: true
   fine_grained: true
   density: true
-  localisation: true
+  grounded_vqa: true
 
 # OpenRouter model ids. A bare id uses the defaults below; a mapping
 # overrides them for that model. extra_body is merged into the request

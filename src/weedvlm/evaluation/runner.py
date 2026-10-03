@@ -142,7 +142,7 @@ def _check_resumable(store: RunStore, fingerprints: dict[str, str]) -> None:
 def _image_unchanged_since(path: Path, iso_timestamp: str) -> bool:
     """A stored answer only stands if its image hasn't been re-rendered
     since (question ids are reused when the benchmark is regenerated, but
-    the picture, and e.g. localisation's box numbering, may differ)."""
+    the picture, and e.g. grounded VQA's box numbering, may differ)."""
     try:
         modified = datetime.fromtimestamp(path.stat().st_mtime, UTC)
     except OSError:

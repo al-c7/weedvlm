@@ -5,7 +5,7 @@ plants and ask whether they're the same species or different species.
 "Same species" pairs are drawn from species with two or more instances
 in the same image. "Different species" pairs are drawn across species,
 shortlisted as visually similar by *either* close bounding-box area or
-close mean crop colour (see `weedvlm.pipeline.colour`) -- an OR, not an
+close mean crop colour (see `weedvlm.generation.colour`) -- an OR, not an
 AND, since each signal alone is a weak, noisy stand-in for true visual
 similarity (per the task spec, a placeholder pending a proper
 appearance-based check plus manual review) and requiring both would
@@ -16,7 +16,7 @@ task spec's image-selection criteria: the two boxes' combined area and
 the larger box's area must each clear a floor
 (`min_total_area_fraction` / `min_largest_area_fraction`), and their
 area-weighted centre of mass mustn't sit too close to a corner
-(`max_centre_offset` -- see `weedvlm.pipeline.geometry.centre_offset_fraction`
+(`max_centre_offset` -- see `weedvlm.generation.geometry.centre_offset_fraction`
 for the 0=centre/1=corner scale). Defaults are deliberately loose
 (tuned to keep ~85% of raw candidate pairs on the full reviewed set) --
 tighten them if pairs come out too small or too off-centre to judge.
@@ -36,10 +36,10 @@ import random
 from collections.abc import Sequence
 from pathlib import Path
 
-from weedvlm.pipeline.colour import colour_similarity, mean_colours
-from weedvlm.pipeline.geometry import centre_of_mass, centre_offset_fraction
-from weedvlm.pipeline.parallel import parallel_map
-from weedvlm.pipeline.render import plan_numbered_boxes
+from weedvlm.generation.colour import colour_similarity, mean_colours
+from weedvlm.generation.geometry import centre_of_mass, centre_offset_fraction
+from weedvlm.generation.parallel import parallel_map
+from weedvlm.generation.render import plan_numbered_boxes
 from weedvlm.types.dataset import ReviewedImage, SpeciesAnnotation
 from weedvlm.types.questions import MultipleChoiceQuestion, QuestionSource, QuestionType
 from weedvlm.types.species import Role

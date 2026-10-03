@@ -25,13 +25,13 @@ TASK_FILES = {
     "species_id": "species-id.json",
     "fine_grained": "fine-grained.json",
     "density": "density.json",
-    "localisation": "localisation.json",
+    "grounded_vqa": "grounded-vqa.json",
 }
 
 _QUESTION_MODELS: dict[QuestionType, type[QuestionBase]] = {
     QuestionType.SPECIES_ID_MULTIPLE_CHOICE: MultipleChoiceQuestion,
     QuestionType.SPECIES_ID_OPEN_ENDED: OpenEndedQuestion,
-    QuestionType.SPECIES_LOCALISATION: MultipleChoiceQuestion,
+    QuestionType.GROUNDED_VQA: MultipleChoiceQuestion,
     QuestionType.FINE_GRAINED_ID: MultipleChoiceQuestion,
     QuestionType.DENSITY_ESTIMATION: DensityEstimationQuestion,
 }

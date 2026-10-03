@@ -21,8 +21,8 @@ from pathlib import Path
 
 import yaml
 
-from weedvlm.pipeline.config import DensityConfig, PipelineConfig
-from weedvlm.pipeline.density import classify_density, density_score
+from weedvlm.generation.config import DensityConfig, PipelineConfig
+from weedvlm.generation.density import classify_density, density_score
 from weedvlm.types.questions import (
     DensityEstimationQuestion,
     MultipleChoiceQuestion,
@@ -90,7 +90,7 @@ def _mc_prompt(question: MultipleChoiceQuestion, *, allow_unsure: bool) -> Promp
     return Prompt(SYSTEM_PROMPT, "\n".join(lines))
 
 
-def _localisation_prompt(question: MultipleChoiceQuestion) -> Prompt:
+def _grounded_vqa_prompt(question: MultipleChoiceQuestion) -> Prompt:
     lines = [
         "Each bounding box in this image is labelled with a number. Boxes with the same number "
         "contain the same species of weed; you are not told which species each number is.",
@@ -227,8 +227,8 @@ def build_prompt(question: QuestionBase, *, density_rules: str | None) -> Prompt
             return _density_prompt(question, density_rules)
         case OpenEndedQuestion():
             return _open_ended_prompt(question)
-        case MultipleChoiceQuestion() if question.question_type == QuestionType.SPECIES_LOCALISATION:
-            return _localisation_prompt(question)
+        case MultipleChoiceQuestion() if question.question_type == QuestionType.GROUNDED_VQA:
+            return _grounded_vqa_prompt(question)
         case MultipleChoiceQuestion():
             return _mc_prompt(question, allow_unsure=True)
     raise ValueError(f"No prompt for question type {question.question_type}")

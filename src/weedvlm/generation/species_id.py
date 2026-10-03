@@ -29,7 +29,7 @@ unannotated sets: num_species species for the boxed set, of which
 unannotated_num_species also get unannotated questions, so the number
 of unannotated questions is controlled independently of the boxed ones. A subset of either set's questions can
 then be turned into open-ended ablations via
-`weedvlm.pipeline.open_ended`.
+`weedvlm.generation.open_ended`.
 """
 
 from __future__ import annotations
@@ -38,8 +38,8 @@ import random
 from collections.abc import Sequence
 from pathlib import Path
 
-from weedvlm.pipeline.balance import InsufficientQuestionsError
-from weedvlm.pipeline.render import plan_species_boxes
+from weedvlm.generation.balance import InsufficientQuestionsError
+from weedvlm.generation.render import plan_species_boxes
 from weedvlm.types.dataset import ReviewedImage, SpeciesAnnotation
 from weedvlm.types.questions import MultipleChoiceQuestion, QuestionSource, QuestionType
 from weedvlm.types.species import Role

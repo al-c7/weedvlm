@@ -1,12 +1,12 @@
 """
 Generates every question type in one pass from one or more WeedCOCO
 datasets: species ID (boxed + unannotated + an open-ended ablation of
-both), fine-grained ID, density estimation, and species localisation
+both), fine-grained ID, density estimation, and grounded weed VQA
 (+ crop baseline) -- so you don't need to invoke each generate-*.py
 script separately with the same --dataset list.
 
 Each task is still written to its own file (species-id.json,
-fine-grained.json, density.json, localisation.json) inside --out-dir,
+fine-grained.json, density.json, grounded-vqa.json) inside --out-dir,
 plus a combined all-questions.json concatenating all of them, so the
 previewer can be pointed at either the whole set or a single task. All
 tasks share one rendered-images directory.
@@ -48,7 +48,7 @@ from weedvlm.generation.density import (
 from weedvlm.generation.fine_grained import generate_fine_grained_questions
 from weedvlm.generation.load import load_images
 from weedvlm.generation.render import render_all
-from weedvlm.generation.localisation import generate_species_localisation_questions
+from weedvlm.generation.grounded_vqa import generate_grounded_vqa_questions
 from weedvlm.generation.open_ended import generate_open_ended_questions
 from weedvlm.generation.species_id import (
     generate_species_id_mc_questions,
@@ -110,7 +110,7 @@ def main() -> None:
         "--baseline-fraction",
         type=float,
         default=None,
-        help="Fraction of the crop-localisation questions to keep as the baseline set",
+        help="Fraction of the crop grounded-VQA questions to keep as the baseline set",
     )
     parser.add_argument(
         "--skip-species-id", action="store_true", help="Don't generate the species-id task"
@@ -122,7 +122,7 @@ def main() -> None:
         "--skip-density", action="store_true", help="Don't generate the density task"
     )
     parser.add_argument(
-        "--skip-localisation", action="store_true", help="Don't generate the localisation task"
+        "--skip-grounded-vqa", action="store_true", help="Don't generate the grounded-vqa task"
     )
     parser.add_argument(
         "--workers",
@@ -149,7 +149,7 @@ def main() -> None:
     out_dir = out_dir.resolve()
     out_dir.mkdir(parents=True, exist_ok=True)
     # Absolute, since this directory may be read by a server running from a
-    # different working directory (e.g. the question-preview app).
+    # different working directory (e.g. the apps/review server).
     rendered_images_dir = (cfg.rendered_images_dir or out_dir / "rendered").resolve()
 
     open_ended_fraction = merged(args.open_ended_fraction, cfg.open_ended_fraction)
@@ -160,7 +160,7 @@ def main() -> None:
     run_species_id = cfg.tasks.species_id and not args.skip_species_id
     run_fine_grained = cfg.tasks.fine_grained and not args.skip_fine_grained
     run_density = cfg.tasks.density and not args.skip_density
-    run_localisation = cfg.tasks.localisation and not args.skip_localisation
+    run_grounded_vqa = cfg.tasks.grounded_vqa and not args.skip_grounded_vqa
 
     rng = random.Random(seed)
 
@@ -268,45 +268,45 @@ def main() -> None:
             f"({len(density_boxed)} boxed, {len(density_unannotated)} unannotated)"
         )
 
-    if run_localisation:
-        loc_cfg = cfg.localisation
-        localisation_weed = generate_species_localisation_questions(
+    if run_grounded_vqa:
+        gvqa_cfg = cfg.grounded_vqa
+        grounded_vqa_weed = generate_grounded_vqa_questions(
             images,
             rendered_images_dir,
             role="weed",
-            min_species=loc_cfg.min_species,
-            min_total_area_fraction=loc_cfg.min_total_area_fraction,
-            min_largest_area_fraction=loc_cfg.min_largest_area_fraction,
-            max_centre_offset=loc_cfg.max_centre_offset,
+            min_species=gvqa_cfg.min_species,
+            min_total_area_fraction=gvqa_cfg.min_total_area_fraction,
+            min_largest_area_fraction=gvqa_cfg.min_largest_area_fraction,
+            max_centre_offset=gvqa_cfg.max_centre_offset,
             rng=rng,
         )
         try:
-            localisation_weed = select_questions(
-                localisation_weed,
-                num_classes=loc_cfg.num_species,
-                questions_per_class=loc_cfg.questions_per_species,
+            grounded_vqa_weed = select_questions(
+                grounded_vqa_weed,
+                num_classes=gvqa_cfg.num_species,
+                questions_per_class=gvqa_cfg.questions_per_species,
                 rng=rng,
             )
         except InsufficientQuestionsError as e:
-            sys.exit(f"error (localisation): {e}")
-        localisation_crop = generate_species_localisation_questions(
+            sys.exit(f"error (grounded-vqa): {e}")
+        grounded_vqa_crop = generate_grounded_vqa_questions(
             images,
             rendered_images_dir,
             role="crop",
-            min_species=loc_cfg.min_species,
-            min_total_area_fraction=loc_cfg.min_total_area_fraction,
-            min_largest_area_fraction=loc_cfg.min_largest_area_fraction,
-            max_centre_offset=loc_cfg.max_centre_offset,
+            min_species=gvqa_cfg.min_species,
+            min_total_area_fraction=gvqa_cfg.min_total_area_fraction,
+            min_largest_area_fraction=gvqa_cfg.min_largest_area_fraction,
+            max_centre_offset=gvqa_cfg.max_centre_offset,
             rng=rng,
         )
-        baseline_size = round(len(localisation_crop) * baseline_fraction)
-        localisation_baseline = rng.sample(
-            localisation_crop, min(baseline_size, len(localisation_crop))
+        baseline_size = round(len(grounded_vqa_crop) * baseline_fraction)
+        grounded_vqa_baseline = rng.sample(
+            grounded_vqa_crop, min(baseline_size, len(grounded_vqa_crop))
         )
-        tasks["localisation.json"] = [*localisation_weed, *localisation_baseline]
+        tasks["grounded-vqa.json"] = [*grounded_vqa_weed, *grounded_vqa_baseline]
         print(
-            f"  localisation: {len(tasks['localisation.json'])} "
-            f"({len(localisation_weed)} weed, {len(localisation_baseline)} crop baseline)"
+            f"  grounded-vqa: {len(tasks['grounded-vqa.json'])} "
+            f"({len(grounded_vqa_weed)} weed, {len(grounded_vqa_baseline)} crop baseline)"
         )
 
     all_questions = [q for questions in tasks.values() for q in questions]

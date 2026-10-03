@@ -70,7 +70,7 @@ class RetryConfig(BaseModel):
 class EvaluationConfig(BaseModel):
     # Directory holding the generated question files (the out_dir of
     # generate-all-questions.py): species-id.json, fine-grained.json,
-    # density.json and localisation.json.
+    # density.json and grounded-vqa.json.
     questions_dir: Path = Path("questions")
     # The generation config that produced those questions. Density's
     # category rules are explained to the VLM using the thresholds from

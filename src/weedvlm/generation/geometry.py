@@ -3,7 +3,7 @@ Bounding-box geometry helpers shared across question-generation tasks:
 union area of a set of axis-aligned boxes (needed wherever overlapping
 annotations must not be double-counted, e.g. weed coverage for density
 estimation), and centre-of-mass / centre-offset, used by the
-fine-grained ID and species localisation image-selection filters to
+fine-grained ID and grounded weed VQA image-selection filters to
 keep target boxes away from image corners.
 """
 

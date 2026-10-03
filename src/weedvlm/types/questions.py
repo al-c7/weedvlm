@@ -1,6 +1,6 @@
 """
 Base types for benchmark questions. Every concrete task (multiple-choice
-species ID, species localisation/set-of-marks, growth-stage ID,
+species ID, grounded weed VQA/set-of-marks, growth-stage ID,
 fine-grained ID, density estimation, ...) builds its own question model
 on top of QuestionBase and registers a QuestionType, so that all tasks
 can eventually be rendered down to a common JSON shape.
@@ -19,7 +19,7 @@ from weedvlm.types.render import RenderJob
 class QuestionType(StrEnum):
     SPECIES_ID_MULTIPLE_CHOICE = "species_id_multiple_choice"
     SPECIES_ID_OPEN_ENDED = "species_id_open_ended"
-    SPECIES_LOCALISATION = "species_localisation"
+    GROUNDED_VQA = "grounded_vqa"
     GROWTH_STAGE_ID = "growth_stage_id"
     FINE_GRAINED_ID = "fine_grained_id"
     DENSITY_ESTIMATION = "density_estimation"
@@ -44,15 +44,15 @@ class QuestionBase(BaseModel):
     # "boxed" vs "unannotated" image-format variants that several tasks
     # evaluate separately.
     annotated: bool
-    # The class this question counts against when composing the final
-    # benchmark (apps/benchmark-builder) -- e.g. the target species name
-    # for species ID/localisation, "same_species"/"different_species" for
+    # The class this question counts against -- both when composing the
+    # benchmark and in per-class scores -- e.g. the target species name
+    # for species ID/grounded weed VQA, "same_species"/"different_species" for
     # fine-grained ID, or the density category for density estimation.
     benchmark_class: str
     # The not-yet-drawn render behind image_path, for box-annotated
     # questions (None when image_path is the plain source image).
     # Rendered only after selection, via
-    # weedvlm.pipeline.render.render_all; never serialised.
+    # weedvlm.generation.render.render_all; never serialised.
     render: SkipValidation[RenderJob | None] = Field(default=None, exclude=True, repr=False)
 
 

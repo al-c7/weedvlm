@@ -30,9 +30,9 @@ from collections.abc import Sequence
 from enum import StrEnum
 from pathlib import Path
 
-from weedvlm.pipeline.balance import select_questions
-from weedvlm.pipeline.geometry import rectangle_union_area
-from weedvlm.pipeline.render import plan_boxes
+from weedvlm.generation.balance import select_questions
+from weedvlm.generation.geometry import rectangle_union_area
+from weedvlm.generation.render import plan_boxes
 from weedvlm.types.dataset import ReviewedImage
 from weedvlm.types.questions import DensityEstimationQuestion, QuestionSource, QuestionType
 from weedvlm.types.species import Role
