@@ -42,15 +42,15 @@ from weedvlm.evaluation.prompts import (
     Prompt,
     build_prompt,
     density_rules_text,
-    load_density_config,
 )
-from weedvlm.evaluation.questions import load_questions
+from weedvlm.evaluation.questions import Benchmark, open_benchmark
 from weedvlm.evaluation.store import (
     RUN_LOG,
     ResponseError,
     ResponseRecord,
     RunStore,
     model_fingerprint,
+    open_run_store,
 )
 from weedvlm.types.questions import QuestionBase
 
@@ -73,7 +73,8 @@ class Job:
 
 @dataclass
 class RunResult:
-    run_dir: Path
+    # Where the responses are (see RunStore.location).
+    location: str
     state: str  # finished / stopped / interrupted / aborted
     per_model: dict[str, ModelProgress]
     top_errors: list[tuple[str, int]] = field(default_factory=list)
@@ -129,31 +130,20 @@ def _fingerprints(config: EvaluationConfig) -> dict[str, str]:
 
 
 def _check_resumable(store: RunStore, fingerprints: dict[str, str]) -> None:
-    previous = (store.read_run_json() or {}).get("model_fingerprints", {})
+    previous = (store.read_run_info() or {}).get("model_fingerprints", {})
     changed = [model for model, fp in fingerprints.items() if previous.get(model, fp) != fp]
     if changed:
         raise FatalRunError(
-            f"{store.run_dir} already holds answers from different request settings (or prompt "
+            f"{store.location} already holds answers from different request settings (or prompt "
             f"version) for: {', '.join(changed)}. Mixing them would make the results "
-            "incomparable -- use a new run_name, or delete that run directory."
+            "incomparable -- use a new run_name, or delete that run."
         )
 
 
-def _image_unchanged_since(path: Path, iso_timestamp: str) -> bool:
-    """A stored answer only stands if its image hasn't been re-rendered
-    since (question ids are reused when the benchmark is regenerated, but
-    the picture, and e.g. grounded VQA's box numbering, may differ)."""
-    try:
-        modified = datetime.fromtimestamp(path.stat().st_mtime, UTC)
-    except OSError:
-        return False
-    return modified <= datetime.fromisoformat(iso_timestamp)
-
-
-def _read_image(path: Path) -> tuple[str, str]:
-    """(data URL, sha256) for an image file."""
-    data = path.read_bytes()
-    mime = mimetypes.guess_type(path.name)[0] or "image/jpeg"
+def _read_image(benchmark: Benchmark, question: QuestionBase) -> tuple[str, str]:
+    """(data URL, sha256) for a question's image."""
+    data = benchmark.read_image(question)
+    mime = mimetypes.guess_type(Path(question.image_path).name)[0] or "image/jpeg"
     return f"data:{mime};base64,{base64.b64encode(data).decode()}", hashlib.sha256(data).hexdigest()
 
 
@@ -174,6 +164,7 @@ class Runner:
         config: EvaluationConfig,
         *,
         client: OpenRouterClient,
+        benchmark: Benchmark,
         store: RunStore,
         progress: Progress,
         density_rules: str | None,
@@ -181,6 +172,7 @@ class Runner:
     ):
         self.config = config
         self.client = client
+        self.benchmark = benchmark
         self.store = store
         self.progress = progress
         self.density_rules = density_rules
@@ -275,7 +267,7 @@ class Runner:
         prompt = build_prompt(question, density_rules=self.density_rules)
 
         image_path = Path(question.image_path)
-        data_url, image_sha256 = await asyncio.to_thread(_read_image, image_path)
+        data_url, image_sha256 = await asyncio.to_thread(_read_image, self.benchmark, question)
         messages = self._messages(prompt, data_url)
 
         base = {
@@ -379,9 +371,13 @@ class Runner:
                 ]
             return None, ["reply was empty" if not reply.content.strip() else "no JSON object found in the reply"]
         problems = check_fields(parsed, prompt.required_fields)
-        if "answer" in parsed and isinstance(parsed["answer"], dict | list):
-            return None, ["'answer' must be a single value, not an object or list"]
-        if any("'answer'" in problem for problem in problems):
+        field = prompt.answer_field
+        if field in parsed and parsed[field] is not None:
+            if prompt.answer_is_list and not isinstance(parsed[field], list):
+                return None, [f"'{field}' must be a list"]
+            if not prompt.answer_is_list and isinstance(parsed[field], dict | list):
+                return None, [f"'{field}' must be a single value, not an object or list"]
+        if any(f"'{field}'" in problem for problem in problems):
             return None, problems
         return parsed, problems
 
@@ -417,12 +413,13 @@ class Runner:
 
 def plan_jobs(
     config: EvaluationConfig,
-    questions: list[tuple[str, QuestionBase]],
+    benchmark: Benchmark,
     store: RunStore,
 ) -> tuple[list[Job], dict[str, ModelProgress]]:
     """Every (question, model) pair not already answered, question-major
     so that a run cut short has covered every model evenly. Also seeds
     per-model progress with what earlier sessions already finished."""
+    questions = benchmark.questions
     existing = store.load_records()
     progress = {m.id: ModelProgress(total=len(questions)) for m in config.models}
     jobs: list[Job] = []
@@ -431,36 +428,36 @@ def plan_jobs(
         for model in config.models:
             record = existing.get((model.id, question.id))
             if record is not None and record.status == "ok":
-                if _image_unchanged_since(Path(question.image_path), record.created_at):
+                if benchmark.answer_is_current(question, record):
                     progress[model.id].already_done += 1
                     continue
                 stale += 1
             jobs.append(Job(task, question, model))
     if stale:
         print(
-            f"{stale} earlier answer(s) are for images that were re-rendered since; asking again.",
+            f"{stale} earlier answer(s) are for images that have changed since; asking again.",
         )
     return jobs, progress
 
 
 async def run_evaluation(config: EvaluationConfig) -> RunResult:
     api_key = load_api_key(config.api_key_env)
-    questions = load_questions(config)
+    benchmark = open_benchmark(config)
+    questions = benchmark.questions
 
     density_rules = None
     if config.tasks.density:
-        density_rules = density_rules_text(load_density_config(config.resolved_generation_config()))
+        density_rules = density_rules_text(benchmark.density_config())
 
-    run_dir = config.output_dir / config.run_name
-    store = RunStore(run_dir)
+    store = open_run_store(config)
     _setup_logging(store.path(RUN_LOG))
 
     fingerprints = _fingerprints(config)
     _check_resumable(store, fingerprints)
-    jobs, per_model = plan_jobs(config, questions, store)
+    jobs, per_model = plan_jobs(config, benchmark, store)
 
-    previous = store.read_run_json() or {}
-    store.write_run_json(
+    previous = store.read_run_info() or {}
+    store.write_run_info(
         {
             "run_name": config.run_name,
             "prompt_version": PROMPT_VERSION,
@@ -475,15 +472,17 @@ async def run_evaluation(config: EvaluationConfig) -> RunResult:
     print(
         f"Run '{config.run_name}': {len(questions)} questions x {len(config.models)} model(s) = "
         f"{total_pairs} requests, {already} already answered, {len(jobs)} to go "
-        f"(concurrency {config.concurrency}). Results: {run_dir}/",
+        f"(concurrency {config.concurrency}). Results: {store.location}",
         flush=True,
     )
     order = [(m.id, q.id) for _, q in questions for m in config.models]
 
     if not jobs:
         count = store.write_consolidated(order)
-        print(f"Nothing to do; {count} responses in {store.path('responses.json')}")
-        return RunResult(run_dir, "finished", per_model)
+        store.close()
+        benchmark.close()
+        print(f"Nothing to do; {count} responses in {store.location}")
+        return RunResult(store.location, "finished", per_model)
 
     stop = asyncio.Event()
     progress = Progress(per_model, write_snapshot=store.write_progress)
@@ -493,6 +492,7 @@ async def run_evaluation(config: EvaluationConfig) -> RunResult:
     runner = Runner(
         config,
         client=client,
+        benchmark=benchmark,
         store=store,
         progress=progress,
         density_rules=density_rules,
@@ -528,7 +528,6 @@ async def run_evaluation(config: EvaluationConfig) -> RunResult:
         reporter.cancel()
         loop.remove_signal_handler(signal.SIGINT)
         await client.aclose()
-        store.close()
         if runner.fatal_message:
             state = "aborted"
         elif interrupted:
@@ -537,10 +536,12 @@ async def run_evaluation(config: EvaluationConfig) -> RunResult:
             state = "stopped"
         progress.finish(state)
         count = store.write_consolidated(order)
+        store.close()
+        benchmark.close()
         log.info("run %s: %d responses consolidated", state, count)
 
     return RunResult(
-        run_dir,
+        store.location,
         state,
         per_model,
         top_errors=runner.error_counts.most_common(5),

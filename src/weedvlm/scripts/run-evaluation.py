@@ -6,10 +6,13 @@ how failures are retried are all set in a YAML config (see
 evaluation.example.yaml at the repo root). Every (question, model) pair is
 sent the question's image plus a prompt asking for a JSON reply -- an
 `answer` (an option verbatim, or a species) and a two-sentence `reasoning`
--- and each response is stored, keyed by question id, under
-<output_dir>/<run_name>/ (responses.jsonl as it goes, responses.json when
-done). The terminal shows live progress; progress.json holds the same for
-anything else that wants to watch.
+-- and each response is stored, keyed by question id, as it arrives. Where
+depends on the config's `storage.format`: "json" (the default) reads the
+question files and writes <output_dir>/<run_name>/ (responses.jsonl as it
+goes, responses.json when done); "sqlite" reads the questions from, and
+writes the responses to, a benchmark database (docs/DATABASE.md). The
+terminal shows live progress; progress.json holds the same for anything
+else that wants to watch.
 
 Re-running with the same run_name resumes: answered questions are
 skipped, failed or unfinished ones are asked again. Ctrl-C stops cleanly
@@ -20,6 +23,7 @@ The API key is read from OPENROUTER_API_KEY (environment or .env).
 Usage:
     uv run src/weedvlm/run-evaluation.py --config evaluation.example.yaml
     uv run src/weedvlm/run-evaluation.py --run-name gpt-first-look --max-questions-per-task 5
+    uv run src/weedvlm/run-evaluation.py --config expensive-model.yaml --benchmark-fraction 1/4
 
 Exit status: 0 if every request succeeded, 1 if any failed or were left
 unfinished, 2 for a configuration problem, 130 if interrupted.
@@ -41,7 +45,7 @@ from weedvlm.evaluation.runner import FatalRunError, RunResult, run_evaluation
 
 
 def _print_summary(result: RunResult) -> None:
-    print(f"\nRun {result.state}. Results in {result.run_dir}/")
+    print(f"\nRun {result.state}. Results in {result.location}")
     for model, m in result.per_model.items():
         pending = m.total - m.answered - m.failed
         print(
@@ -79,6 +83,12 @@ def main() -> int:
         help=f"Overrides the config's concurrency (1-{MAX_CONCURRENCY})",
     )
     parser.add_argument(
+        "--benchmark-fraction",
+        default=None,
+        help="Overrides the config's benchmark_fraction: run an evenly sampled share of the "
+        "benchmark, e.g. 0.5 or 1/3",
+    )
+    parser.add_argument(
         "--max-questions-per-task",
         type=int,
         default=None,
@@ -91,6 +101,7 @@ def main() -> int:
         overrides = {
             "run_name": args.run_name,
             "concurrency": args.concurrency,
+            "benchmark_fraction": args.benchmark_fraction,
             "max_questions_per_task": args.max_questions_per_task,
         }
         overrides = {k: v for k, v in overrides.items() if v is not None}

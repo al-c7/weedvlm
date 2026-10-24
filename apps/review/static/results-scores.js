@@ -1,6 +1,7 @@
 import { h, money, num, pct, seconds } from "./shared.js";
+import { ABLATION, ablationRow, hasAblation, renderAblation } from "./results-ablation.js";
 
-const OUTCOMES = ["correct", "incorrect", "unsure", "invalid", "failed", "unscored"];
+const OUTCOMES = ["correct", "incorrect", "unsure", "invalid", "scored", "failed", "unscored"];
 
 /** Per-model totals, computed from the responses so they work for unscored runs too. */
 function modelTotals(responses) {
@@ -90,6 +91,7 @@ function overviewTable(ctx) {
 /** A thin single-hue bar, with a tick where random guessing would land. */
 function accuracyCell(suite, countFailures, onclick) {
   if (!suite) return h("td", { class: "muted" }, "--");
+  if (suite.localisation) return localisationCell(suite, countFailures, onclick);
   const value = countFailures ? suite.accuracy_all : suite.accuracy;
   const ci = suite.accuracy_ci95;
   const detail = `${suite.n_answered}/${suite.n_total} answered` +
@@ -115,8 +117,36 @@ function accuracyCell(suite, countFailures, onclick) {
   );
 }
 
+/** Localisation has no accuracy: the bar is its mean localisation score (0-1). */
+function localisationCell(suite, countFailures, onclick) {
+  const loc = suite.localisation;
+  const value = countFailures ? loc.mean_score_all : loc.mean_score;
+  const detail = `${suite.n_answered}/${suite.n_total} answered` +
+    (suite.n_failed ? ` · ${suite.n_failed} failed` : "") +
+    (loc.n_invalid ? ` · ${loc.n_invalid} unreadable` : "");
+  return h(
+    "td",
+    { class: "acc-cell", onclick },
+    h(
+      "div",
+      { class: "acc" },
+      h(
+        "div",
+        { class: "acc-bar", title: "mean localisation score" },
+        h("i", { style: `width:${(value ?? 0) * 100}%` }),
+      ),
+      h("span", { class: "acc-value" }, `${num(value)} score`),
+    ),
+    h("div", { class: "muted small" }, detail),
+  );
+}
+
 function suiteMatrix(ctx, state, models) {
   const suites = [...new Set(models.flatMap(([, m]) => Object.keys(m.suites)))].sort();
+  const select = (suite) => {
+    state.suite = suite;
+    ctx.rerender();
+  };
   return h(
     "table",
     { class: "data matrix" },
@@ -134,13 +164,11 @@ function suiteMatrix(ctx, state, models) {
           { class: state.suite === suite ? "selected" : "" },
           h("th", { scope: "row" }, suite),
           ...models.map(([, m]) =>
-            accuracyCell(m.suites[suite], state.countFailures, () => {
-              state.suite = suite;
-              ctx.rerender();
-            })
+            accuracyCell(m.suites[suite], state.countFailures, () => select(suite))
           ),
         )
       ),
+      hasAblation(models) ? ablationRow(state, models, () => select(ABLATION)) : null,
     ),
   );
 }
@@ -152,7 +180,9 @@ function breakdownTable(models, suiteName, field, label) {
   }
   const accuracy = (m, key) => m.suites[suiteName]?.[field]?.[key];
   // Weakest first, so the classes worth looking at are at the top.
-  const worst = (key) => Math.min(...models.map(([, m]) => accuracy(m, key)?.accuracy ?? Infinity));
+  // Localisation suites break down by mean score instead of accuracy.
+  const value = (a) => a?.accuracy ?? a?.mean_score;
+  const worst = (key) => Math.min(...models.map(([, m]) => value(accuracy(m, key)) ?? Infinity));
   const rows = [...groups].sort((a, b) => worst(a) - worst(b) || a.localeCompare(b));
   return h(
     "table",
@@ -175,7 +205,7 @@ function breakdownTable(models, suiteName, field, label) {
             return h(
               "td",
               { class: "r" },
-              a ? `${pct(a.accuracy, 0)} ` : "--",
+              a ? `${a.accuracy !== undefined ? pct(a.accuracy, 0) : num(a.mean_score)} ` : "--",
               a ? h("span", { class: "muted small" }, `n=${a.n}`) : null,
             );
           }),
@@ -291,18 +321,13 @@ function densityBlock(models, suiteName) {
   );
 }
 
-function mcVsOpenEnded(models) {
-  const rows = [];
-  for (const [name, m] of models) {
-    for (const [condition, v] of Object.entries(m.species_id_multiple_choice_vs_open_ended ?? {})) {
-      rows.push({ name, condition, ...v });
-    }
-  }
-  if (rows.length === 0) return null;
+function localisationBlock(models, suiteName) {
+  const withLocalisation = models.filter(([, m]) => m.suites[suiteName]?.localisation);
+  if (withLocalisation.length === 0) return null;
   return h(
     "div",
     {},
-    h("h3", {}, "Species ID: multiple choice vs open-ended"),
+    h("h4", {}, "Localisation"),
     h(
       "table",
       { class: "data" },
@@ -313,28 +338,48 @@ function mcVsOpenEnded(models) {
           "tr",
           {},
           h("th", {}, "Model"),
-          h("th", {}, "Images"),
-          h("th", { class: "r" }, "Pairs"),
-          h("th", { class: "r" }, "Multiple choice"),
-          h("th", { class: "r" }, "Open-ended"),
-          h("th", { class: "r" }, "Gap"),
+          h(
+            "th",
+            {
+              class: "r",
+              title: "Summed IoU of paired boxes / the larger of the true and predicted box counts",
+            },
+            "Localisation score",
+          ),
+          h("th", { class: "r" }, "Median score"),
+          h(
+            "th",
+            { class: "r", title: "Mean IoU of the boxes that were paired with a plant" },
+            "Paired-box IoU",
+          ),
+          h("th", { class: "r" }, "Count exact"),
+          h("th", { class: "r" }, "Count MAE"),
+          h("th", { class: "r" }, "Count bias"),
+          h(
+            "th",
+            { class: "r", title: "Boxes that couldn't be interpreted; scored 0" },
+            "Unreadable",
+          ),
         ),
       ),
       h(
         "tbody",
         {},
-        rows.map((r) =>
-          h(
+        withLocalisation.map(([name, m]) => {
+          const loc = m.suites[suiteName].localisation;
+          return h(
             "tr",
             {},
-            h("td", {}, r.name),
-            h("td", {}, r.condition),
-            h("td", { class: "r" }, r.n_pairs),
-            h("td", { class: "r" }, pct(r.multiple_choice_accuracy)),
-            h("td", { class: "r" }, pct(r.open_ended_accuracy)),
-            h("td", { class: "r" }, pct(r.multiple_choice_accuracy - r.open_ended_accuracy)),
-          )
-        ),
+            h("td", {}, name),
+            h("td", { class: "r" }, num(loc.mean_score)),
+            h("td", { class: "r" }, num(loc.median_score)),
+            h("td", { class: "r" }, num(loc.mean_matched_iou)),
+            h("td", { class: "r" }, pct(loc.count_exact_rate)),
+            h("td", { class: "r" }, num(loc.count_mean_abs_error)),
+            h("td", { class: "r" }, num(loc.count_mean_signed_error)),
+            h("td", { class: "r" }, loc.n_invalid),
+          );
+        }),
       ),
     ),
   );
@@ -381,12 +426,16 @@ export function renderScores(container, ctx, state) {
       "p",
       { class: "muted small" },
       "Bars show accuracy over answered questions; the tick marks random-guess accuracy. " +
+        "Localisation shows its mean localisation score instead. " +
+        "The last row pairs each open-ended ablation with its multiple-choice original. " +
         "Click a row to break it down.",
     ),
     suiteMatrix(ctx, state, models),
   );
 
-  if (state.suite && models.some(([, m]) => m.suites[state.suite])) {
+  if (state.suite === ABLATION && hasAblation(models)) {
+    container.append(renderAblation(ctx, state, models));
+  } else if (state.suite && models.some(([, m]) => m.suites[state.suite])) {
     container.append(
       h(
         "div",
@@ -405,11 +454,11 @@ export function renderScores(container, ctx, state) {
         ),
       ),
       densityBlock(models, state.suite),
+      localisationBlock(models, state.suite),
       h("h4", {}, "By class"),
       breakdownTable(models, state.suite, "by_class", "Class"),
       h("h4", {}, "By dataset"),
       breakdownTable(models, state.suite, "by_dataset", "Dataset"),
     );
   }
-  container.append(mcVsOpenEnded(models));
 }

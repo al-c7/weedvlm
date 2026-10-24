@@ -8,13 +8,16 @@ See evaluation.example.yaml at the repo root for an annotated example.
 
 from __future__ import annotations
 
+from fractions import Fraction
 from pathlib import Path
 from typing import Any
 
 import yaml
 from pydantic import BaseModel, Field, field_validator, model_validator
 
+from weedvlm.evaluation.bboxes import parse_bbox_format
 from weedvlm.generation.config import TaskToggles
+from weedvlm.storage.config import StorageConfig
 
 # Hard ceiling on concurrent requests. OpenRouter rate-limits per key and
 # per upstream provider, and every request carries a multi-megabyte
@@ -39,6 +42,18 @@ class ModelConfig(BaseModel):
     temperature: float | None = None
     max_tokens: int | None = None
     extra_body: dict[str, Any] = Field(default_factory=dict)
+    # Localisation only: the box format this model answers in, as
+    # "<order>_<scale>" (e.g. yxyx_1000, xyxy_pixel; see
+    # weedvlm.evaluation.bboxes.parse_bbox_format). Used when scoring in
+    # place of the `response_format` the model gives with each answer.
+    bbox_format: str | None = None
+
+    @field_validator("bbox_format")
+    @classmethod
+    def _check_bbox_format(cls, value: str | None) -> str | None:
+        if value is not None:
+            parse_bbox_format(value)
+        return value
 
 
 class RequestDefaults(BaseModel):
@@ -70,13 +85,19 @@ class RetryConfig(BaseModel):
 class EvaluationConfig(BaseModel):
     # Directory holding the generated question files (the out_dir of
     # generate-all-questions.py): species-id.json, fine-grained.json,
-    # density.json and grounded-vqa.json.
+    # density.json, grounded-vqa.json and localisation.json.
     questions_dir: Path = Path("questions")
     # The generation config that produced those questions. Density's
     # category rules are explained to the VLM using the thresholds from
     # here, so the prompt always matches how the ground truth was
     # labelled. Default: generation-config.yaml inside questions_dir.
     generation_config: Path | None = None
+
+    # Whether the questions are read from, and the results written to,
+    # JSON files or a SQLite database (docs/DATABASE.md). With sqlite the
+    # database (default: benchmark.db inside questions_dir) holds both;
+    # <output_dir>/<run_name>/ then only gets run.log and progress.json.
+    storage: StorageConfig = Field(default_factory=StorageConfig)
 
     # Results go to <output_dir>/<run_name>/. Re-running with the same
     # run_name resumes: questions already answered (status "ok") are
@@ -94,6 +115,16 @@ class EvaluationConfig(BaseModel):
     base_url: str = "https://openrouter.ai/api/v1"
     api_key_env: str = "OPENROUTER_API_KEY"
 
+    # Evaluate only this share of the benchmark, for models too expensive
+    # to run in full: a number (0.25) or a fraction ("1/3"). The subset is
+    # stratified -- the same share of every task's every (question type,
+    # image format, benchmark class) group, at least one question each --
+    # and an open-ended ablation is only kept along with the
+    # multiple-choice question it ablates. Seeded by `seed`, and nested: a
+    # larger fraction's subset contains a smaller one's, so a run can be
+    # extended by raising this and resuming.
+    benchmark_fraction: float = Field(default=1.0, gt=0, le=1)
+
     # Smoke-test aid, not a benchmark-sizing knob: evaluate only a seeded
     # random subset of this many questions from each enabled task.
     max_questions_per_task: int | None = Field(default=None, ge=1)
@@ -109,6 +140,16 @@ class EvaluationConfig(BaseModel):
             return value
         return [{"id": item} if isinstance(item, str) else item for item in value]
 
+    @field_validator("benchmark_fraction", mode="before")
+    @classmethod
+    def _parse_fraction(cls, value: Any) -> Any:
+        if isinstance(value, str):
+            try:
+                return float(Fraction(value.replace(" ", "")))
+            except (ValueError, ZeroDivisionError):
+                raise ValueError(f"not a number or fraction like 1/3: {value!r}") from None
+        return value
+
     @model_validator(mode="after")
     def _check(self) -> EvaluationConfig:
         if not self.models:
@@ -122,6 +163,9 @@ class EvaluationConfig(BaseModel):
 
     def resolved_generation_config(self) -> Path:
         return self.generation_config or self.questions_dir / "generation-config.yaml"
+
+    def resolved_database(self) -> Path:
+        return self.storage.resolved_database(self.questions_dir)
 
     def temperature_for(self, model: ModelConfig) -> float:
         return self.defaults.temperature if model.temperature is None else model.temperature

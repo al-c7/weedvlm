@@ -25,7 +25,14 @@ const SCORES_JSON = "scores.json";
 const SCORED_CSV = "scored-responses.csv";
 const RUN_FILES = [RESPONSES_JSONL, "run.json", "progress.json", SCORES_JSON, SCORED_CSV];
 
-const OUTCOMES: readonly Outcome[] = ["correct", "incorrect", "unsure", "invalid", "failed"];
+const OUTCOMES: readonly Outcome[] = [
+  "correct",
+  "incorrect",
+  "unsure",
+  "invalid",
+  "scored",
+  "failed",
+];
 
 export interface ProblemGroup {
   model: string;
@@ -97,6 +104,16 @@ function numberOrNull(value: string | undefined): number | null {
   return Number.isFinite(n) ? n : null;
 }
 
+function boxesOrNull(value: string | undefined): number[][] | null {
+  if (!value) return null;
+  try {
+    const boxes = JSON.parse(value);
+    return Array.isArray(boxes) ? boxes : null;
+  } catch {
+    return null;
+  }
+}
+
 async function readScoredRows(path: string): Promise<Map<string, ScoredRow>> {
   const rows = new Map<string, ScoredRow>();
   let text: string;
@@ -116,16 +133,26 @@ async function readScoredRows(path: string): Promise<Map<string, ScoredRow>> {
       dataset: raw.dataset,
       benchmark_class: raw.benchmark_class,
       annotated: raw.annotated === "True",
+      ablation_of: raw.ablation_of || null,
       status: raw.status as ResponseStatus,
       outcome,
       expected: raw.expected,
       answer: raw.answer === "" ? null : raw.answer,
+      localisation_score: numberOrNull(raw.localisation_score),
+      pred_boxes: boxesOrNull(raw.pred_boxes),
       cost_usd: numberOrNull(raw.cost_usd),
       latency_seconds: numberOrNull(raw.latency_seconds),
       attempts: numberOrNull(raw.attempts),
     });
   }
   return rows;
+}
+
+/** The answer as text, before scoring: localisation answers with `bboxes`, not `answer`. */
+function rawAnswer(parsed: Record<string, unknown> | null | undefined): string | null {
+  if (parsed?.answer !== undefined) return String(parsed.answer);
+  if (parsed?.bboxes !== undefined) return JSON.stringify(parsed.bboxes);
+  return null;
 }
 
 function summarise(record: ResponseRecord | undefined, scored: ScoredRow | undefined) {
@@ -143,11 +170,14 @@ function summarise(record: ResponseRecord | undefined, scored: ScoredRow | undef
     dataset: record?.dataset_name ?? scored?.dataset ?? "",
     benchmark_class: base.benchmark_class,
     annotated: base.annotated,
+    // A property of the question, so it holds even where the score is stale.
+    ablation_of: scored?.ablation_of ?? null,
     status: base.status,
     outcome,
     expected: current?.expected ?? null,
-    answer: current?.answer ??
-      (record?.parsed?.answer !== undefined ? String(record.parsed.answer) : null),
+    answer: current?.answer ?? rawAnswer(record?.parsed),
+    localisation_score: current?.localisation_score ?? null,
+    pred_boxes: current?.pred_boxes ?? null,
     error_kind: record?.error?.kind ?? null,
     error_message: record?.error?.message ?? null,
     attempts: record?.attempts ?? scored?.attempts ?? 1,

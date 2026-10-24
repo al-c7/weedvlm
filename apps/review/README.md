@@ -86,7 +86,10 @@ show as `unscored` rather than with a stale outcome.
 - **Scores**: outcome counts per model, accuracy per suite and model (bar = accuracy over answered
   questions, tick = random-guess accuracy; tick "Count failed responses as wrong" to include
   failures), and a per-class / per-dataset breakdown for the suite you click. Density suites add the
-  count/coverage errors and confusion matrices.
+  count/coverage errors and confusion matrices. Localisation suites have no accuracy: they show the
+  mean localisation score, paired-box IoU and box-count errors instead. The last row is the species
+  ID ablation: click it to see, for every multiple-choice question that was also asked open-ended,
+  the model's answer both ways, filterable by which of the two it got right.
 - **Responses**: every response, filterable by model, suite, dataset, outcome and text. **Wrong
   answers** shows incorrect, invalid and unsure ones. Open one to see the image, the question with
   the expected and given answers marked, the model's reasoning, and the raw reply and request

@@ -33,6 +33,7 @@ tasks:
   fine_grained: true
   density: true
   grounded_vqa: true
+  localisation: true
 
 # OpenRouter model ids. A bare id uses the defaults below; a mapping
 # overrides them for that model. extra_body is merged into the request

@@ -5,3 +5,4 @@
 __pycache__/
 questions/
 results/
+notebooks/weedvlm_scored_responses.parquet

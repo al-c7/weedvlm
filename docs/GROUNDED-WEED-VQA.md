@@ -26,10 +26,6 @@ The primary metric used to evaluate the grounded weed VQA task
 questions will be accuracy. Random guessing should yield and overall accuracy
 of reciprocal of the average number of weeds in an image.
 
-To provide a structured baseline to this task, the VLM will be asked a small
-set of additional questions that ask it to localise a particular crop species in
-an image.
-
 ## Provided meta data
 
 Where available from the original dataset, additional meta data will be

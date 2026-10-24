@@ -1,6 +1,6 @@
 """
-Grounded weed VQA: an image with every instance of every species (of
-the given role) present numbered by bounding box -- each species gets
+Grounded weed VQA: an image with every instance of every weed species
+present numbered by bounding box -- each species gets
 its own number, shared by all of its boxes in that image, but the VLM
 is never told which number corresponds to which species. For each
 species present, ask which number contains it; the VLM answers with a
@@ -12,12 +12,6 @@ image is reused across every qualifying target species. Species below
 that floor are still numbered -- they're real plants in the picture,
 and leaving them unboxed would be misleading -- but are only ever
 distractor options, never a target.
-
-Called once with role="weed" for the main task, and once with
-role="crop" for the baseline task described in the spec (a small set
-of easier questions -- crop species are typically fewer and more
-visually distinct -- used as a sanity check on the grounded-VQA format
-itself, independent of weed-identification difficulty).
 
 An image also has to clear the task spec's image-selection criteria to
 be used at all: the union of every labelled box's area must clear
@@ -39,15 +33,13 @@ from weedvlm.generation.geometry import centre_of_mass, centre_offset_fraction, 
 from weedvlm.generation.render import plan_numbered_boxes
 from weedvlm.types.dataset import ReviewedImage, SpeciesAnnotation
 from weedvlm.types.questions import MultipleChoiceQuestion, QuestionSource, QuestionType
-from weedvlm.types.species import Role
 
 
-def _group_by_species(
-    image: ReviewedImage, role: Role
-) -> dict[str, list[SpeciesAnnotation]]:
+def _group_by_species(image: ReviewedImage) -> dict[str, list[SpeciesAnnotation]]:
+    """The image's weed annotations, by species name."""
     grouped: dict[str, list[SpeciesAnnotation]] = {}
     for annotation in image.species_annotations:
-        if annotation.species.role == role:
+        if annotation.species.role == "weed":
             grouped.setdefault(annotation.species.name, []).append(annotation)
     return grouped
 
@@ -87,7 +79,6 @@ def generate_grounded_vqa_questions(
     images: Sequence[ReviewedImage],
     rendered_images_dir: Path,
     *,
-    role: Role = "weed",
     min_species: int = 2,
     min_total_area_fraction: float = 0.01,
     min_largest_area_fraction: float = 0.003,
@@ -98,7 +89,7 @@ def generate_grounded_vqa_questions(
 
     questions = []
     for image in images:
-        grouped = _group_by_species(image, role)
+        grouped = _group_by_species(image)
         if len(grouped) < min_species or image.width * image.height == 0:
             continue
 
@@ -117,9 +108,7 @@ def generate_grounded_vqa_questions(
             for name, annotations in grouped.items()
             for annotation in annotations
         ]
-        render = plan_numbered_boxes(
-            image, labelled_boxes, rendered_images_dir, slug=f"gvqa_{role}"
-        )
+        render = plan_numbered_boxes(image, labelled_boxes, rendered_images_dir, slug="gvqa_weed")
         choices = [str(i + 1) for i in range(len(species_names))]
 
         for name, annotations in grouped.items():
@@ -134,7 +123,7 @@ def generate_grounded_vqa_questions(
                     ),
                     question_type=QuestionType.GROUNDED_VQA,
                     question_text=(
-                        f"Which numbered bounding box contains the {role} '{display_name}'?"
+                        f"Which numbered bounding box contains the weed '{display_name}'?"
                     ),
                     image_path=render.out_path,
                     render=render,

@@ -1,4 +1,6 @@
 import {
+  boxOverlay,
+  cornerBoxes,
   getJson,
   h,
   isLabelChoices,
@@ -10,7 +12,7 @@ import {
   when,
 } from "./shared.js";
 
-const OUTCOMES = ["correct", "incorrect", "unsure", "invalid", "failed", "unscored"];
+const OUTCOMES = ["correct", "incorrect", "unsure", "invalid", "scored", "failed", "unscored"];
 const WRONG = ["incorrect", "invalid", "unsure"];
 const PAGE_SIZE = 100;
 
@@ -35,6 +37,8 @@ export function createResponsesView(ctx) {
     text: "",
     // {kind, message}: only responses that failed with exactly this error
     error: null,
+    // a multiple-choice question id: only it and its open-ended ablation
+    pair: null,
     shown: PAGE_SIZE,
     detail: -1,
   };
@@ -48,6 +52,7 @@ export function createResponsesView(ctx) {
     state.outcomes = new Set(filters.outcomes ?? []);
     state.text = filters.text ?? "";
     state.error = filters.error ?? null;
+    state.pair = filters.pair ?? null;
     state.shown = PAGE_SIZE;
     state.detail = -1;
   }
@@ -57,6 +62,7 @@ export function createResponsesView(ctx) {
     (!state.suite || r.suite === state.suite) &&
     (!state.dataset || r.dataset === state.dataset) &&
     (skipOutcome || state.outcomes.size === 0 || state.outcomes.has(r.outcome)) &&
+    (!state.pair || r.question_id === state.pair || r.ablation_of === state.pair) &&
     (!state.error ||
       (r.error_kind === state.error.kind &&
         normalizeMessage(r.error_message ?? "") === state.error.message)) &&
@@ -168,6 +174,21 @@ export function createResponsesView(ctx) {
               onclick: () => update(() => (state.error = null)),
             },
             `error: [${state.error.kind}] ${truncate(state.error.message, 100)} ✕`,
+          ),
+        )
+        : null,
+      state.pair
+        ? h(
+          "div",
+          { class: "filter-row" },
+          h(
+            "button",
+            {
+              class: "chip active",
+              title: "Clear",
+              onclick: () => update(() => (state.pair = null)),
+            },
+            `multiple choice + open-ended: ${truncate(state.pair, 100)} ✕`,
           ),
         )
         : null,
@@ -312,7 +333,33 @@ export function createResponsesView(ctx) {
             h("p", { class: "muted" }, "Image file is missing on disk (regenerated or moved?)."),
           ),
       );
-      media.append(img);
+      if (Array.isArray(question?.boxes)) {
+        // Localisation: the ground truth and the model's boxes, over the image.
+        media.append(
+          h(
+            "div",
+            { class: "image-stage" },
+            img,
+            boxOverlay(question.image_width, question.image_height, [
+              { class: "box-truth", boxes: cornerBoxes(question.boxes) },
+              { class: "box-predicted", boxes: summary.pred_boxes ?? [] },
+            ]),
+          ),
+          h(
+            "p",
+            { class: "box-legend muted small" },
+            h("span", {}, h("i", {}), "ground truth"),
+            h(
+              "span",
+              {},
+              h("i", { class: "predicted" }),
+              summary.pred_boxes ? "model's boxes" : "model's boxes (shown once the run is scored)",
+            ),
+          ),
+        );
+      } else {
+        media.append(img);
+      }
     } else {
       media.append(h("p", { class: "muted" }, "No image recorded for this question."));
     }
@@ -333,6 +380,8 @@ export function createResponsesView(ctx) {
     if (question) info.append(h("p", { class: "question-text" }, question.question_text));
     if (question?.choices) info.append(choiceList(question, summary));
     info.append(answerFacts(summary, question, parsed));
+    const other = counterpart(summary);
+    if (other) info.append(counterpartBlock(summary, other));
 
     if (parsed?.reasoning) {
       info.append(
@@ -401,6 +450,54 @@ export function createResponsesView(ctx) {
     );
   }
 
+  /** The same model's answer to the other half of a multiple-choice / open-ended pair. */
+  function counterpart(summary) {
+    return ctx.responses.find((r) =>
+      r.model === summary.model &&
+      (summary.ablation_of
+        ? r.question_id === summary.ablation_of
+        : r.ablation_of === summary.question_id)
+    );
+  }
+
+  function counterpartBlock(summary, other) {
+    return h(
+      "div",
+      {},
+      h(
+        "h4",
+        {},
+        summary.ablation_of ? "Same question as multiple choice" : "Same question, open-ended",
+      ),
+      h(
+        "p",
+        {},
+        outcomeBadge(other.outcome),
+        " ",
+        other.status === "failed"
+          ? h("span", { class: "error-text" }, `[${other.error_kind ?? "error"}]`)
+          : (other.answer ?? ""),
+        " ",
+        h(
+          "button",
+          {
+            class: "link",
+            onclick: () => {
+              setFilters({
+                model: summary.model,
+                pair: summary.ablation_of ?? summary.question_id,
+              });
+              filtered = ctx.responses.filter((r) => matches(r, false));
+              state.detail = filtered.indexOf(other);
+              render(container);
+            },
+          },
+          "Open",
+        ),
+      ),
+    );
+  }
+
   function answerFacts(summary, question, parsed) {
     const dl = h("dl", { class: "facts" });
     const fact = (label, value) => {
@@ -409,6 +506,12 @@ export function createResponsesView(ctx) {
     };
     fact("Expected", summary.expected);
     fact("Model's answer", summary.answer);
+    if (question && Array.isArray(question.boxes)) {
+      fact("Localisation score", summary.localisation_score?.toFixed(2));
+      fact("Ground-truth boxes [x, y, width, height] (pixels)", JSON.stringify(question.boxes));
+      fact("Image size (pixels)", `${question.image_width} × ${question.image_height}`);
+      fact("Model's box format", parsed?.response_format);
+    }
     if (question && typeof question.true_weed_count === "number") {
       fact(
         "Weed count (true → estimated)",

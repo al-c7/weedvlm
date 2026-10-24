@@ -1,5 +1,5 @@
 """
-Scores stored responses against the ground truth in the question files.
+Scores stored responses against the benchmark's ground truth.
 
 Each response is joined to its question by id and given an `outcome`:
 
@@ -9,6 +9,11 @@ Each response is joined to its question by id and given an `outcome`:
     invalid    the answer isn't one of the options (or, for density, not a category)
     failed     no usable response was obtained (see the run's run.log)
 
+Localisation has no right or wrong answer: its responses are `scored` (on
+how many boxes were drawn and how well they overlap the ground truth, see
+weedvlm.evaluation.bboxes.score_boxes), or `invalid` if the boxes can't be
+interpreted, which counts as a score of 0.
+
 Species-ID open-ended answers are free text, so they're matched by
 normalised name (see `open_ended_correct`), with an optional alias table
 for common/scientific-name variants (docs/SPECIES-ID.md).
@@ -16,18 +21,24 @@ for common/scientific-name variants (docs/SPECIES-ID.md).
 
 from __future__ import annotations
 
-import hashlib
+import json
 import re
 from collections.abc import Mapping
-from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass
-from pathlib import Path
 from typing import Any
 
+from weedvlm.evaluation.bboxes import (
+    infer_bbox_format,
+    parse_bbox_format,
+    score_boxes,
+    to_pixel_boxes,
+)
 from weedvlm.evaluation.prompts import UNSURE_ANSWER
+from weedvlm.evaluation.questions import Benchmark
 from weedvlm.evaluation.store import ResponseRecord
 from weedvlm.types.questions import (
     DensityEstimationQuestion,
+    LocalisationQuestion,
     MultipleChoiceQuestion,
     OpenEndedQuestion,
     QuestionBase,
@@ -76,6 +87,16 @@ class ScoredResponse:
     est_coverage_pct: float | None = None
     coverage_error_pp: float | None = None
     category_rank_error: int | None = None
+    # Localisation only (see weedvlm.evaluation.bboxes.score_boxes).
+    # bbox_format is the format the model's boxes were read with.
+    true_box_count: int | None = None
+    pred_box_count: int | None = None
+    box_count_error: int | None = None
+    matched_iou: float | None = None
+    localisation_score: float | None = None
+    bbox_format: str | None = None
+    # The model's boxes as JSON [[x1, y1, x2, y2], ...] in image pixels.
+    pred_boxes: str | None = None
     cost_usd: float | None = None
     total_tokens: int | None = None
     latency_seconds: float | None = None
@@ -154,9 +175,10 @@ def suite_name(task: str, question: QuestionBase) -> str:
             return f"species_id/open_ended/{condition}"
         case DensityEstimationQuestion():
             return f"density/{condition}"
+        case LocalisationQuestion():
+            return "localisation"
     if question.question_type == QuestionType.GROUNDED_VQA:
-        # The crop baseline is rendered to *_gvqa_crop.jpg (pipeline.grounded_vqa).
-        return "grounded_vqa/crop_baseline" if "_gvqa_crop" in Path(question.image_path).name else "grounded_vqa/weed"
+        return "grounded_vqa"
     if question.question_type == QuestionType.FINE_GRAINED_ID:
         return "fine_grained"
     return f"species_id/multiple_choice/{condition}"
@@ -187,6 +209,9 @@ def _expected(question: QuestionBase) -> str:
             return question.answer_text
         case DensityEstimationQuestion():
             return question.density_category
+        case LocalisationQuestion():
+            count = len(question.boxes)
+            return f"{count} box{'' if count == 1 else 'es'}"
         case MultipleChoiceQuestion():
             return question.choices[question.answer_index]
     raise ValueError(f"Can't score {question.question_type}")
@@ -241,12 +266,41 @@ def _score_density(question: DensityEstimationQuestion, parsed: dict[str, Any]) 
     return result
 
 
+def _score_localisation(
+    question: LocalisationQuestion, parsed: dict[str, Any], bbox_format: str | None
+) -> dict[str, Any]:
+    fmt = (
+        parse_bbox_format(bbox_format)
+        if bbox_format is not None
+        else infer_bbox_format(parsed.get("response_format"))
+    )
+    try:
+        boxes, used = to_pixel_boxes(
+            parsed.get("bboxes"), fmt, question.image_width, question.image_height
+        )
+    except ValueError:
+        return {
+            "outcome": "invalid",
+            "true_box_count": len(question.boxes),
+            "localisation_score": 0.0,
+        }
+    return {
+        "outcome": "scored",
+        "bbox_format": str(used),
+        "pred_boxes": json.dumps([[round(v, 1) for v in box] for box in boxes]),
+        **score_boxes(question.boxes, boxes),
+    }
+
+
 def score_response(
     task: str,
     question: QuestionBase,
     record: ResponseRecord,
     aliases: Mapping[str, list[str]],
+    bbox_format: str | None = None,
 ) -> ScoredResponse:
+    """bbox_format, for localisation, is the model's configured box
+    format; None reads it from each reply's `response_format`."""
     fields = _base(task, question, record)
     fields |= {
         "expected": _expected(question),
@@ -256,6 +310,10 @@ def score_response(
     }
     if record.status != "ok" or record.parsed is None:
         return ScoredResponse(**fields, outcome="failed")
+
+    if isinstance(question, LocalisationQuestion):
+        fields["answer"] = json.dumps(record.parsed.get("bboxes"))
+        return ScoredResponse(**(fields | _score_localisation(question, record.parsed, bbox_format)))
 
     answer = record.parsed["answer"]
     fields["answer"] = str(answer)
@@ -281,17 +339,10 @@ def score_response(
 # -- joining a run to its questions ------------------------------------
 
 
-def _sha256(path: str) -> str | None:
-    try:
-        return hashlib.sha256(Path(path).read_bytes()).hexdigest()
-    except OSError:
-        return None
-
-
 @dataclass
 class JoinResult:
     scored: list[ScoredResponse]
-    # Responses that can't be scored against the current question files:
+    # Responses that can't be scored against the benchmark as it is now:
     # the question is gone, or its image is no longer the one the model
     # was shown (so e.g. grounded VQA's box numbering may not match the
     # answer key).
@@ -301,17 +352,13 @@ class JoinResult:
 
 def score_run(
     records: Mapping[tuple[str, str], ResponseRecord],
-    questions: list[tuple[str, QuestionBase]],
+    benchmark: Benchmark,
     aliases: Mapping[str, list[str]],
     *,
-    threads: int = 8,
+    bbox_formats: Mapping[str, str] | None = None,
 ) -> JoinResult:
-    by_id = {q.id: (task, q) for task, q in questions}
-
-    current_hash: dict[str, str | None] = {}
-    with ThreadPoolExecutor(threads) as pool:
-        paths = sorted({str(q.image_path) for _, q in questions})
-        current_hash = dict(zip(paths, pool.map(_sha256, paths), strict=True))
+    by_id = {q.id: (task, q) for task, q in benchmark.questions}
+    current_hash = benchmark.image_hashes()
 
     scored, missing, changed = [], [], []
     for (model, question_id), record in records.items():
@@ -322,5 +369,7 @@ def score_run(
         if record.image_sha256 and current_hash[str(question.image_path)] != record.image_sha256:
             changed.append(question_id)
             continue
-        scored.append(score_response(task, question, record, aliases))
+        scored.append(
+            score_response(task, question, record, aliases, (bbox_formats or {}).get(model))
+        )
     return JoinResult(scored, sorted(set(missing)), sorted(set(changed)))

@@ -1,15 +1,20 @@
 """
 Generates every question type in one pass from one or more WeedCOCO
 datasets: species ID (boxed + unannotated + an open-ended ablation of
-both), fine-grained ID, density estimation, and grounded weed VQA
-(+ crop baseline) -- so you don't need to invoke each generate-*.py
+both), fine-grained ID, density estimation, grounded weed VQA,
+and weed localisation -- so you don't need to invoke each generate-*.py
 script separately with the same --dataset list.
 
-Each task is still written to its own file (species-id.json,
-fine-grained.json, density.json, grounded-vqa.json) inside --out-dir,
+With the default storage format ("json"), each task is still written to
+its own file (species-id.json, fine-grained.json, density.json,
+grounded-vqa.json, localisation.json) inside --out-dir,
 plus a combined all-questions.json concatenating all of them, so the
 previewer can be pointed at either the whole set or a single task. All
 tasks share one rendered-images directory.
+
+With --format sqlite (or `storage.format: sqlite` in the config), the
+questions go into a SQLite database instead (default: benchmark.db inside
+--out-dir), together with the images they use -- see docs/DATABASE.md.
 
 Usage:
     python src/weedvlm/generate-all-questions.py --out-dir questions/
@@ -47,6 +52,7 @@ from weedvlm.generation.density import (
 )
 from weedvlm.generation.fine_grained import generate_fine_grained_questions
 from weedvlm.generation.load import load_images
+from weedvlm.generation.localisation import generate_localisation_questions
 from weedvlm.generation.render import render_all
 from weedvlm.generation.grounded_vqa import generate_grounded_vqa_questions
 from weedvlm.generation.open_ended import generate_open_ended_questions
@@ -55,19 +61,21 @@ from weedvlm.generation.species_id import (
     generate_species_id_unannotated_questions,
     select_species_id_questions,
 )
+from weedvlm.storage import database
+from weedvlm.types.questions import TASK_FILES
 
 
-def _write_generation_config(config_path: Path | None, path: Path) -> None:
-    """Records exactly how this output was generated -- the config
-    file's text plus the command line (whose flags override it) -- so
-    the benchmark's provenance survives later edits to the config.
-    export-benchmark-parquet.py embeds this in the Parquet export."""
+def _generation_config_text(config_path: Path | None) -> str:
+    """Exactly how this output was generated -- the config file's text
+    plus the command line (whose flags override it) -- stored with the
+    questions so the benchmark's provenance survives later edits to the
+    config."""
     header = f"# Generated {datetime.now(UTC).isoformat()} by: {shlex.join(sys.argv)}\n"
     if config_path is None:
         body = "# No config file -- built-in defaults plus the command line above.\n"
     else:
         body = f"# Config file: {config_path}\n" + config_path.read_text(encoding="utf-8")
-    path.write_text(header + body, encoding="utf-8")
+    return header + body
 
 
 def _write(questions: list, path: Path) -> None:
@@ -101,16 +109,24 @@ def main() -> None:
         "Default: config's out_dir.",
     )
     parser.add_argument(
+        "--format",
+        choices=["json", "sqlite"],
+        default=None,
+        help="Store the questions as JSON files in --out-dir, or in a SQLite database. "
+        "Default: config's storage.format.",
+    )
+    parser.add_argument(
+        "--database",
+        type=Path,
+        default=None,
+        help="The database to write with --format sqlite. Default: config's storage.database, "
+        "or benchmark.db inside --out-dir.",
+    )
+    parser.add_argument(
         "--open-ended-fraction",
         type=float,
         default=None,
         help="Fraction of the species-ID MC questions (boxed + unannotated) to also ask open-ended",
-    )
-    parser.add_argument(
-        "--baseline-fraction",
-        type=float,
-        default=None,
-        help="Fraction of the crop grounded-VQA questions to keep as the baseline set",
     )
     parser.add_argument(
         "--skip-species-id", action="store_true", help="Don't generate the species-id task"
@@ -123,6 +139,9 @@ def main() -> None:
     )
     parser.add_argument(
         "--skip-grounded-vqa", action="store_true", help="Don't generate the grounded-vqa task"
+    )
+    parser.add_argument(
+        "--skip-localisation", action="store_true", help="Don't generate the localisation task"
     )
     parser.add_argument(
         "--workers",
@@ -153,14 +172,25 @@ def main() -> None:
     rendered_images_dir = (cfg.rendered_images_dir or out_dir / "rendered").resolve()
 
     open_ended_fraction = merged(args.open_ended_fraction, cfg.open_ended_fraction)
-    baseline_fraction = merged(args.baseline_fraction, cfg.baseline_fraction)
     seed = merged(args.seed, cfg.seed)
     workers = merged(args.workers, cfg.workers)
+    storage_format = merged(args.format, cfg.storage.format)
+    database_path = args.database or cfg.storage.resolved_database(out_dir)
+    conn = None
+    if storage_format == "sqlite":
+        # Opened before any work is done, so a database that can't take a
+        # new benchmark is found out now rather than after rendering.
+        try:
+            conn = database.connect(database_path, create=True)
+            database.check_replaceable(conn)
+        except (database.BenchmarkInUseError, ValueError) as e:
+            sys.exit(f"error: {e}")
 
     run_species_id = cfg.tasks.species_id and not args.skip_species_id
     run_fine_grained = cfg.tasks.fine_grained and not args.skip_fine_grained
     run_density = cfg.tasks.density and not args.skip_density
     run_grounded_vqa = cfg.tasks.grounded_vqa and not args.skip_grounded_vqa
+    run_localisation = cfg.tasks.localisation and not args.skip_localisation
 
     rng = random.Random(seed)
 
@@ -170,6 +200,7 @@ def main() -> None:
         f"{', '.join(p.parent.name for p in source_paths)}"
     )
 
+    # Task name -> its selected questions.
     tasks: dict[str, list] = {}
 
     if run_species_id:
@@ -208,7 +239,7 @@ def main() -> None:
         species_open_ended = generate_open_ended_questions(
             species_mc, fraction=open_ended_fraction, rng=rng
         )
-        tasks["species-id.json"] = [*species_mc, *species_open_ended]
+        tasks["species_id"] = [*species_mc, *species_open_ended]
         print(
             f"  species-id:   {len(species_boxed)} boxed (of {num_boxed_available}), "
             f"{len(species_unannotated)} unannotated (of {num_unannotated_available}), "
@@ -236,7 +267,7 @@ def main() -> None:
             )
         except InsufficientQuestionsError as e:
             sys.exit(f"error (fine-grained): {e}")
-        tasks["fine-grained.json"] = fine_grained_questions
+        tasks["fine_grained"] = fine_grained_questions
         print(f"  fine-grained: {len(fine_grained_questions)}")
 
     if run_density:
@@ -262,18 +293,17 @@ def main() -> None:
             )
         except InsufficientQuestionsError as e:
             sys.exit(f"error (density): {e}")
-        tasks["density.json"] = [*density_boxed, *density_unannotated]
+        tasks["density"] = [*density_boxed, *density_unannotated]
         print(
-            f"  density:      {len(tasks['density.json'])} "
+            f"  density:      {len(tasks['density'])} "
             f"({len(density_boxed)} boxed, {len(density_unannotated)} unannotated)"
         )
 
     if run_grounded_vqa:
         gvqa_cfg = cfg.grounded_vqa
-        grounded_vqa_weed = generate_grounded_vqa_questions(
+        grounded_vqa_questions = generate_grounded_vqa_questions(
             images,
             rendered_images_dir,
-            role="weed",
             min_species=gvqa_cfg.min_species,
             min_total_area_fraction=gvqa_cfg.min_total_area_fraction,
             min_largest_area_fraction=gvqa_cfg.min_largest_area_fraction,
@@ -281,43 +311,68 @@ def main() -> None:
             rng=rng,
         )
         try:
-            grounded_vqa_weed = select_questions(
-                grounded_vqa_weed,
+            tasks["grounded_vqa"] = select_questions(
+                grounded_vqa_questions,
                 num_classes=gvqa_cfg.num_species,
                 questions_per_class=gvqa_cfg.questions_per_species,
                 rng=rng,
             )
         except InsufficientQuestionsError as e:
             sys.exit(f"error (grounded-vqa): {e}")
-        grounded_vqa_crop = generate_grounded_vqa_questions(
+        print(f"  grounded-vqa: {len(tasks['grounded_vqa'])}")
+
+    if run_localisation:
+        loc_cfg = cfg.localisation
+        localisation_questions = generate_localisation_questions(
             images,
-            rendered_images_dir,
-            role="crop",
-            min_species=gvqa_cfg.min_species,
-            min_total_area_fraction=gvqa_cfg.min_total_area_fraction,
-            min_largest_area_fraction=gvqa_cfg.min_largest_area_fraction,
-            max_centre_offset=gvqa_cfg.max_centre_offset,
-            rng=rng,
+            role=loc_cfg.role,
+            max_boxes=loc_cfg.max_boxes,
+            min_box_area_fraction=loc_cfg.min_box_area_fraction,
+            min_scene_weeds=loc_cfg.min_scene_weeds,
+            min_other_species=loc_cfg.min_other_species,
         )
-        baseline_size = round(len(grounded_vqa_crop) * baseline_fraction)
-        grounded_vqa_baseline = rng.sample(
-            grounded_vqa_crop, min(baseline_size, len(grounded_vqa_crop))
-        )
-        tasks["grounded-vqa.json"] = [*grounded_vqa_weed, *grounded_vqa_baseline]
+        num_localisation_available = len(localisation_questions)
+        try:
+            localisation_questions = select_questions(
+                localisation_questions,
+                num_classes=loc_cfg.num_species,
+                questions_per_class=loc_cfg.questions_per_species,
+                rng=rng,
+            )
+        except InsufficientQuestionsError as e:
+            sys.exit(f"error (localisation): {e}")
+        tasks["localisation"] = localisation_questions
         print(
-            f"  grounded-vqa: {len(tasks['grounded-vqa.json'])} "
-            f"({len(grounded_vqa_weed)} weed, {len(grounded_vqa_baseline)} crop baseline)"
+            f"  localisation: {len(localisation_questions)} (of {num_localisation_available})"
         )
 
     all_questions = [q for questions in tasks.values() for q in questions]
     num_rendered = render_all(all_questions, workers=workers)
     print(f"Rendered {num_rendered} box-annotated images to {rendered_images_dir}")
 
-    for filename, questions in tasks.items():
-        _write(questions, out_dir / filename)
+    generation_config = _generation_config_text(config_path)
+    if conn is not None:
+        try:
+            num_images = database.write_benchmark(
+                conn,
+                [(task, q) for task, questions in tasks.items() for q in questions],
+                generation_config=generation_config,
+                store_images=cfg.storage.store_images,
+            )
+        except (database.BenchmarkInUseError, ValueError) as e:
+            sys.exit(f"error: {e}")
+        conn.close()
+        print(
+            f"Wrote {len(all_questions)} questions and {num_images} images "
+            f"({'stored' if cfg.storage.store_images else 'by path only'}) to {database_path}"
+        )
+        return
+
+    for task, questions in tasks.items():
+        _write(questions, out_dir / TASK_FILES[task])
 
     _write(all_questions, out_dir / "all-questions.json")
-    _write_generation_config(config_path, out_dir / GENERATION_CONFIG_NAME)
+    (out_dir / GENERATION_CONFIG_NAME).write_text(generation_config, encoding="utf-8")
 
     print(f"Wrote {len(all_questions)} questions total to {out_dir}")
     print("  all-questions.json combines all of the above")

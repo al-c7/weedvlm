@@ -1,4 +1,4 @@
-import { isLabelChoices, labelSwatch, shuffled } from "./shared.js";
+import { boxOverlay, cornerBoxes, isLabelChoices, labelSwatch, shuffled } from "./shared.js";
 
 /** @type {any[]} */
 let questions = [];
@@ -110,10 +110,21 @@ function showCurrent() {
 /**
  * Renders either the multiple-choice list (species ID, fine-grained ID,
  * grounded VQA) or the ground-truth answer panel (open-ended, density
- * estimation) -- the latter only ever shown on reveal, since those tasks
+ * estimation, localisation) -- the latter only ever shown on reveal, since those tasks
  * never give the VLM a fixed set of options to pick between.
  */
 function renderAnswer(q) {
+  // Localisation's ground truth is its boxes, drawn over the image on reveal.
+  const stage = document.getElementById("qp-image").parentElement;
+  stage.querySelector(".box-overlay")?.remove();
+  if (revealed && Array.isArray(q.boxes)) {
+    stage.append(
+      boxOverlay(q.image_width, q.image_height, [
+        { class: "box-truth", boxes: cornerBoxes(q.boxes) },
+      ]),
+    );
+  }
+
   const list = document.getElementById("qp-choice-list");
   const panel = document.getElementById("qp-answer-panel");
 
@@ -153,6 +164,17 @@ function renderAnswer(q) {
 function answerFields(q) {
   if (typeof q.answer_text === "string") {
     return [["Answer", q.answer_text]];
+  }
+  if (Array.isArray(q.boxes)) {
+    return [
+      ["Target species", q.target_species],
+      ["Number of boxes", String(q.boxes.length)],
+      [
+        "Boxes [x, y, width, height] (pixels)",
+        q.boxes.map((box) => `[${box.map((v) => Math.round(v)).join(", ")}]`).join("  "),
+      ],
+      ["Image size (pixels)", `${q.image_width} × ${q.image_height}`],
+    ];
   }
   if (typeof q.true_weed_count === "number") {
     return [

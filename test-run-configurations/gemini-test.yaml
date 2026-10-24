@@ -16,6 +16,16 @@ questions_dir: questions/
 # inside questions_dir (which generate-all-questions.py writes).
 # generation_config: questions/generation-config.yaml
 
+# Where the questions are read from and the results written to.
+#   json    the question files in questions_dir, and the files described
+#           below in <output_dir>/<run_name>/. The default.
+#   sqlite  a benchmark database (docs/DATABASE.md), which holds both the
+#           questions and every run's responses. <output_dir>/<run_name>/
+#           then only gets progress.json and run.log.
+# storage:
+#   format: sqlite
+#   database: questions/benchmark.db   # default: benchmark.db in questions_dir
+
 # Results go to <output_dir>/<run_name>/ -- responses.jsonl (appended as
 # each answer lands), responses.json (everything, when the run ends),
 # progress.json (live status), run.log (retries and errors).
@@ -33,6 +43,7 @@ tasks:
   fine_grained: true
   density: true
   grounded_vqa: true
+  localisation: true
 
 # OpenRouter model ids. A bare id uses the defaults below; a mapping
 # overrides them for that model. extra_body is merged into the request

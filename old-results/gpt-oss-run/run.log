@@ -1,0 +1,41 @@
+2026-09-27 14:26:08,146 WARNING FAILED openai/gpt-oss-120b x CottonWeedDet12:1557:portulaca oleracea:species_id_multiple_choice after 1 attempt(s): [request] No endpoints found that support image input
+2026-09-27 14:26:08,220 WARNING FAILED openai/gpt-oss-120b x CottonWeedDet12:1679:portulaca oleracea:species_id_multiple_choice after 1 attempt(s): [request] No endpoints found that support image input
+2026-09-27 14:26:09,070 WARNING FAILED openai/gpt-oss-120b x CottonWeedDet12:4168:portulaca oleracea:species_id_multiple_choice after 1 attempt(s): [request] No endpoints found that support image input
+2026-09-27 14:26:09,938 WARNING FAILED openai/gpt-oss-120b x CottonWeedDet12:1522:portulaca oleracea:species_id_multiple_choice after 1 attempt(s): [request] No endpoints found that support image input
+2026-09-27 14:26:09,948 WARNING FAILED openai/gpt-oss-120b x CottonWeedDet12:1633:portulaca oleracea:species_id_multiple_choice after 1 attempt(s): [request] No endpoints found that support image input
+2026-09-27 14:26:10,274 WARNING FAILED openai/gpt-oss-120b x CottonWeedDet12:1621:portulaca oleracea:species_id_multiple_choice after 1 attempt(s): [request] No endpoints found that support image input
+2026-09-27 14:26:10,837 WARNING FAILED openai/gpt-oss-120b x CottonWeedDet12:399:portulaca oleracea:species_id_multiple_choice after 1 attempt(s): [request] No endpoints found that support image input
+2026-09-27 14:26:11,161 WARNING FAILED openai/gpt-oss-120b x CottonWeedDet12:1910:portulaca oleracea:species_id_multiple_choice after 1 attempt(s): [request] No endpoints found that support image input
+2026-09-27 14:26:11,995 WARNING FAILED openai/gpt-oss-120b x CottonWeedDet12:4785:portulaca oleracea:species_id_multiple_choice after 1 attempt(s): [request] No endpoints found that support image input
+2026-09-27 14:26:12,112 WARNING FAILED openai/gpt-oss-120b x CottonWeedDet12:1682:portulaca oleracea:species_id_multiple_choice after 1 attempt(s): [request] No endpoints found that support image input
+2026-09-27 14:26:12,684 WARNING FAILED openai/gpt-oss-120b x CottonWeedDet12:1428:portulaca oleracea:species_id_multiple_choice after 1 attempt(s): [request] No endpoints found that support image input
+2026-09-27 14:26:12,881 WARNING FAILED openai/gpt-oss-120b x CottonWeedDet12:539:portulaca oleracea:species_id_multiple_choice after 1 attempt(s): [request] No endpoints found that support image input
+2026-09-27 14:26:12,895 WARNING FAILED openai/gpt-oss-120b x CottonWeedDet12:1605:portulaca oleracea:species_id_multiple_choice after 1 attempt(s): [request] No endpoints found that support image input
+2026-09-27 14:26:13,094 WARNING FAILED openai/gpt-oss-120b x CottonWeedDet12:1610:portulaca oleracea:species_id_multiple_choice after 1 attempt(s): [request] No endpoints found that support image input
+2026-09-27 14:26:14,175 WARNING FAILED openai/gpt-oss-120b x CottonWeedDet12:1590:portulaca oleracea:species_id_multiple_choice after 1 attempt(s): [request] No endpoints found that support image input
+2026-09-27 14:26:14,178 WARNING FAILED openai/gpt-oss-120b x CottonWeedDet12:1410:portulaca oleracea:species_id_multiple_choice after 1 attempt(s): [request] No endpoints found that support image input
+2026-09-27 14:26:14,706 WARNING FAILED openai/gpt-oss-120b x CottonWeedDet12:1544:portulaca oleracea:species_id_multiple_choice after 1 attempt(s): [request] No endpoints found that support image input
+2026-09-27 14:26:15,381 WARNING FAILED openai/gpt-oss-120b x CottonWeedDet12:1569:portulaca oleracea:species_id_multiple_choice after 1 attempt(s): [request] No endpoints found that support image input
+2026-09-27 14:26:15,462 WARNING FAILED openai/gpt-oss-120b x CottonWeedDet12:1560:portulaca oleracea:species_id_multiple_choice after 1 attempt(s): [request] No endpoints found that support image input
+2026-09-27 14:26:16,093 WARNING FAILED openai/gpt-oss-120b x CottonWeedDet12:3841:portulaca oleracea:species_id_multiple_choice after 1 attempt(s): [request] No endpoints found that support image input
+2026-09-27 14:26:16,145 WARNING FAILED openai/gpt-oss-120b x CottonWeedDet12:2687:portulaca oleracea:species_id_multiple_choice after 1 attempt(s): [request] No endpoints found that support image input
+2026-09-27 14:26:16,195 WARNING FAILED openai/gpt-oss-120b x CottonWeedDet12:1505:portulaca oleracea:species_id_multiple_choice after 1 attempt(s): [request] No endpoints found that support image input
+2026-09-27 14:26:16,398 WARNING FAILED openai/gpt-oss-120b x CottonWeedDet12:1594:portulaca oleracea:species_id_multiple_choice after 1 attempt(s): [request] No endpoints found that support image input
+2026-09-27 14:26:17,237 WARNING FAILED openai/gpt-oss-120b x CottonWeedDet12:1597:portulaca oleracea:species_id_multiple_choice after 1 attempt(s): [request] No endpoints found that support image input
+2026-09-27 14:26:18,576 WARNING FAILED openai/gpt-oss-120b x CottonWeedDet12:1456:portulaca oleracea:species_id_multiple_choice after 1 attempt(s): [request] No endpoints found that support image input
+2026-09-27 14:26:18,577 ERROR openai/gpt-oss-120b failed 25 questions in a row (last: No endpoints found that support image input); skipping its remaining questions
+2026-09-27 14:26:18,973 WARNING FAILED openai/gpt-oss-120b x CottonWeedDet12:1490:portulaca oleracea:species_id_multiple_choice after 1 attempt(s): [request] No endpoints found that support image input
+2026-09-27 14:26:18,973 ERROR openai/gpt-oss-120b failed 25 questions in a row (last: No endpoints found that support image input); skipping its remaining questions
+2026-09-27 14:26:19,039 WARNING FAILED openai/gpt-oss-120b x CottonWeedDet12:1555:portulaca oleracea:species_id_multiple_choice after 1 attempt(s): [request] No endpoints found that support image input
+2026-09-27 14:26:19,039 ERROR openai/gpt-oss-120b failed 25 questions in a row (last: No endpoints found that support image input); skipping its remaining questions
+2026-09-27 14:26:19,115 WARNING FAILED openai/gpt-oss-120b x CottonWeedDet12:1622:portulaca oleracea:species_id_multiple_choice after 1 attempt(s): [request] No endpoints found that support image input
+2026-09-27 14:26:19,115 ERROR openai/gpt-oss-120b failed 25 questions in a row (last: No endpoints found that support image input); skipping its remaining questions
+2026-09-27 14:26:20,028 WARNING FAILED openai/gpt-oss-120b x CottonWeedDet12:1598:portulaca oleracea:species_id_multiple_choice after 1 attempt(s): [request] No endpoints found that support image input
+2026-09-27 14:26:20,028 ERROR openai/gpt-oss-120b failed 25 questions in a row (last: No endpoints found that support image input); skipping its remaining questions
+2026-09-27 14:26:20,428 WARNING FAILED openai/gpt-oss-120b x CottonWeedDet12:1481:portulaca oleracea:species_id_multiple_choice after 1 attempt(s): [request] No endpoints found that support image input
+2026-09-27 14:26:20,428 ERROR openai/gpt-oss-120b failed 25 questions in a row (last: No endpoints found that support image input); skipping its remaining questions
+2026-09-27 14:26:20,787 WARNING FAILED openai/gpt-oss-120b x CottonWeedDet12:2106:portulaca oleracea:species_id_multiple_choice after 1 attempt(s): [request] No endpoints found that support image input
+2026-09-27 14:26:20,787 ERROR openai/gpt-oss-120b failed 25 questions in a row (last: No endpoints found that support image input); skipping its remaining questions
+2026-09-27 14:26:22,360 WARNING FAILED openai/gpt-oss-120b x CottonWeedDet12:2304:portulaca oleracea:species_id_multiple_choice after 1 attempt(s): [request] No endpoints found that support image input
+2026-09-27 14:26:22,360 ERROR openai/gpt-oss-120b failed 25 questions in a row (last: No endpoints found that support image input); skipping its remaining questions
+2026-09-27 14:26:22,364 INFO run stopped: 32 responses consolidated

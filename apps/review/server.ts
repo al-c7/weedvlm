@@ -101,17 +101,63 @@ if (questionPaths.length === 0 && await exists(defaultQuestionsPath)) {
   questionPaths = [defaultQuestionsPath];
 }
 
-const questions: QuestionBase[] = [];
-for (const path of questionPaths) {
+let questions: QuestionBase[] = [];
+let questionImagePaths = new Map<string, string>();
+let questionsSignature = "";
+
+/** Changes whenever a question file is rewritten. */
+async function questionFilesSignature(): Promise<string> {
+  const mtimes = await Promise.all(
+    questionPaths.map(async (path) => {
+      try {
+        return (await Deno.stat(path)).mtime?.getTime() ?? 0;
+      } catch {
+        return 0;
+      }
+    }),
+  );
+  return mtimes.join("|");
+}
+
+async function loadQuestions(): Promise<void> {
+  const signature = await questionFilesSignature();
+  const loaded: QuestionBase[] = [];
+  for (const path of questionPaths) {
+    let parsed;
+    try {
+      parsed = JSON.parse(await Deno.readTextFile(path));
+    } catch (err) {
+      throw new Error(`Failed to read/parse questions at ${path}: ${(err as Error).message}`);
+    }
+    if (!Array.isArray(parsed)) throw new Error(`${path}: expected a JSON array of questions`);
+    for (const q of parsed) loaded.push(q);
+  }
+  questions = loaded;
+  questionImagePaths = new Map(loaded.map((q) => [q.id, q.image_path]));
+  questionsSignature = signature;
+}
+
+/**
+ * Picks up question files regenerated while the server is running. A file
+ * caught half-written keeps the previous questions and is retried on the
+ * next request.
+ */
+async function refreshQuestions(): Promise<void> {
+  if (questionPaths.length === 0) return;
+  if (await questionFilesSignature() === questionsSignature) return;
   try {
-    const parsed = JSON.parse(await Deno.readTextFile(path));
-    if (!Array.isArray(parsed)) throw new Error("expected a JSON array of questions");
-    for (const q of parsed) questions.push(q);
+    await loadQuestions();
+    console.log(`Questions: reloaded, ${questions.length} loaded`);
   } catch (err) {
-    fail(`Failed to read/parse questions at ${path}: ${(err as Error).message}`);
+    console.error((err as Error).message);
   }
 }
-const questionImagePaths = new Map(questions.map((q) => [q.id, q.image_path]));
+
+try {
+  await loadQuestions();
+} catch (err) {
+  fail((err as Error).message);
+}
 const flagsPath = resolve(
   args["flags-out"] ??
     join(dirname(questionPaths[0] ?? defaultQuestionsPath), "question-flags.json"),
@@ -206,6 +252,9 @@ async function handleRuns(url: URL, req: Request): Promise<Response> {
 async function handle(req: Request): Promise<Response> {
   const url = new URL(req.url);
   const { pathname } = url;
+  if (pathname.startsWith("/api/") || pathname.startsWith("/question-images/")) {
+    await refreshQuestions();
+  }
 
   if (pathname === "/api/config" && req.method === "GET") {
     return Response.json({

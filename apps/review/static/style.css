@@ -253,6 +253,41 @@ input[type="number"] {
   max-height: 65vh;
   border-radius: 4px;
 }
+.box-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+.box-overlay rect {
+  fill: none;
+  stroke-width: 3px;
+  vector-effect: non-scaling-stroke;
+}
+.box-truth {
+  stroke: #2fe05a;
+}
+.box-predicted {
+  stroke: #ff8a1f;
+  stroke-dasharray: 8 5;
+}
+.box-legend {
+  display: flex;
+  gap: 1.2em;
+  margin: 0.4em 0 0;
+}
+.box-legend i {
+  display: inline-block;
+  width: 1.6em;
+  margin-right: 0.4em;
+  vertical-align: middle;
+  border-top: 3px solid #2fe05a;
+}
+.box-legend i.predicted {
+  border-top: 3px dashed #ff8a1f;
+}
 .image-stage canvas {
   position: absolute;
   top: 0;
@@ -416,8 +451,12 @@ input[type="number"] {
 .outcome-unsure,
 .outcome-invalid,
 .outcome-failed,
+.outcome-scored,
 .outcome-unscored {
   color: white;
+}
+.outcome-scored {
+  background: var(--c-correct);
 }
 .outcome-correct {
   background: var(--c-correct);
@@ -690,9 +729,13 @@ table.matrix tbody tr.selected {
   }
 }
 .detail-media img {
+  display: block;
   max-width: 100%;
   max-height: 75vh;
   border-radius: 4px;
+}
+.detail-media .image-stage {
+  vertical-align: top;
 }
 .detail-info .question-text {
   margin-top: 0.2em;

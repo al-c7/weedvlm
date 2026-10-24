@@ -61,6 +61,35 @@ export function isLabelChoices(choices) {
   return choices.every((c) => /^\d+$/.test(c));
 }
 
+const SVG_NS = "http://www.w3.org/2000/svg";
+
+/**
+ * An SVG layer of box outlines to sit over an image `width` x `height`
+ * pixels in size, scaling with it. Each group is {class, boxes}, its
+ * boxes [x1, y1, x2, y2] in image pixels.
+ */
+export function boxOverlay(width, height, groups) {
+  const svg = document.createElementNS(SVG_NS, "svg");
+  svg.setAttribute("class", "box-overlay");
+  svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
+  svg.setAttribute("preserveAspectRatio", "none");
+  for (const group of groups) {
+    for (const [x1, y1, x2, y2] of group.boxes) {
+      const rect = document.createElementNS(SVG_NS, "rect");
+      rect.setAttribute("class", group.class);
+      rect.setAttribute("x", x1);
+      rect.setAttribute("y", y1);
+      rect.setAttribute("width", Math.max(0, x2 - x1));
+      rect.setAttribute("height", Math.max(0, y2 - y1));
+      svg.append(rect);
+    }
+  }
+  return svg;
+}
+
+/** A question's ground-truth [x, y, width, height] boxes as [x1, y1, x2, y2]. */
+export const cornerBoxes = (boxes) => boxes.map(([x, y, w, h]) => [x, y, x + w, y + h]);
+
 /** A coloured square for a numbered box's label. */
 export function labelSwatch(label) {
   const swatch = h("span", { class: "label-swatch" });

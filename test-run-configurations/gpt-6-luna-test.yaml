@@ -1,0 +1,49 @@
+# GPT-6 Luna on the full benchmark (every task):
+#
+#   uv run src/weedvlm/scripts/run-evaluation.py --config test-run-configurations/gpt-6-luna-test.yaml
+#
+# About $0.0016 per question on localisation (around 8,500 prompt tokens
+# per image plus ~1,000 of thinking), so roughly $4.50 for all 2,791
+# questions.
+
+questions_dir: questions/
+output_dir: results/
+run_name: gpt-6-luna-full-run
+
+# Which tasks to run. species_id includes its open-ended ablation.
+tasks:
+  species_id: true
+  fine_grained: true
+  density: true
+  grounded_vqa: true
+  localisation: true
+
+models:
+  # No bbox_format: GPT-6 Luna answers localisation in
+  # [x_min, y_min, x_max, y_max] pixels of the original image and says so
+  # reliably, so each reply is read by its own response_format.
+  - openai/gpt-6-luna
+
+# Answers take about 30 s each (up to 65 s) with the thinking.
+concurrency: 16
+
+defaults:
+  temperature: 0.0
+  # A reasoning model: localisation replies used up to 1,900 tokens, most
+  # of it hidden thinking. A reply cut off by this limit is recorded as a
+  # failure.
+  max_tokens: 8192
+  timeout_seconds: 180
+
+retry:
+  max_retries: 5             # transient errors: 429, 5xx, timeouts, dropped connections
+  max_parse_retries: 2       # replies that arrive but hold no usable JSON answer
+  backoff_base_seconds: 2    # doubles each retry, with jitter, honouring Retry-After
+  backoff_max_seconds: 60
+  model_failure_threshold: 25
+
+# Smoke test before spending real money: run only a seeded random subset
+# of this many questions from each enabled task.
+# max_questions_per_task: 20
+seed: 0
+progress_interval_seconds: 5

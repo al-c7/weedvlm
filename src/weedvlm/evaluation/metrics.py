@@ -12,6 +12,10 @@ questions. "Unsure" and invalid answers count as wrong in both.
 Macro-F1 (docs/SPECIES-ID.md: to handle class imbalance) is averaged over
 the ground-truth classes that occur, treating unsure/invalid answers as
 a prediction of no class -- they cost recall but never precision.
+
+Localisation suites have no accuracy: they report the mean localisation
+score (see weedvlm.evaluation.bboxes.score_boxes) and how far off the
+number of boxes was instead.
 """
 
 from __future__ import annotations
@@ -109,7 +113,48 @@ def _density_block(group: pd.DataFrame) -> dict[str, Any]:
     }
 
 
+def _localisation_block(group: pd.DataFrame) -> dict[str, Any]:
+    answered = group[group["status"] == "ok"]
+    scored = answered[answered["outcome"] == "scored"]
+    scores = answered["localisation_score"].astype(float)
+    count_errors = scored["box_count_error"].astype(float)
+    matched = scored["matched_iou"].dropna().astype(float)
+    return {
+        "n_scored": len(scored),
+        "n_invalid": int((answered["outcome"] == "invalid").sum()),
+        "mean_score": float(scores.mean()) if len(answered) else None,
+        "median_score": float(scores.median()) if len(answered) else None,
+        "mean_score_all": float(scores.sum() / len(group)) if len(group) else None,
+        "mean_matched_iou": float(matched.mean()) if len(matched) else None,
+        "count_exact_rate": float((count_errors == 0).mean()) if len(scored) else None,
+        "count_mean_abs_error": float(count_errors.abs().mean()) if len(scored) else None,
+        "count_mean_signed_error": float(count_errors.mean()) if len(scored) else None,
+    }
+
+
+def _localisation_suite_metrics(group: pd.DataFrame) -> dict[str, Any]:
+    answered = group[group["status"] == "ok"]
+
+    def breakdown(by: str) -> dict[str, dict[str, Any]]:
+        return {
+            str(key): {"n": len(part), "mean_score": float(part["localisation_score"].mean())}
+            for key, part in answered.groupby(by)
+        }
+
+    return {
+        "n_total": len(group),
+        "n_answered": len(answered),
+        "n_failed": len(group) - len(answered),
+        "localisation": _localisation_block(group),
+        "by_class": breakdown("benchmark_class"),
+        "by_dataset": breakdown("dataset"),
+    }
+
+
 def _suite_metrics(suite: str, group: pd.DataFrame) -> dict[str, Any]:
+    if suite.startswith("localisation"):
+        return _localisation_suite_metrics(group)
+
     metrics = _accuracy_block(group)
     chance = group["chance"].dropna()
     metrics["chance_accuracy"] = float(chance.mean()) if len(chance) else None

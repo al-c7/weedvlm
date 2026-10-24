@@ -10,8 +10,8 @@
 # matching value from the config file for that one run.
 
 # Fixed RNG seed, for reproducible sampling (species-ID/open-ended
-# selection, fine-grained pair sampling, grounded-VQA baseline sampling,
-# and the class-balancing limits below). Default: unseeded.
+# selection, fine-grained pair sampling, and the class-balancing limits
+# below). Default: unseeded.
 seed: 42
 
 # Which WeedCOCO dataset.json files to load. Default: every
@@ -29,6 +29,24 @@ outputs:
   fine_grained: questions/fine-grained.json
   density: questions/density.json
   grounded_vqa: questions/grounded-vqa.json
+  localisation: questions/localisation.json
+
+# How the questions are stored (--format / --database override these).
+#   json    one JSON file per task in out_dir, plus all-questions.json and
+#           generation-config.yaml. The default.
+#   sqlite  one SQLite database holding the questions and the images they
+#           use (docs/DATABASE.md). Evaluation runs with the same setting
+#           then write their responses and scores into it too.
+storage:
+  format: json
+  # sqlite only. Default: benchmark.db inside out_dir.
+  # database: questions/benchmark.db
+  # sqlite only: also store the bytes of each image the benchmark uses
+  # (never ones that were rendered but not selected), making the
+  # database self-contained -- several GB for the full benchmark. With
+  # false, only each image's path and hash are stored, and the files must
+  # stay where they are.
+  store_images: true
 
 # Where box-annotated images get rendered to. Default: 'rendered/'
 # alongside out_dir (generate-all) or the --out file (individual
@@ -49,15 +67,13 @@ tasks:
   fine_grained: true
   density: true
   grounded_vqa: true
+  localisation: true
 
 # Fraction of the selected species-ID MC questions (boxed + unannotated) to also
 # ask open-ended.
 open_ended_fraction: 0.2
 
-# Fraction of the crop grounded-VQA questions to keep as a baseline set.
-baseline_fraction: 0.1
-
-# species_id and grounded_vqa select from a large, open-ended pool of
+# species_id, grounded_vqa and localisation select from a large, open-ended pool of
 # species: num_species picks an EXACT-size subset of that pool, and
 # questions_per_species then asks for EXACTLY that many questions
 # targeting *each* selected species. Total output size is therefore
@@ -139,12 +155,12 @@ fine_grained:
 density:
   role: weed
   min_largest_area_fraction: 0.0   # min fraction of the image the largest weed box must cover (weed-free images exempt)
-  count_scale: [1, 40]             # weed counts scoring 0 and 1 (raise the top to make many small seedlings less "dense")
-  coverage_scale: [0.01, 0.4]      # coverage fractions scoring 0 and 1
-  medium_score: 0.3
-  high_score: 0.6
-  medium_min_count: 2              # a single plant is never medium/high, however much it covers
-  high_min_count: 5
+  count_scale: [1, 25]             # weed counts scoring 0 and 1 (raise the top to make many small seedlings less "dense")
+  coverage_scale: [0.0073, 0.59]      # coverage fractions scoring 0 and 1
+  medium_score: 0.5
+  high_score: 0.7
+  medium_min_count: 4              # a single plant is never medium/high, however much it covers
+  high_min_count: 7
   questions_per_class: 75          # exactly this many boxed questions per category (total = 4x this)
   # Unannotated questions per category, drawn from the selected boxed
   # questions' images (so at most questions_per_class). 0 = none, null =
@@ -152,9 +168,6 @@ density:
   unannotated_questions_per_class: 25
 
 # Grounded weed VQA / set-of-marks (docs/GROUNDED-WEED-VQA.md).
-# num_species/questions_per_species apply only to the main grounded-
-# weed-VQA set -- the crop baseline (baseline_fraction, above) is
-# sampled separately and isn't subject to either.
 grounded_vqa:
   min_species: 2                   # min distinct species present to ask about
   min_total_area_fraction: 0.2    # min image fraction the union of all boxes must cover
@@ -165,3 +178,18 @@ grounded_vqa:
   max_centre_offset: 0.85           # 0 (centre) to 1 (corner)
   num_species: 15                  # select exactly this many species
   questions_per_species: 20        # exactly this many questions per selected species
+
+# Weed localisation (docs/WEED-LOCALISATION.md): the unannotated image is
+# shown and the VLM draws a box over every instance of one species.
+localisation:
+  role: weed
+  max_boxes: 4                     # a species is only asked about with at most this many instances in the image
+  min_box_area_fraction: 0.005     # min fraction of the image EACH of those instances' boxes must cover
+  # How busy the scene must be, so the target has to be picked out from
+  # among other weeds rather than found alone on bare soil.
+  min_scene_weeds: 5               # min weeds in the image in total, of any species (the target's included)
+  min_other_species: 1             # min weed species in the image besides the target
+  # Kept low per species so that many species and scenes are covered;
+  # this task isn't scored per class.
+  num_species: 25                  # select exactly this many species (26 qualify at 10 qs/species)
+  questions_per_species: 10        # exactly this many questions per selected species

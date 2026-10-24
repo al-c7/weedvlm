@@ -1,0 +1,135 @@
+{
+  "run": "qwen-3.7-flash-localisation",
+  "scored_at": "2026-10-03T04:38:12.176779+00:00",
+  "aliases_file": null,
+  "skipped_missing_questions": 0,
+  "skipped_changed_images": 0,
+  "models": {
+    "qwen/qwen3.7-flash": {
+      "usage": {
+        "requests": 400,
+        "failed": 0,
+        "total_cost_usd": 0.03894439,
+        "mean_cost_usd": 9.736097500000001e-05,
+        "mean_total_tokens": 2712.5325,
+        "mean_latency_seconds": 22.8253875,
+        "retried_requests": 0
+      },
+      "suites": {
+        "localisation": {
+          "n_total": 400,
+          "n_answered": 400,
+          "n_failed": 0,
+          "localisation": {
+            "n_scored": 399,
+            "n_invalid": 1,
+            "mean_score": 0.7986109112334746,
+            "median_score": 0.9359200697784746,
+            "mean_score_all": 0.7986109112334746,
+            "mean_matched_iou": 0.8881715323166627,
+            "count_exact_rate": 0.8295739348370927,
+            "count_mean_abs_error": 0.2506265664160401,
+            "count_mean_signed_error": 0.16040100250626566
+          },
+          "by_class": {
+            "Amaranthus palmeri": {
+              "n": 20,
+              "mean_score": 0.8314594090039407
+            },
+            "Ambrosia artemisiifolia": {
+              "n": 20,
+              "mean_score": 0.858091496467009
+            },
+            "Chenopodium album": {
+              "n": 20,
+              "mean_score": 0.6212048709311232
+            },
+            "Creeping thistle": {
+              "n": 20,
+              "mean_score": 0.9441503354456596
+            },
+            "Eclipta": {
+              "n": 20,
+              "mean_score": 0.8394198627663696
+            },
+            "Eleusine indica": {
+              "n": 20,
+              "mean_score": 0.8929319827009433
+            },
+            "Euphorbia maculata": {
+              "n": 20,
+              "mean_score": 0.825913162455231
+            },
+            "German chamomile": {
+              "n": 20,
+              "mean_score": 0.8181500480494253
+            },
+            "Hybrid goosefoot": {
+              "n": 20,
+              "mean_score": 0.6989659226345802
+            },
+            "Ipomoea indica": {
+              "n": 20,
+              "mean_score": 0.7833146868384679
+            },
+            "Mollugo verticillata": {
+              "n": 20,
+              "mean_score": 0.7208678850037303
+            },
+            "Physalis angulata": {
+              "n": 20,
+              "mean_score": 0.865919802181927
+            },
+            "Portulaca oleracea": {
+              "n": 20,
+              "mean_score": 0.7524405762808455
+            },
+            "Potato weed": {
+              "n": 20,
+              "mean_score": 0.7114609346697769
+            },
+            "Red root amaranth": {
+              "n": 20,
+              "mean_score": 0.7285082117844726
+            },
+            "Senna obtusifolia": {
+              "n": 20,
+              "mean_score": 0.9549456281897545
+            },
+            "Sida rhombifolia": {
+              "n": 20,
+              "mean_score": 0.9018941745810183
+            },
+            "Taraxacum officinale": {
+              "n": 20,
+              "mean_score": 0.6502416470286996
+            },
+            "Thorn apple": {
+              "n": 20,
+              "mean_score": 0.8868655584834115
+            },
+            "White goosefoot": {
+              "n": 20,
+              "mean_score": 0.6854720291731043
+            }
+          },
+          "by_dataset": {
+            "CottonWeedDet12": {
+              "n": 214,
+              "mean_score": 0.8417367047782899
+            },
+            "CropAndWeed": {
+              "n": 140,
+              "mean_score": 0.7819390057486328
+            },
+            "MultipleWeedSpeciesDetection": {
+              "n": 46,
+              "mean_score": 0.6487228014353732
+            }
+          }
+        }
+      },
+      "species_id_multiple_choice_vs_open_ended": {}
+    }
+  }
+}

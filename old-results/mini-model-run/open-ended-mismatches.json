@@ -1,0 +1,1760 @@
+[
+  {
+    "question_id": "CottonWeedDet12:1009:amaranthus tuberculatus:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Amaranthus tuberculatus",
+    "answer": "Purslane (Portulaca oleracea)"
+  },
+  {
+    "question_id": "CottonWeedDet12:3244:amaranthus tuberculatus:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Amaranthus tuberculatus",
+    "answer": "Palmer amaranth (Amaranthus palmeri)"
+  },
+  {
+    "question_id": "CropAndWeed:4309:cockspur grass:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Cockspur grass",
+    "answer": "Digitaria insularis"
+  },
+  {
+    "question_id": "CottonWeedDet12:3497:amaranthus tuberculatus:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Amaranthus tuberculatus",
+    "answer": "Amaranthus sp."
+  },
+  {
+    "question_id": "MultipleWeedSpeciesDetection:354:taraxacum officinale:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Taraxacum officinale",
+    "answer": "Common Mallow (Malva neglecta)"
+  },
+  {
+    "question_id": "CottonWeedDet12:5337:physalis angulata:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Physalis angulata",
+    "answer": "Amaranthus"
+  },
+  {
+    "question_id": "CottonWeedDet12:4324:eclipta:species_id_multiple_choice:unannotated:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Eclipta",
+    "answer": "Amaranthus sp."
+  },
+  {
+    "question_id": "CropAndWeed:4546:german chamomile:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "German chamomile",
+    "answer": "Common Fennel (Foeniculum vulgare)"
+  },
+  {
+    "question_id": "CottonWeedDet12:2969:physalis angulata:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Physalis angulata",
+    "answer": "Jimsonweed (Datura stramonium)"
+  },
+  {
+    "question_id": "CropAndWeed:3111:white goosefoot:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "White goosefoot",
+    "answer": "Physalis pruinosa"
+  },
+  {
+    "question_id": "CottonWeedDet12:4965:ipomoea indica:species_id_multiple_choice:unannotated:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Ipomoea indica",
+    "answer": "Ipomoea species (Morning Glory)"
+  },
+  {
+    "question_id": "CottonWeedDet12:2526:euphorbia maculata:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Euphorbia maculata",
+    "answer": "Purslane (Portulaca oleracea)"
+  },
+  {
+    "question_id": "CropAndWeed:3834:white goosefoot:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "White goosefoot",
+    "answer": "Lambsquarters (Chenopodium album)"
+  },
+  {
+    "question_id": "CottonWeedDet12:5563:mollugo verticillata:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Mollugo verticillata",
+    "answer": "Medicago polymorpha"
+  },
+  {
+    "question_id": "CropAndWeed:3749:red root amaranth:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Red root amaranth",
+    "answer": "Amaranthus"
+  },
+  {
+    "question_id": "MultipleWeedSpeciesDetection:392:taraxacum officinale:species_id_multiple_choice:unannotated:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Taraxacum officinale",
+    "answer": "Common Chickweed (Stellaria media)"
+  },
+  {
+    "question_id": "CottonWeedDet12:3092:senna obtusifolia:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Senna obtusifolia",
+    "answer": "Field Pea (Pisum sativum)"
+  },
+  {
+    "question_id": "MultipleWeedSpeciesDetection:526:xanthium strumarium:species_id_multiple_choice:unannotated:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Xanthium strumarium",
+    "answer": "Common Mallow (Malva neglecta)"
+  },
+  {
+    "question_id": "MultipleWeedSpeciesDetection:470:xanthium strumarium:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Xanthium strumarium",
+    "answer": "Common Mallow"
+  },
+  {
+    "question_id": "CropAndWeed:3199:white goosefoot:species_id_multiple_choice:unannotated:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "White goosefoot",
+    "answer": "Common Lambsquarters (Chenopodium album)"
+  },
+  {
+    "question_id": "CropAndWeed:4560:hybrid goosefoot:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Hybrid goosefoot",
+    "answer": "Jimsonweed (Datura stramonium)"
+  },
+  {
+    "question_id": "CottonWeedDet12:3842:eclipta:species_id_multiple_choice:unannotated:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Eclipta",
+    "answer": "Amaranthus sp."
+  },
+  {
+    "question_id": "CottonWeedDet12:1264:senna obtusifolia:species_id_multiple_choice:unannotated:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Senna obtusifolia",
+    "answer": "Pueraria montana"
+  },
+  {
+    "question_id": "CropAndWeed:4605:german chamomile:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "German chamomile",
+    "answer": "Daucus carota"
+  },
+  {
+    "question_id": "CropAndWeed:3736:white goosefoot:species_id_multiple_choice:unannotated:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "White goosefoot",
+    "answer": "Amaranthus"
+  },
+  {
+    "question_id": "CottonWeedDet12:3688:eclipta:species_id_multiple_choice:unannotated:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Eclipta",
+    "answer": "Purslane (Portulaca oleracea)"
+  },
+  {
+    "question_id": "CottonWeedDet12:2657:sida rhombifolia:species_id_multiple_choice:unannotated:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Sida rhombifolia",
+    "answer": "Parthenium hysterophorus"
+  },
+  {
+    "question_id": "CropAndWeed:3486:white goosefoot:species_id_multiple_choice:unannotated:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "White goosefoot",
+    "answer": "Common Lambsquarters (Chenopodium album)"
+  },
+  {
+    "question_id": "CottonWeedDet12:1971:senna obtusifolia:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Senna obtusifolia",
+    "answer": "Horse Bean (Vicia faba)"
+  },
+  {
+    "question_id": "CottonWeedDet12:3901:amaranthus tuberculatus:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Amaranthus tuberculatus",
+    "answer": "Common Ragweed (Ambrosia artemisiifolia)"
+  },
+  {
+    "question_id": "CropAndWeed:4539:red root amaranth:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Red root amaranth",
+    "answer": "Chenopodium album"
+  },
+  {
+    "question_id": "CottonWeedDet12:1474:ipomoea indica:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Ipomoea indica",
+    "answer": "Field Bindweed (Convolvulus arvensis)"
+  },
+  {
+    "question_id": "CottonWeedDet12:425:mollugo verticillata:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Mollugo verticillata",
+    "answer": "Common Chickweed (Stellaria media)"
+  },
+  {
+    "question_id": "CottonWeedDet12:1386:ipomoea indica:species_id_multiple_choice:unannotated:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Ipomoea indica",
+    "answer": "Ipomoea species (Morning Glory)"
+  },
+  {
+    "question_id": "CottonWeedDet12:1463:ipomoea indica:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Ipomoea indica",
+    "answer": "Morning glory (Ipomoea spp.)"
+  },
+  {
+    "question_id": "CottonWeedDet12:5311:ambrosia artemisiifolia:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Ambrosia artemisiifolia",
+    "answer": "Wild Carrot (Daucus carota)"
+  },
+  {
+    "question_id": "MultipleWeedSpeciesDetection:513:xanthium strumarium:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Xanthium strumarium",
+    "answer": "Nightshade"
+  },
+  {
+    "question_id": "CropAndWeed:3762:thorn apple:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Thorn apple",
+    "answer": "Common Sunflower (Helianthus annuus)"
+  },
+  {
+    "question_id": "CottonWeedDet12:4829:eclipta:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Eclipta",
+    "answer": "Purslane (Portulaca oleracea)"
+  },
+  {
+    "question_id": "CropAndWeed:3122:hybrid goosefoot:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Hybrid goosefoot",
+    "answer": "Black Nightshade (Solanum nigrum complex)"
+  },
+  {
+    "question_id": "CottonWeedDet12:2483:ipomoea indica:species_id_multiple_choice:unannotated:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Ipomoea indica",
+    "answer": "Field Bindweed (Convolvulus arvensis)"
+  },
+  {
+    "question_id": "CropAndWeed:3582:thorn apple:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Thorn apple",
+    "answer": "Nightshade (Solanum species)"
+  },
+  {
+    "question_id": "CottonWeedDet12:2499:sida rhombifolia:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Sida rhombifolia",
+    "answer": "Common Mallow (Malva neglecta)"
+  },
+  {
+    "question_id": "CropAndWeed:3485:red root amaranth:species_id_multiple_choice:unannotated:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Red root amaranth",
+    "answer": "Amaranthus retroflexus"
+  },
+  {
+    "question_id": "CottonWeedDet12:2853:ambrosia artemisiifolia:species_id_multiple_choice:unannotated:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Ambrosia artemisiifolia",
+    "answer": "Euphorbia"
+  },
+  {
+    "question_id": "CottonWeedDet12:5595:ambrosia artemisiifolia:species_id_multiple_choice:unannotated:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Ambrosia artemisiifolia",
+    "answer": "Common Chickweed (Omphalodes vulgare or similar Stellaria species)"
+  },
+  {
+    "question_id": "CottonWeedDet12:1800:eclipta:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Eclipta",
+    "answer": "Euphorbia hirta"
+  },
+  {
+    "question_id": "CottonWeedDet12:3119:physalis angulata:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Physalis angulata",
+    "answer": "Common Lambsquarters (Chenopodium album)"
+  },
+  {
+    "question_id": "CropAndWeed:3356:red root amaranth:species_id_multiple_choice:unannotated:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Red root amaranth",
+    "answer": "Amaranthus species (Pigweed)"
+  },
+  {
+    "question_id": "CropAndWeed:3914:white goosefoot:species_id_multiple_choice:unannotated:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "White goosefoot",
+    "answer": "Amaranthus"
+  },
+  {
+    "question_id": "CottonWeedDet12:847:ipomoea indica:species_id_multiple_choice:unannotated:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Ipomoea indica",
+    "answer": "Dioscorea villosa"
+  },
+  {
+    "question_id": "CottonWeedDet12:2439:physalis angulata:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Physalis angulata",
+    "answer": "Jimsonweed (Datura stramonium)"
+  },
+  {
+    "question_id": "CottonWeedDet12:599:euphorbia maculata:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Euphorbia maculata",
+    "answer": "Purslane (Portulaca oleracea)"
+  },
+  {
+    "question_id": "MultipleWeedSpeciesDetection:466:xanthium strumarium:species_id_multiple_choice:unannotated:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Xanthium strumarium",
+    "answer": "Common Hop (Humulus lupulus)"
+  },
+  {
+    "question_id": "CottonWeedDet12:97:euphorbia maculata:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Euphorbia maculata",
+    "answer": "Purslane (Portulaca oleracea)"
+  },
+  {
+    "question_id": "CropAndWeed:3759:thorn apple:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Thorn apple",
+    "answer": "Jimsonweed (Datura stramonium)"
+  },
+  {
+    "question_id": "CottonWeedDet12:4597:ipomoea indica:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Ipomoea indica",
+    "answer": "Common Mallow (Malva neglecta)"
+  },
+  {
+    "question_id": "CottonWeedDet12:104:euphorbia maculata:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Euphorbia maculata",
+    "answer": "Euphorbia hyssopifolia"
+  },
+  {
+    "question_id": "CottonWeedDet12:2677:sida rhombifolia:species_id_multiple_choice:unannotated:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Sida rhombifolia",
+    "answer": "Amaranthus species (Pigweed)"
+  },
+  {
+    "question_id": "CropAndWeed:4544:german chamomile:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "German chamomile",
+    "answer": "Common Fennel (Foeniculum vulgare)"
+  },
+  {
+    "question_id": "CottonWeedDet12:2683:sida rhombifolia:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Sida rhombifolia",
+    "answer": "Amaranthus"
+  },
+  {
+    "question_id": "CottonWeedDet12:1293:senna obtusifolia:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Senna obtusifolia",
+    "answer": "Medicago polymorpha"
+  },
+  {
+    "question_id": "CottonWeedDet12:4076:mollugo verticillata:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Mollugo verticillata",
+    "answer": "Common Purslane (Portulaca oleracea)"
+  },
+  {
+    "question_id": "CottonWeedDet12:4944:mollugo verticillata:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Mollugo verticillata",
+    "answer": "Field Bindweed (Convolvulus arvensis)"
+  },
+  {
+    "question_id": "CottonWeedDet12:5401:ipomoea indica:species_id_multiple_choice:unannotated:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Ipomoea indica",
+    "answer": "Purslane (Portulaca oleracea)"
+  },
+  {
+    "question_id": "CottonWeedDet12:877:ipomoea indica:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Ipomoea indica",
+    "answer": "Field Bindweed (Convolvulus arvensis)"
+  },
+  {
+    "question_id": "CottonWeedDet12:2684:sida rhombifolia:species_id_multiple_choice:unannotated:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Sida rhombifolia",
+    "answer": "Amaranthus species"
+  },
+  {
+    "question_id": "CottonWeedDet12:2446:sida rhombifolia:species_id_multiple_choice:unannotated:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Sida rhombifolia",
+    "answer": "Common Mallow (Malva neglecta)"
+  },
+  {
+    "question_id": "CropAndWeed:3520:thorn apple:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Thorn apple",
+    "answer": "Common Lambsquarters (Chenopodium album)"
+  },
+  {
+    "question_id": "CropAndWeed:3355:red root amaranth:species_id_multiple_choice:unannotated:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Red root amaranth",
+    "answer": "Amaranthus"
+  },
+  {
+    "question_id": "CottonWeedDet12:1958:ipomoea indica:species_id_multiple_choice:unannotated:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Ipomoea indica",
+    "answer": "Morning glory (Convolvulus species)"
+  },
+  {
+    "question_id": "CropAndWeed:4420:hybrid goosefoot:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Hybrid goosefoot",
+    "answer": "Common Lambsquarters (Chenopodium album)"
+  },
+  {
+    "question_id": "CottonWeedDet12:3066:sida rhombifolia:species_id_multiple_choice:unannotated:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Sida rhombifolia",
+    "answer": "Sida spinosa (Tea plant/Prickly Sida)"
+  },
+  {
+    "question_id": "CropAndWeed:4429:red root amaranth:species_id_multiple_choice:unannotated:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Red root amaranth",
+    "answer": "Amaranthus"
+  },
+  {
+    "question_id": "CropAndWeed:3401:red root amaranth:species_id_multiple_choice:unannotated:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Red root amaranth",
+    "answer": "Amaranthus"
+  },
+  {
+    "question_id": "CottonWeedDet12:1971:senna obtusifolia:species_id_multiple_choice:unannotated:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Senna obtusifolia",
+    "answer": "Cassia obtusifolia"
+  },
+  {
+    "question_id": "CottonWeedDet12:1972:senna obtusifolia:species_id_multiple_choice:unannotated:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Senna obtusifolia",
+    "answer": "peanut grass (Arachis pintoi)"
+  },
+  {
+    "question_id": "CottonWeedDet12:2608:euphorbia maculata:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Euphorbia maculata",
+    "answer": "Purslane (Portulaca oleracea)"
+  },
+  {
+    "question_id": "CottonWeedDet12:2036:physalis angulata:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Physalis angulata",
+    "answer": "Amaranthus species (Pigweed)"
+  },
+  {
+    "question_id": "CropAndWeed:3444:thorn apple:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Thorn apple",
+    "answer": "Amaranthus sp."
+  },
+  {
+    "question_id": "CottonWeedDet12:448:mollugo verticillata:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Mollugo verticillata",
+    "answer": "Common Chickweed (Cerastium fontanum)"
+  },
+  {
+    "question_id": "CottonWeedDet12:4928:ambrosia artemisiifolia:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Ambrosia artemisiifolia",
+    "answer": "Common Chickweed (Omphalodes vulgare or similar Caryophyllaceae species)"
+  },
+  {
+    "question_id": "CropAndWeed:3237:hybrid goosefoot:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Hybrid goosefoot",
+    "answer": "Jimsonweed (Datura stramonium)"
+  },
+  {
+    "question_id": "MultipleWeedSpeciesDetection:394:taraxacum officinale:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Taraxacum officinale",
+    "answer": "Common Ragweed (Ambrosia artemisiifolia)"
+  },
+  {
+    "question_id": "CottonWeedDet12:3474:amaranthus tuberculatus:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Amaranthus tuberculatus",
+    "answer": "Common Lambsquarters (Chenopodium album)"
+  },
+  {
+    "question_id": "CottonWeedDet12:4268:mollugo verticillata:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Mollugo verticillata",
+    "answer": "Euphorbia hirta"
+  },
+  {
+    "question_id": "MultipleWeedSpeciesDetection:468:xanthium strumarium:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Xanthium strumarium",
+    "answer": "Common Mallow (Malva neglecta)"
+  },
+  {
+    "question_id": "CropAndWeed:4613:hybrid goosefoot:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Hybrid goosefoot",
+    "answer": "Amaranthus"
+  },
+  {
+    "question_id": "CropAndWeed:4363:red root amaranth:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Red root amaranth",
+    "answer": "Amaranthus"
+  },
+  {
+    "question_id": "CropAndWeed:4433:red root amaranth:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Red root amaranth",
+    "answer": "Amaranthus species (Pigweed)"
+  },
+  {
+    "question_id": "CottonWeedDet12:4088:ambrosia artemisiifolia:species_id_multiple_choice:unannotated:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Ambrosia artemisiifolia",
+    "answer": " laudanum poppy (Papaver somniferum)"
+  },
+  {
+    "question_id": "CropAndWeed:4558:cockspur grass:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Cockspur grass",
+    "answer": "Chenopodium album"
+  },
+  {
+    "question_id": "CropAndWeed:3754:white goosefoot:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "White goosefoot",
+    "answer": "Common Lambsquarters (Chenopodium album)"
+  },
+  {
+    "question_id": "CropAndWeed:3629:white goosefoot:species_id_multiple_choice:unannotated:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "White goosefoot",
+    "answer": "Chenopodium album (Common Lambsquarters)"
+  },
+  {
+    "question_id": "MultipleWeedSpeciesDetection:479:xanthium strumarium:species_id_multiple_choice:unannotated:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Xanthium strumarium",
+    "answer": "Common Mallow (Malva sylvestris)"
+  },
+  {
+    "question_id": "CropAndWeed:3839:white goosefoot:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "White goosefoot",
+    "answer": "Amaranthus"
+  },
+  {
+    "question_id": "CropAndWeed:3492:white goosefoot:species_id_multiple_choice:unannotated:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "White goosefoot",
+    "answer": "Physalis philadelphica"
+  },
+  {
+    "question_id": "CropAndWeed:3747:red root amaranth:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Red root amaranth",
+    "answer": "Amaranthus"
+  },
+  {
+    "question_id": "CropAndWeed:4358:red root amaranth:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Red root amaranth",
+    "answer": "Amaranthus"
+  },
+  {
+    "question_id": "CropAndWeed:4457:german chamomile:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "German chamomile",
+    "answer": "Common Fumitory (Fumaria officinalis)"
+  },
+  {
+    "question_id": "CottonWeedDet12:2959:senna obtusifolia:species_id_multiple_choice:unannotated:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Senna obtusifolia",
+    "answer": "Amaranthus species (Pigweed)"
+  },
+  {
+    "question_id": "CropAndWeed:3869:red root amaranth:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Red root amaranth",
+    "answer": "Amaranthus retroflexus"
+  },
+  {
+    "question_id": "CottonWeedDet12:963:eclipta:species_id_multiple_choice:unannotated:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Eclipta",
+    "answer": "Amaranthus species (Pigweed)"
+  },
+  {
+    "question_id": "CottonWeedDet12:5390:amaranthus tuberculatus:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Amaranthus tuberculatus",
+    "answer": "Amaranthus species (Pigweed)"
+  },
+  {
+    "question_id": "CropAndWeed:3844:thorn apple:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Thorn apple",
+    "answer": "Jimsonweed (Datura stramonium)"
+  },
+  {
+    "question_id": "CottonWeedDet12:4741:sida rhombifolia:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Sida rhombifolia",
+    "answer": "Nightshade (Solanum species)"
+  },
+  {
+    "question_id": "CottonWeedDet12:5580:ambrosia artemisiifolia:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Ambrosia artemisiifolia",
+    "answer": "Common Mayweed (Anthemis cotula)"
+  },
+  {
+    "question_id": "CropAndWeed:4320:german chamomile:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "German chamomile",
+    "answer": "Common lambsquarters (Chenopodium album)"
+  },
+  {
+    "question_id": "CottonWeedDet12:2867:ipomoea indica:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Ipomoea indica",
+    "answer": "Morning glory (Ipomoea spp.)"
+  },
+  {
+    "question_id": "CropAndWeed:3856:cockspur grass:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Cockspur grass",
+    "answer": "Poaceae (Grass family)"
+  },
+  {
+    "question_id": "CropAndWeed:3789:red root amaranth:species_id_multiple_choice:unannotated:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Red root amaranth",
+    "answer": "Amaranthus species (Pigweed)"
+  },
+  {
+    "question_id": "CropAndWeed:65:creeping thistle:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Creeping thistle",
+    "answer": "Sonchus"
+  },
+  {
+    "question_id": "CottonWeedDet12:5318:ipomoea indica:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Ipomoea indica",
+    "answer": "Ipomoea species (Morning Glory)"
+  },
+  {
+    "question_id": "CottonWeedDet12:4193:ambrosia artemisiifolia:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Ambrosia artemisiifolia",
+    "answer": "Common Wormwood (Artemisia vulgaris)"
+  },
+  {
+    "question_id": "CropAndWeed:4518:hybrid goosefoot:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Hybrid goosefoot",
+    "answer": "Chenopodium album"
+  },
+  {
+    "question_id": "CottonWeedDet12:3363:sida rhombifolia:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Sida rhombifolia",
+    "answer": "Amaranthus species"
+  },
+  {
+    "question_id": "CropAndWeed:3486:white goosefoot:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "White goosefoot",
+    "answer": "Common Mallow"
+  },
+  {
+    "question_id": "CottonWeedDet12:3238:sida rhombifolia:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Sida rhombifolia",
+    "answer": "Acalypha virginica"
+  },
+  {
+    "question_id": "MultipleWeedSpeciesDetection:492:xanthium strumarium:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Xanthium strumarium",
+    "answer": "Common Hop"
+  },
+  {
+    "question_id": "CropAndWeed:3583:thorn apple:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Thorn apple",
+    "answer": "Black Nightshade (Solanum nigrum complex)"
+  },
+  {
+    "question_id": "CottonWeedDet12:4944:ipomoea indica:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Ipomoea indica",
+    "answer": "Ipomoea species (Morning Glory)"
+  },
+  {
+    "question_id": "CottonWeedDet12:355:mollugo verticillata:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Mollugo verticillata",
+    "answer": "Common Chickweed (Stellaria media)"
+  },
+  {
+    "question_id": "CropAndWeed:179:creeping thistle:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Creeping thistle",
+    "answer": "Common Ragweed (Ambrosia artemisiifolia)"
+  },
+  {
+    "question_id": "CropAndWeed:457:cockspur grass:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Cockspur grass",
+    "answer": "Poa annua"
+  },
+  {
+    "question_id": "CottonWeedDet12:4893:sida rhombifolia:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Sida rhombifolia",
+    "answer": "Amaranthus"
+  },
+  {
+    "question_id": "CottonWeedDet12:3262:sida rhombifolia:species_id_multiple_choice:unannotated:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Sida rhombifolia",
+    "answer": "Sida spinella"
+  },
+  {
+    "question_id": "CropAndWeed:3631:white goosefoot:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "White goosefoot",
+    "answer": "Nightshade (Solanum species)"
+  },
+  {
+    "question_id": "CottonWeedDet12:5146:ipomoea indica:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Ipomoea indica",
+    "answer": "Field Bindweed (Convolvulus arvensis)"
+  },
+  {
+    "question_id": "CottonWeedDet12:265:mollugo verticillata:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Mollugo verticillata",
+    "answer": "Euphorbia heterophylla"
+  },
+  {
+    "question_id": "CottonWeedDet12:4962:eclipta:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Eclipta",
+    "answer": "Purslane (Portulaca oleracea)"
+  },
+  {
+    "question_id": "CropAndWeed:3494:white goosefoot:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "White goosefoot",
+    "answer": "Common Lambsquarters (Chenopodium album)"
+  },
+  {
+    "question_id": "CropAndWeed:3:creeping thistle:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Creeping thistle",
+    "answer": "Common Lambsquarters (Chenopodium album)"
+  },
+  {
+    "question_id": "CropAndWeed:4006:creeping thistle:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Creeping thistle",
+    "answer": "Sow thistle (Sonchus species)"
+  },
+  {
+    "question_id": "MultipleWeedSpeciesDetection:467:xanthium strumarium:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Xanthium strumarium",
+    "answer": "Field Bindweed (Convolvulus arvensis)"
+  },
+  {
+    "question_id": "CropAndWeed:3558:german chamomile:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "German chamomile",
+    "answer": "Daucus carota"
+  },
+  {
+    "question_id": "CropAndWeed:4566:hybrid goosefoot:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Hybrid goosefoot",
+    "answer": "Common Jimsonweed (Datura stramonium)"
+  },
+  {
+    "question_id": "CottonWeedDet12:2277:ipomoea indica:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Ipomoea indica",
+    "answer": "Field Bindweed (Convolvulus arvensis)"
+  },
+  {
+    "question_id": "CropAndWeed:4548:hybrid goosefoot:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Hybrid goosefoot",
+    "answer": "Common Lambsquarters (Chenopodium album)"
+  },
+  {
+    "question_id": "CottonWeedDet12:3100:amaranthus tuberculatus:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Amaranthus tuberculatus",
+    "answer": "Amaranthus species"
+  },
+  {
+    "question_id": "CottonWeedDet12:4960:eclipta:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Eclipta",
+    "answer": "Amaranthus species (Pigweed)"
+  },
+  {
+    "question_id": "CottonWeedDet12:5600:ambrosia artemisiifolia:species_id_multiple_choice:unannotated:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Ambrosia artemisiifolia",
+    "answer": "Common Fennel (Foeniculum vulgare)"
+  },
+  {
+    "question_id": "CropAndWeed:3845:thorn apple:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Thorn apple",
+    "answer": "Datura stramonium"
+  },
+  {
+    "question_id": "CropAndWeed:3737:white goosefoot:species_id_multiple_choice:unannotated:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "White goosefoot",
+    "answer": "Chenopodium album"
+  },
+  {
+    "question_id": "CottonWeedDet12:1303:senna obtusifolia:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Senna obtusifolia",
+    "answer": "Horse Bean (Vicia faba)"
+  },
+  {
+    "question_id": "CottonWeedDet12:2276:physalis angulata:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Physalis angulata",
+    "answer": "Amaranthus"
+  },
+  {
+    "question_id": "CropAndWeed:3192:white goosefoot:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "White goosefoot",
+    "answer": "Black Nightshade (Solanum nigrum complex)"
+  },
+  {
+    "question_id": "CottonWeedDet12:2904:ipomoea indica:species_id_multiple_choice:unannotated:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Ipomoea indica",
+    "answer": "Morning glory"
+  },
+  {
+    "question_id": "CropAndWeed:4608:hybrid goosefoot:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Hybrid goosefoot",
+    "answer": "Chenopodium album"
+  },
+  {
+    "question_id": "CottonWeedDet12:3940:eclipta:species_id_multiple_choice:unannotated:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Eclipta",
+    "answer": "Palmer amaranth (Amaranthus palmeri)"
+  },
+  {
+    "question_id": "CropAndWeed:3653:thorn apple:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Thorn apple",
+    "answer": "Black Nightshade (Solanum nigrum complex)"
+  },
+  {
+    "question_id": "CottonWeedDet12:3713:physalis angulata:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Physalis angulata",
+    "answer": "Jimsonweed (Datura stramonium)"
+  },
+  {
+    "question_id": "MultipleWeedSpeciesDetection:368:taraxacum officinale:species_id_multiple_choice:unannotated:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Taraxacum officinale",
+    "answer": "Common Ragweed (Ambrosia artemisiifolia)"
+  },
+  {
+    "question_id": "CropAndWeed:4432:red root amaranth:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Red root amaranth",
+    "answer": "Amaranthus"
+  },
+  {
+    "question_id": "CottonWeedDet12:2402:sida rhombifolia:species_id_multiple_choice:unannotated:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Sida rhombifolia",
+    "answer": "Amaranthus"
+  },
+  {
+    "question_id": "CropAndWeed:3231:white goosefoot:species_id_multiple_choice:unannotated:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "White goosefoot",
+    "answer": "Black Nightshade (Solanum nigrum complex)"
+  },
+  {
+    "question_id": "CropAndWeed:3736:white goosefoot:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "White goosefoot",
+    "answer": "Common Lambsquarters (Chenopodium album)"
+  },
+  {
+    "question_id": "CottonWeedDet12:3236:sida rhombifolia:species_id_multiple_choice:unannotated:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Sida rhombifolia",
+    "answer": "Acalypha rhomboidea"
+  },
+  {
+    "question_id": "CropAndWeed:4321:german chamomile:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "German chamomile",
+    "answer": "Common Fumitory (Fumaria officinalis)"
+  },
+  {
+    "question_id": "CottonWeedDet12:1634:ipomoea indica:species_id_multiple_choice:unannotated:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Ipomoea indica",
+    "answer": "Field Bindweed (Convolvulus arvensis)"
+  },
+  {
+    "question_id": "CropAndWeed:4282:thorn apple:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Thorn apple",
+    "answer": "Common Lambsquarters (Chenopodium album)"
+  },
+  {
+    "question_id": "CropAndWeed:3628:white goosefoot:species_id_multiple_choice:unannotated:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "White goosefoot",
+    "answer": "Black nightshade"
+  },
+  {
+    "question_id": "CottonWeedDet12:2894:ipomoea indica:species_id_multiple_choice:unannotated:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Ipomoea indica",
+    "answer": "Ipomoea species (Morning Glory)"
+  },
+  {
+    "question_id": "CottonWeedDet12:3002:senna obtusifolia:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Senna obtusifolia",
+    "answer": "Palmer amaranth"
+  },
+  {
+    "question_id": "CottonWeedDet12:1206:sida rhombifolia:species_id_multiple_choice:unannotated:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Sida rhombifolia",
+    "answer": "Acalypha rhomboidea"
+  },
+  {
+    "question_id": "CottonWeedDet12:5512:ipomoea indica:species_id_multiple_choice:unannotated:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Ipomoea indica",
+    "answer": "Convolvulus arvensis"
+  },
+  {
+    "question_id": "CottonWeedDet12:5423:eclipta:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Eclipta",
+    "answer": "Amaranthus"
+  },
+  {
+    "question_id": "CropAndWeed:4391:german chamomile:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "German chamomile",
+    "answer": "Daucus carota"
+  },
+  {
+    "question_id": "CropAndWeed:4425:red root amaranth:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Red root amaranth",
+    "answer": "Palmer amaranth"
+  },
+  {
+    "question_id": "MultipleWeedSpeciesDetection:495:xanthium strumarium:species_id_multiple_choice:unannotated:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Xanthium strumarium",
+    "answer": "Common Lambsquarters (Chenopodium album)"
+  },
+  {
+    "question_id": "CottonWeedDet12:1248:senna obtusifolia:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Senna obtusifolia",
+    "answer": "Common Bean (Phaseolus vulgaris)"
+  },
+  {
+    "question_id": "CropAndWeed:3487:white goosefoot:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "White goosefoot",
+    "answer": "Common Ragweed (Ambrosia artemisiifolia)"
+  },
+  {
+    "question_id": "CropAndWeed:4458:cockspur grass:species_id_multiple_choice:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Cockspur grass",
+    "answer": "Alopecurus myosuroides (Black-grass)"
+  },
+  {
+    "question_id": "CottonWeedDet12:4090:ambrosia artemisiifolia:species_id_multiple_choice:unannotated:open_ended",
+    "model": "google/gemma-4-31b-it",
+    "expected": "Ambrosia artemisiifolia",
+    "answer": "Common Shepherds-purse (Capsella bursa-pastoris)"
+  },
+  {
+    "question_id": "CropAndWeed:4546:german chamomile:species_id_multiple_choice:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "German chamomile",
+    "answer": "Scentless mayweed (Tripleurospermum inodorum)"
+  },
+  {
+    "question_id": "CropAndWeed:4225:german chamomile:species_id_multiple_choice:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "German chamomile",
+    "answer": "Mayweed chamomile (Tripleurospermum inodorum)"
+  },
+  {
+    "question_id": "CottonWeedDet12:1009:amaranthus tuberculatus:species_id_multiple_choice:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "Amaranthus tuberculatus",
+    "answer": "Pigweed (Amaranthus spp., likely waterhemp or Palmer amaranth)"
+  },
+  {
+    "question_id": "CottonWeedDet12:3244:amaranthus tuberculatus:species_id_multiple_choice:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "Amaranthus tuberculatus",
+    "answer": "Redroot pigweed (Amaranthus retroflexus)"
+  },
+  {
+    "question_id": "CottonWeedDet12:3497:amaranthus tuberculatus:species_id_multiple_choice:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "Amaranthus tuberculatus",
+    "answer": "Pigweed (Amaranthus species), likely redroot pigweed"
+  },
+  {
+    "question_id": "MultipleWeedSpeciesDetection:354:taraxacum officinale:species_id_multiple_choice:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "Taraxacum officinale",
+    "answer": "Curly dock (Rumex crispus), i.e. a dock (Rumex spp.) rosette"
+  },
+  {
+    "question_id": "CottonWeedDet12:4324:eclipta:species_id_multiple_choice:unannotated:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "Eclipta",
+    "answer": "Eclipta prostrata (false daisy / eclipta)"
+  },
+  {
+    "question_id": "CropAndWeed:4309:cockspur grass:species_id_multiple_choice:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "Cockspur grass",
+    "answer": "Echinochloa crus-galli (barnyardgrass)"
+  },
+  {
+    "question_id": "CottonWeedDet12:2969:physalis angulata:species_id_multiple_choice:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "Physalis angulata",
+    "answer": "Common cocklebur (Xanthium strumarium)"
+  },
+  {
+    "question_id": "CottonWeedDet12:3020:senna obtusifolia:species_id_multiple_choice:unannotated:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "Senna obtusifolia",
+    "answer": "Birdsfoot trefoil (Lotus corniculatus)"
+  },
+  {
+    "question_id": "CropAndWeed:3111:white goosefoot:species_id_multiple_choice:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "White goosefoot",
+    "answer": "Chenopodium album (common lambsquarters)"
+  },
+  {
+    "question_id": "CropAndWeed:3199:white goosefoot:species_id_multiple_choice:unannotated:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "White goosefoot",
+    "answer": "Chenopodium album (common lambsquarters / fat hen)"
+  },
+  {
+    "question_id": "CropAndWeed:3749:red root amaranth:species_id_multiple_choice:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "Red root amaranth",
+    "answer": "Redroot pigweed (Amaranthus retroflexus)"
+  },
+  {
+    "question_id": "CropAndWeed:4605:german chamomile:species_id_multiple_choice:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "German chamomile",
+    "answer": "Scentless mayweed (Tripleurospermum inodorum)"
+  },
+  {
+    "question_id": "CottonWeedDet12:4965:ipomoea indica:species_id_multiple_choice:unannotated:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "Ipomoea indica",
+    "answer": "Convolvulus arvensis (field bindweed)"
+  },
+  {
+    "question_id": "CropAndWeed:3834:white goosefoot:species_id_multiple_choice:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "White goosefoot",
+    "answer": "Chenopodium album (common lambsquarters)"
+  },
+  {
+    "question_id": "CropAndWeed:4560:hybrid goosefoot:species_id_multiple_choice:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "Hybrid goosefoot",
+    "answer": "Chenopodium album (common lambsquarters / fat hen)"
+  },
+  {
+    "question_id": "CottonWeedDet12:2418:sida rhombifolia:species_id_multiple_choice:unannotated:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "Sida rhombifolia",
+    "answer": "Corchorus sp. (jute weed seedling), likely Corchorus olitorius/aestuans"
+  },
+  {
+    "question_id": "MultipleWeedSpeciesDetection:379:taraxacum officinale:species_id_multiple_choice:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "Taraxacum officinale",
+    "answer": "Sowthistle (Sonchus spp.)"
+  },
+  {
+    "question_id": "CropAndWeed:3486:white goosefoot:species_id_multiple_choice:unannotated:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "White goosefoot",
+    "answer": "Common lambsquarters (Chenopodium album)"
+  },
+  {
+    "question_id": "CropAndWeed:3736:white goosefoot:species_id_multiple_choice:unannotated:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "White goosefoot",
+    "answer": "Common lambsquarters (Chenopodium album)"
+  },
+  {
+    "question_id": "MultipleWeedSpeciesDetection:510:xanthium strumarium:species_id_multiple_choice:unannotated:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "Xanthium strumarium",
+    "answer": "Eclipta prostrata (false daisy)"
+  },
+  {
+    "question_id": "CottonWeedDet12:2657:sida rhombifolia:species_id_multiple_choice:unannotated:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "Sida rhombifolia",
+    "answer": "Prickly sida (Sida spinosa)"
+  },
+  {
+    "question_id": "CottonWeedDet12:2853:ambrosia artemisiifolia:species_id_multiple_choice:unannotated:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "Ambrosia artemisiifolia",
+    "answer": "Common stork's bill (Erodium cicutarium), also known as redstem filaree"
+  },
+  {
+    "question_id": "CottonWeedDet12:1386:ipomoea indica:species_id_multiple_choice:unannotated:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "Ipomoea indica",
+    "answer": "Ipomoea batatas (sweet potato), likely a volunteer seedling/sprout"
+  },
+  {
+    "question_id": "CropAndWeed:3762:thorn apple:species_id_multiple_choice:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "Thorn apple",
+    "answer": "Datura stramonium (jimsonweed)"
+  },
+  {
+    "question_id": "CropAndWeed:3582:thorn apple:species_id_multiple_choice:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "Thorn apple",
+    "answer": "Jimsonweed (Datura stramonium)"
+  },
+  {
+    "question_id": "MultipleWeedSpeciesDetection:513:xanthium strumarium:species_id_multiple_choice:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "Xanthium strumarium",
+    "answer": "Eclipta prostrata (false daisy)"
+  },
+  {
+    "question_id": "CottonWeedDet12:2499:sida rhombifolia:species_id_multiple_choice:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "Sida rhombifolia",
+    "answer": "Velvetleaf (Abutilon theophrasti)"
+  },
+  {
+    "question_id": "CottonWeedDet12:1463:ipomoea indica:species_id_multiple_choice:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "Ipomoea indica",
+    "answer": "Field bindweed (Convolvulus arvensis)"
+  },
+  {
+    "question_id": "CropAndWeed:3485:red root amaranth:species_id_multiple_choice:unannotated:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "Red root amaranth",
+    "answer": "Redroot pigweed (Amaranthus retroflexus)"
+  },
+  {
+    "question_id": "CottonWeedDet12:3119:physalis angulata:species_id_multiple_choice:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "Physalis angulata",
+    "answer": "Redroot pigweed (Amaranthus retroflexus)"
+  },
+  {
+    "question_id": "CropAndWeed:3122:hybrid goosefoot:species_id_multiple_choice:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "Hybrid goosefoot",
+    "answer": "Datura stramonium (jimsonweed)"
+  },
+  {
+    "question_id": "CropAndWeed:3356:red root amaranth:species_id_multiple_choice:unannotated:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "Red root amaranth",
+    "answer": "Redroot pigweed (Amaranthus retroflexus)"
+  },
+  {
+    "question_id": "CottonWeedDet12:5595:ambrosia artemisiifolia:species_id_multiple_choice:unannotated:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "Ambrosia artemisiifolia",
+    "answer": "Leucospora multifida (narrowleaf paleseed)"
+  },
+  {
+    "question_id": "CottonWeedDet12:847:ipomoea indica:species_id_multiple_choice:unannotated:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "Ipomoea indica",
+    "answer": "Common morning glory (Ipomoea purpurea)"
+  },
+  {
+    "question_id": "CropAndWeed:3914:white goosefoot:species_id_multiple_choice:unannotated:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "White goosefoot",
+    "answer": "Common lambsquarters (Chenopodium album)"
+  },
+  {
+    "question_id": "CropAndWeed:3408:red root amaranth:species_id_multiple_choice:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "Red root amaranth",
+    "answer": "Redroot pigweed (Amaranthus retroflexus)"
+  },
+  {
+    "question_id": "CottonWeedDet12:2476:sida rhombifolia:species_id_multiple_choice:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "Sida rhombifolia",
+    "answer": "Velvetleaf (Abutilon theophrasti)"
+  },
+  {
+    "question_id": "CropAndWeed:3759:thorn apple:species_id_multiple_choice:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "Thorn apple",
+    "answer": "Datura stramonium (jimsonweed)"
+  },
+  {
+    "question_id": "CropAndWeed:4544:german chamomile:species_id_multiple_choice:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "German chamomile",
+    "answer": "Scentless mayweed (Tripleurospermum inodorum)"
+  },
+  {
+    "question_id": "CottonWeedDet12:599:euphorbia maculata:species_id_multiple_choice:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "Euphorbia maculata",
+    "answer": "Euphorbia humifusa (creeping spurge)"
+  },
+  {
+    "question_id": "MultipleWeedSpeciesDetection:466:xanthium strumarium:species_id_multiple_choice:unannotated:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "Xanthium strumarium",
+    "answer": "Velvetleaf (Abutilon theophrasti)"
+  },
+  {
+    "question_id": "MultipleWeedSpeciesDetection:440:taraxacum officinale:species_id_multiple_choice:unannotated:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "Taraxacum officinale",
+    "answer": "Common sowthistle (Sonchus oleraceus)"
+  },
+  {
+    "question_id": "MultipleWeedSpeciesDetection:406:taraxacum officinale:species_id_multiple_choice:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "Taraxacum officinale",
+    "answer": "Curly dock (Rumex crispus)"
+  },
+  {
+    "question_id": "CottonWeedDet12:3084:ambrosia artemisiifolia:species_id_multiple_choice:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "Ambrosia artemisiifolia",
+    "answer": "Leucospora multifida (narrowleaf paleseed)"
+  },
+  {
+    "question_id": "CottonWeedDet12:2684:sida rhombifolia:species_id_multiple_choice:unannotated:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "Sida rhombifolia",
+    "answer": "Sida spinosa (prickly sida / teaweed)"
+  },
+  {
+    "question_id": "CottonWeedDet12:4944:mollugo verticillata:species_id_multiple_choice:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "Mollugo verticillata",
+    "answer": "Field bindweed (Convolvulus arvensis)"
+  },
+  {
+    "question_id": "CottonWeedDet12:2446:sida rhombifolia:species_id_multiple_choice:unannotated:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "Sida rhombifolia",
+    "answer": "Prickly sida (Sida spinosa)"
+  },
+  {
+    "question_id": "CottonWeedDet12:5401:ipomoea indica:species_id_multiple_choice:unannotated:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "Ipomoea indica",
+    "answer": "Morningglory (Ipomoea spp., likely tall morningglory, Ipomoea purpurea)"
+  },
+  {
+    "question_id": "CropAndWeed:4429:red root amaranth:species_id_multiple_choice:unannotated:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "Red root amaranth",
+    "answer": "Redroot pigweed (Amaranthus retroflexus)"
+  },
+  {
+    "question_id": "CottonWeedDet12:877:ipomoea indica:species_id_multiple_choice:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "Ipomoea indica",
+    "answer": "Morningglory (Ipomoea spp.)"
+  },
+  {
+    "question_id": "CropAndWeed:4420:hybrid goosefoot:species_id_multiple_choice:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "Hybrid goosefoot",
+    "answer": "Common lambsquarters (Chenopodium album)"
+  },
+  {
+    "question_id": "CropAndWeed:3355:red root amaranth:species_id_multiple_choice:unannotated:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "Red root amaranth",
+    "answer": "Pigweed (Amaranthus spp., likely redroot pigweed, Amaranthus retroflexus)"
+  },
+  {
+    "question_id": "CropAndWeed:3401:red root amaranth:species_id_multiple_choice:unannotated:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "Red root amaranth",
+    "answer": "Redroot pigweed (Amaranthus retroflexus)"
+  },
+  {
+    "question_id": "CottonWeedDet12:3066:sida rhombifolia:species_id_multiple_choice:unannotated:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "Sida rhombifolia",
+    "answer": "Velvetleaf (Abutilon theophrasti)"
+  },
+  {
+    "question_id": "CropAndWeed:4363:red root amaranth:species_id_multiple_choice:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "Red root amaranth",
+    "answer": "Redroot pigweed (Amaranthus retroflexus)"
+  },
+  {
+    "question_id": "CropAndWeed:3444:thorn apple:species_id_multiple_choice:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "Thorn apple",
+    "answer": "Common cocklebur (Xanthium strumarium)"
+  },
+  {
+    "question_id": "CottonWeedDet12:1958:ipomoea indica:species_id_multiple_choice:unannotated:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "Ipomoea indica",
+    "answer": "Morningglory (Ipomoea spp.), likely tall morningglory (Ipomoea purpurea)"
+  },
+  {
+    "question_id": "CropAndWeed:4433:red root amaranth:species_id_multiple_choice:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "Red root amaranth",
+    "answer": "Amaranthus retroflexus (redroot pigweed)"
+  },
+  {
+    "question_id": "CropAndWeed:3237:hybrid goosefoot:species_id_multiple_choice:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "Hybrid goosefoot",
+    "answer": "Datura stramonium (jimsonweed)"
+  },
+  {
+    "question_id": "MultipleWeedSpeciesDetection:394:taraxacum officinale:species_id_multiple_choice:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "Taraxacum officinale",
+    "answer": "Annual sowthistle (Sonchus oleraceus), likely"
+  },
+  {
+    "question_id": "CropAndWeed:4613:hybrid goosefoot:species_id_multiple_choice:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "Hybrid goosefoot",
+    "answer": "Common lambsquarters (Chenopodium album)"
+  },
+  {
+    "question_id": "CropAndWeed:3754:white goosefoot:species_id_multiple_choice:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "White goosefoot",
+    "answer": "Common lambsquarters (Chenopodium album)"
+  },
+  {
+    "question_id": "CropAndWeed:3629:white goosefoot:species_id_multiple_choice:unannotated:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "White goosefoot",
+    "answer": "Common lambsquarters (Chenopodium album)"
+  },
+  {
+    "question_id": "CropAndWeed:3492:white goosefoot:species_id_multiple_choice:unannotated:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "White goosefoot",
+    "answer": "Common lambsquarters (Chenopodium album)"
+  },
+  {
+    "question_id": "CottonWeedDet12:3084:ambrosia artemisiifolia:species_id_multiple_choice:unannotated:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "Ambrosia artemisiifolia",
+    "answer": "Leucospora multifida (narrowleaf paleseed)"
+  },
+  {
+    "question_id": "CropAndWeed:3747:red root amaranth:species_id_multiple_choice:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "Red root amaranth",
+    "answer": "Amaranthus spp. (pigweed), likely redroot pigweed (Amaranthus retroflexus)"
+  },
+  {
+    "question_id": "CropAndWeed:3839:white goosefoot:species_id_multiple_choice:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "White goosefoot",
+    "answer": "Chenopodium album (common lambsquarters / fat hen)"
+  },
+  {
+    "question_id": "CropAndWeed:4358:red root amaranth:species_id_multiple_choice:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "Red root amaranth",
+    "answer": "Redroot pigweed (Amaranthus retroflexus)"
+  },
+  {
+    "question_id": "CropAndWeed:4457:german chamomile:species_id_multiple_choice:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "German chamomile",
+    "answer": "Scentless mayweed (Tripleurospermum inodorum)"
+  },
+  {
+    "question_id": "CottonWeedDet12:965:eclipta:species_id_multiple_choice:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "Eclipta",
+    "answer": "Likely broadleaf plantain (Plantago major)"
+  },
+  {
+    "question_id": "CottonWeedDet12:3551:ambrosia artemisiifolia:species_id_multiple_choice:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "Ambrosia artemisiifolia",
+    "answer": "Pineappleweed (Matricaria discoidea) seedling, likely in the chamomile/mayweed group (Matricaria/Anthemis)"
+  },
+  {
+    "question_id": "CottonWeedDet12:963:eclipta:species_id_multiple_choice:unannotated:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "Eclipta",
+    "answer": "Horseweed (Conyza canadensis, also called marestail or fleabane)"
+  },
+  {
+    "question_id": "CropAndWeed:3869:red root amaranth:species_id_multiple_choice:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "Red root amaranth",
+    "answer": "Redroot pigweed (Amaranthus retroflexus)"
+  },
+  {
+    "question_id": "CottonWeedDet12:2867:ipomoea indica:species_id_multiple_choice:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "Ipomoea indica",
+    "answer": "Morning glory (Ipomoea spp., likely tall morning glory, Ipomoea purpurea)"
+  },
+  {
+    "question_id": "CropAndWeed:3844:thorn apple:species_id_multiple_choice:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "Thorn apple",
+    "answer": "Datura stramonium (jimsonweed/thornapple)"
+  },
+  {
+    "question_id": "CropAndWeed:4320:german chamomile:species_id_multiple_choice:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "German chamomile",
+    "answer": "Flixweed (Descurainia sophia), though chamomile species (e.g., mayweed, Tripleurospermum/Anthemis spp.) look very similar from overhead"
+  },
+  {
+    "question_id": "CropAndWeed:4518:hybrid goosefoot:species_id_multiple_choice:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "Hybrid goosefoot",
+    "answer": "Chenopodium album (common lambsquarters)"
+  },
+  {
+    "question_id": "CropAndWeed:65:creeping thistle:species_id_multiple_choice:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "Creeping thistle",
+    "answer": "Canada thistle (Cirsium arvense)"
+  },
+  {
+    "question_id": "CottonWeedDet12:5318:ipomoea indica:species_id_multiple_choice:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "Ipomoea indica",
+    "answer": "Ipomoea triloba (littlebell morningglory)"
+  },
+  {
+    "question_id": "CottonWeedDet12:3363:sida rhombifolia:species_id_multiple_choice:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "Sida rhombifolia",
+    "answer": "Sida spinosa (prickly sida / teaweed)"
+  },
+  {
+    "question_id": "CropAndWeed:3486:white goosefoot:species_id_multiple_choice:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "White goosefoot",
+    "answer": "Common lambsquarters (Chenopodium album)"
+  },
+  {
+    "question_id": "CottonWeedDet12:4944:ipomoea indica:species_id_multiple_choice:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "Ipomoea indica",
+    "answer": "Field bindweed (Convolvulus arvensis)"
+  },
+  {
+    "question_id": "CropAndWeed:3583:thorn apple:species_id_multiple_choice:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "Thorn apple",
+    "answer": "Datura stramonium (jimsonweed)"
+  },
+  {
+    "question_id": "CropAndWeed:3631:white goosefoot:species_id_multiple_choice:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "White goosefoot",
+    "answer": "Common lambsquarters (Chenopodium album)"
+  },
+  {
+    "question_id": "CropAndWeed:179:creeping thistle:species_id_multiple_choice:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "Creeping thistle",
+    "answer": "Canada thistle (Cirsium arvense) seedlings"
+  },
+  {
+    "question_id": "CottonWeedDet12:3238:sida rhombifolia:species_id_multiple_choice:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "Sida rhombifolia",
+    "answer": "Velvetleaf (Abutilon theophrasti)"
+  },
+  {
+    "question_id": "CropAndWeed:3494:white goosefoot:species_id_multiple_choice:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "White goosefoot",
+    "answer": "Chenopodium album (common lambsquarters)"
+  },
+  {
+    "question_id": "MultipleWeedSpeciesDetection:467:xanthium strumarium:species_id_multiple_choice:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "Xanthium strumarium",
+    "answer": "Abutilon theophrasti (velvetleaf)"
+  },
+  {
+    "question_id": "CropAndWeed:4006:creeping thistle:species_id_multiple_choice:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "Creeping thistle",
+    "answer": "Canada thistle (Cirsium arvense)"
+  },
+  {
+    "question_id": "CropAndWeed:3:creeping thistle:species_id_multiple_choice:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "Creeping thistle",
+    "answer": "Cirsium arvense (creeping/Canada thistle), young rosettes"
+  },
+  {
+    "question_id": "CropAndWeed:4548:hybrid goosefoot:species_id_multiple_choice:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "Hybrid goosefoot",
+    "answer": "Chenopodium album (fat hen / lamb's quarters)"
+  },
+  {
+    "question_id": "CottonWeedDet12:2277:ipomoea indica:species_id_multiple_choice:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "Ipomoea indica",
+    "answer": "Tall morning glory (Ipomoea purpurea)"
+  },
+  {
+    "question_id": "CottonWeedDet12:3100:amaranthus tuberculatus:species_id_multiple_choice:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "Amaranthus tuberculatus",
+    "answer": "Amaranthus species (pigweed, likely redroot pigweed, Amaranthus retroflexus)"
+  },
+  {
+    "question_id": "CropAndWeed:3558:german chamomile:species_id_multiple_choice:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "German chamomile",
+    "answer": "Scentless mayweed (Tripleurospermum inodorum)"
+  },
+  {
+    "question_id": "CropAndWeed:4566:hybrid goosefoot:species_id_multiple_choice:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "Hybrid goosefoot",
+    "answer": "Hastate orache (Atriplex prostrata)"
+  },
+  {
+    "question_id": "CropAndWeed:3845:thorn apple:species_id_multiple_choice:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "Thorn apple",
+    "answer": "Datura stramonium (jimsonweed)"
+  },
+  {
+    "question_id": "CropAndWeed:4608:hybrid goosefoot:species_id_multiple_choice:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "Hybrid goosefoot",
+    "answer": "Chenopodium album (common lambsquarters / fat hen)"
+  },
+  {
+    "question_id": "CottonWeedDet12:3957:ambrosia artemisiifolia:species_id_multiple_choice:unannotated:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "Ambrosia artemisiifolia",
+    "answer": "Leucospora multifida (paleseed plantain)"
+  },
+  {
+    "question_id": "CropAndWeed:3737:white goosefoot:species_id_multiple_choice:unannotated:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "White goosefoot",
+    "answer": "Common lambsquarters (Chenopodium album)"
+  },
+  {
+    "question_id": "CottonWeedDet12:2461:sida rhombifolia:species_id_multiple_choice:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "Sida rhombifolia",
+    "answer": "Urena lobata (caesarweed), a Malvaceae weed seedling"
+  },
+  {
+    "question_id": "CottonWeedDet12:3940:eclipta:species_id_multiple_choice:unannotated:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "Eclipta",
+    "answer": "Smartweed (Persicaria/Polygonum spp., likely lady's thumb, Persicaria maculosa)"
+  },
+  {
+    "question_id": "CropAndWeed:3192:white goosefoot:species_id_multiple_choice:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "White goosefoot",
+    "answer": "Common lambsquarters (Chenopodium album)"
+  },
+  {
+    "question_id": "CropAndWeed:3653:thorn apple:species_id_multiple_choice:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "Thorn apple",
+    "answer": "Datura stramonium (jimsonweed)"
+  },
+  {
+    "question_id": "CropAndWeed:3231:white goosefoot:species_id_multiple_choice:unannotated:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "White goosefoot",
+    "answer": "Common lambsquarters (Chenopodium album)"
+  },
+  {
+    "question_id": "CottonWeedDet12:3713:physalis angulata:species_id_multiple_choice:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "Physalis angulata",
+    "answer": "Eastern black nightshade (Solanum ptychanthum/Solanum nigrum)"
+  },
+  {
+    "question_id": "CropAndWeed:4432:red root amaranth:species_id_multiple_choice:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "Red root amaranth",
+    "answer": "Redroot pigweed (Amaranthus retroflexus)"
+  },
+  {
+    "question_id": "MultipleWeedSpeciesDetection:368:taraxacum officinale:species_id_multiple_choice:unannotated:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "Taraxacum officinale",
+    "answer": "Perennial sowthistle (Sonchus arvensis)"
+  },
+  {
+    "question_id": "CottonWeedDet12:3236:sida rhombifolia:species_id_multiple_choice:unannotated:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "Sida rhombifolia",
+    "answer": "Prickly sida (Sida spinosa)"
+  },
+  {
+    "question_id": "CropAndWeed:3736:white goosefoot:species_id_multiple_choice:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "White goosefoot",
+    "answer": "Common lambsquarters (Chenopodium album)"
+  },
+  {
+    "question_id": "CottonWeedDet12:2545:ambrosia artemisiifolia:species_id_multiple_choice:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "Ambrosia artemisiifolia",
+    "answer": "Flixweed (Descurainia sophia)"
+  },
+  {
+    "question_id": "CottonWeedDet12:1634:ipomoea indica:species_id_multiple_choice:unannotated:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "Ipomoea indica",
+    "answer": "Morning glory (Ipomoea sp.), likely sweet potato (Ipomoea batatas)"
+  },
+  {
+    "question_id": "CottonWeedDet12:5512:ipomoea indica:species_id_multiple_choice:unannotated:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "Ipomoea indica",
+    "answer": "Field bindweed (Convolvulus arvensis)"
+  },
+  {
+    "question_id": "CottonWeedDet12:2402:sida rhombifolia:species_id_multiple_choice:unannotated:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "Sida rhombifolia",
+    "answer": "Sida spinosa (prickly sida / teaweed)"
+  },
+  {
+    "question_id": "CropAndWeed:4282:thorn apple:species_id_multiple_choice:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "Thorn apple",
+    "answer": "Datura stramonium (jimsonweed/thornapple)"
+  },
+  {
+    "question_id": "CropAndWeed:3487:white goosefoot:species_id_multiple_choice:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "White goosefoot",
+    "answer": "Chenopodium album (common lambsquarters / fat hen)"
+  },
+  {
+    "question_id": "CropAndWeed:3628:white goosefoot:species_id_multiple_choice:unannotated:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "White goosefoot",
+    "answer": "Chenopodium album (common lambsquarters / fat hen)"
+  },
+  {
+    "question_id": "CropAndWeed:4391:german chamomile:species_id_multiple_choice:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "German chamomile",
+    "answer": "Scentless mayweed (Tripleurospermum inodorum)"
+  },
+  {
+    "question_id": "CropAndWeed:4425:red root amaranth:species_id_multiple_choice:open_ended",
+    "model": "z-ai/glm-5.3-flashx",
+    "expected": "Red root amaranth",
+    "answer": "Redroot pigweed (Amaranthus retroflexus)"
+  }
+]

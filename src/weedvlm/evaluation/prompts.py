@@ -7,7 +7,9 @@ field, `answer`, is the exact answer (an option verbatim for multiple
 choice, a species name for open-ended) and whose second, `reasoning`, is
 at most two sentences on why. Density additionally asks for its two numeric
 estimates, since the question itself asks for them and the task is scored
-on them (docs/WEED-DENSITY.md).
+on them (docs/WEED-DENSITY.md). Localisation's answer is instead a list of
+boxes, `bboxes`, with a `response_format` field saying what coordinate
+format they are in (docs/WEED-LOCALISATION.md).
 
 Bump PROMPT_VERSION on any change that alters what a model is sent, so a
 resumed run refuses to mix answers from two different prompts.
@@ -25,6 +27,7 @@ from weedvlm.generation.config import DensityConfig, PipelineConfig
 from weedvlm.generation.density import classify_density, density_score
 from weedvlm.types.questions import (
     DensityEstimationQuestion,
+    LocalisationQuestion,
     MultipleChoiceQuestion,
     OpenEndedQuestion,
     QuestionBase,
@@ -50,6 +53,10 @@ class Prompt:
     # Fields the reply must contain; anything else missing is recorded as
     # a warning on the response rather than failing it.
     required_fields: tuple[str, ...] = ("answer", "reasoning")
+    # The field holding the answer itself, without which a reply is
+    # unusable, and whether it is a list (of boxes) or a single value.
+    answer_field: str = "answer"
+    answer_is_list: bool = False
 
 
 def load_density_config(generation_config_path: Path) -> DensityConfig:
@@ -217,6 +224,30 @@ def _density_prompt(question: DensityEstimationQuestion, rules_text: str) -> Pro
     )
 
 
+def _localisation_prompt(question: LocalisationQuestion) -> Prompt:
+    fields = [
+        '  "bboxes": a list with one bounding box for each instance, in your native format',
+        '  "response_format": a very brief description of the format of those boxes: the order of '
+        "the coordinates, and whether they are pixels or normalised (and to what range)",
+        '  "reasoning": a string of at most 2 sentences explaining why you chose those boxes',
+    ]
+    lines = [
+        question.question_text,
+        "",
+        f"Place a bounding box over every instance of {question.target_species} that you find. "
+        "Use the bounding box format that is native to you, consistent with your model card.",
+        "",
+        "Respond with a JSON object with exactly these fields:\n{\n" + ",\n".join(fields) + "\n}",
+    ]
+    return Prompt(
+        SYSTEM_PROMPT,
+        "\n".join(lines),
+        required_fields=("bboxes", "response_format", "reasoning"),
+        answer_field="bboxes",
+        answer_is_list=True,
+    )
+
+
 def build_prompt(question: QuestionBase, *, density_rules: str | None) -> Prompt:
     """The prompt for one question. density_rules is the text from
     density_rules_text(), required only for density questions."""
@@ -227,6 +258,8 @@ def build_prompt(question: QuestionBase, *, density_rules: str | None) -> Prompt
             return _density_prompt(question, density_rules)
         case OpenEndedQuestion():
             return _open_ended_prompt(question)
+        case LocalisationQuestion():
+            return _localisation_prompt(question)
         case MultipleChoiceQuestion() if question.question_type == QuestionType.GROUNDED_VQA:
             return _grounded_vqa_prompt(question)
         case MultipleChoiceQuestion():

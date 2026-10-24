@@ -99,9 +99,17 @@ export type ResponseStatus = "ok" | "failed";
 /**
  * How a response scored. Everything but "unscored" comes from
  * score-evaluation.py; "unscored" means the run hasn't been scored, or
- * the response changed since it was.
+ * the response changed since it was. Localisation responses are "scored"
+ * (on box count and IoU) rather than correct or incorrect.
  */
-export type Outcome = "correct" | "incorrect" | "unsure" | "invalid" | "failed" | "unscored";
+export type Outcome =
+  | "correct"
+  | "incorrect"
+  | "unsure"
+  | "invalid"
+  | "scored"
+  | "failed"
+  | "unscored";
 
 export interface ResponseError {
   /** transient / request / fatal, or "parse" for a reply with no usable JSON answer. */
@@ -147,10 +155,15 @@ export interface ScoredRow {
   dataset: string;
   benchmark_class: string;
   annotated: boolean;
+  /** Open-ended ablations only: the multiple-choice question this re-asks. */
+  ablation_of: string | null;
   status: ResponseStatus;
   outcome: Outcome;
   expected: string;
   answer: string | null;
+  /** Localisation only: the score, and the model's boxes as [x1, y1, x2, y2] in image pixels. */
+  localisation_score: number | null;
+  pred_boxes: number[][] | null;
   cost_usd: number | null;
   latency_seconds: number | null;
   attempts: number | null;
@@ -166,10 +179,15 @@ export interface ResponseSummary {
   dataset: string;
   benchmark_class: string;
   annotated: boolean;
+  /** Open-ended ablations only, once scored: the multiple-choice question this re-asks. */
+  ablation_of: string | null;
   status: ResponseStatus;
   outcome: Outcome;
   expected: string | null;
   answer: string | null;
+  /** Localisation only, once scored. */
+  localisation_score: number | null;
+  pred_boxes: number[][] | null;
   error_kind: string | null;
   error_message: string | null;
   attempts: number;

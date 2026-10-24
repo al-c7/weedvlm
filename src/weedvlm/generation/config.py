@@ -16,6 +16,7 @@ from pathlib import Path
 import yaml
 from pydantic import BaseModel, Field, model_validator
 
+from weedvlm.storage.config import StorageConfig
 from weedvlm.types.species import Role
 
 
@@ -23,7 +24,7 @@ class SpeciesSelection(BaseModel):
     """Exact species selection for a task's final question list (see
     weedvlm.generation.balance), for tasks whose benchmark_class is a
     species name drawn from a large, open-ended pool (species-id,
-    grounded VQA) -- num_species picks an exact-size subset of that
+    grounded VQA, localisation) -- num_species picks an exact-size subset of that
     pool. Species are filtered to ones that can supply
     questions_per_species questions before num_species are chosen from
     among them, and every chosen species then supplies exactly that
@@ -113,15 +114,26 @@ class DensityConfig(ClassBalance):
 
 
 class GroundedVqaConfig(SpeciesSelection):
-    """num_species/questions_per_species here apply only to the main
-    grounded-weed-VQA set -- the crop baseline is sampled separately (as
-    baseline_fraction of the crop grounded-VQA questions) and isn't
-    subject to either."""
-
     min_species: int = 2
     min_total_area_fraction: float = 0.01
     min_largest_area_fraction: float = 0.003
     max_centre_offset: float = 0.6
+
+
+class LocalisationConfig(SpeciesSelection):
+    """A species is asked about in an image only if it has at most
+    max_boxes instances there, each covering at least
+    min_box_area_fraction of the image. min_scene_weeds and
+    min_other_species set how busy the rest of the image must be: its
+    total number of plants of this role (the target's included), and how
+    many species besides the target are among them (see
+    weedvlm.generation.localisation)."""
+
+    role: Role = "weed"
+    max_boxes: int = Field(default=4, ge=1)
+    min_box_area_fraction: float = 0.02
+    min_scene_weeds: int = Field(default=1, ge=1)
+    min_other_species: int = Field(default=0, ge=0)
 
 
 class TaskToggles(BaseModel):
@@ -133,6 +145,7 @@ class TaskToggles(BaseModel):
     fine_grained: bool = True
     density: bool = True
     grounded_vqa: bool = True
+    localisation: bool = True
 
 
 class Outputs(BaseModel):
@@ -144,6 +157,7 @@ class Outputs(BaseModel):
     fine_grained: Path | None = None
     density: Path | None = None
     grounded_vqa: Path | None = None
+    localisation: Path | None = None
 
 
 class PipelineConfig(BaseModel):
@@ -156,9 +170,11 @@ class PipelineConfig(BaseModel):
     # Processes used for image decoding/rendering. None = every CPU.
     workers: int | None = None
     outputs: Outputs = Field(default_factory=Outputs)
+    # Whether the questions are written as JSON files in out_dir, or into
+    # a SQLite database along with the images they use (docs/DATABASE.md).
+    storage: StorageConfig = Field(default_factory=StorageConfig)
 
     open_ended_fraction: float = 0.2
-    baseline_fraction: float = 0.1
 
     tasks: TaskToggles = Field(default_factory=TaskToggles)
 
@@ -166,10 +182,12 @@ class PipelineConfig(BaseModel):
     fine_grained: FineGrainedConfig = Field(default_factory=FineGrainedConfig)
     density: DensityConfig = Field(default_factory=DensityConfig)
     grounded_vqa: GroundedVqaConfig = Field(default_factory=GroundedVqaConfig)
+    localisation: LocalisationConfig = Field(default_factory=LocalisationConfig)
 
 
 # Written into out_dir by generate-all-questions.py: the config text and
-# command line that produced that output (see export-benchmark-parquet.py).
+# command line that produced that output. The SQLite storage format keeps
+# the same text in its meta table instead.
 GENERATION_CONFIG_NAME = "generation-config.yaml"
 
 # src/weedvlm/pipeline/config.py -> repo root
