@@ -77,7 +77,8 @@ def main() -> int:
         results = get_question_samples(
             "./notebooks/weedvlm_scored_responses.parquet",
             runs=config.responses_to_evaluate,
-            fraction=config.reasoning_fraction
+            fraction=config.reasoning_fraction,
+            wrong_per_task=config.wrong_per_task,
         )
         # How many total questions do we have to review?
         print(f"Questions for review for frac={config.reasoning_fraction}: {len(results)}")

@@ -137,56 +137,67 @@ def get_example(task: str, items: list[JudgeItem]) -> JudgeItem | None:
     return None
         
 
-def get_question_samples(results_file: str, runs: list[str], fraction: float, seed: int = 69420):
-    # Verify the fraction
-    results = []
+def _sample_correct_and_wrong(
+    group: pd.DataFrame, label: str, fraction: float, wrong_per_task: int, seed: int
+) -> pd.DataFrame:
+    """Per run: `fraction` of the correct responses plus exactly
+    `wrong_per_task` incorrect ones, so every model contributes the same
+    number of incorrect responses. Fails loudly if a run has too few."""
+    correct = group[group.match.astype(bool)]
+    wrong = group[~group.match.astype(bool)]
+    picked = [
+        correct.groupby("run", group_keys=False).sample(frac=fraction, random_state=seed)
+    ]
+    for run, run_wrong in wrong.groupby("run"):
+        if len(run_wrong) < wrong_per_task:
+            raise ValueError(
+                f"{label}: run {run!r} has {len(run_wrong)} incorrect responses with "
+                f"reasoning, fewer than wrong_per_task={wrong_per_task}"
+            )
+        picked.append(run_wrong.sample(n=wrong_per_task, random_state=seed))
+    missing = set(group.run) - set(wrong.run)
+    if wrong_per_task > 0 and missing:
+        raise ValueError(f"{label}: runs {sorted(missing)} have no incorrect responses with reasoning")
+    return pd.concat(picked)
+
+
+def get_question_samples(
+    results_file: str,
+    runs: list[str],
+    fraction: float,
+    wrong_per_task: int,
+    seed: int = 69420,
+):
+    """Responses for the rationale judges. For each task (species ID split
+    into multiple choice and open-ended) and each run: `fraction` of the
+    correct responses and exactly `wrong_per_task` incorrect ones.
+    Localisation has no right or wrong, so it is sampled `fraction` per
+    run and score tercile instead."""
     if fraction > 1.0:
         raise ValueError("fraction cannot be greater than one")
     elif fraction <= 0.0:
         raise ValueError("fraction cannot be less than zero")
-    # We will only get the images as we need them
+    if wrong_per_task < 0:
+        raise ValueError("wrong_per_task cannot be negative")
     df = pd.read_parquet(results_file)
+    df = df[df.run.isin(runs)]
     # Drop responses without reasoning
     df = df[df.reasoning.fillna("").str.strip() != ""]
-    # Get weed species ID, get MCQ, and open-ended separately as their own analysis
-    mcq = (
-        df[
-            (df.task == "species_id") & (df.question_type == "species_id_multiple_choice")
-        ]
-    )
-    mcq_samples = (
-        mcq[mcq["run"].isin(runs)]
-        .groupby("run", group_keys=False)
-        .sample(frac=fraction, random_state=seed)
-    )
-    open_ended = (
-        df[
-            (df.task == "species_id") & (df.question_type == "species_id_open_ended")
-        ]
-    )
-    open_ended_samples = (
-        open_ended[open_ended["run"].isin(runs)]
-        .groupby("run", group_keys=False)
-        .sample(frac=fraction, random_state=seed)
-    )
-    # Get fine-grained ID
-    fine_grained = df[(df.task == "fine_grained")]
-    fine_grained_samples = (
-        fine_grained[fine_grained["run"].isin(runs)]
-        .groupby("run", group_keys=False)
-        .sample(frac=fraction, random_state=seed)
-    )
 
-    # Get grounded VQA
-    gvqa = df[(df.task == "grounded_vqa")]
-    gvqa_samples = (
-        gvqa[gvqa["run"].isin(runs)]
-        .groupby("run", group_keys=False)
-        .sample(frac=fraction, random_state=seed)
-    )
-    # Get weed localisation, we don't have right and wrong questions here
+    groups = {
+        "species_id (multiple choice)": (df.task == "species_id") & (df.question_type == "species_id_multiple_choice"),
+        "species_id (open-ended)": (df.task == "species_id") & (df.question_type == "species_id_open_ended"),
+        "fine_grained": df.task == "fine_grained",
+        "grounded_vqa": df.task == "grounded_vqa",
+        "density": df.task == "density",
+    }
+    results = []
+    for label, mask in groups.items():
+        sampled = _sample_correct_and_wrong(df[mask], label, fraction, wrong_per_task, seed)
+        results += to_items(sampled)
+
+    # Weed localisation, we don't have right and wrong questions here
     localisation = df[df.task == "localisation"].copy()
-    localisation = localisation[localisation.run.isin(runs)]
     localisation["quality"] = pd.qcut( # Quantile based bins
         localisation["localisation_score"],
         q=3,
@@ -194,22 +205,9 @@ def get_question_samples(results_file: str, runs: list[str], fraction: float, se
     )
     localisation_sample = (
         localisation
-        .dropna(subset=["reasoning", "quality"])
+        .dropna(subset=["quality"])
         .groupby(["run", "quality"], observed=True, group_keys=False)
         .sample(frac=fraction, random_state=seed)
     )
-
-    # Get weed density estimation
-    wde = df[(df.task == "density")]
-    wde_samples = (
-        wde[wde["run"].isin(runs)]
-        .groupby("run", group_keys=False)
-        .sample(frac=fraction, random_state=seed)
-    )
-    results += to_items(mcq_samples)
-    results += to_items(open_ended_samples)
-    results += to_items(fine_grained_samples)
-    results += to_items(gvqa_samples)
     results += to_items(localisation_sample)
-    results += to_items(wde_samples)
     return results

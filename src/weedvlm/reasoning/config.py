@@ -80,6 +80,7 @@ class ReasoningConfig(BaseModel):
     api_key_env: str = "OPENROUTER_API_KEY"
 
     reasoning_fraction: float = Field(default=1.0, gt=0, le=1)
+    wrong_per_task: int = Field(default=50, ge=0)
 
     @field_validator("evaluation_model", mode="before")
     @classmethod
