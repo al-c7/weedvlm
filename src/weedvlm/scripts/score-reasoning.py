@@ -35,6 +35,8 @@ from weedvlm.reasoning.config import (
 )
 
 from weedvlm.reasoning.runner import get_question_samples, get_example
+from weedvlm.reasoning.prompt import JudgeBuilder
+from weedvlm.storage.database import connect
 
 from weedvlm.evaluation.runner import FatalRunError, RunResult, run_evaluation
 
@@ -75,11 +77,15 @@ def main() -> int:
             config = type(config).model_validate({**config.model_dump(), **overrides})
         print(f"Configuration is as follows:\n{config}")
         results = get_question_samples(
-            "./notebooks/weedvlm_scored_responses.parquet",
+            str(config.results_file),
             runs=config.responses_to_evaluate,
             fraction=config.reasoning_fraction,
             wrong_per_task=config.wrong_per_task,
+            tasks=config.enabled_tasks(),
         )
+        config.run_dir().mkdir(parents=True, exist_ok=True)
+        conn = connect(config.resolved_database())
+        builder = JudgeBuilder(conn, str(config.resolved_generation_config()))
         # How many total questions do we have to review?
         print(f"Questions for review for frac={config.reasoning_fraction}: {len(results)}")
 

@@ -71,7 +71,7 @@ class RequestDefaults(BaseModel):
     # Reasoning models spend part of this budget on hidden thinking, and
     # an empty reply with finish_reason "length" is recorded as a failure
     # -- raise this (or set a reasoning effort in extra_body) for them.
-    max_tokens: int = 1024
+    max_tokens: int = 4096
     timeout_seconds: float = 120.0
 
 
@@ -98,7 +98,11 @@ class ReasoningConfig(BaseModel):
     output_dir: Path = Path("reasoning-results")
     run_name: str = "run"
     tasks: TaskToggles = Field(default_factory=TaskToggles)
-    evaluation_model: ModelConfig
+    # The textual judge never sees the image, so it can be a cheaper
+    # text-only model; the visual judge needs one that takes images.
+    textual_model: ModelConfig
+    visual_model: ModelConfig
+    results_file: Path = Path("notebooks/weedvlm_scored_responses.parquet")
     concurrency: int = Field(default=8, ge=1, le=MAX_CONCURRENCY)
     defaults: RequestDefaults = Field(default_factory=RequestDefaults)
     retry: RetryConfig = Field(default_factory=RetryConfig)
@@ -111,7 +115,7 @@ class ReasoningConfig(BaseModel):
     reasoning_fraction: float = Field(default=1.0, gt=0, le=1)
     wrong_per_task: int | dict[str, int] = 50
 
-    @field_validator("evaluation_model", mode="before")
+    @field_validator("textual_model", "visual_model", mode="before")
     @classmethod
     def _bare_model_id(cls, value: Any) -> Any:
         return {"id": value} if isinstance(value, str) else value
@@ -129,7 +133,7 @@ class ReasoningConfig(BaseModel):
     @model_validator(mode="after")
     def _check(self) -> ReasoningConfig:
         if self.storage.format != "sqlite":
-            raise ValueError("storage: format must be sqlite, the responses are read from the database")
+            raise ValueError("storage: format must be sqlite, the images are read from the database")
         resolve_wrong_per_task(self.wrong_per_task)
         if not any(self.tasks.model_dump().values()):
             raise ValueError("tasks: every task is disabled, nothing to run")
@@ -137,6 +141,12 @@ class ReasoningConfig(BaseModel):
 
     def resolved_generation_config(self) -> Path:
         return self.generation_config or self.questions_dir / "generation-config.yaml"
+
+    def run_dir(self) -> Path:
+        return self.output_dir / self.run_name
+
+    def enabled_tasks(self) -> set[str]:
+        return {task for task, on in self.tasks.model_dump().items() if on}
 
     def resolved_database(self) -> Path:
         return self.storage.resolved_database(self.questions_dir)

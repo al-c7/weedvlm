@@ -166,6 +166,7 @@ def get_question_samples(
     runs: list[str],
     fraction: float,
     wrong_per_task: int | dict[str, int],
+    tasks: set[str] | None = None,
     seed: int = 69420,
 ):
     """Responses for the rationale judges. For each task (species ID split
@@ -180,6 +181,8 @@ def get_question_samples(
     elif fraction <= 0.0:
         raise ValueError("fraction cannot be less than zero")
     wrong_counts = resolve_wrong_per_task(wrong_per_task)
+    if tasks is not None and (unknown := tasks - {"species_id", "fine_grained", "density", "grounded_vqa", "localisation"}):
+        raise ValueError(f"unknown tasks: {sorted(unknown)}")
     df = pd.read_parquet(results_file)
     df = df[df.run.isin(runs)]
     # Drop responses without reasoning
@@ -194,10 +197,14 @@ def get_question_samples(
     }
     results = []
     for label, mask in groups.items():
+        if tasks is not None and label.split("_multiple_choice")[0].split("_open_ended")[0] not in tasks:
+            continue
         sampled = _sample_correct_and_wrong(df[mask], label, fraction, wrong_counts[label], seed)
         results += to_items(sampled)
 
     # Weed localisation, we don't have right and wrong questions here
+    if tasks is not None and "localisation" not in tasks:
+        return results
     localisation = df[df.task == "localisation"].copy()
     localisation["quality"] = pd.qcut( # Quantile based bins
         localisation["localisation_score"],

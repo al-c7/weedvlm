@@ -3,9 +3,13 @@
 #
 #   uv run src/weedvlm/scripts/score-reasoning.py --config reasoning.example.yaml
 #
-# A judge VLM reads each stored response's reasoning alongside the
-# question, its image and the ground truth, and grades it. The judge is
-# never told which model wrote the response.
+# Two judges grade each sampled response's reasoning, correct or incorrect.
+# The textual judge reads the question, the ground truth and the response,
+# but never sees the image, and scores interpretation and consistency.
+# The visual judge also gets the image (for localisation, rendered with
+# the ground truth boxes in solid green and the model's in dashed orange)
+# and scores observation and grounding. Neither is told which model wrote
+# the response.
 #
 # The API key comes from OPENROUTER_API_KEY, in the environment or in a
 # .env file at the repo root.
@@ -18,14 +22,16 @@ questions_dir: questions/
 # generation-config.yaml inside questions_dir.
 # generation_config: questions/generation-config.yaml
 
-# The responses to judge are read from the benchmark database, so this
-# must be sqlite, which is also the default (docs/DATABASE.md).
+# The images come from the benchmark database, so this must be sqlite,
+# which is also the default (docs/DATABASE.md).
 storage:
   format: sqlite
   # database: questions/benchmark.db   # default: benchmark.db in questions_dir
 
-# Evaluation runs (runs.name in the database) whose responses get
-# judged. Only responses with status 'ok' carry reasoning to judge.
+# The scored responses (a parquet export of the evaluation results), and
+# the evaluation runs in it (the `run` column) whose responses get judged.
+# Responses without reasoning are skipped.
+results_file: notebooks/weedvlm_scored_responses.parquet
 responses_to_evaluate:
   - claude-haiku-full-run
   - deepseek-4-1-flash-full-run
@@ -46,16 +52,17 @@ tasks:
   grounded_vqa: true
   localisation: true
 
-# The judge: a bare OpenRouter model id uses the defaults below; a
+# The judges: a bare OpenRouter model id uses the defaults below; a
 # mapping overrides them. extra_body is merged into the request as-is
-# (OpenRouter's `reasoning`, `provider` routing, etc.). Use a model that
-# isn't one of those being judged, so it never grades its own reasoning.
-evaluation_model:
+# (OpenRouter's `reasoning`, `provider` routing, etc.). Use models that
+# aren't among those being judged, so none grades its own reasoning.
+# The textual judge never gets an image, so it can be a cheaper text-only
+# model; the visual judge must accept images.
+textual_model: google/gemini-3.8-flash
+visual_model:
   id: google/gemini-3.8-flash
   # temperature: 0.0
-  # max_tokens: 4096          # reasoning models spend this on thinking
-  # extra_body:
-  #   reasoning: {effort: low}
+  # max_tokens: 8192          # raise for reasoning models, which spend it on thinking
 
 # Judge only an evenly sampled share of the selected responses: a number
 # (0.1) or a fraction ("1/10"). 1 judges all of them.
@@ -67,13 +74,12 @@ reasoning_fraction: 0.2
 # correct responses only. A model with fewer incorrect responses than this
 # in any task stops the run. Either one number for every task, or a number
 # for each of the five tasks (grounded VQA has few incorrect responses):
-wrong_per_task: 50
-# wrong_per_task:
-#   species_id_multiple_choice: 30
-#   species_id_open_ended: 50
-#   fine_grained: 50
-#   grounded_vqa: 5
-#   density: 50
+wrong_per_task:
+  species_id_multiple_choice: 30
+  species_id_open_ended: 50
+  fine_grained: 50
+  grounded_vqa: 5
+  density: 50
 
 # Requests in flight at once (1-32). Each request carries a base64 image.
 concurrency: 16
@@ -82,7 +88,7 @@ defaults:
   temperature: 0.0
   # A judge reply cut off by this limit is recorded as a failure. Raise it
   # for reasoning models, which spend much of it on hidden thinking.
-  max_tokens: 1024
+  max_tokens: 4096
   timeout_seconds: 120
 
 retry:
