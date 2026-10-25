@@ -248,20 +248,30 @@ class JudgeBuilder:
         parts = [
             "Original task: find instances of Species X and draw bounding boxes around them in your native format"
         ]
+        n_pred = len(item.pred_boxes or [])
+        n_truth = len(item.boxes or [])
         if visual:
-            parts.append("You are provided with the ground truth boxes (green) and the fitted boxes (orange-dashed)")
+            if n_pred:
+                parts.append("You are provided with the ground truth boxes (green) and the fitted boxes (orange-dashed)")
+            else:
+                parts.append("You are provided with the ground truth boxes (green); the model's boxes could not be drawn")
         parts.append(f"The base question:\n\n {item.question_text}")
-        # No options this time, just provide localisation score and matched Iou, explain what these are
-        if item.localisation_score is not None:
-            parts.append(f"The localisation score for this question was: {item.localisation_score}")
-            parts.append("Localisation score adds up the IoUs for all the bounding box pairs, then divides this by either the number of ground truth boxes or number of fitted boxes, which ever is larger")
+        if n_pred:
+            parts.append(f"The model drew {n_pred} box(es); there are {n_truth} ground truth box(es).")
         else:
+            parts.append(
+                f"The model's boxes could not be read, so no boxes were drawn; there are {n_truth} ground truth box(es)."
+            )
+        # No options this time, just provide localisation score and matched Iou, explain what these are
+        if item.localisation_score is None:
             raise ValueError("No localisation score provided")
+        parts.append(f"The localisation score for this question was: {item.localisation_score}")
+        parts.append("Localisation score adds up the IoUs for all the bounding box pairs, then divides this by either the number of ground truth boxes or number of fitted boxes, which ever is larger")
         if item.matched_iou is not None:
             parts.append(f"The matched intersection over union for this question was: {item.matched_iou}")
             parts.append("Matched intersection over union adds up the matched IoUs for all bounding box pairs, then divides this by the number of matched pairs")
         else:
-            raise ValueError("No matched IoU provided")
+            parts.append("No fitted box overlapped any ground truth box, so there is no matched intersection over union for this question.")
         parts.append(f"Rationale: {item.reasoning}")        
         return "\n\n".join(parts)
 
