@@ -12,6 +12,7 @@ from __future__ import annotations
 import json
 from dataclasses import dataclass
 from pathlib import Path
+from typing import Literal
 import sqlite3
 
 from weedvlm.reasoning.runner import JudgeItem
@@ -19,29 +20,64 @@ from weedvlm.storage.database import read_image
 from PIL import Image as PILImage, ImageDraw, ImageFont
 from weedvlm.evaluation.prompts import density_rules_text, load_density_config
 
-REASONING_SYSTEM_PROMPT = """\
-You are an expert judge whose purpose is to evaluates the quality of responses
-to various weed identification questions. The response that you have been
-provided is considered to be correct. Your job is to evaluate the post-hoc
-rationale provided with the response. You will assign scores to the rationale
-based on the following criteria:
-
-- Observation (0-10): Rationale correctly identifies evidence present in the image.
-- Interpretation (0-10): Correctly infers the species or condition  from the observations.
-- Grounding (0-10): Reasoning only relies on given information; does not hallucinate details.
-- Consistency (0-10): The explanation logically supports the final answer without contradictions.
+_RATIONALE_PREAMBLE = """\
+You are an expert judge whose purpose is to evaluate the quality of responses made by a VLM
+to various weed identification questions. The response you have been provided may be
+correct or incorrect; you are given the ground truth, but you are not told which. For weed
+localisation there is no right or wrong answer, and you are given localisation scores instead.
+Your job is to evaluate the post-hoc rationale provided with the response, judging the quality
+of the reasoning rather than whether the final answer is right. You will assign integer scores
+from 0 (worst) to 10 (best) to the rationale based on the following criteria:
 """
 
-ERROR_SYSTEM_PROMPT = """\
-You are an expert judge whose purpose is to evaluate the quality of responses
-to 
+TEXTUAL_RATIONALE_SYSTEM_PROMPT = _RATIONALE_PREAMBLE + """
+- Interpretation: The rationale correctly infers the species or condition from the observations
+  it states. Take the stated observations as given; do not penalise them here. 0 means the
+  inference does not follow from the observations, 5 means it is plausible but incomplete or
+  loosely argued, 10 means the observations clearly and correctly lead to the conclusion drawn
+  (a rationale that reasons soundly to a wrong answer from wrong observations is not penalised here).
+- Consistency: The explanation logically supports the final answer without contradictions.
+  0 means it contradicts itself or the answer, 5 means it has minor gaps or tension,
+  10 means every step supports the answer.
+
+You have been given the question, the ground truth, and the text the VLM produced as its
+answer. You have explicitly not been given the source image, as you are only the textual
+judge, so do not assess whether the stated observations are true of the image. Reply with
+only a JSON object of the following form, where each value is an integer from 0 to 10:
+
+```json
+{"interpretation": <int>, "consistency": <int>}
+```
 """
+
+VISUAL_RATIONALE_SYSTEM_PROMPT = _RATIONALE_PREAMBLE + """
+- Observation: The rationale correctly identifies evidence that is present in the image.
+  0 means the evidence cited is wrong or absent from the image, 5 means some of it is
+  right, 10 means all of it is accurate and relevant.
+- Grounding: The reasoning relies only on what is visible in the image and the information
+  given in the question; it does not hallucinate details. 0 means it relies mainly on invented
+  details, 5 means it includes some unsupported claims, 10 means every claim is supported.
+
+You have been given the question, the ground truth, the source image, and the text the VLM
+produced as its answer. Reply with only a JSON object of the following form, where each value
+is an integer from 0 to 10:
+
+```json
+{"observation": <int>, "grounding": <int>}
+```
+"""
+
+TEXTUAL_FIELDS = ("interpretation", "consistency")
+VISUAL_FIELDS = ("observation", "grounding")
+
+JudgeKind = Literal["textual", "visual"]
 
 @dataclass
 class ReasoningPrompt:
     system: str
     user_text: str
-    required_fields: tuple[str, ...] = ("answer", "reasoning")
+    required_fields: tuple[str, ...]
+    attach_image: bool
 
 class JudgeBuilder:
     conn: sqlite3.Connection
@@ -58,7 +94,7 @@ class JudgeBuilder:
             raise KeyError(f"{id} doesn't correspond to an image in this benchmark")
         return row["data"] if row["data"] is not None else None
 
-    def __load_weed_id_item(self, item: JudgeItem) -> str:
+    def __load_weed_id_item(self, item: JudgeItem, visual: bool) -> str:
         """The judge's user text for a species ID question (multiple choice
         or open-ended, boxed or unannotated). The image is attached
         separately by the caller."""
@@ -75,16 +111,17 @@ class JudgeBuilder:
 
         # Ground truth
         truth = [f"Correct species: {item.expected_answer}"]
-        if item.annotated == 1:
-            truth.append("The target plant is outlined by a bounding box in the image.")
-        else:
-            truth.append("The image carries no bounding box annotations.")
+        if visual:
+            if item.annotated == 1:
+                truth.append("The target plant is outlined by a bounding box in the image.")
+            else:
+                truth.append("The image carries no bounding box annotations.")
         parts.append("Ground truth:\n" + "\n".join(f"- {line}" for line in truth))
 
         parts.append(f"Response: {item.answer}\n\nRationale: {item.reasoning}")
         return "\n\n".join(parts)
 
-    def __load_fine_grained_item(self, item: JudgeItem) -> str:
+    def __load_fine_grained_item(self, item: JudgeItem, visual: bool) -> str:
         """The judge's user text for a fine-grained ID question. The image needs to
         be attached separately by the caller"""
         parts = [
@@ -100,12 +137,15 @@ class JudgeBuilder:
             parts.append(f"Ground truth: {item.expected_answer}")
         else:
             raise ValueError("No ground truth attached")
-        parts.append("The two species are differentiated by different colour bounding boxes and numerical labels")
+        if visual:
+            parts.append("The two species are differentiated by different colour bounding boxes and numerical labels")
+        else:
+            parts.append("The two plants are referred to by their numerical labels, 1 and 2")
         parts.append("The response in this case is shown below")
         parts.append(f"Response: {item.answer}\n\nRationale: {item.reasoning}")
         return "\n\n".join(parts)
 
-    def __load_grounded_vqa_item(self, item: JudgeItem) -> str:
+    def __load_grounded_vqa_item(self, item: JudgeItem, visual: bool) -> str:
         """The judge's user text for a grounded weed visual question answering
         question. The image needs to be attached separately by the caller."""
         parts = [
@@ -119,18 +159,20 @@ class JudgeBuilder:
             parts.append(f"Ground truth: {item.expected_answer}")
         else:
             raise ValueError("No ground truth attached")
-        parts.append("The options are differentiated by different bounding box colours and labels")
+        if visual:
+            parts.append("The options are differentiated by different bounding box colours and labels")
         parts.append("The response in this case is shown below")
         parts.append(f"Response: {item.answer}\n\nRationale: {item.reasoning}")
         return "\n\n".join(parts)
 
-    def __load_localisation_item(self, item: JudgeItem) -> str:
+    def __load_localisation_item(self, item: JudgeItem, visual: bool) -> str:
         """The judge's user text for a weed localisation question. The image
         needs to be attached by the caller."""
         parts = [
-            "Original task: find instances of Species X and draw bounding boxes around them in your native format",
-            "You are provided with the ground truth boxes (green) and the fitted boxes (orange-dotted)"
+            "Original task: find instances of Species X and draw bounding boxes around them in your native format"
         ]
+        if visual:
+            parts.append("You are provided with the ground truth boxes (green) and the fitted boxes (orange-dotted)")
         parts.append(f"The base question:\n\n {item.question_text}")
         # No options this time, just provide localisation score and matched Iou, explain what these are
         if item.localisation_score is not None:
@@ -146,7 +188,7 @@ class JudgeBuilder:
         parts.append(f"Rationale: {item.reasoning}")        
         return "\n\n".join(parts)
 
-    def __load_density_item(self, item: JudgeItem, rules_text: str) -> str:
+    def __load_density_item(self, item: JudgeItem, rules_text: str, visual: bool) -> str:
         """The judge's user text for a weed density estimation question.
         rules_text is the category rules the model was given
         (evaluation.prompts.density_rules_text), so the judge sees the same
@@ -160,10 +202,11 @@ class JudgeBuilder:
         parts = [
             "Original task: determine the number of weeds and percentage weeds cover in the field image. From this determine the weed category."
         ]
-        if item.annotated == 1:
-            parts.append("The weeds in this image are outlined with bounding boxes; each box is one weed.")
-        else:
-            parts.append("The image has no annotations, so the weeds had to be found and told apart from the crop.")
+        if visual:
+            if item.annotated == 1:
+                parts.append("The weeds in this image are outlined with bounding boxes; each box is one weed.")
+            else:
+                parts.append("The image has no annotations, so the weeds had to be found and told apart from the crop.")
         parts.append(f"The base question:\n\n{item.question_text}")
         parts.append(rules_text)
         if item.choices:
@@ -183,22 +226,38 @@ class JudgeBuilder:
         parts.append(f"{response}\n\nRationale: {item.reasoning}")
         return "\n\n".join(parts)
 
-    def load_judge_item(self, item: JudgeItem) -> str:
-        # Work out the type of question
-        judge_text = None
+    def __load_user_text(self, item: JudgeItem, visual: bool) -> str:
         match item.task:
             case "species_id":
-                judge_text = self.__load_weed_id_item(item)
+                return self.__load_weed_id_item(item, visual)
             case "fine_grained":
-                judge_text = self.__load_fine_grained_item(item)
+                return self.__load_fine_grained_item(item, visual)
             case "grounded_vqa":
-                judge_text = self.__load_grounded_vqa_item(item)
+                return self.__load_grounded_vqa_item(item, visual)
             case "localisation":
-                judge_text = self.__load_localisation_item(item)
+                return self.__load_localisation_item(item, visual)
             case "density":
-                judge_text = self.__load_density_item(item, self.density_rules)
+                return self.__load_density_item(item, self.density_rules, visual)
             case _:
-                raise ValueError("Invalid question_type")
-        return judge_text
+                raise ValueError(f"Invalid task: {item.task}")
 
-
+    def build(self, item: JudgeItem, kind: JudgeKind) -> ReasoningPrompt:
+        """The full prompt for one judge of one response. The textual judge
+        never sees the image or any text that refers to it."""
+        match kind:
+            case "textual":
+                return ReasoningPrompt(
+                    TEXTUAL_RATIONALE_SYSTEM_PROMPT,
+                    self.__load_user_text(item, visual=False),
+                    TEXTUAL_FIELDS,
+                    attach_image=False,
+                )
+            case "visual":
+                return ReasoningPrompt(
+                    VISUAL_RATIONALE_SYSTEM_PROMPT,
+                    self.__load_user_text(item, visual=True),
+                    VISUAL_FIELDS,
+                    attach_image=True,
+                )
+            case _:
+                raise ValueError(f"Invalid judge kind: {kind}")

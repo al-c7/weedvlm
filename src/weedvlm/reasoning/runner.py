@@ -72,6 +72,7 @@ class JudgeItem:
     boxes: list[list[float]] | None = None
     target_species: str | None = None
     annotated: int | None = None
+    match: bool | None = None
     benchmark_class: str | None = None
     pred_boxes: list[list[float]] | None = None
     bbox_format: str | None = None
@@ -150,7 +151,7 @@ def get_question_samples(results_file: str, runs: list[str], fraction: float, se
     # Get weed species ID, get MCQ, and open-ended separately as their own analysis
     mcq = (
         df[
-            (df.task == "species_id") & (df.question_type == "species_id_multiple_choice") & df.match
+            (df.task == "species_id") & (df.question_type == "species_id_multiple_choice")
         ]
     )
     mcq_samples = (
@@ -160,7 +161,7 @@ def get_question_samples(results_file: str, runs: list[str], fraction: float, se
     )
     open_ended = (
         df[
-            (df.task == "species_id") & (df.question_type == "species_id_open_ended") & df.match
+            (df.task == "species_id") & (df.question_type == "species_id_open_ended")
         ]
     )
     open_ended_samples = (
@@ -169,7 +170,7 @@ def get_question_samples(results_file: str, runs: list[str], fraction: float, se
         .sample(frac=fraction, random_state=seed)
     )
     # Get fine-grained ID
-    fine_grained = df[(df.task == "fine_grained") & df.match]
+    fine_grained = df[(df.task == "fine_grained")]
     fine_grained_samples = (
         fine_grained[fine_grained["run"].isin(runs)]
         .groupby("run", group_keys=False)
@@ -177,10 +178,10 @@ def get_question_samples(results_file: str, runs: list[str], fraction: float, se
     )
 
     # Get grounded VQA
-    gvqa = df[(df.task == "grounded_vqa") & df.match]
+    gvqa = df[(df.task == "grounded_vqa")]
     gvqa_samples = (
         gvqa[gvqa["run"].isin(runs)]
-        .groupby("run")
+        .groupby("run", group_keys=False)
         .sample(frac=fraction, random_state=seed)
     )
     # Get weed localisation, we don't have right and wrong questions here
@@ -199,10 +200,10 @@ def get_question_samples(results_file: str, runs: list[str], fraction: float, se
     )
 
     # Get weed density estimation
-    wde = df[(df.task == "density") & df.match]
+    wde = df[(df.task == "density")]
     wde_samples = (
         wde[wde["run"].isin(runs)]
-        .groupby("run")
+        .groupby("run", group_keys=False)
         .sample(frac=fraction, random_state=seed)
     )
     results += to_items(mcq_samples)
