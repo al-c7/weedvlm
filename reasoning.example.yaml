@@ -61,6 +61,13 @@ evaluation_model:
 # (0.1) or a fraction ("1/10"). 1 judges all of them.
 reasoning_fraction: 0.2
 
+# Incorrect responses are sampled by count, not fraction: exactly this many
+# per task (species ID split into multiple choice and open-ended) per model,
+# so every model gets the same number. reasoning_fraction applies to the
+# correct responses only. A model with fewer incorrect responses than this
+# in any task stops the run.
+wrong_per_task: 50
+
 # Requests in flight at once (1-32). Each request carries a base64 image.
 concurrency: 16
 
