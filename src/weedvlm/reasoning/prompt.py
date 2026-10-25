@@ -9,6 +9,7 @@ is provided, followed by the questions, the response, and the output.
 
 from __future__ import annotations
 
+import io
 import json
 from dataclasses import dataclass
 from pathlib import Path
@@ -72,6 +73,71 @@ VISUAL_FIELDS = ("observation", "grounding")
 
 JudgeKind = Literal["textual", "visual"]
 
+GROUND_TRUTH_COLOUR = (0, 200, 0)
+FITTED_COLOUR = (255, 140, 0)
+
+
+def _dashed_rectangle(draw: ImageDraw.ImageDraw, box: list[float], colour, width: int) -> None:
+    """A rectangle drawn as dashes, each 5 line widths long with a gap of 3,
+    so it reads as dashed however large the image is."""
+    x1, y1, x2, y2 = box
+    dash, gap = width * 5, width * 3
+    for (ax, ay), (bx, by) in (
+        ((x1, y1), (x2, y1)),
+        ((x2, y1), (x2, y2)),
+        ((x2, y2), (x1, y2)),
+        ((x1, y2), (x1, y1)),
+    ):
+        length = max(abs(bx - ax), abs(by - ay))
+        if length == 0:
+            continue
+        dx, dy = (bx - ax) / length, (by - ay) / length
+        pos = 0.0
+        while pos < length:
+            end = min(pos + dash, length)
+            draw.line(
+                [(ax + dx * pos, ay + dy * pos), (ax + dx * end, ay + dy * end)],
+                fill=colour,
+                width=width,
+            )
+            pos += dash + gap
+
+
+def render_localisation_image(
+    image: PILImage.Image, truth_xyxy: list[list[float]], pred_xyxy: list[list[float]]
+) -> bytes:
+    """Draws the ground truth boxes (solid green) and the model's boxes
+    (dashed orange), both (x1, y1, x2, y2) in pixels, under a legend strip.
+    Returns JPEG bytes."""
+    image = image.convert("RGB")
+    width, height = image.size
+    line = max(2, round(max(width, height) / 400))
+    draw = ImageDraw.Draw(image)
+    for box in truth_xyxy:
+        draw.rectangle(box, outline=GROUND_TRUTH_COLOUR, width=line)
+    for box in pred_xyxy:
+        _dashed_rectangle(draw, box, FITTED_COLOUR, line)
+
+    font_size = max(14, round(height / 40))
+    font = ImageFont.load_default(size=font_size)
+    strip = round(font_size * 2)
+    canvas = PILImage.new("RGB", (width, height + strip), "white")
+    canvas.paste(image, (0, strip))
+    draw = ImageDraw.Draw(canvas)
+    mid = strip / 2
+    swatch = font_size * 2
+    x = font_size / 2
+    draw.line([(x, mid), (x + swatch, mid)], fill=GROUND_TRUTH_COLOUR, width=line)
+    draw.text((x + swatch + font_size / 2, mid), "Ground truth", fill="black", font=font, anchor="lm")
+    x += swatch + font_size / 2 + draw.textlength("Ground truth", font=font) + font_size * 1.5
+    _dashed_rectangle(draw, [x, mid, x + swatch, mid], FITTED_COLOUR, line)
+    draw.text((x + swatch + font_size / 2, mid), "Fitted (model)", fill="black", font=font, anchor="lm")
+
+    out = io.BytesIO()
+    canvas.save(out, format="JPEG", quality=92)
+    return out.getvalue()
+
+
 @dataclass
 class ReasoningPrompt:
     system: str
@@ -88,11 +154,22 @@ class JudgeBuilder:
         self.generation_config_path = Path(generation_config_path)
         self.density_rules = density_rules_text(load_density_config(self.generation_config_path))
 
-    def __load_image_from_id(self, id: int):
-        row = self.conn.execute("SELECT data FROM images WHERE id = ?", (id,)).fetchone()
+    def load_image(self, image_id: int) -> bytes:
+        """An image's bytes: from the database if they were stored, else
+        from the file at its path."""
+        row = self.conn.execute("SELECT path, data FROM images WHERE id = ?", (image_id,)).fetchone()
         if row is None:
-            raise KeyError(f"{id} doesn't correspond to an image in this benchmark")
-        return row["data"] if row["data"] is not None else None
+            raise KeyError(f"{image_id} doesn't correspond to an image in this benchmark")
+        return row["data"] if row["data"] is not None else Path(row["path"]).read_bytes()
+
+    def render_localisation(self, item: JudgeItem) -> bytes:
+        """The image for a localisation question as JPEG bytes: ground truth
+        boxes solid green, the model's boxes dashed orange, with a legend
+        strip above the image."""
+        if item.boxes is None:
+            raise ValueError("No ground truth boxes attached")
+        image = PILImage.open(io.BytesIO(self.load_image(item.image_id)))
+        return render_localisation_image(image, item.boxes, item.pred_boxes or [])
 
     def __load_weed_id_item(self, item: JudgeItem, visual: bool) -> str:
         """The judge's user text for a species ID question (multiple choice
@@ -172,7 +249,7 @@ class JudgeBuilder:
             "Original task: find instances of Species X and draw bounding boxes around them in your native format"
         ]
         if visual:
-            parts.append("You are provided with the ground truth boxes (green) and the fitted boxes (orange-dotted)")
+            parts.append("You are provided with the ground truth boxes (green) and the fitted boxes (orange-dashed)")
         parts.append(f"The base question:\n\n {item.question_text}")
         # No options this time, just provide localisation score and matched Iou, explain what these are
         if item.localisation_score is not None:
