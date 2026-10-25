@@ -27,6 +27,35 @@ MAX_CONCURRENCY = 32
 # src/weedvlm/reasoning/config.py -> repo root
 DEFAULT_CONFIG_PATH = Path(__file__).resolve().parents[3] / "reasoning.example.yaml"
 
+# Tasks sampled by correct/incorrect (localisation has no right or wrong).
+# Species ID is split by question type.
+SAMPLED_TASKS = (
+    "species_id_multiple_choice",
+    "species_id_open_ended",
+    "fine_grained",
+    "grounded_vqa",
+    "density",
+)
+
+
+def resolve_wrong_per_task(wrong_per_task: int | dict[str, int]) -> dict[str, int]:
+    """One number for every task, or a dict that names every task in SAMPLED_TASKS."""
+    if isinstance(wrong_per_task, int):
+        counts = dict.fromkeys(SAMPLED_TASKS, wrong_per_task)
+    else:
+        unknown = set(wrong_per_task) - set(SAMPLED_TASKS)
+        missing = set(SAMPLED_TASKS) - set(wrong_per_task)
+        if unknown or missing:
+            raise ValueError(
+                f"wrong_per_task must name exactly {list(SAMPLED_TASKS)}; "
+                f"unknown: {sorted(unknown)}, missing: {sorted(missing)}"
+            )
+        counts = dict(wrong_per_task)
+    if any(n < 0 for n in counts.values()):
+        raise ValueError("wrong_per_task cannot be negative")
+    return counts
+
+
 class ModelConfig(BaseModel):
     """The judge model: an OpenRouter model id, plus optional overrides of
     the request defaults. extra_body is merged into the request as-is."""
@@ -80,7 +109,7 @@ class ReasoningConfig(BaseModel):
     api_key_env: str = "OPENROUTER_API_KEY"
 
     reasoning_fraction: float = Field(default=1.0, gt=0, le=1)
-    wrong_per_task: int = Field(default=50, ge=0)
+    wrong_per_task: int | dict[str, int] = 50
 
     @field_validator("evaluation_model", mode="before")
     @classmethod
@@ -101,6 +130,7 @@ class ReasoningConfig(BaseModel):
     def _check(self) -> ReasoningConfig:
         if self.storage.format != "sqlite":
             raise ValueError("storage: format must be sqlite, the responses are read from the database")
+        resolve_wrong_per_task(self.wrong_per_task)
         if not any(self.tasks.model_dump().values()):
             raise ValueError("tasks: every task is disabled, nothing to run")
         return self

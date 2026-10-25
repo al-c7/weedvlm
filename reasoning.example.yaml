@@ -65,8 +65,15 @@ reasoning_fraction: 0.2
 # per task (species ID split into multiple choice and open-ended) per model,
 # so every model gets the same number. reasoning_fraction applies to the
 # correct responses only. A model with fewer incorrect responses than this
-# in any task stops the run.
+# in any task stops the run. Either one number for every task, or a number
+# for each of the five tasks (grounded VQA has few incorrect responses):
 wrong_per_task: 50
+# wrong_per_task:
+#   species_id_multiple_choice: 30
+#   species_id_open_ended: 50
+#   fine_grained: 50
+#   grounded_vqa: 5
+#   density: 50
 
 # Requests in flight at once (1-32). Each request carries a base64 image.
 concurrency: 16

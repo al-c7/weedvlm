@@ -37,7 +37,7 @@ from typing import Any
 import pandas as pd
 import textwrap
 
-from weedvlm.reasoning.config import ReasoningConfig, ModelConfig
+from weedvlm.reasoning.config import ReasoningConfig, ModelConfig, SAMPLED_TASKS, resolve_wrong_per_task
 from weedvlm.evaluation.openrouter import ChatReply, OpenRouterClient, RequestFailure
 from weedvlm.evaluation.parsing import check_fields, extract_json_object
 from weedvlm.evaluation.progress import ModelProgress, Progress
@@ -165,35 +165,36 @@ def get_question_samples(
     results_file: str,
     runs: list[str],
     fraction: float,
-    wrong_per_task: int,
+    wrong_per_task: int | dict[str, int],
     seed: int = 69420,
 ):
     """Responses for the rationale judges. For each task (species ID split
     into multiple choice and open-ended) and each run: `fraction` of the
     correct responses and exactly `wrong_per_task` incorrect ones.
+    `wrong_per_task` is either one number for every task, or a dict with
+    a number for each of SAMPLED_TASKS.
     Localisation has no right or wrong, so it is sampled `fraction` per
     run and score tercile instead."""
     if fraction > 1.0:
         raise ValueError("fraction cannot be greater than one")
     elif fraction <= 0.0:
         raise ValueError("fraction cannot be less than zero")
-    if wrong_per_task < 0:
-        raise ValueError("wrong_per_task cannot be negative")
+    wrong_counts = resolve_wrong_per_task(wrong_per_task)
     df = pd.read_parquet(results_file)
     df = df[df.run.isin(runs)]
     # Drop responses without reasoning
     df = df[df.reasoning.fillna("").str.strip() != ""]
 
     groups = {
-        "species_id (multiple choice)": (df.task == "species_id") & (df.question_type == "species_id_multiple_choice"),
-        "species_id (open-ended)": (df.task == "species_id") & (df.question_type == "species_id_open_ended"),
+        "species_id_multiple_choice": (df.task == "species_id") & (df.question_type == "species_id_multiple_choice"),
+        "species_id_open_ended": (df.task == "species_id") & (df.question_type == "species_id_open_ended"),
         "fine_grained": df.task == "fine_grained",
         "grounded_vqa": df.task == "grounded_vqa",
         "density": df.task == "density",
     }
     results = []
     for label, mask in groups.items():
-        sampled = _sample_correct_and_wrong(df[mask], label, fraction, wrong_per_task, seed)
+        sampled = _sample_correct_and_wrong(df[mask], label, fraction, wrong_counts[label], seed)
         results += to_items(sampled)
 
     # Weed localisation, we don't have right and wrong questions here
