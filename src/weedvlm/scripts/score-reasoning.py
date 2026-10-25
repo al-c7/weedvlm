@@ -34,11 +34,26 @@ from weedvlm.reasoning.config import (
     resolve_reasoning_path,
 )
 
-from weedvlm.reasoning.runner import get_question_samples, get_example
-from weedvlm.reasoning.prompt import JudgeBuilder
+from weedvlm.reasoning.runner import get_question_samples, JudgeItem
+from weedvlm.reasoning.judge import JUDGE_KINDS, run_judges
+from weedvlm.reasoning.prompt import JudgeBuilder, load_species_descriptions
 from weedvlm.storage.database import connect
 
-from weedvlm.evaluation.runner import FatalRunError, RunResult, run_evaluation
+from weedvlm.evaluation.runner import FatalRunError
+
+def spread(items: list[JudgeItem], limit: int) -> list[JudgeItem]:
+    """The first `limit` items taking one task at a time in turn, so a small
+    smoke run touches every task."""
+    by_task: dict[str, list[JudgeItem]] = {}
+    for item in items:
+        by_task.setdefault(item.task, []).append(item)
+    picked: list[JudgeItem] = []
+    while len(picked) < limit and any(by_task.values()):
+        for queue in by_task.values():
+            if queue and len(picked) < limit:
+                picked.append(queue.pop(0))
+    return picked
+
 
 def main() -> int:
     parser = argparse.ArgumentParser(
@@ -63,6 +78,17 @@ def main() -> int:
         help="Overrides the config's reasoning_fraction: run an evenly sampled share of the "
         "benchmark, e.g. 0.5 or 1/3",
     )
+    parser.add_argument(
+        "--limit",
+        type=int,
+        default=None,
+        help="Smoke test: judge only this many sampled responses, spread round-robin across tasks",
+    )
+    parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="Build every prompt (and render every image) without sending anything",
+    )
     args = parser.parse_args()
 
     try:
@@ -85,13 +111,36 @@ def main() -> int:
         )
         config.run_dir().mkdir(parents=True, exist_ok=True)
         conn = connect(config.resolved_database())
-        builder = JudgeBuilder(conn, str(config.resolved_generation_config()))
+        builder = JudgeBuilder(
+            conn,
+            str(config.resolved_generation_config()),
+            load_species_descriptions(config.species_descriptions),
+        )
+        builder.check_descriptions(results)
         # How many total questions do we have to review?
         print(f"Questions for review for frac={config.reasoning_fraction}: {len(results)}")
 
-        # Print out some examples
-        print(get_example("localisation", results))
-        print(get_example("species_id", results))
+        if args.limit is not None:
+            results = spread(results, args.limit)
+            print(f"--limit {args.limit}: judging {len(results)} responses")
+
+        if args.dry_run:
+            for item in results:
+                for kind in JUDGE_KINDS:
+                    prompt = builder.build(item, kind)
+                    if prompt.attach_image:
+                        builder.image_for(item)
+            print(f"Dry run: built {len(results) * len(JUDGE_KINDS)} prompts without errors")
+            return 0
+
+        result = asyncio.run(run_judges(config, results, builder))
+        if result.fatal_message:
+            print(f"error: {result.fatal_message}", file=sys.stderr)
+        for message, count in result.top_errors:
+            print(f"  {count}x {message}", file=sys.stderr)
+        if result.state == "interrupted":
+            return 130
+        return 0 if result.ok else 1
 
     except (ValidationError, FileNotFoundError, ValueError, FatalRunError) as error:
         print(f"error: {error}", file=sys.stderr)

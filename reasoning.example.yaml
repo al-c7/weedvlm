@@ -28,6 +28,11 @@ storage:
   format: sqlite
   # database: questions/benchmark.db   # default: benchmark.db in questions_dir
 
+# Reference descriptions of the target species, shown to both judges for
+# species ID, grounded VQA and localisation questions (see the file for the
+# format). Every species in the sampled questions needs one.
+species_descriptions: species-descriptions.yaml
+
 # The scored responses (a parquet export of the evaluation results), and
 # the evaluation runs in it (the `run` column) whose responses get judged.
 # Responses without reasoning are skipped.

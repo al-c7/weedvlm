@@ -102,6 +102,7 @@ class ReasoningConfig(BaseModel):
     # text-only model; the visual judge needs one that takes images.
     textual_model: ModelConfig
     visual_model: ModelConfig
+    species_descriptions: Path = Path("species-descriptions.yaml")
     results_file: Path = Path("notebooks/weedvlm_scored_responses.parquet")
     concurrency: int = Field(default=8, ge=1, le=MAX_CONCURRENCY)
     defaults: RequestDefaults = Field(default_factory=RequestDefaults)

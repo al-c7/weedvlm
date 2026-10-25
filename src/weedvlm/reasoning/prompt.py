@@ -14,7 +14,10 @@ import json
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Literal
+
+import yaml
 import sqlite3
+import threading
 
 from weedvlm.reasoning.runner import JudgeItem
 from weedvlm.storage.database import read_image
@@ -43,11 +46,16 @@ TEXTUAL_RATIONALE_SYSTEM_PROMPT = _RATIONALE_PREAMBLE + """
 
 You have been given the question, the ground truth, and the text the VLM produced as its
 answer. You have explicitly not been given the source image, as you are only the textual
-judge, so do not assess whether the stated observations are true of the image. Reply with
-only a JSON object of the following form, where each value is an integer from 0 to 10:
+judge, so do not assess whether the stated observations are true of the image.
+
+Also include a "notes" string. Use it only where appropriate, for a brief remark that explains
+a low score or flags something unusual (for example a contradiction, an unsupported claim, or
+a problem with the question or ground truth). Otherwise set it to "none".
+
+Reply with only a JSON object of the following form, where each score is an integer from 0 to 10:
 
 ```json
-{"interpretation": <int>, "consistency": <int>}
+{"interpretation": <int>, "consistency": <int>, "notes": "<string>"}
 ```
 """
 
@@ -60,11 +68,16 @@ VISUAL_RATIONALE_SYSTEM_PROMPT = _RATIONALE_PREAMBLE + """
   details, 5 means it includes some unsupported claims, 10 means every claim is supported.
 
 You have been given the question, the ground truth, the source image, and the text the VLM
-produced as its answer. Reply with only a JSON object of the following form, where each value
-is an integer from 0 to 10:
+produced as its answer.
+
+Also include a "notes" string. Use it only where appropriate, for a brief remark that explains
+a low score or flags something unusual (for example a contradiction, an unsupported claim, or
+a problem with the question or ground truth). Otherwise set it to "none".
+
+Reply with only a JSON object of the following form, where each score is an integer from 0 to 10:
 
 ```json
-{"observation": <int>, "grounding": <int>}
+{"observation": <int>, "grounding": <int>, "notes": "<string>"}
 ```
 """
 
@@ -72,6 +85,31 @@ TEXTUAL_FIELDS = ("interpretation", "consistency")
 VISUAL_FIELDS = ("observation", "grounding")
 
 JudgeKind = Literal["textual", "visual"]
+
+def load_species_descriptions(path: Path) -> dict[str, str]:
+    """species name -> description, from the YAML file (see
+    species-descriptions.yaml at the repo root). Each species has a
+    `description` (shown to the judges) and `sources` (links, kept for
+    provenance and never shown to them)."""
+    raw = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
+    if not isinstance(raw, dict):
+        raise ValueError(f"{path} must map each species name to a description and sources")
+    descriptions: dict[str, str] = {}
+    for name, entry in raw.items():
+        if (
+            not isinstance(entry, dict)
+            or set(entry) != {"description", "sources"}
+            or not isinstance(entry["description"], str)
+            or not isinstance(entry["sources"], list)
+            or not all(isinstance(link, str) for link in entry["sources"])
+        ):
+            raise ValueError(
+                f"{path}: {name!r} must have exactly a `description` string and a `sources` "
+                "list of links"
+            )
+        descriptions[str(name)] = entry["description"]
+    return descriptions
+
 
 GROUND_TRUTH_COLOUR = (0, 200, 0)
 FITTED_COLOUR = (255, 140, 0)
@@ -149,18 +187,82 @@ class JudgeBuilder:
     conn: sqlite3.Connection
     density_rules: str
 
-    def __init__(self, conn: sqlite3.Connection, generation_config_path: str):
+    def __init__(
+        self,
+        conn: sqlite3.Connection,
+        generation_config_path: str,
+        species_descriptions: dict[str, str],
+    ):
         self.conn = conn
+        self.species_descriptions = {
+            name.strip().lower(): text.strip() for name, text in species_descriptions.items()
+        }
+        # The connection is shared with worker threads that read images.
+        self._db_lock = threading.Lock()
         self.generation_config_path = Path(generation_config_path)
         self.density_rules = density_rules_text(load_density_config(self.generation_config_path))
 
-    def load_image(self, image_id: int) -> bytes:
-        """An image's bytes: from the database if they were stored, else
-        from the file at its path."""
-        row = self.conn.execute("SELECT path, data FROM images WHERE id = ?", (image_id,)).fetchone()
+    @staticmethod
+    def target_species(item: JudgeItem) -> str | None:
+        """The species a question is about, or None for tasks that name
+        none (fine-grained, density)."""
+        match item.task:
+            case "species_id":
+                return item.expected_answer
+            case "grounded_vqa":
+                return item.benchmark_class
+            case "localisation":
+                return item.target_species
+            case _:
+                return None
+
+    def check_descriptions(self, items: list[JudgeItem]) -> None:
+        """Fails loudly if any item's target species has no description."""
+        missing = sorted(
+            {
+                species
+                for item in items
+                if (species := self.target_species(item))
+                and not self.species_descriptions.get(species.strip().lower())
+            }
+        )
+        if missing:
+            raise ValueError(
+                f"No description for {len(missing)} target species (add them to the species "
+                f"descriptions file): {', '.join(missing)}"
+            )
+
+    def __species_part(self, item: JudgeItem) -> str | None:
+        species = self.target_species(item)
+        if species is None:
+            return None
+        description = self.species_descriptions.get(species.strip().lower())
+        if not description:
+            raise ValueError(f"No description for target species {species!r}")
+        return (
+            f"Reference description of the target species, {species}:\n{description}\n\n"
+            "This is for your reference only; the VLM was not given it, and not every feature "
+            "described need be visible in this particular image."
+        )
+
+    def load_image(self, image_id: int) -> tuple[bytes, str]:
+        """An image's (bytes, media type): from the database if they were
+        stored, else from the file at its path."""
+        with self._db_lock:
+            row = self.conn.execute(
+                "SELECT path, data, media_type FROM images WHERE id = ?", (image_id,)
+            ).fetchone()
         if row is None:
             raise KeyError(f"{image_id} doesn't correspond to an image in this benchmark")
-        return row["data"] if row["data"] is not None else Path(row["path"]).read_bytes()
+        data = row["data"] if row["data"] is not None else Path(row["path"]).read_bytes()
+        return data, row["media_type"]
+
+    def image_for(self, item: JudgeItem) -> tuple[bytes, str]:
+        """The (bytes, media type) of the image to attach for this item:
+        the localisation render, else the stored image."""
+        if item.task == "localisation":
+            return self.render_localisation(item), "image/jpeg"
+        return self.load_image(item.image_id)
 
     def render_localisation(self, item: JudgeItem) -> bytes:
         """The image for a localisation question as JPEG bytes: ground truth
@@ -168,7 +270,7 @@ class JudgeBuilder:
         strip above the image."""
         if item.boxes is None:
             raise ValueError("No ground truth boxes attached")
-        image = PILImage.open(io.BytesIO(self.load_image(item.image_id)))
+        image = PILImage.open(io.BytesIO(self.load_image(item.image_id)[0]))
         return render_localisation_image(image, item.boxes, item.pred_boxes or [])
 
     def __load_weed_id_item(self, item: JudgeItem, visual: bool) -> str:
@@ -186,6 +288,7 @@ class JudgeBuilder:
             options = "\n".join(f"- {choice}" for choice in item.choices)
             parts.append(f"The options were:\n{options}")
 
+        parts.append(self.__species_part(item))
         # Ground truth
         truth = [f"Correct species: {item.expected_answer}"]
         if visual:
@@ -232,6 +335,7 @@ class JudgeBuilder:
         if item.choices:
             options = "\n".join(f"- {choice}" for choice in item.choices)
             parts.append(options)
+        parts.append(self.__species_part(item))
         if item.expected_answer:
             parts.append(f"Ground truth: {item.expected_answer}")
         else:
@@ -256,6 +360,7 @@ class JudgeBuilder:
             else:
                 parts.append("You are provided with the ground truth boxes (green); the model's boxes could not be drawn")
         parts.append(f"The base question:\n\n {item.question_text}")
+        parts.append(self.__species_part(item))
         if n_pred:
             parts.append(f"The model drew {n_pred} box(es); there are {n_truth} ground truth box(es).")
         else:
