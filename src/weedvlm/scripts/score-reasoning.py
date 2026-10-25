@@ -41,17 +41,22 @@ from weedvlm.storage.database import connect
 
 from weedvlm.evaluation.runner import FatalRunError
 
-def spread(items: list[JudgeItem], limit: int) -> list[JudgeItem]:
-    """The first `limit` items taking one task at a time in turn, so a small
-    smoke run touches every task."""
-    by_task: dict[str, list[JudgeItem]] = {}
+def spread(items: list[JudgeItem], limit: int, seed: int = 0) -> list[JudgeItem]:
+    """`limit` items taking one group at a time in turn, where a group is a
+    task, question type and correct/incorrect, and items within a group are
+    shuffled so models are mixed. A small smoke or pilot run therefore
+    touches every task and includes incorrect responses."""
+    groups: dict[tuple, list[JudgeItem]] = {}
     for item in items:
-        by_task.setdefault(item.task, []).append(item)
+        groups.setdefault((item.task, item.question_type, item.match), []).append(item)
+    rng = random.Random(seed)
+    for queue in groups.values():
+        rng.shuffle(queue)
     picked: list[JudgeItem] = []
-    while len(picked) < limit and any(by_task.values()):
-        for queue in by_task.values():
+    while len(picked) < limit and any(groups.values()):
+        for queue in groups.values():
             if queue and len(picked) < limit:
-                picked.append(queue.pop(0))
+                picked.append(queue.pop())
     return picked
 
 
@@ -82,7 +87,7 @@ def main() -> int:
         "--limit",
         type=int,
         default=None,
-        help="Smoke test: judge only this many sampled responses, spread round-robin across tasks",
+        help="Smoke test or pilot: judge only this many sampled responses, spread round-robin across tasks and correct/incorrect",
     )
     parser.add_argument(
         "--dry-run",
