@@ -1,0 +1,7 @@
+2026-10-25 18:56:23,220 INFO retry visual judge of 8116: Provider returned error (google/gemini-3.8-flash is temporarily rate-limited upstream. Please retry shortly, or add your (retry in 1.9s)
+2026-10-25 18:56:25,018 INFO retry visual judge of 8140: Provider returned error (google/gemini-3.8-flash is temporarily rate-limited upstream. Please retry shortly, or add your (retry in 1.7s)
+2026-10-25 18:56:28,339 INFO retry visual judge of 11118: Provider returned error (google/gemini-3.8-flash is temporarily rate-limited upstream. Please retry shortly, or add your (retry in 1.5s)
+2026-10-25 18:56:55,200 INFO retry visual judge of 3481: Provider returned error (google/gemini-3.8-flash is temporarily rate-limited upstream. Please retry shortly, or add your (retry in 1.1s)
+2026-10-25 18:57:16,646 INFO retry visual judge of 3313: timed out after 120s (retry in 1.6s)
+2026-10-25 18:58:05,090 INFO retry visual judge of 3481: Provider returned error (google/gemini-3.8-flash is temporarily rate-limited upstream. Please retry shortly, or add your (retry in 3.5s)
+2026-10-25 18:58:15,141 INFO run finished

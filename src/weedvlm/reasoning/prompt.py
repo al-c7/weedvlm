@@ -34,6 +34,19 @@ of the reasoning rather than whether the final answer is right. You will assign 
 from 0 (worst) to 10 (best) to the rationale based on the following criteria:
 """
 
+_SCORING_GUIDANCE = """\
+Use the full 0-10 range and score each criterion independently, anchoring on the specific claims
+the rationale makes. A 10 requires every claim to be correct and specific enough to rule out
+look-alikes in this case. Claims that are correct but generic, so that they would fit many plants,
+cap a criterion at 8. A mix of correct and incorrect claims is around 5, and mostly incorrect
+claims score 2 or below.
+
+Write your "notes" first, then the scores. The notes are a brief assessment (one to three
+sentences) of the rationale's strengths and problems that justifies your scores, naming the
+specific claim behind any score below 10, and noting anything unusual such as a problem with
+the question or ground truth. Write "none" only if every score is 10.
+"""
+
 TEXTUAL_RATIONALE_SYSTEM_PROMPT = _RATIONALE_PREAMBLE + """
 - Interpretation: The rationale correctly infers the species or condition from the observations
   it states. Take the stated observations as given; do not penalise them here. 0 means the
@@ -43,45 +56,51 @@ TEXTUAL_RATIONALE_SYSTEM_PROMPT = _RATIONALE_PREAMBLE + """
 - Consistency: The explanation logically supports the final answer without contradictions.
   0 means it contradicts itself or the answer, 5 means it has minor gaps or tension,
   10 means every step supports the answer.
+- Knowledge: The features the rationale states for the plant agree with the reference
+  description of the target species given in the question. Only features that contradict the
+  description, or that clearly belong to a different plant, count against it; a feature that is
+  merely missing from the description does not. 0 means the stated features contradict the
+  description, 5 means they are mixed, or only generic features that fit many species, 10 means
+  the stated features are all consistent with the description and distinctive of the species.
+  Score knowledge only when a reference description is provided; otherwise set it to null.
 
 You have been given the question, the ground truth, and the text the VLM produced as its
 answer. You have explicitly not been given the source image, as you are only the textual
 judge, so do not assess whether the stated observations are true of the image.
 
-Also include a "notes" string. Use it only where appropriate, for a brief remark that explains
-a low score or flags something unusual (for example a contradiction, an unsupported claim, or
-a problem with the question or ground truth). Otherwise set it to "none".
-
-Reply with only a JSON object of the following form, where each score is an integer from 0 to 10:
+""" + _SCORING_GUIDANCE + """
+Reply with only a JSON object of the following form, where each score is an integer from 0
+to 10 (knowledge may be null, as described above):
 
 ```json
-{"interpretation": <int>, "consistency": <int>, "notes": "<string>"}
+{"notes": "<string>", "interpretation": <int>, "consistency": <int>, "knowledge": <int or null>}
 ```
 """
 
 VISUAL_RATIONALE_SYSTEM_PROMPT = _RATIONALE_PREAMBLE + """
 - Observation: The rationale correctly identifies evidence that is present in the image.
   0 means the evidence cited is wrong or absent from the image, 5 means some of it is
-  right, 10 means all of it is accurate and relevant.
+  right, 8 means all of it is accurate but generic, 10 means every feature cited is present in the
+  image and specific enough to tell the plant from look-alikes.
 - Grounding: The reasoning relies only on what is visible in the image and the information
   given in the question; it does not hallucinate details. 0 means it relies mainly on invented
-  details, 5 means it includes some unsupported claims, 10 means every claim is supported.
+  details, 5 means it includes some unsupported claims, 8 means every claim is supported but
+  generic, 10 means every claim is supported and specific to what this image shows.
 
 You have been given the question, the ground truth, the source image, and the text the VLM
 produced as its answer.
 
-Also include a "notes" string. Use it only where appropriate, for a brief remark that explains
-a low score or flags something unusual (for example a contradiction, an unsupported claim, or
-a problem with the question or ground truth). Otherwise set it to "none".
-
+""" + _SCORING_GUIDANCE + """
 Reply with only a JSON object of the following form, where each score is an integer from 0 to 10:
 
 ```json
-{"observation": <int>, "grounding": <int>, "notes": "<string>"}
+{"notes": "<string>", "observation": <int>, "grounding": <int>}
 ```
 """
 
 TEXTUAL_FIELDS = ("interpretation", "consistency")
+# Scored only for questions that name a species, which have a reference description.
+TEXTUAL_KNOWLEDGE_FIELD = "knowledge"
 VISUAL_FIELDS = ("observation", "grounding")
 
 JudgeKind = Literal["textual", "visual"]
@@ -438,11 +457,17 @@ class JudgeBuilder:
         never sees the image or any text that refers to it."""
         match kind:
             case "textual":
+                user_text = self.__load_user_text(item, visual=False)
+                fields = TEXTUAL_FIELDS
+                if self.target_species(item):
+                    fields += (TEXTUAL_KNOWLEDGE_FIELD,)
+                else:
+                    user_text += (
+                        "\n\nNo reference description is provided for this question, so set "
+                        "knowledge to null."
+                    )
                 return ReasoningPrompt(
-                    TEXTUAL_RATIONALE_SYSTEM_PROMPT,
-                    self.__load_user_text(item, visual=False),
-                    TEXTUAL_FIELDS,
-                    attach_image=False,
+                    TEXTUAL_RATIONALE_SYSTEM_PROMPT, user_text, fields, attach_image=False
                 )
             case "visual":
                 return ReasoningPrompt(
