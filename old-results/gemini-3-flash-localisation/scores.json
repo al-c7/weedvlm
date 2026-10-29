@@ -1,0 +1,135 @@
+{
+  "run": "gemini-3-flash-localisation",
+  "scored_at": "2026-10-03T04:16:39.948844+00:00",
+  "aliases_file": null,
+  "skipped_missing_questions": 0,
+  "skipped_changed_images": 0,
+  "models": {
+    "google/gemini-3-flash-preview": {
+      "usage": {
+        "requests": 400,
+        "failed": 4,
+        "total_cost_usd": 0.39694999999999997,
+        "mean_cost_usd": 0.000992375,
+        "mean_total_tokens": 1395.25,
+        "mean_latency_seconds": 14.23556818181818,
+        "retried_requests": 6
+      },
+      "suites": {
+        "localisation": {
+          "n_total": 400,
+          "n_answered": 396,
+          "n_failed": 4,
+          "localisation": {
+            "n_scored": 396,
+            "n_invalid": 0,
+            "mean_score": 0.8499358362292198,
+            "median_score": 0.9503166614356238,
+            "mean_score_all": 0.8414364778669275,
+            "mean_matched_iou": 0.9190094561365499,
+            "count_exact_rate": 0.8636363636363636,
+            "count_mean_abs_error": 0.16414141414141414,
+            "count_mean_signed_error": 0.08333333333333333
+          },
+          "by_class": {
+            "Amaranthus palmeri": {
+              "n": 20,
+              "mean_score": 0.8869186940595206
+            },
+            "Ambrosia artemisiifolia": {
+              "n": 20,
+              "mean_score": 0.9004488817111378
+            },
+            "Chenopodium album": {
+              "n": 20,
+              "mean_score": 0.6488608955728183
+            },
+            "Creeping thistle": {
+              "n": 20,
+              "mean_score": 0.962489195091267
+            },
+            "Eclipta": {
+              "n": 20,
+              "mean_score": 0.8533280898890057
+            },
+            "Eleusine indica": {
+              "n": 20,
+              "mean_score": 0.9522106264769332
+            },
+            "Euphorbia maculata": {
+              "n": 20,
+              "mean_score": 0.8138268456576198
+            },
+            "German chamomile": {
+              "n": 20,
+              "mean_score": 0.8648206124704341
+            },
+            "Hybrid goosefoot": {
+              "n": 20,
+              "mean_score": 0.9331589863204828
+            },
+            "Ipomoea indica": {
+              "n": 19,
+              "mean_score": 0.9141858490163642
+            },
+            "Mollugo verticillata": {
+              "n": 20,
+              "mean_score": 0.8754544854346928
+            },
+            "Physalis angulata": {
+              "n": 20,
+              "mean_score": 0.7882177662326509
+            },
+            "Portulaca oleracea": {
+              "n": 20,
+              "mean_score": 0.8876192186427158
+            },
+            "Potato weed": {
+              "n": 20,
+              "mean_score": 0.7609297125623573
+            },
+            "Red root amaranth": {
+              "n": 20,
+              "mean_score": 0.7590140409447427
+            },
+            "Senna obtusifolia": {
+              "n": 19,
+              "mean_score": 0.950941055318481
+            },
+            "Sida rhombifolia": {
+              "n": 19,
+              "mean_score": 0.8601169410726653
+            },
+            "Taraxacum officinale": {
+              "n": 20,
+              "mean_score": 0.6743969062657553
+            },
+            "Thorn apple": {
+              "n": 19,
+              "mean_score": 0.8759362646769366
+            },
+            "White goosefoot": {
+              "n": 20,
+              "mean_score": 0.8459134954261897
+            }
+          },
+          "by_dataset": {
+            "CottonWeedDet12": {
+              "n": 211,
+              "mean_score": 0.8826974853908528
+            },
+            "CropAndWeed": {
+              "n": 139,
+              "mean_score": 0.8573331646415201
+            },
+            "MultipleWeedSpeciesDetection": {
+              "n": 46,
+              "mean_score": 0.6773067792202125
+            }
+          }
+        }
+      },
+      "species_id_multiple_choice_vs_open_ended": {}
+    }
+  }
+}

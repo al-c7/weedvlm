@@ -1,0 +1,101 @@
+# Accepted alternative names for open-ended species-ID answers
+# (docs/SPECIES-ID.md: variations are handled with a manually constructed
+# lookup for common and scientific names). Used by score-evaluation.py
+# with --aliases species-aliases.yaml.
+#
+# Key: the species name as it appears in the benchmark (case-insensitive).
+# Value: names that should also count as correct. An answer matches if it,
+# or a part of it (in parentheses, or comma-separated), equals one of these
+# or the key -- or contains one as a whole phrase, so list the most
+# specific names: a bare "ragweed" would also match "giant ragweed".
+#
+# Note what is deliberately NOT here: genus-only identifications and
+# near-misses such as Sida spinosa for Sida rhombifolia, Amaranthus palmeri
+# for A. tuberculatus, Ipomoea spp. for I. indica, or
+# Tripleurospermum inodorum for German chamomile. These remain incorrect.
+
+White goosefoot:
+  - chenopodium album
+  - common lambsquarters
+  - lambsquarters
+  - common lamb's quarters
+  - lamb's quarters
+  - fat hen
+  - fat-hen
+
+Red root amaranth:
+  - amaranthus retroflexus
+  - redroot pigweed
+  - red-root pigweed
+  - redroot amaranth
+  - red-root amaranth
+
+Thorn apple:
+  - datura stramonium
+  - jimsonweed
+  - jimson weed
+
+Cockspur grass:
+  - echinochloa crus-galli
+  - barnyardgrass
+  - barnyard grass
+
+Creeping thistle:
+  - cirsium arvense
+  - canada thistle
+  - canadian thistle
+
+Hybrid goosefoot:
+  - chenopodium hybridum
+  - maple-leaved goosefoot
+  - mapleleaf goosefoot
+
+German chamomile:
+  - matricaria chamomilla
+  - matricaria recutita
+  - wild chamomile
+
+Portulaca oleracea:
+  - common purslane
+  - purslane
+
+Amaranthus tuberculatus:
+  - tall waterhemp
+  - common waterhemp
+  - waterhemp
+  - amaranthus rudis
+
+Ambrosia artemisiifolia:
+  - common ragweed
+
+Euphorbia maculata:
+  - spotted spurge
+  - chamaesyce maculata
+
+Ipomoea indica:
+  - blue morningglory
+  - oceanblue morningglory
+  - blue morning glory
+
+Mollugo verticillata:
+  - carpetweed
+
+Physalis angulata:
+  - cutleaf groundcherry
+
+Sida rhombifolia:
+  - arrowleaf sida
+  - cuban jute
+
+Taraxacum officinale:
+  - dandelion
+  - common dandelion
+
+Xanthium strumarium:
+  - common cocklebur
+
+Eleusine indica:
+  - goosegrass
+
+Senna obtusifolia:
+  - sicklepod

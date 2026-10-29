@@ -1,0 +1,215 @@
+"""
+YAML configuration for the question-generation pipeline (the
+generate-*.py scripts). Every field here mirrors a CLI flag on those
+scripts and carries the identical default, so a config file only needs
+to set the values it wants to change -- anything left out falls back
+exactly as if no config had been passed at all. An explicit CLI flag
+always overrides the matching config value for that one run.
+
+See config.example.yaml at the repo root for a fully-annotated example.
+"""
+
+from __future__ import annotations
+
+from pathlib import Path
+
+import yaml
+from pydantic import BaseModel, Field, model_validator
+
+from weedvlm.storage.config import StorageConfig
+from weedvlm.types.species import Role
+
+
+class SpeciesSelection(BaseModel):
+    """Exact species selection for a task's final question list (see
+    weedvlm.generation.balance), for tasks whose benchmark_class is a
+    species name drawn from a large, open-ended pool (species-id,
+    grounded VQA, localisation) -- num_species picks an exact-size subset of that
+    pool. Species are filtered to ones that can supply
+    questions_per_species questions before num_species are chosen from
+    among them, and every chosen species then supplies exactly that
+    many questions (no cross-species backfilling). The task's total
+    output size is therefore exactly num_species * questions_per_species
+    when both are set. Either left as None leaves that dimension
+    unconstrained; raises if the data can't meet what's asked."""
+
+    num_species: int | None = None
+    questions_per_species: int | None = None
+
+
+class ClassBalance(BaseModel):
+    """Exact per-class question count for a task whose benchmark_class
+    is a small, fixed, known set rather than species (fine-grained's
+    same_species/different_species; density's none/low/medium/high) --
+    there's no subset of classes to select, so every class is always
+    kept, and questions_per_class asks for exactly that many questions
+    for each of them (raises naming the class if any one falls short).
+    The task's total output size is exactly
+    (number of classes present) * questions_per_class. None leaves it
+    unconstrained."""
+
+    questions_per_class: int | None = None
+
+
+class SpeciesIdConfig(SpeciesSelection):
+    """num_species/questions_per_species size the boxed set.
+    unannotated_num_species separately sizes the unannotated set: that
+    many of the selected species also get questions_per_species
+    unannotated questions each (see
+    weedvlm.generation.species_id.select_species_id_questions). 0 for
+    none, None for every selected species that can supply them."""
+
+    role: Role = "weed"
+    num_choices: int = 4
+    min_area_fraction: float = 0.01
+    min_largest_area_fraction: float = 0.0
+    unannotated_num_species: int | None = None
+
+
+class FineGrainedConfig(ClassBalance):
+    role: Role = "weed"
+    area_similarity_ratio: float = 0.25
+    colour_similarity_ratio: float = 0.9
+    min_total_area_fraction: float = 0.0005
+    min_largest_area_fraction: float = 0.0003
+    max_centre_offset: float = 0.85
+    max_pairs_per_image: int = 6
+
+
+class DensityConfig(ClassBalance):
+    """questions_per_class sizes the boxed set.
+    unannotated_questions_per_class separately sizes the unannotated
+    set, drawn from the same images as the selected boxed questions
+    (see weedvlm.generation.density.select_density_questions): 0 for
+    none, None for all of them.
+
+    The rest set the density rule (see
+    weedvlm.generation.density.classify_density): count_scale and
+    coverage_scale are the (low, high) anchors each is log-scaled
+    between, medium_score/high_score the cut-offs on their averaged
+    score, and medium_min_count/high_min_count the fewest weeds a scene
+    needs for each category."""
+
+    role: Role = "weed"
+    min_largest_area_fraction: float = 0.0
+    unannotated_questions_per_class: int | None = None
+    count_scale: tuple[float, float] = (1, 40)
+    coverage_scale: tuple[float, float] = (0.01, 0.4)
+    medium_score: float = 0.3
+    high_score: float = 0.6
+    medium_min_count: int = 2
+    high_min_count: int = 5
+
+    @model_validator(mode="after")
+    def _check_density_rule(self) -> DensityConfig:
+        for name, (low, high) in (
+            ("count_scale", self.count_scale),
+            ("coverage_scale", self.coverage_scale),
+        ):
+            if not 0 < low < high:
+                raise ValueError(f"density.{name} must be [low, high] with 0 < low < high")
+        if not 0 <= self.medium_score <= self.high_score <= 1:
+            raise ValueError("density scores must satisfy 0 <= medium_score <= high_score <= 1")
+        return self
+
+
+class GroundedVqaConfig(SpeciesSelection):
+    min_species: int = 2
+    min_total_area_fraction: float = 0.01
+    min_largest_area_fraction: float = 0.003
+    max_centre_offset: float = 0.6
+
+
+class LocalisationConfig(SpeciesSelection):
+    """A species is asked about in an image only if it has at most
+    max_boxes instances there, each covering at least
+    min_box_area_fraction of the image. min_scene_weeds and
+    min_other_species set how busy the rest of the image must be: its
+    total number of plants of this role (the target's included), and how
+    many species besides the target are among them (see
+    weedvlm.generation.localisation)."""
+
+    role: Role = "weed"
+    max_boxes: int = Field(default=4, ge=1)
+    min_box_area_fraction: float = 0.02
+    min_scene_weeds: int = Field(default=1, ge=1)
+    min_other_species: int = Field(default=0, ge=0)
+
+
+class TaskToggles(BaseModel):
+    """Which tasks generate-all-questions.py runs. Ignored by the
+    individual generate-<task>-questions.py scripts, which only ever
+    generate their own task."""
+
+    species_id: bool = True
+    fine_grained: bool = True
+    density: bool = True
+    grounded_vqa: bool = True
+    localisation: bool = True
+
+
+class Outputs(BaseModel):
+    """Per-task output paths, used as the --out fallback by the
+    individual generate-<task>-questions.py scripts (generate-all-
+    questions.py uses out_dir instead, and ignores this)."""
+
+    species_id: Path | None = None
+    fine_grained: Path | None = None
+    density: Path | None = None
+    grounded_vqa: Path | None = None
+    localisation: Path | None = None
+
+
+class PipelineConfig(BaseModel):
+    seed: int | None = None
+    # Which WeedCOCO dataset.json files to load. Default: every
+    # dataset.json under .datasets/ (see weedvlm.generation.load.load_images).
+    dataset_paths: list[Path] | None = None
+    out_dir: Path | None = None
+    rendered_images_dir: Path | None = None
+    # Processes used for image decoding/rendering. None = every CPU.
+    workers: int | None = None
+    outputs: Outputs = Field(default_factory=Outputs)
+    # Whether the questions are written as JSON files in out_dir, or into
+    # a SQLite database along with the images they use (docs/DATABASE.md).
+    storage: StorageConfig = Field(default_factory=StorageConfig)
+
+    open_ended_fraction: float = 0.2
+
+    tasks: TaskToggles = Field(default_factory=TaskToggles)
+
+    species_id: SpeciesIdConfig = Field(default_factory=SpeciesIdConfig)
+    fine_grained: FineGrainedConfig = Field(default_factory=FineGrainedConfig)
+    density: DensityConfig = Field(default_factory=DensityConfig)
+    grounded_vqa: GroundedVqaConfig = Field(default_factory=GroundedVqaConfig)
+    localisation: LocalisationConfig = Field(default_factory=LocalisationConfig)
+
+
+# Written into out_dir by generate-all-questions.py: the config text and
+# command line that produced that output. The SQLite storage format keeps
+# the same text in its meta table instead.
+GENERATION_CONFIG_NAME = "generation-config.yaml"
+
+# src/weedvlm/pipeline/config.py -> repo root
+DEFAULT_CONFIG_PATH = Path(__file__).resolve().parents[3] / "config.example.yaml"
+
+
+def resolve_config_path(path: Path | None) -> Path | None:
+    """--config's value if given, else DEFAULT_CONFIG_PATH if it exists
+    (so a plain `generate-*.py` invocation with no --config still picks
+    up config.example.yaml at the repo root by default), else None (all
+    built-in defaults)."""
+    if path is not None:
+        return path
+    return DEFAULT_CONFIG_PATH if DEFAULT_CONFIG_PATH.exists() else None
+
+
+def load_pipeline_config(path: Path | None) -> PipelineConfig:
+    """Loads a PipelineConfig from a YAML file, or returns the
+    all-defaults config when path is None. Callers wanting the
+    --config-not-given-but-a-default-file-exists behaviour should run
+    the path through resolve_config_path() first."""
+    if path is None:
+        return PipelineConfig()
+    raw = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
+    return PipelineConfig.model_validate(raw)

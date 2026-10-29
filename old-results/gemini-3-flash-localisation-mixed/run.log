@@ -1,0 +1,8 @@
+2026-10-03 14:54:36,148 INFO retry google/gemini-3-flash-preview x CropAndWeed:3054:potato weed:localisation: unusable reply: no JSON object found in the reply
+2026-10-03 14:54:51,378 INFO retry google/gemini-3-flash-preview x CropAndWeed:6423:cornflower:localisation: unusable reply: no JSON object found in the reply
+2026-10-03 14:56:21,057 INFO retry google/gemini-3-flash-preview x CropAndWeed:4524:mercuries:localisation: unusable reply: no JSON object found in the reply
+2026-10-03 14:56:31,002 INFO retry google/gemini-3-flash-preview x CropAndWeed:4524:mercuries:localisation: unusable reply: no JSON object found in the reply
+2026-10-03 14:56:39,395 WARNING FAILED google/gemini-3-flash-preview x CropAndWeed:4524:mercuries:localisation after 3 attempt(s): [parse] no JSON object found in the reply
+2026-10-03 14:58:44,459 INFO retry google/gemini-3-flash-preview x CropAndWeed:4570:field milk thistle:localisation: unusable reply: no JSON object found in the reply
+2026-10-03 14:59:57,058 INFO retry google/gemini-3-flash-preview x CropAndWeed:1375:field bindweed:localisation: unusable reply: no JSON object found in the reply
+2026-10-03 15:03:22,932 INFO run finished: 250 responses consolidated
