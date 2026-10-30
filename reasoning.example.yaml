@@ -5,10 +5,11 @@
 #
 # Two judges grade each sampled response's reasoning, correct or incorrect.
 # The textual judge reads the question, the ground truth and the response,
-# but never sees the image, and scores interpretation and consistency.
+# but never sees the image, and scores interpretation and consistency (and
+# knowledge, for questions that name a species), each against a 0-4 rubric.
 # The visual judge also gets the image (for localisation, rendered with
 # the ground truth boxes in solid green and the model's in dashed orange)
-# and scores observation and grounding. Neither is told which model wrote
+# and scores visual evidence against a 0-4 rubric. Neither is told which model wrote
 # the response.
 #
 # The API key comes from OPENROUTER_API_KEY, in the environment or in a

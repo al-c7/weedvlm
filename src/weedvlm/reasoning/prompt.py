@@ -11,7 +11,8 @@ from __future__ import annotations
 
 import io
 import json
-from dataclasses import dataclass
+from dataclasses import dataclass, field
+from functools import cache
 from pathlib import Path
 from typing import Literal
 
@@ -31,77 +32,267 @@ correct or incorrect; you are given the ground truth, but you are not told which
 localisation there is no right or wrong answer, and you are given localisation scores instead.
 Your job is to evaluate the post-hoc rationale provided with the response, judging the quality
 of the reasoning rather than whether the final answer is right. You will assign integer scores
-from 0 (worst) to 10 (best) to the rationale based on the following criteria:
+from 0 (worst) to 4 (best) to the rationale, using the rubric for each criterion below:
 """
 
 _SCORING_GUIDANCE = """\
-Use the full 0-10 range and score each criterion independently, anchoring on the specific claims
-the rationale makes. A 10 requires every claim to be correct and specific enough to rule out
-look-alikes in this case. Claims that are correct but generic, so that they would fit many plants,
-cap a criterion at 8. A mix of correct and incorrect claims is around 5, and mostly incorrect
-claims score 2 or below.
+Score each criterion independently, anchoring on the specific claims the rationale makes, and
+give the level whose descriptor best fits the rationale.
 
 Write your "notes" first, then the scores. The notes are a brief assessment (one to three
 sentences) of the rationale's strengths and problems that justifies your scores, naming the
-specific claim behind any score below 10, and noting anything unusual such as a problem with
-the question or ground truth. Write "none" only if every score is 10.
+specific claim behind any score below 4, and noting anything unusual such as a problem with
+the question or ground truth. Write "none" only if every score is 4.
 """
 
-TEXTUAL_RATIONALE_SYSTEM_PROMPT = _RATIONALE_PREAMBLE + """
-- Interpretation: The rationale correctly infers the species or condition from the observations
-  it states. Take the stated observations as given; do not penalise them here. 0 means the
-  inference does not follow from the observations, 5 means it is plausible but incomplete or
-  loosely argued, 10 means the observations clearly and correctly lead to the conclusion drawn
-  (a rationale that reasons soundly to a wrong answer from wrong observations is not penalised here).
-- Consistency: The explanation logically supports the final answer without contradictions.
-  0 means it contradicts itself or the answer, 5 means it has minor gaps or tension,
-  10 means every step supports the answer.
-- Knowledge: The features the rationale states for the plant agree with the reference
-  description of the target species given in the question. Only features that contradict the
-  description, or that clearly belong to a different plant, count against it; a feature that is
-  merely missing from the description does not. 0 means the stated features contradict the
-  description, 5 means they are mixed, or only generic features that fit many species, 10 means
-  the stated features are all consistent with the description and distinctive of the species.
-  Score knowledge only when a reference description is provided; otherwise set it to null.
+SCORE_LEVELS = 5  # scores run 0 .. SCORE_LEVELS - 1
 
-You have been given the question, the ground truth, and the text the VLM produced as its
-answer. You have explicitly not been given the source image, as you are only the textual
-judge, so do not assess whether the stated observations are true of the image.
 
-""" + _SCORING_GUIDANCE + """
-Reply with only a JSON object of the following form, where each score is an integer from 0
-to 10 (knowledge may be null, as described above):
+@dataclass(frozen=True)
+class Criterion:
+    """One rubric criterion: an optional preamble, then one descriptor per
+    score, where levels[score] describes that score."""
 
-```json
-{"notes": "<string>", "interpretation": <int>, "consistency": <int>, "knowledge": <int or null>}
-```
-"""
+    preamble: str | None
+    levels: tuple[str, str, str, str, str]
 
-VISUAL_RATIONALE_SYSTEM_PROMPT = _RATIONALE_PREAMBLE + """
-- Observation: The rationale correctly identifies evidence that is present in the image.
-  0 means the evidence cited is wrong or absent from the image, 5 means some of it is
-  right, 8 means all of it is accurate but generic, 10 means every feature cited is present in the
-  image and specific enough to tell the plant from look-alikes.
-- Grounding: The reasoning relies only on what is visible in the image and the information
-  given in the question; it does not hallucinate details. 0 means it relies mainly on invented
-  details, 5 means it includes some unsupported claims, 8 means every claim is supported but
-  generic, 10 means every claim is supported and specific to what this image shows.
 
-You have been given the question, the ground truth, the source image, and the text the VLM
-produced as its answer.
+@dataclass(frozen=True)
+class TaskRubric:
+    """The rubric for one task (one tab of the rationale rubrics
+    spreadsheet in docs/prompts). knowledge is None for tasks with no
+    reference description."""
 
-""" + _SCORING_GUIDANCE + """
-Reply with only a JSON object of the following form, where each score is an integer from 0 to 10:
+    general: str
+    interpretation: Criterion
+    visual_evidence: Criterion
+    knowledge: Criterion | None = None
+    consistency: Criterion = field(default_factory=lambda: _CONSISTENCY)
 
-```json
-{"notes": "<string>", "observation": <int>, "grounding": <int>}
-```
-"""
+
+_CONSISTENCY = Criterion(
+    "The rationale is consistent with itself and the final answer.",
+    (
+        "The rationale substantially contradicts itself and/or the final answer, its stated reasoning is incompatible with the conclusion entirely.",
+        "The rationale contains major contradictions or inconsistencies with itself and/or the final answer.",
+        "The rationale is mostly consistent with itself and the final answer, but contains noticeable contradictions or inconsistencies.",
+        "The rationale is consistent with itself and the final answer, with only minor inconsistencies that do not substantially affect the overall reasoning.",
+        "The rationale is fully consistent with itself and the final answer, with no identifiable contradictions or inconsistencies.",
+    ),
+)
+
+_KNOWLEDGE = Criterion(
+    "Knowledge assesses whether botanical claims agree with the reference and whether those "
+    "claims are sufficiently characteristic of the target to provide meaningful support. "
+    "Features not mentioned in the reference should not be penalised unless they contradict "
+    "the reference or clearly describe a different species.",
+    (
+        "The stated features substantially contradict the reference description or clearly describe a different species.",
+        "Some stated features in the rationale align with the reference description, but major contradictions or incorrect features are present.",
+        "Most stated features in the rationale align with the reference description, but the rationale contains some contradictions, incorrect features, or relies primarily on generic features.",
+        "The stated features closely align with the reference description, with only minor inaccuracies or reliance on some generic features.",
+        "The stated features fully align with the reference description and include characteristics that meaningfully support identification of the target species, with no substantive contradictions.",
+    ),
+)
+
+_VISUAL_EVIDENCE_PREAMBLE = (
+    "Visual evidence assesses whether the visual claims made in the rationale are supported by "
+    "clearly observable evidence in the image. Assess only claims explicitly made in the "
+    "rationale. Treat a claim as contradictory only when visible evidence conflicts with it. "
+    "If the image does not provide sufficient detail to verify a claim, classify that claim "
+    "as unverifiable rather than incorrect. Do not infer fine-grained visual characteristics "
+    "that cannot be reliably determined from the image."
+)
+
+_VISUAL_EVIDENCE_LEVELS = (
+    "The rationale's visual claims are substantially contradicted by the image or refer to features that are clearly absent.",
+    "Some visual claims in the rationale are supported, but one or more claims are contradicted by the image.",
+    "Most visual claims are supported, but the rationale contains at least one noticeable contradiction or relies on unverifiable visual detail.",
+    "The visual claims are supported, with only minor uncertainty or unverifiable detail and no major contradictions.",
+    "All relevant visual claims are clearly supported by observable evidence, with no substantive contradictions or unverifiable details affecting the rationale.",
+)
+
+
+def _visual_evidence(focus: str, preamble_extra: str = "") -> Criterion:
+    """The shared visual-evidence rubric with a task-specific focus sentence on
+    every level."""
+    levels = tuple(f"{level} {focus}" for level in _VISUAL_EVIDENCE_LEVELS)
+    return Criterion(f"{_VISUAL_EVIDENCE_PREAMBLE} {preamble_extra}".strip(), levels)  # type: ignore[arg-type]
+
+
+# Keyed by JudgeItem.task.
+RUBRICS: dict[str, TaskRubric] = {
+    "species_id": TaskRubric(
+        general=(
+            "Visual evidence is about whether the claimed morphology is visible; interpretation is "
+            "whether those features support the identified species; knowledge compares claims "
+            "against the species reference."
+        ),
+        interpretation=Criterion(
+            "The VLM interprets the identified evidence to support the identified species.",
+            (
+                "The rationale's interpretation of the stated morphology, structure, colour, and growth habit is inconsistent with, or does not support, the conclusion.",
+                "The rationale's interpretation of the stated morphology, structure, colour, and growth habit shows limited support for the conclusion, with major gaps or errors in how the observations are interpreted.",
+                "The rationale's interpretation of the stated morphology, structure, colour, and growth habit provides reasonable support for the conclusion but contains noticeable gaps or errors in the interpretation of the observations.",
+                "The rationale's interpretation of the stated morphology, structure, colour, and growth habit provides strong support for the conclusion, with only minor gaps, errors, or inconsistencies in the interpretation of the observations.",
+                "The rationale clearly interprets the stated morphology, structure, colour, and growth habit to support the conclusion, with no substantive gaps or inconsistencies.",
+            ),
+        ),
+        knowledge=_KNOWLEDGE,
+        visual_evidence=_visual_evidence(
+            "Focus on claimed morphological and visual features.",
+            "Assess claims about visible morphology, structure, colour, and growth habit. Do not "
+            "assess whether those features are botanically diagnostic of the identified species; "
+            "that is assessed elsewhere.",
+        ),
+    ),
+    "fine_grained": TaskRubric(
+        general=(
+            "Interpretation should specifically reward discriminative reasoning between "
+            "candidate species, not merely correct generic statements."
+        ),
+        interpretation=Criterion(
+            "Interpretation assesses whether the rationale uses relevant visual differences or "
+            "similarities to support the selected answer. A visually correct but "
+            "non-discriminative feature should not receive a high score if it does not help "
+            "distinguish the alternatives.",
+            (
+                "The rationale's interpretation of the stated observations about the differences between the two specimens is inconsistent with, or does not support, the conclusion.",
+                "The rationale's interpretation of the stated observations about the differences between the two specimens provides limited support for the conclusion, with major gaps or errors in how the observations are interpreted.",
+                "The rationale's interpretation of the stated observations about the differences between the two specimens provides reasonable support for the conclusion but contains noticeable gaps or errors in the interpretation of the observations.",
+                "The rationale's interpretation of the stated observations about the differences between the two specimens provides strong support for the conclusion, with only minor gaps, errors, or inconsistencies in the interpretation of the observations.",
+                "The rationale clearly interprets the stated observations about the differences between the two specimens to support the conclusion, with no substantive gaps or inconsistencies.",
+            ),
+        ),
+        visual_evidence=_visual_evidence(
+            "Focus on the visual attributes used to determine whether the two weeds are the same or different species."
+        ),
+    ),
+    "grounded_vqa": TaskRubric(
+        general=(
+            "Visual evidence is whether evidence relevant to the question is visible; interpretation "
+            "is whether the evidence supports the particular answer."
+        ),
+        interpretation=Criterion(
+            "The VLM interprets the identified evidence to support its answer to the question.",
+            (
+                "The stated evidence in the rationale is irrelevant to, does not support, or is inconsistent with the answer to the question.",
+                "The rationale provides limited support for the answer, with major gaps or errors in how the relevant evidence is interpreted.",
+                "The rationale provides reasonable support for the answer, but contains some noticeable gaps, interpretation errors, or irrelevant evidence.",
+                "The rationale provides strong support for the answer using relevant evidence, with only minor gaps or interpretation errors.",
+                "The rationale clearly interprets relevant visual and reference-based evidence to fully support the answer, with no substantive gaps.",
+            ),
+        ),
+        knowledge=_KNOWLEDGE,
+        visual_evidence=_visual_evidence("Focus only on visual claims relevant to answering the question."),
+    ),
+    "localisation": TaskRubric(
+        general=(
+            "Visual evidence concerns visual/spatial claims; the judge doesn't duplicate the existing "
+            "localisation metrics."
+        ),
+        interpretation=Criterion(
+            "Interpretation assesses whether the stated evidence explains why the proposed "
+            "regions or instances correspond to the target, without evaluating the geometric "
+            "accuracy of the localisation.",
+            (
+                "The rationale's interpretation of the stated observations is inconsistent with, or does not support, why the identified regions/instances correspond to the target(s).",
+                "The rationale provides limited support for the conclusion, with major gaps or errors in how the identified regions/instances correspond to the target(s).",
+                "The rationale provides reasonable support for the conclusion but contains noticeable gaps or errors in how the identified regions/instances correspond to the target(s).",
+                "The rationale provides strong support for the conclusion, with only minor gaps, errors, or inconsistencies in how the identified regions/instances correspond to the target(s).",
+                "The rationale clearly interprets the stated observations to support the conclusion, with no substantive gaps or inconsistencies in how the identified regions/instances correspond to the target(s).",
+            ),
+        ),
+        knowledge=_KNOWLEDGE,
+        visual_evidence=_visual_evidence(
+            "Focus primarily on visual/spatial claims about the proposed target weed locations; "
+            "localisation accuracy itself is evaluated quantitatively elsewhere."
+        ),
+    ),
+    "density": TaskRubric(
+        general=(
+            "Visual evidence concerns claims about visible instances, overlap, distribution, etc; "
+            "interpretation concerns whether those observations support the estimate. It does "
+            "not judge numerical accuracy, as that is already accounted for."
+        ),
+        interpretation=Criterion(
+            "Interpretation assesses whether the stated observations about visible instances, "
+            "spatial distribution, overlap, occlusion, or coverage provide a reasonable basis "
+            "for the reported estimate. It does not assess whether the numerical estimate "
+            "matches the ground truth.",
+            (
+                "The rationale's interpretation of the stated observations is inconsistent with, or does not support, the conclusions about the stated count, coverage, and density estimates.",
+                "The rationale provides limited support for the conclusion, with major gaps or errors in how the stated count, coverage, and density estimates are made.",
+                "The rationale provides reasonable support for the conclusion but contains noticeable gaps or errors in how the stated count, coverage, and density estimates are made.",
+                "The rationale provides strong support for the conclusion, with only minor gaps, errors, or inconsistencies in how the stated count, coverage, and density estimates are made.",
+                "The rationale clearly interprets the stated observations to support the conclusions about the stated count, coverage, and density estimates, with no substantive gaps or inconsistencies.",
+            ),
+        ),
+        visual_evidence=_visual_evidence(
+            "Focus on claims concerning visible instances, distribution, overlap, or occlusion, "
+            "rather than counting instances."
+        ),
+    ),
+}
 
 TEXTUAL_FIELDS = ("interpretation", "consistency")
 # Scored only for questions that name a species, which have a reference description.
 TEXTUAL_KNOWLEDGE_FIELD = "knowledge"
-VISUAL_FIELDS = ("observation", "grounding")
+VISUAL_FIELDS = ("visual-evidence",)
+
+
+def _render_criterion(name: str, criterion: Criterion) -> str:
+    lines = [f"- {name.capitalize()}:" + (f" {criterion.preamble}" if criterion.preamble else "")]
+    lines += [f"    {score}: {text}" for score, text in enumerate(criterion.levels)]
+    return "\n".join(lines)
+
+
+def _json_example(fields: tuple[str, ...]) -> str:
+    body = ", ".join(f'"{f}": <int>' for f in fields)
+    return f'```json\n{{"notes": "<string>", {body}}}\n```'
+
+
+@cache
+def build_system_prompt(task: str, kind: "JudgeKind") -> str:
+    """The system prompt for one judge kind on one task: the shared
+    preamble, the task's rubric for the criteria that judge scores, and the
+    reply format. Knowledge appears only for tasks whose rubric has it."""
+    rubric = RUBRICS.get(task)
+    if rubric is None:
+        raise ValueError(f"No rationale rubric for task: {task}")
+    match kind:
+        case "textual":
+            criteria = {"interpretation": rubric.interpretation, "consistency": rubric.consistency}
+            if rubric.knowledge is not None:
+                criteria["knowledge"] = rubric.knowledge
+            inputs = (
+                "You have been given the question, the ground truth, and the text the VLM "
+                "produced as its answer. You have explicitly not been given the source image, "
+                "as you are only the textual judge, so do not assess whether the stated "
+                "observations are true of the image; take them as given."
+            )
+        case "visual":
+            criteria = {"visual-evidence": rubric.visual_evidence}
+            inputs = (
+                "You have been given the question, the ground truth, the source image, and "
+                "the text the VLM produced as its answer."
+            )
+        case _:
+            raise ValueError(f"Invalid judge kind: {kind}")
+    fields = tuple(criteria)
+    return (
+        _RATIONALE_PREAMBLE
+        + f"\nTask notes: {rubric.general}\n\n"
+        + "\n".join(_render_criterion(name, c) for name, c in criteria.items())
+        + "\n\n"
+        + inputs
+        + "\n\n"
+        + _SCORING_GUIDANCE
+        + f"\nReply with only a JSON object of the following form, where each score is an "
+        f"integer from 0 to {SCORE_LEVELS - 1}:\n\n"
+        + _json_example(fields)
+        + "\n"
+    )
 
 JudgeKind = Literal["textual", "visual"]
 
@@ -455,23 +646,21 @@ class JudgeBuilder:
     def build(self, item: JudgeItem, kind: JudgeKind) -> ReasoningPrompt:
         """The full prompt for one judge of one response. The textual judge
         never sees the image or any text that refers to it."""
+        system = build_system_prompt(item.task, kind)
         match kind:
             case "textual":
-                user_text = self.__load_user_text(item, visual=False)
                 fields = TEXTUAL_FIELDS
-                if self.target_species(item):
+                if RUBRICS[item.task].knowledge is not None:
                     fields += (TEXTUAL_KNOWLEDGE_FIELD,)
-                else:
-                    user_text += (
-                        "\n\nNo reference description is provided for this question, so set "
-                        "knowledge to null."
-                    )
                 return ReasoningPrompt(
-                    TEXTUAL_RATIONALE_SYSTEM_PROMPT, user_text, fields, attach_image=False
+                    system,
+                    self.__load_user_text(item, visual=False),
+                    fields,
+                    attach_image=False,
                 )
             case "visual":
                 return ReasoningPrompt(
-                    VISUAL_RATIONALE_SYSTEM_PROMPT,
+                    system,
                     self.__load_user_text(item, visual=True),
                     VISUAL_FIELDS,
                     attach_image=True,

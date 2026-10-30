@@ -4,15 +4,16 @@ of requests in flight, retrying what's worth retrying, recording every
 outcome as it lands, and resuming cleanly when re-run.
 
 Each sampled response goes to two judges: the textual judge (no image;
-scores interpretation and consistency) and the visual judge (gets the
-image; scores observation and grounding). The judge kind plays the part
+scores interpretation, consistency and, where the task has a reference
+description, knowledge) and the visual judge (gets the image; scores
+visual-evidence). The judge kind plays the part
 that the model plays in the evaluation runner, so progress, failure
 thresholds and resume all work per judge.
 
 How failures are handled (same as weedvlm.evaluation.runner):
     - transient errors (rate limits, 5xx, timeouts) are retried with
       exponential backoff; a 429 also pauses every worker
-    - a reply that isn't JSON with every score an integer from 0 to 10 is
+    - a reply that isn't JSON with every score an integer from 0 to 4 is
       retried on a separate budget
     - a job that still fails is recorded as status "failed" with the
       reason, and the run carries on
@@ -48,7 +49,7 @@ from weedvlm.evaluation.progress import ModelProgress, Progress
 from weedvlm.evaluation.runner import FatalRunError, load_api_key
 from weedvlm.evaluation.store import model_fingerprint
 from weedvlm.reasoning.config import ModelConfig, ReasoningConfig
-from weedvlm.reasoning.prompt import JudgeBuilder, JudgeKind, ReasoningPrompt
+from weedvlm.reasoning.prompt import SCORE_LEVELS, JudgeBuilder, JudgeKind, ReasoningPrompt
 from weedvlm.reasoning.runner import JudgeItem
 
 log = logging.getLogger("weedvlm.reasoning")
@@ -60,7 +61,7 @@ RUN_LOG = "run.log"
 
 JUDGE_KINDS: tuple[JudgeKind, ...] = ("textual", "visual")
 PROGRESS_INTERVAL_SECONDS = 5.0
-SCORE_RANGE = (0, 10)
+SCORE_RANGE = (0, SCORE_LEVELS - 1)
 
 
 @dataclass
