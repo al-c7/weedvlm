@@ -140,24 +140,25 @@ def get_example(task: str, items: list[JudgeItem]) -> JudgeItem | None:
 def _sample_correct_and_wrong(
     group: pd.DataFrame, label: str, fraction: float, wrong_per_task: int, seed: int
 ) -> pd.DataFrame:
-    """Per run: `fraction` of the correct responses plus exactly
-    `wrong_per_task` incorrect ones, so every model contributes the same
-    number of incorrect responses. Fails loudly if a run has too few."""
+    """Per run: `fraction` of the correct responses plus up to
+    `wrong_per_task` incorrect ones. A run with fewer incorrect responses
+    contributes all it has (and says so), so models can end up with
+    different numbers of incorrect responses."""
     correct = group[group.match.astype(bool)]
     wrong = group[~group.match.astype(bool)]
     picked = [
         correct.groupby("run", group_keys=False).sample(frac=fraction, random_state=seed)
     ]
-    for run, run_wrong in wrong.groupby("run"):
-        if len(run_wrong) < wrong_per_task:
-            raise ValueError(
-                f"{label}: run {run!r} has {len(run_wrong)} incorrect responses with "
-                f"reasoning, fewer than wrong_per_task={wrong_per_task}"
+    available = wrong.groupby("run").size()
+    for run in sorted(set(group.run)):
+        have = int(available.get(run, 0))
+        if have < wrong_per_task:
+            print(
+                f"{label}: run {run!r} has only {have} incorrect responses with reasoning "
+                f"(wrong_per_task={wrong_per_task}), using all of them"
             )
-        picked.append(run_wrong.sample(n=wrong_per_task, random_state=seed))
-    missing = set(group.run) - set(wrong.run)
-    if wrong_per_task > 0 and missing:
-        raise ValueError(f"{label}: runs {sorted(missing)} have no incorrect responses with reasoning")
+    for run, run_wrong in wrong.groupby("run"):
+        picked.append(run_wrong.sample(n=min(len(run_wrong), wrong_per_task), random_state=seed))
     return pd.concat(picked)
 
 
@@ -171,7 +172,7 @@ def get_question_samples(
 ):
     """Responses for the rationale judges. For each task (species ID split
     into multiple choice and open-ended) and each run: `fraction` of the
-    correct responses and exactly `wrong_per_task` incorrect ones.
+    correct responses and up to `wrong_per_task` incorrect ones.
     `wrong_per_task` is either one number for every task, or a dict with
     a number for each of SAMPLED_TASKS.
     Localisation has no right or wrong, so it is sampled `fraction` per
