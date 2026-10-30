@@ -1,0 +1,107 @@
+# Example configuration for the reasoning evaluation pipeline
+# (src/weedvlm/scripts/score-reasoning.py). Pass it with --config:
+#
+#   uv run src/weedvlm/scripts/score-reasoning.py --config reasoning.example.yaml
+#
+# Two judges grade each sampled response's reasoning, correct or incorrect.
+# The textual judge reads the question, the ground truth and the response,
+# but never sees the image, and scores interpretation and consistency (and
+# knowledge, for questions that name a species), each against a 0-4 rubric.
+# The visual judge also gets the image (for localisation, rendered with
+# the ground truth boxes in solid green and the model's in dashed orange)
+# and scores visual evidence against a 0-4 rubric. Neither is told which model wrote
+# the response.
+#
+# The API key comes from OPENROUTER_API_KEY, in the environment or in a
+# .env file at the repo root.
+
+# Where the generated questions are (the out_dir of
+# generate-all-questions.py).
+questions_dir: questions/
+
+# The config those questions were generated with. Default:
+# generation-config.yaml inside questions_dir.
+# generation_config: questions/generation-config.yaml
+
+# The images come from the benchmark database, so this must be sqlite,
+# which is also the default (docs/DATABASE.md).
+storage:
+  format: sqlite
+  # database: questions/benchmark.db   # default: benchmark.db in questions_dir
+
+# Reference descriptions of the target species, shown to both judges for
+# species ID, grounded VQA and localisation questions (see the file for the
+# format). Every species in the sampled questions needs one.
+species_descriptions: species-descriptions.yaml
+
+# The scored responses (a parquet export of the evaluation results), and
+# the evaluation runs in it (the `run` column) whose responses get judged.
+# Responses without reasoning are skipped.
+results_file: notebooks/weedvlm_scored_responses.parquet
+responses_to_evaluate:
+  - claude-haiku-full-run
+  - deepseek-4-1-flash-full-run
+  - gemma4-31b-full-run
+  - gpt-6-1-sol-partial-run
+  - gpt-6-luna-full-run
+
+# Progress and logs go to <output_dir>/<run_name>/. Re-running with the
+# same run_name resumes it, skipping responses that are already judged.
+output_dir: gemini-judge
+run_name: gemini-judge
+
+# Which tasks' responses to judge.
+tasks:
+  species_id: true
+  fine_grained: true
+  density: true
+  grounded_vqa: true
+  localisation: true
+
+# The judges: a bare OpenRouter model id uses the defaults below; a
+# mapping overrides them. extra_body is merged into the request as-is
+# (OpenRouter's `reasoning`, `provider` routing, etc.). Use models that
+# aren't among those being judged, so none grades its own reasoning.
+# The textual judge never gets an image, so it can be a cheaper text-only
+# model; the visual judge must accept images.
+textual_model: google/gemini-3.8-flash
+visual_model:
+  id: google/gemini-3.8-flash
+  # temperature: 0.0
+  # max_tokens: 8192          # raise for reasoning models, which spend it on thinking
+
+# Judge only an evenly sampled share of the selected responses: a number
+# (0.1) or a fraction ("1/10"). 1 judges all of them.
+reasoning_fraction: 0.2
+
+# Incorrect responses are sampled by count, not fraction: exactly this many
+# per task (species ID split into multiple choice and open-ended) per model,
+# so every model gets the same number. reasoning_fraction applies to the
+# correct responses only. A model with fewer incorrect responses than this
+# in any task stops the run. Either one number for every task, or a number
+# for each of the five tasks (grounded VQA has few incorrect responses):
+wrong_per_task:
+  species_id_multiple_choice: 150
+  species_id_open_ended: 150
+  fine_grained: 150
+  grounded_vqa: 150
+  density: 150
+
+# Requests in flight at once (1-32). Each request carries a base64 image.
+concurrency: 16
+
+defaults:
+  temperature: 0.0
+  # A judge reply cut off by this limit is recorded as a failure. Raise it
+  # for reasoning models, which spend much of it on hidden thinking.
+  max_tokens: 4096
+  timeout_seconds: 120
+
+retry:
+  max_retries: 5             # transient errors: 429, 5xx, timeouts, dropped connections
+  max_parse_retries: 2       # replies that arrive but hold no usable JSON verdict
+  backoff_base_seconds: 2    # doubles each retry, with jitter, honouring Retry-After
+  backoff_max_seconds: 60
+  # Stop the run after this many failed judgements in a row (typo'd
+  # model id, no image support, provider down). 0 disables.
+  model_failure_threshold: 25

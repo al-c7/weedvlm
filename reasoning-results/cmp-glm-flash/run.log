@@ -1,0 +1,3 @@
+2026-10-30 14:07:07,712 WARNING FAILED textual judge of response 6177 after 1 attempt(s): [parse] reply was cut off at max_tokens before a complete JSON answer (raise max_tokens for this judge; reasoning models spend it on thinking)
+2026-10-30 14:07:46,368 WARNING FAILED visual judge of response 12521 after 1 attempt(s): [parse] reply was cut off at max_tokens before a complete JSON answer (raise max_tokens for this judge; reasoning models spend it on thinking)
+2026-10-30 14:07:46,370 INFO run finished

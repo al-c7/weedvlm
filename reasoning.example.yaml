@@ -74,18 +74,19 @@ visual_model:
 # (0.1) or a fraction ("1/10"). 1 judges all of them.
 reasoning_fraction: 0.2
 
-# Incorrect responses are sampled by count, not fraction: exactly this many
-# per task (species ID split into multiple choice and open-ended) per model,
-# so every model gets the same number. reasoning_fraction applies to the
-# correct responses only. A model with fewer incorrect responses than this
-# in any task stops the run. Either one number for every task, or a number
-# for each of the five tasks (grounded VQA has few incorrect responses):
+# Incorrect responses are sampled by count, not fraction: up to this many
+# per task (species ID split into multiple choice and open-ended) per model.
+# A model with fewer incorrect responses than this contributes all it has
+# (and the run says so), so models can end up with different numbers. Set it
+# above any model's total to judge every incorrect response.
+# reasoning_fraction applies to the correct responses only. Either one number
+# for every task, or a number for each of the five tasks:
 wrong_per_task:
-  species_id_multiple_choice: 30
-  species_id_open_ended: 50
-  fine_grained: 50
-  grounded_vqa: 5
-  density: 50
+  species_id_multiple_choice: 1000
+  species_id_open_ended: 1000
+  fine_grained: 1000
+  grounded_vqa: 1000
+  density: 1000
 
 # Requests in flight at once (1-32). Each request carries a base64 image.
 concurrency: 16
