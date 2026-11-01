@@ -7,7 +7,23 @@ authors = [
     { name = "Alex Christie", email = "alex.christie@my.jcu.edu.au" }
 ]
 requires-python = ">=3.14"
-dependencies = []
+dependencies = [
+    "bs4>=0.0.2",
+    "duckdb>=1.5.5",
+    "httpx>=0.28.1",
+    "matplotlib>=3.11.2",
+    "nbconvert>=7.17.2",
+    "openpyxl>=3.1.5",
+    "pandas>=3.0.5",
+    "pillow>=12.3.0",
+    "polars>=2.1.0",
+    "pyarrow>=25.0.1",
+    "pydantic>=2.13.5",
+    "pyyaml>=6.0.3",
+    "scikit-learn>=1.9.1",
+    "seaborn>=0.13.2",
+    "sqlalchemy>=2.1.4",
+]
 
 [project.scripts]
 weedvlm = "weedvlm:main"
@@ -15,3 +31,8 @@ weedvlm = "weedvlm:main"
 [build-system]
 requires = ["uv_build>=0.12.3,<0.13.0"]
 build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "ipykernel>=7.3.0",
+]

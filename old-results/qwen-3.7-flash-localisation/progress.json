@@ -1,0 +1,28 @@
+{
+  "state": "finished",
+  "started_at": "2026-10-03T04:27:38.026304+00:00",
+  "updated_at": "2026-10-03T04:37:49.664675+00:00",
+  "elapsed_seconds": 611.6,
+  "total": 400,
+  "answered": 400,
+  "failed": 0,
+  "remaining": 0,
+  "in_flight": 0,
+  "retries": 0,
+  "requests_per_second": 0.15,
+  "eta_seconds": null,
+  "cost_usd": 0.038461,
+  "models": {
+    "qwen/qwen3.7-flash": {
+      "total": 400,
+      "already_done": 5,
+      "ok": 395,
+      "failed": 0,
+      "retries": 0,
+      "in_flight": 0,
+      "cost_usd": 0.038461,
+      "tokens": 1071533,
+      "stopped_early": false
+    }
+  }
+}

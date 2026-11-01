@@ -1,0 +1,90 @@
+2026-10-30 14:14:30,172 INFO run finished
+2026-10-30 14:24:12,541 INFO retry visual judge of 990: Upstream error from OpenInference: Generation stopped because the model entered a repetition loop. (retry in 1.5s)
+2026-10-30 14:24:31,101 INFO retry visual judge of 990: Upstream error from OpenInference: Generation stopped because the model entered a repetition loop. (retry in 2.0s)
+2026-10-30 14:24:50,473 INFO retry visual judge of 990: Upstream error from OpenInference: Generation stopped because the model entered a repetition loop. (retry in 4.8s)
+2026-10-30 14:25:11,271 INFO retry visual judge of 990: Upstream error from OpenInference: Generation stopped because the model entered a repetition loop. (retry in 8.1s)
+2026-10-30 14:25:34,785 INFO retry visual judge of 990: Upstream error from OpenInference: Generation stopped because the model entered a repetition loop. (retry in 26.6s)
+2026-10-30 14:26:14,705 WARNING FAILED visual judge of response 990 after 6 attempt(s): [transient] Upstream error from OpenInference: Generation stopped because the model entered a repetition loop.
+2026-10-30 14:27:29,818 INFO retry textual judge of 684: unusable reply: no JSON object found in the reply
+2026-10-30 14:45:27,193 WARNING FAILED visual judge of response 290 after 1 attempt(s): [parse] reply was cut off at max_tokens before a complete JSON answer (raise max_tokens for this judge; reasoning models spend it on thinking)
+2026-10-30 14:47:00,003 WARNING FAILED visual judge of response 778 after 1 attempt(s): [parse] reply was cut off at max_tokens before a complete JSON answer (raise max_tokens for this judge; reasoning models spend it on thinking)
+2026-10-30 14:47:18,701 WARNING FAILED visual judge of response 3645 after 1 attempt(s): [parse] reply was cut off at max_tokens before a complete JSON answer (raise max_tokens for this judge; reasoning models spend it on thinking)
+2026-10-30 14:47:45,454 INFO retry textual judge of 2980: unusable reply: no JSON object found in the reply
+2026-10-30 14:48:01,382 WARNING FAILED visual judge of response 3083 after 1 attempt(s): [parse] reply was cut off at max_tokens before a complete JSON answer (raise max_tokens for this judge; reasoning models spend it on thinking)
+2026-10-30 14:48:03,207 INFO retry textual judge of 3872: unusable reply: no JSON object found in the reply
+2026-10-30 14:49:51,823 WARNING FAILED textual judge of response 3707 after 1 attempt(s): [parse] reply was cut off at max_tokens before a complete JSON answer (raise max_tokens for this judge; reasoning models spend it on thinking)
+2026-10-30 14:51:39,233 INFO retry textual judge of 6560: unusable reply: no JSON object found in the reply
+2026-10-30 14:51:46,567 INFO retry textual judge of 6560: unusable reply: no JSON object found in the reply
+2026-10-30 14:54:40,708 WARNING FAILED textual judge of response 6543 after 1 attempt(s): [parse] reply was cut off at max_tokens before a complete JSON answer (raise max_tokens for this judge; reasoning models spend it on thinking)
+2026-10-30 14:55:09,035 INFO retry visual judge of 10202: unusable reply: missing or empty 'visual-evidence'
+2026-10-30 14:57:41,368 INFO retry textual judge of 11013: unusable reply: no JSON object found in the reply
+2026-10-30 14:59:05,415 INFO retry textual judge of 10123: unusable reply: no JSON object found in the reply
+2026-10-30 14:59:09,870 INFO retry textual judge of 10123: unusable reply: no JSON object found in the reply
+2026-10-30 15:02:37,485 INFO retry textual judge of 1198: unusable reply: missing or empty 'interpretation'; missing or empty 'consistency'; missing or empty 'knowledge'
+2026-10-30 15:02:56,412 INFO retry visual judge of 1436: unusable reply: missing or empty 'visual-evidence'
+2026-10-30 15:14:29,047 INFO retry textual judge of 8818: unusable reply: missing or empty 'interpretation'; missing or empty 'consistency'; missing or empty 'knowledge'
+2026-10-30 15:22:33,924 WARNING FAILED visual judge of response 4385 after 1 attempt(s): [parse] reply was cut off at max_tokens before a complete JSON answer (raise max_tokens for this judge; reasoning models spend it on thinking)
+2026-10-30 15:25:45,666 WARNING FAILED textual judge of response 1842 after 1 attempt(s): [parse] reply was cut off at max_tokens before a complete JSON answer (raise max_tokens for this judge; reasoning models spend it on thinking)
+2026-10-30 15:26:55,125 INFO retry textual judge of 1684: unusable reply: no JSON object found in the reply
+2026-10-30 15:27:39,307 WARNING FAILED visual judge of response 1810 after 1 attempt(s): [parse] reply was cut off at max_tokens before a complete JSON answer (raise max_tokens for this judge; reasoning models spend it on thinking)
+2026-10-30 15:28:05,143 WARNING FAILED visual judge of response 1539 after 1 attempt(s): [parse] reply was cut off at max_tokens before a complete JSON answer (raise max_tokens for this judge; reasoning models spend it on thinking)
+2026-10-30 15:29:08,100 WARNING FAILED visual judge of response 4478 after 1 attempt(s): [parse] reply was cut off at max_tokens before a complete JSON answer (raise max_tokens for this judge; reasoning models spend it on thinking)
+2026-10-30 15:29:58,727 WARNING FAILED visual judge of response 4409 after 1 attempt(s): [parse] reply was cut off at max_tokens before a complete JSON answer (raise max_tokens for this judge; reasoning models spend it on thinking)
+2026-10-30 15:32:14,255 INFO retry visual judge of 7272: unusable reply: missing or empty 'visual-evidence'
+2026-10-30 15:32:20,697 INFO retry textual judge of 7306: unusable reply: missing or empty 'interpretation'; missing or empty 'consistency'
+2026-10-30 15:33:47,515 INFO retry visual judge of 11276: unusable reply: missing or empty 'visual-evidence'
+2026-10-30 15:35:09,898 WARNING FAILED visual judge of response 11263 after 1 attempt(s): [parse] reply was cut off at max_tokens before a complete JSON answer (raise max_tokens for this judge; reasoning models spend it on thinking)
+2026-10-30 15:35:22,696 WARNING FAILED visual judge of response 11632 after 1 attempt(s): [parse] reply was cut off at max_tokens before a complete JSON answer (raise max_tokens for this judge; reasoning models spend it on thinking)
+2026-10-30 15:35:53,095 WARNING FAILED visual judge of response 11412 after 1 attempt(s): [parse] reply was cut off at max_tokens before a complete JSON answer (raise max_tokens for this judge; reasoning models spend it on thinking)
+2026-10-30 15:37:56,563 WARNING FAILED visual judge of response 5183 after 1 attempt(s): [parse] reply was cut off at max_tokens before a complete JSON answer (raise max_tokens for this judge; reasoning models spend it on thinking)
+2026-10-30 15:42:37,156 WARNING FAILED visual judge of response 8042 after 1 attempt(s): [parse] reply was cut off at max_tokens before a complete JSON answer (raise max_tokens for this judge; reasoning models spend it on thinking)
+2026-10-30 15:42:39,092 WARNING FAILED visual judge of response 5205 after 1 attempt(s): [parse] reply was cut off at max_tokens before a complete JSON answer (raise max_tokens for this judge; reasoning models spend it on thinking)
+2026-10-30 15:42:51,572 WARNING FAILED visual judge of response 8096 after 1 attempt(s): [parse] reply was cut off at max_tokens before a complete JSON answer (raise max_tokens for this judge; reasoning models spend it on thinking)
+2026-10-30 15:43:04,568 WARNING FAILED visual judge of response 7961 after 1 attempt(s): [parse] reply was cut off at max_tokens before a complete JSON answer (raise max_tokens for this judge; reasoning models spend it on thinking)
+2026-10-30 15:43:31,930 WARNING FAILED visual judge of response 11806 after 1 attempt(s): [parse] reply was cut off at max_tokens before a complete JSON answer (raise max_tokens for this judge; reasoning models spend it on thinking)
+2026-10-30 15:46:53,818 INFO retry textual judge of 2092: unusable reply: missing or empty 'interpretation'; missing or empty 'consistency'
+2026-10-30 15:48:40,972 INFO retry visual judge of 4863: unusable reply: no JSON object found in the reply
+2026-10-30 15:50:40,976 INFO retry visual judge of 4840: unusable reply: missing or empty 'visual-evidence'
+2026-10-30 15:51:08,166 INFO retry textual judge of 7535: unusable reply: missing or empty 'interpretation'; missing or empty 'consistency'
+2026-10-30 15:51:09,553 INFO retry textual judge of 7594: unusable reply: missing or empty 'interpretation'; missing or empty 'consistency'
+2026-10-30 15:51:18,980 INFO retry textual judge of 7491: unusable reply: no JSON object found in the reply
+2026-10-30 15:51:27,854 INFO retry textual judge of 7521: unusable reply: missing or empty 'interpretation'; missing or empty 'consistency'
+2026-10-30 15:52:03,428 INFO retry textual judge of 7524: unusable reply: missing or empty 'interpretation'; missing or empty 'consistency'
+2026-10-30 15:53:48,980 WARNING FAILED visual judge of response 7785 after 1 attempt(s): [parse] reply was cut off at max_tokens before a complete JSON answer (raise max_tokens for this judge; reasoning models spend it on thinking)
+2026-10-30 15:54:47,168 WARNING FAILED visual judge of response 9130 after 1 attempt(s): [parse] reply was cut off at max_tokens before a complete JSON answer (raise max_tokens for this judge; reasoning models spend it on thinking)
+2026-10-30 15:55:31,229 INFO retry visual judge of 11706: unusable reply: missing or empty 'visual-evidence'
+2026-10-30 15:57:36,002 WARNING FAILED visual judge of response 2658 after 1 attempt(s): [parse] reply was cut off at max_tokens before a complete JSON answer (raise max_tokens for this judge; reasoning models spend it on thinking)
+2026-10-30 15:57:36,474 INFO retry visual judge of 5462: unusable reply: no JSON object found in the reply
+2026-10-30 15:57:45,781 INFO retry visual judge of 5462: unusable reply: no JSON object found in the reply
+2026-10-30 15:57:55,415 WARNING FAILED visual judge of response 5462 after 3 attempt(s): [parse] no JSON object found in the reply
+2026-10-30 15:57:56,542 WARNING FAILED visual judge of response 5344 after 1 attempt(s): [parse] reply was cut off at max_tokens before a complete JSON answer (raise max_tokens for this judge; reasoning models spend it on thinking)
+2026-10-30 15:58:42,725 WARNING FAILED visual judge of response 5573 after 1 attempt(s): [parse] reply was cut off at max_tokens before a complete JSON answer (raise max_tokens for this judge; reasoning models spend it on thinking)
+2026-10-30 16:01:21,792 WARNING FAILED visual judge of response 12548 after 1 attempt(s): [parse] reply was cut off at max_tokens before a complete JSON answer (raise max_tokens for this judge; reasoning models spend it on thinking)
+2026-10-30 16:02:11,783 INFO run finished
+2026-10-30 16:03:10,481 INFO retry visual judge of 5462: unusable reply: no JSON object found in the reply
+2026-10-30 16:03:13,615 WARNING FAILED visual judge of response 4478 after 1 attempt(s): [parse] reply was cut off at max_tokens before a complete JSON answer (raise max_tokens for this judge; reasoning models spend it on thinking)
+2026-10-30 16:03:14,909 WARNING FAILED visual judge of response 7961 after 1 attempt(s): [parse] reply was cut off at max_tokens before a complete JSON answer (raise max_tokens for this judge; reasoning models spend it on thinking)
+2026-10-30 16:03:20,231 INFO retry visual judge of 5462: unusable reply: no JSON object found in the reply
+2026-10-30 16:03:24,229 WARNING FAILED visual judge of response 1539 after 1 attempt(s): [parse] reply was cut off at max_tokens before a complete JSON answer (raise max_tokens for this judge; reasoning models spend it on thinking)
+2026-10-30 16:03:29,960 WARNING FAILED visual judge of response 5462 after 3 attempt(s): [parse] no JSON object found in the reply
+2026-10-30 16:03:36,582 WARNING FAILED visual judge of response 8042 after 1 attempt(s): [parse] reply was cut off at max_tokens before a complete JSON answer (raise max_tokens for this judge; reasoning models spend it on thinking)
+2026-10-30 16:03:46,099 WARNING FAILED visual judge of response 2658 after 1 attempt(s): [parse] reply was cut off at max_tokens before a complete JSON answer (raise max_tokens for this judge; reasoning models spend it on thinking)
+2026-10-30 16:03:47,971 WARNING FAILED visual judge of response 1810 after 1 attempt(s): [parse] reply was cut off at max_tokens before a complete JSON answer (raise max_tokens for this judge; reasoning models spend it on thinking)
+2026-10-30 16:03:51,030 WARNING FAILED visual judge of response 11632 after 1 attempt(s): [parse] reply was cut off at max_tokens before a complete JSON answer (raise max_tokens for this judge; reasoning models spend it on thinking)
+2026-10-30 16:04:07,950 WARNING FAILED visual judge of response 11806 after 1 attempt(s): [parse] reply was cut off at max_tokens before a complete JSON answer (raise max_tokens for this judge; reasoning models spend it on thinking)
+2026-10-30 16:04:07,952 INFO run finished
+2026-10-30 16:04:47,485 INFO retry visual judge of 5462: unusable reply: no JSON object found in the reply
+2026-10-30 16:04:56,754 INFO retry visual judge of 5462: unusable reply: no JSON object found in the reply
+2026-10-30 16:05:07,966 WARNING FAILED visual judge of response 5462 after 3 attempt(s): [parse] no JSON object found in the reply
+2026-10-30 16:06:03,894 WARNING FAILED visual judge of response 7961 after 1 attempt(s): [parse] reply was cut off at max_tokens before a complete JSON answer (raise max_tokens for this judge; reasoning models spend it on thinking)
+2026-10-30 16:07:33,304 WARNING FAILED visual judge of response 1810 after 1 attempt(s): [parse] reply was cut off at max_tokens before a complete JSON answer (raise max_tokens for this judge; reasoning models spend it on thinking)
+2026-10-30 16:07:33,305 INFO run finished
+2026-10-30 16:08:15,987 INFO retry visual judge of 5462: unusable reply: no JSON object found in the reply
+2026-10-30 16:08:24,276 INFO retry visual judge of 5462: unusable reply: no JSON object found in the reply
+2026-10-30 16:08:34,492 WARNING FAILED visual judge of response 5462 after 3 attempt(s): [parse] no JSON object found in the reply
+2026-10-30 16:08:53,616 WARNING FAILED visual judge of response 7961 after 1 attempt(s): [parse] reply was cut off at max_tokens before a complete JSON answer (raise max_tokens for this judge; reasoning models spend it on thinking)
+2026-10-30 16:08:53,618 INFO run finished
+2026-10-30 16:09:25,925 INFO retry visual judge of 5462: unusable reply: no JSON object found in the reply
+2026-10-30 16:09:36,320 INFO retry visual judge of 5462: unusable reply: no JSON object found in the reply
+2026-10-30 16:09:46,021 WARNING FAILED visual judge of response 5462 after 3 attempt(s): [parse] no JSON object found in the reply
+2026-10-30 16:10:19,215 INFO run finished

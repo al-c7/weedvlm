@@ -1,0 +1,644 @@
+[
+  {
+    "question_id": "CropAndWeed:4546:german chamomile:species_id_multiple_choice:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "German chamomile",
+    "answer": "Scentless mayweed (Tripleurospermum inodorum)"
+  },
+  {
+    "question_id": "CropAndWeed:4225:german chamomile:species_id_multiple_choice:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "German chamomile",
+    "answer": "Scentless mayweed (Tripleurospermum inodorum)"
+  },
+  {
+    "question_id": "MultipleWeedSpeciesDetection:354:taraxacum officinale:species_id_multiple_choice:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Taraxacum officinale",
+    "answer": "Curly dock (Rumex crispus)"
+  },
+  {
+    "question_id": "CottonWeedDet12:3497:amaranthus tuberculatus:species_id_multiple_choice:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Amaranthus tuberculatus",
+    "answer": "Ludwigia octovalvis"
+  },
+  {
+    "question_id": "CottonWeedDet12:2969:physalis angulata:species_id_multiple_choice:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Physalis angulata",
+    "answer": "Eastern black nightshade (Solanum ptychanthum)"
+  },
+  {
+    "question_id": "CropAndWeed:4605:german chamomile:species_id_multiple_choice:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "German chamomile",
+    "answer": "Tripleurospermum inodorum"
+  },
+  {
+    "question_id": "MultipleWeedSpeciesDetection:392:taraxacum officinale:species_id_multiple_choice:unannotated:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Taraxacum officinale",
+    "answer": "Curly dock (Rumex crispus)"
+  },
+  {
+    "question_id": "CottonWeedDet12:4965:ipomoea indica:species_id_multiple_choice:unannotated:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Ipomoea indica",
+    "answer": "Ivyleaf morningglory (Ipomoea hederacea)"
+  },
+  {
+    "question_id": "CropAndWeed:4560:hybrid goosefoot:species_id_multiple_choice:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Hybrid goosefoot",
+    "answer": "Chenopodium album"
+  },
+  {
+    "question_id": "MultipleWeedSpeciesDetection:379:taraxacum officinale:species_id_multiple_choice:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Taraxacum officinale",
+    "answer": "Broadleaf dock (Rumex obtusifolius)"
+  },
+  {
+    "question_id": "CottonWeedDet12:1225:ipomoea indica:species_id_multiple_choice:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Ipomoea indica",
+    "answer": "Wild buckwheat (Fallopia convolvulus)"
+  },
+  {
+    "question_id": "MultipleWeedSpeciesDetection:510:xanthium strumarium:species_id_multiple_choice:unannotated:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Xanthium strumarium",
+    "answer": "Eastern black nightshade (Solanum ptychanthum)"
+  },
+  {
+    "question_id": "CottonWeedDet12:2657:sida rhombifolia:species_id_multiple_choice:unannotated:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Sida rhombifolia",
+    "answer": "Prickly sida (Sida spinosa)"
+  },
+  {
+    "question_id": "MultipleWeedSpeciesDetection:435:taraxacum officinale:species_id_multiple_choice:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Taraxacum officinale",
+    "answer": "Curly dock (Rumex crispus)"
+  },
+  {
+    "question_id": "CottonWeedDet12:1474:ipomoea indica:species_id_multiple_choice:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Ipomoea indica",
+    "answer": "Pitted morningglory (Ipomoea lacunosa)"
+  },
+  {
+    "question_id": "CottonWeedDet12:2853:ambrosia artemisiifolia:species_id_multiple_choice:unannotated:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Ambrosia artemisiifolia",
+    "answer": "Flixweed (Descurainia sophia)"
+  },
+  {
+    "question_id": "CottonWeedDet12:2483:ipomoea indica:species_id_multiple_choice:unannotated:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Ipomoea indica",
+    "answer": "Morningglory (Ipomoea sp.)"
+  },
+  {
+    "question_id": "CropAndWeed:3762:thorn apple:species_id_multiple_choice:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Thorn apple",
+    "answer": "Black nightshade (Solanum nigrum)"
+  },
+  {
+    "question_id": "CottonWeedDet12:3901:amaranthus tuberculatus:species_id_multiple_choice:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Amaranthus tuberculatus",
+    "answer": "Palmer amaranth (Amaranthus palmeri)"
+  },
+  {
+    "question_id": "CottonWeedDet12:1463:ipomoea indica:species_id_multiple_choice:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Ipomoea indica",
+    "answer": "Morningglory (Ipomoea sp.)"
+  },
+  {
+    "question_id": "CottonWeedDet12:1386:ipomoea indica:species_id_multiple_choice:unannotated:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Ipomoea indica",
+    "answer": "Pitted morningglory (Ipomoea lacunosa)"
+  },
+  {
+    "question_id": "MultipleWeedSpeciesDetection:513:xanthium strumarium:species_id_multiple_choice:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Xanthium strumarium",
+    "answer": "Giant ragweed (Ambrosia trifida)"
+  },
+  {
+    "question_id": "CottonWeedDet12:5311:ambrosia artemisiifolia:species_id_multiple_choice:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Ambrosia artemisiifolia",
+    "answer": "Mayweed (Anthemis or Tripleurospermum sp.)"
+  },
+  {
+    "question_id": "CropAndWeed:3582:thorn apple:species_id_multiple_choice:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Thorn apple",
+    "answer": "Black nightshade (Solanum nigrum)"
+  },
+  {
+    "question_id": "CottonWeedDet12:2499:sida rhombifolia:species_id_multiple_choice:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Sida rhombifolia",
+    "answer": "Prickly sida (Sida spinosa)"
+  },
+  {
+    "question_id": "CottonWeedDet12:5497:amaranthus tuberculatus:species_id_multiple_choice:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Amaranthus tuberculatus",
+    "answer": "Kochia (Bassia scoparia)"
+  },
+  {
+    "question_id": "CottonWeedDet12:5595:ambrosia artemisiifolia:species_id_multiple_choice:unannotated:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Ambrosia artemisiifolia",
+    "answer": "Prairie verbena (Glandularia bipinnatifida)"
+  },
+  {
+    "question_id": "CottonWeedDet12:4829:eclipta:species_id_multiple_choice:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Eclipta",
+    "answer": "Prostrate knotweed (Polygonum aviculare)"
+  },
+  {
+    "question_id": "CropAndWeed:3122:hybrid goosefoot:species_id_multiple_choice:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Hybrid goosefoot",
+    "answer": "Jimsonweed (Datura stramonium)"
+  },
+  {
+    "question_id": "CottonWeedDet12:3119:physalis angulata:species_id_multiple_choice:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Physalis angulata",
+    "answer": "Palmer amaranth (Amaranthus palmeri)"
+  },
+  {
+    "question_id": "CropAndWeed:3356:red root amaranth:species_id_multiple_choice:unannotated:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Red root amaranth",
+    "answer": "Pigweed (Amaranthus sp.)"
+  },
+  {
+    "question_id": "CottonWeedDet12:847:ipomoea indica:species_id_multiple_choice:unannotated:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Ipomoea indica",
+    "answer": "Pitted morningglory (Ipomoea lacunosa)"
+  },
+  {
+    "question_id": "CottonWeedDet12:2439:physalis angulata:species_id_multiple_choice:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Physalis angulata",
+    "answer": "Black nightshade (Solanum nigrum)"
+  },
+  {
+    "question_id": "CropAndWeed:4544:german chamomile:species_id_multiple_choice:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "German chamomile",
+    "answer": "Scentless mayweed (Tripleurospermum inodorum)"
+  },
+  {
+    "question_id": "CottonWeedDet12:2476:sida rhombifolia:species_id_multiple_choice:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Sida rhombifolia",
+    "answer": "Sida spinosa"
+  },
+  {
+    "question_id": "CottonWeedDet12:599:euphorbia maculata:species_id_multiple_choice:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Euphorbia maculata",
+    "answer": "Euphorbia nutans"
+  },
+  {
+    "question_id": "CottonWeedDet12:97:euphorbia maculata:species_id_multiple_choice:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Euphorbia maculata",
+    "answer": "Euphorbia nutans"
+  },
+  {
+    "question_id": "CottonWeedDet12:2677:sida rhombifolia:species_id_multiple_choice:unannotated:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Sida rhombifolia",
+    "answer": "Prickly sida (Sida spinosa)"
+  },
+  {
+    "question_id": "CottonWeedDet12:4597:ipomoea indica:species_id_multiple_choice:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Ipomoea indica",
+    "answer": "Velvetleaf (Abutilon theophrasti)"
+  },
+  {
+    "question_id": "CottonWeedDet12:104:euphorbia maculata:species_id_multiple_choice:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Euphorbia maculata",
+    "answer": "Euphorbia nutans"
+  },
+  {
+    "question_id": "MultipleWeedSpeciesDetection:406:taraxacum officinale:species_id_multiple_choice:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Taraxacum officinale",
+    "answer": "Rumex crispus"
+  },
+  {
+    "question_id": "CottonWeedDet12:2684:sida rhombifolia:species_id_multiple_choice:unannotated:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Sida rhombifolia",
+    "answer": "Hophornbeam copperleaf (Acalypha ostryifolia)"
+  },
+  {
+    "question_id": "CottonWeedDet12:2683:sida rhombifolia:species_id_multiple_choice:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Sida rhombifolia",
+    "answer": "Hophornbeam copperleaf (Acalypha ostryifolia)"
+  },
+  {
+    "question_id": "MultipleWeedSpeciesDetection:440:taraxacum officinale:species_id_multiple_choice:unannotated:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Taraxacum officinale",
+    "answer": "Broadleaf dock (Rumex obtusifolius)"
+  },
+  {
+    "question_id": "CottonWeedDet12:2446:sida rhombifolia:species_id_multiple_choice:unannotated:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Sida rhombifolia",
+    "answer": "Prickly sida (Sida spinosa)"
+  },
+  {
+    "question_id": "CropAndWeed:3355:red root amaranth:species_id_multiple_choice:unannotated:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Red root amaranth",
+    "answer": "Pigweed (Amaranthus sp.)"
+  },
+  {
+    "question_id": "CottonWeedDet12:5401:ipomoea indica:species_id_multiple_choice:unannotated:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Ipomoea indica",
+    "answer": "pitted morningglory (Ipomoea lacunosa)"
+  },
+  {
+    "question_id": "CropAndWeed:3520:thorn apple:species_id_multiple_choice:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Thorn apple",
+    "answer": "Black nightshade (Solanum nigrum)"
+  },
+  {
+    "question_id": "CottonWeedDet12:2036:physalis angulata:species_id_multiple_choice:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Physalis angulata",
+    "answer": "Black nightshade (Solanum nigrum)"
+  },
+  {
+    "question_id": "CropAndWeed:4420:hybrid goosefoot:species_id_multiple_choice:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Hybrid goosefoot",
+    "answer": "Chenopodiastrum hybridum"
+  },
+  {
+    "question_id": "CottonWeedDet12:1958:ipomoea indica:species_id_multiple_choice:unannotated:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Ipomoea indica",
+    "answer": "Tall morningglory (Ipomoea purpurea)"
+  },
+  {
+    "question_id": "CottonWeedDet12:3066:sida rhombifolia:species_id_multiple_choice:unannotated:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Sida rhombifolia",
+    "answer": "Sida spinosa (prickly sida)"
+  },
+  {
+    "question_id": "CottonWeedDet12:3084:ambrosia artemisiifolia:species_id_multiple_choice:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Ambrosia artemisiifolia",
+    "answer": "Narrowleaf paleseed (Leucospora multifida)"
+  },
+  {
+    "question_id": "CropAndWeed:3237:hybrid goosefoot:species_id_multiple_choice:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Hybrid goosefoot",
+    "answer": "Jimsonweed (Datura stramonium)"
+  },
+  {
+    "question_id": "CottonWeedDet12:877:ipomoea indica:species_id_multiple_choice:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Ipomoea indica",
+    "answer": "Tall morningglory (Ipomoea purpurea)"
+  },
+  {
+    "question_id": "CropAndWeed:3444:thorn apple:species_id_multiple_choice:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Thorn apple",
+    "answer": "Black nightshade (Solanum nigrum)"
+  },
+  {
+    "question_id": "CropAndWeed:4613:hybrid goosefoot:species_id_multiple_choice:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Hybrid goosefoot",
+    "answer": "Chenopodium album"
+  },
+  {
+    "question_id": "CottonWeedDet12:4088:ambrosia artemisiifolia:species_id_multiple_choice:unannotated:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Ambrosia artemisiifolia",
+    "answer": "Fumaria parviflora"
+  },
+  {
+    "question_id": "CottonWeedDet12:4944:mollugo verticillata:species_id_multiple_choice:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Mollugo verticillata",
+    "answer": "Pitted morningglory (Ipomoea lacunosa)"
+  },
+  {
+    "question_id": "CropAndWeed:4457:german chamomile:species_id_multiple_choice:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "German chamomile",
+    "answer": "Scentless chamomile (Tripleurospermum inodorum)"
+  },
+  {
+    "question_id": "CottonWeedDet12:3084:ambrosia artemisiifolia:species_id_multiple_choice:unannotated:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Ambrosia artemisiifolia",
+    "answer": "Ellisia nyctelea"
+  },
+  {
+    "question_id": "CottonWeedDet12:965:eclipta:species_id_multiple_choice:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Eclipta",
+    "answer": "Prostrate pigweed (Amaranthus blitoides)"
+  },
+  {
+    "question_id": "CottonWeedDet12:2477:sida rhombifolia:species_id_multiple_choice:unannotated:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Sida rhombifolia",
+    "answer": "Prickly sida (Sida spinosa)"
+  },
+  {
+    "question_id": "CottonWeedDet12:5390:amaranthus tuberculatus:species_id_multiple_choice:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Amaranthus tuberculatus",
+    "answer": "Pigweed (Amaranthus sp.)"
+  },
+  {
+    "question_id": "CottonWeedDet12:963:eclipta:species_id_multiple_choice:unannotated:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Eclipta",
+    "answer": "Scoparia dulcis"
+  },
+  {
+    "question_id": "CottonWeedDet12:4741:sida rhombifolia:species_id_multiple_choice:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Sida rhombifolia",
+    "answer": "Three-seeded mercury (Acalypha rhomboidea)"
+  },
+  {
+    "question_id": "CottonWeedDet12:2867:ipomoea indica:species_id_multiple_choice:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Ipomoea indica",
+    "answer": "pitted morningglory (Ipomoea lacunosa)"
+  },
+  {
+    "question_id": "CottonWeedDet12:5580:ambrosia artemisiifolia:species_id_multiple_choice:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Ambrosia artemisiifolia",
+    "answer": "Senecio vulgaris"
+  },
+  {
+    "question_id": "CropAndWeed:4320:german chamomile:species_id_multiple_choice:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "German chamomile",
+    "answer": "Scentless mayweed (Tripleurospermum inodorum)"
+  },
+  {
+    "question_id": "CottonWeedDet12:5318:ipomoea indica:species_id_multiple_choice:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Ipomoea indica",
+    "answer": "Tievine (Ipomoea cordatotriloba)"
+  },
+  {
+    "question_id": "CropAndWeed:4518:hybrid goosefoot:species_id_multiple_choice:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Hybrid goosefoot",
+    "answer": "Chenopodium album"
+  },
+  {
+    "question_id": "MultipleWeedSpeciesDetection:439:taraxacum officinale:species_id_multiple_choice:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Taraxacum officinale",
+    "answer": "Curly dock (Rumex crispus)"
+  },
+  {
+    "question_id": "CottonWeedDet12:3363:sida rhombifolia:species_id_multiple_choice:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Sida rhombifolia",
+    "answer": "Prickly sida (Sida spinosa)"
+  },
+  {
+    "question_id": "CottonWeedDet12:4193:ambrosia artemisiifolia:species_id_multiple_choice:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Ambrosia artemisiifolia",
+    "answer": "Fine-leaved fumitory (Fumaria parviflora)"
+  },
+  {
+    "question_id": "CropAndWeed:3583:thorn apple:species_id_multiple_choice:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Thorn apple",
+    "answer": "Black nightshade (Solanum nigrum)"
+  },
+  {
+    "question_id": "CottonWeedDet12:3238:sida rhombifolia:species_id_multiple_choice:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Sida rhombifolia",
+    "answer": "Prickly sida (Sida spinosa)"
+  },
+  {
+    "question_id": "CottonWeedDet12:4944:ipomoea indica:species_id_multiple_choice:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Ipomoea indica",
+    "answer": "pitted morningglory (Ipomoea lacunosa)"
+  },
+  {
+    "question_id": "CottonWeedDet12:5146:ipomoea indica:species_id_multiple_choice:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Ipomoea indica",
+    "answer": "Pitted morningglory (Ipomoea lacunosa)"
+  },
+  {
+    "question_id": "CottonWeedDet12:3399:ambrosia artemisiifolia:species_id_multiple_choice:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Ambrosia artemisiifolia",
+    "answer": "Artemisia absinthium"
+  },
+  {
+    "question_id": "CottonWeedDet12:3262:sida rhombifolia:species_id_multiple_choice:unannotated:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Sida rhombifolia",
+    "answer": "Prickly sida (Sida spinosa)"
+  },
+  {
+    "question_id": "CottonWeedDet12:4893:sida rhombifolia:species_id_multiple_choice:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Sida rhombifolia",
+    "answer": "Hophornbeam copperleaf (Acalypha ostryifolia)"
+  },
+  {
+    "question_id": "CropAndWeed:4548:hybrid goosefoot:species_id_multiple_choice:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Hybrid goosefoot",
+    "answer": "Chenopodium album (common lambsquarters)"
+  },
+  {
+    "question_id": "CottonWeedDet12:2277:ipomoea indica:species_id_multiple_choice:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Ipomoea indica",
+    "answer": "Tall morningglory (Ipomoea purpurea)"
+  },
+  {
+    "question_id": "CropAndWeed:4566:hybrid goosefoot:species_id_multiple_choice:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Hybrid goosefoot",
+    "answer": "Nettle-leaved goosefoot (Chenopodiastrum murale)"
+  },
+  {
+    "question_id": "CropAndWeed:3558:german chamomile:species_id_multiple_choice:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "German chamomile",
+    "answer": "Scentless mayweed (Tripleurospermum inodorum)"
+  },
+  {
+    "question_id": "CottonWeedDet12:2904:ipomoea indica:species_id_multiple_choice:unannotated:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Ipomoea indica",
+    "answer": "pitted morningglory (Ipomoea lacunosa)"
+  },
+  {
+    "question_id": "CropAndWeed:4608:hybrid goosefoot:species_id_multiple_choice:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Hybrid goosefoot",
+    "answer": "Common lambsquarters (Chenopodium album)"
+  },
+  {
+    "question_id": "CottonWeedDet12:2461:sida rhombifolia:species_id_multiple_choice:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Sida rhombifolia",
+    "answer": "Sida spinosa"
+  },
+  {
+    "question_id": "CottonWeedDet12:3940:eclipta:species_id_multiple_choice:unannotated:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Eclipta",
+    "answer": "Common lambsquarters (Chenopodium album)"
+  },
+  {
+    "question_id": "CottonWeedDet12:2518:euphorbia maculata:species_id_multiple_choice:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Euphorbia maculata",
+    "answer": "Prostrate spurge (Euphorbia prostrata)"
+  },
+  {
+    "question_id": "CottonWeedDet12:1332:sida rhombifolia:species_id_multiple_choice:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Sida rhombifolia",
+    "answer": "Prickly sida (Sida spinosa)"
+  },
+  {
+    "question_id": "CottonWeedDet12:2276:physalis angulata:species_id_multiple_choice:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Physalis angulata",
+    "answer": "Eastern black nightshade (Solanum ptychanthum)"
+  },
+  {
+    "question_id": "CottonWeedDet12:3713:physalis angulata:species_id_multiple_choice:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Physalis angulata",
+    "answer": "Eastern black nightshade (Solanum ptycanthum)"
+  },
+  {
+    "question_id": "CottonWeedDet12:3236:sida rhombifolia:species_id_multiple_choice:unannotated:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Sida rhombifolia",
+    "answer": "Prickly sida (Sida spinosa)"
+  },
+  {
+    "question_id": "MultipleWeedSpeciesDetection:508:xanthium strumarium:species_id_multiple_choice:unannotated:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Xanthium strumarium",
+    "answer": "Common lambsquarters (Chenopodium album)"
+  },
+  {
+    "question_id": "CottonWeedDet12:4819:sida rhombifolia:species_id_multiple_choice:unannotated:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Sida rhombifolia",
+    "answer": "Sida spinosa (prickly sida)"
+  },
+  {
+    "question_id": "CottonWeedDet12:2545:ambrosia artemisiifolia:species_id_multiple_choice:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Ambrosia artemisiifolia",
+    "answer": "Parthenium hysterophorus"
+  },
+  {
+    "question_id": "CottonWeedDet12:1634:ipomoea indica:species_id_multiple_choice:unannotated:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Ipomoea indica",
+    "answer": "Pitted morningglory (Ipomoea lacunosa)"
+  },
+  {
+    "question_id": "CottonWeedDet12:5512:ipomoea indica:species_id_multiple_choice:unannotated:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Ipomoea indica",
+    "answer": "Pitted morningglory (Ipomoea lacunosa)"
+  },
+  {
+    "question_id": "CottonWeedDet12:2402:sida rhombifolia:species_id_multiple_choice:unannotated:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Sida rhombifolia",
+    "answer": "Sida spinosa (Prickly sida)"
+  },
+  {
+    "question_id": "CottonWeedDet12:2894:ipomoea indica:species_id_multiple_choice:unannotated:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Ipomoea indica",
+    "answer": "Ivyleaf morningglory (Ipomoea hederacea)"
+  },
+  {
+    "question_id": "CropAndWeed:4321:german chamomile:species_id_multiple_choice:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "German chamomile",
+    "answer": "Scentless mayweed (Tripleurospermum inodorum)"
+  },
+  {
+    "question_id": "CottonWeedDet12:2381:sida rhombifolia:species_id_multiple_choice:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Sida rhombifolia",
+    "answer": "Prickly sida (Sida spinosa)"
+  },
+  {
+    "question_id": "CottonWeedDet12:1206:sida rhombifolia:species_id_multiple_choice:unannotated:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Sida rhombifolia",
+    "answer": "Prickly sida (Sida spinosa)"
+  },
+  {
+    "question_id": "CottonWeedDet12:4769:eclipta:species_id_multiple_choice:unannotated:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Eclipta",
+    "answer": "Smartweed (Persicaria spp.)"
+  },
+  {
+    "question_id": "CropAndWeed:4391:german chamomile:species_id_multiple_choice:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "German chamomile",
+    "answer": "Tripleurospermum inodorum"
+  },
+  {
+    "question_id": "CottonWeedDet12:4090:ambrosia artemisiifolia:species_id_multiple_choice:unannotated:open_ended",
+    "model": "google/gemini-3.8-flash",
+    "expected": "Ambrosia artemisiifolia",
+    "answer": "Fumaria parviflora (fineleaf fumitory)"
+  }
+]

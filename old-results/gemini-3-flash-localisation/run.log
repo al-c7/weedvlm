@@ -1,0 +1,16 @@
+2026-10-03 14:03:48,993 INFO run finished: 5 responses consolidated
+2026-10-03 14:05:29,466 INFO retry google/gemini-3-flash-preview x CottonWeedDet12:3042:ipomoea indica:localisation: unusable reply: no JSON object found in the reply
+2026-10-03 14:05:47,032 INFO retry google/gemini-3-flash-preview x CottonWeedDet12:3042:ipomoea indica:localisation: unusable reply: no JSON object found in the reply
+2026-10-03 14:06:05,310 WARNING FAILED google/gemini-3-flash-preview x CottonWeedDet12:3042:ipomoea indica:localisation after 3 attempt(s): [parse] no JSON object found in the reply
+2026-10-03 14:06:53,475 INFO retry google/gemini-3-flash-preview x CropAndWeed:3757:thorn apple:localisation: unusable reply: no JSON object found in the reply
+2026-10-03 14:07:01,810 INFO retry google/gemini-3-flash-preview x CropAndWeed:3757:thorn apple:localisation: unusable reply: no JSON object found in the reply
+2026-10-03 14:07:08,857 WARNING FAILED google/gemini-3-flash-preview x CropAndWeed:3757:thorn apple:localisation after 3 attempt(s): [parse] no JSON object found in the reply
+2026-10-03 14:09:38,360 INFO retry google/gemini-3-flash-preview x CottonWeedDet12:2466:sida rhombifolia:localisation: unusable reply: no JSON object found in the reply
+2026-10-03 14:09:53,470 INFO retry google/gemini-3-flash-preview x CottonWeedDet12:2466:sida rhombifolia:localisation: unusable reply: no JSON object found in the reply
+2026-10-03 14:10:05,134 INFO retry google/gemini-3-flash-preview x CropAndWeed:4133:creeping thistle:localisation: unusable reply: no JSON object found in the reply
+2026-10-03 14:10:08,433 WARNING FAILED google/gemini-3-flash-preview x CottonWeedDet12:2466:sida rhombifolia:localisation after 3 attempt(s): [parse] no JSON object found in the reply
+2026-10-03 14:11:47,316 INFO retry google/gemini-3-flash-preview x CottonWeedDet12:1250:senna obtusifolia:localisation: unusable reply: no JSON object found in the reply
+2026-10-03 14:12:01,097 INFO retry google/gemini-3-flash-preview x CottonWeedDet12:1250:senna obtusifolia:localisation: unusable reply: no JSON object found in the reply
+2026-10-03 14:12:15,619 WARNING FAILED google/gemini-3-flash-preview x CottonWeedDet12:1250:senna obtusifolia:localisation after 3 attempt(s): [parse] no JSON object found in the reply
+2026-10-03 14:14:52,673 INFO retry google/gemini-3-flash-preview x CottonWeedDet12:5593:ambrosia artemisiifolia:localisation: unusable reply: no JSON object found in the reply
+2026-10-03 14:16:30,079 INFO run finished: 400 responses consolidated

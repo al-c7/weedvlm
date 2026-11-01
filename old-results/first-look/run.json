@@ -1,0 +1,55 @@
+{
+  "run_name": "first-look",
+  "prompt_version": 1,
+  "config": {
+    "questions_dir": "questions",
+    "generation_config": null,
+    "output_dir": "results",
+    "run_name": "first-look",
+    "tasks": {
+      "species_id": true,
+      "fine_grained": true,
+      "density": true,
+      "localisation": true
+    },
+    "models": [
+      {
+        "id": "google/gemini-2.5-flash",
+        "temperature": null,
+        "max_tokens": null,
+        "extra_body": {}
+      },
+      {
+        "id": "openai/gpt-4o-mini",
+        "temperature": null,
+        "max_tokens": null,
+        "extra_body": {}
+      }
+    ],
+    "concurrency": 8,
+    "defaults": {
+      "temperature": 0.0,
+      "max_tokens": 1024,
+      "timeout_seconds": 120.0
+    },
+    "retry": {
+      "max_retries": 5,
+      "max_parse_retries": 2,
+      "backoff_base_seconds": 2.0,
+      "backoff_max_seconds": 60.0,
+      "model_failure_threshold": 25
+    },
+    "base_url": "https://openrouter.ai/api/v1",
+    "api_key_env": "OPENROUTER_API_KEY",
+    "max_questions_per_task": 20,
+    "seed": 0,
+    "progress_interval_seconds": 5.0
+  },
+  "model_fingerprints": {
+    "google/gemini-2.5-flash": "ad1eb561a738c01b",
+    "openai/gpt-4o-mini": "ad1eb561a738c01b"
+  },
+  "sessions": [
+    "2026-09-26T04:41:47.750692+00:00"
+  ]
+}

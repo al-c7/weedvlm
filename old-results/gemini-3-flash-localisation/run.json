@@ -1,0 +1,51 @@
+{
+  "run_name": "gemini-3-flash-localisation",
+  "prompt_version": 1,
+  "config": {
+    "questions_dir": "questions",
+    "generation_config": null,
+    "output_dir": "results",
+    "run_name": "gemini-3-flash-localisation",
+    "tasks": {
+      "species_id": false,
+      "fine_grained": false,
+      "density": false,
+      "grounded_vqa": false,
+      "localisation": true
+    },
+    "models": [
+      {
+        "id": "google/gemini-3-flash-preview",
+        "temperature": null,
+        "max_tokens": null,
+        "extra_body": {},
+        "bbox_format": null
+      }
+    ],
+    "concurrency": 8,
+    "defaults": {
+      "temperature": 0.0,
+      "max_tokens": 4096,
+      "timeout_seconds": 120.0
+    },
+    "retry": {
+      "max_retries": 5,
+      "max_parse_retries": 2,
+      "backoff_base_seconds": 2.0,
+      "backoff_max_seconds": 60.0,
+      "model_failure_threshold": 25
+    },
+    "base_url": "https://openrouter.ai/api/v1",
+    "api_key_env": "OPENROUTER_API_KEY",
+    "max_questions_per_task": null,
+    "seed": 0,
+    "progress_interval_seconds": 5.0
+  },
+  "model_fingerprints": {
+    "google/gemini-3-flash-preview": "03a854c4311a6d6f"
+  },
+  "sessions": [
+    "2026-10-03T04:03:27.143251+00:00",
+    "2026-10-03T04:03:55.478541+00:00"
+  ]
+}

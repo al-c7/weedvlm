@@ -1,0 +1,39 @@
+{
+  "state": "finished",
+  "started_at": "2026-09-26T04:41:47.750983+00:00",
+  "updated_at": "2026-09-26T04:43:52.453846+00:00",
+  "elapsed_seconds": 124.7,
+  "total": 160,
+  "answered": 160,
+  "failed": 0,
+  "remaining": 0,
+  "in_flight": 0,
+  "retries": 0,
+  "requests_per_second": 1.367,
+  "eta_seconds": null,
+  "cost_usd": 0.470578,
+  "models": {
+    "google/gemini-2.5-flash": {
+      "total": 80,
+      "already_done": 0,
+      "ok": 80,
+      "failed": 0,
+      "retries": 0,
+      "in_flight": 0,
+      "cost_usd": 0.085491,
+      "tokens": 242604,
+      "stopped_early": false
+    },
+    "openai/gpt-4o-mini": {
+      "total": 80,
+      "already_done": 0,
+      "ok": 80,
+      "failed": 0,
+      "retries": 0,
+      "in_flight": 0,
+      "cost_usd": 0.385087,
+      "tokens": 2552412,
+      "stopped_early": false
+    }
+  }
+}

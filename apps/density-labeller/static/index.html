@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>weedvlm density labeller</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <h1>weedvlm density labeller</h1>
+      <nav class="tabs" role="tablist">
+        <button class="tab" role="tab" data-tab="label">Label</button>
+        <button class="tab" role="tab" data-tab="fit">Fit</button>
+      </nav>
+      <div id="summary" class="muted"></div>
+    </header>
+
+    <!-- Label: give sampled images a density category -->
+    <div class="layout tab-panel" id="panel-label" role="tabpanel" hidden>
+      <aside class="sidebar">
+        <section>
+          <h2>1. Datasets</h2>
+          <div class="row">
+            <button id="lb-select-all">All</button>
+            <button id="lb-select-none">None</button>
+          </div>
+          <ul id="lb-dataset-list" class="category-list"></ul>
+        </section>
+
+        <section>
+          <h2>2. Sample</h2>
+          <label class="row">
+            Images
+            <input id="lb-sample-n" type="number" min="1" value="100" />
+          </label>
+          <label class="row">
+            <input id="lb-unlabelled-only" type="checkbox" checked />
+            Only unlabelled images
+          </label>
+          <button id="lb-build-queue" class="primary">Build labelling queue</button>
+          <button id="lb-revisit" class="wide">Revisit labelled images</button>
+        </section>
+
+        <section>
+          <h2>Display</h2>
+          <label class="row">
+            <input id="lb-show-boxes" type="checkbox" checked />
+            Weed boxes <span class="count">Space</span>
+          </label>
+          <label class="row">
+            <input id="lb-show-measurements" type="checkbox" />
+            Measurements <span class="count">I</span>
+          </label>
+        </section>
+
+        <section>
+          <h2>Progress</h2>
+          <div id="lb-progress" class="muted">No queue yet</div>
+          <div class="progress-bar">
+            <div id="lb-progress-fill" class="progress-fill"></div>
+          </div>
+          <div id="lb-totals" class="muted"></div>
+        </section>
+      </aside>
+
+      <main class="viewer" id="lb-viewer">
+        <p class="empty-state">Choose datasets and build a labelling queue to start.</p>
+      </main>
+    </div>
+
+    <!-- Fit: rules fitted to the labels -->
+    <div class="layout tab-panel" id="panel-fit" role="tabpanel" hidden>
+      <aside class="sidebar">
+        <section>
+          <h2>Tree</h2>
+          <label class="row">
+            Tests deep
+            <select id="fit-depth">
+              <option>1</option>
+              <option>2</option>
+              <option selected>3</option>
+              <option>4</option>
+            </select>
+          </label>
+        </section>
+
+        <section>
+          <h2>Chart</h2>
+          <label class="row">Across <select id="fit-x"></select></label>
+          <label class="row">Up <select id="fit-y"></select></label>
+          <label class="row">Compare with <select id="fit-rule"></select></label>
+          <label class="row">
+            <input id="fit-disagreements" type="checkbox" />
+            Only where the rule disagrees
+          </label>
+        </section>
+
+        <section>
+          <h2>Export</h2>
+          <a href="/api/labels.csv" download="density-labels.csv">Download labels as CSV</a>
+        </section>
+      </aside>
+
+      <main class="viewer" id="fit-viewer">
+        <p class="empty-state">Loading…</p>
+      </main>
+    </div>
+
+    <script type="module" src="/app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,28 @@
+{
+  "state": "finished",
+  "started_at": "2026-09-27T02:36:02.676573+00:00",
+  "updated_at": "2026-09-27T03:18:18.203507+00:00",
+  "elapsed_seconds": 2535.5,
+  "total": 2541,
+  "answered": 2302,
+  "failed": 239,
+  "remaining": 0,
+  "in_flight": 0,
+  "retries": 8,
+  "requests_per_second": 1.083,
+  "eta_seconds": null,
+  "cost_usd": 7.058587,
+  "models": {
+    "z-ai/glm-5.3-flashx": {
+      "total": 2541,
+      "already_done": 0,
+      "ok": 2302,
+      "failed": 239,
+      "retries": 8,
+      "in_flight": 0,
+      "cost_usd": 7.058587,
+      "tokens": 16415155,
+      "stopped_early": false
+    }
+  }
+}

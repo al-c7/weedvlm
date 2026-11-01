@@ -1,0 +1,960 @@
+{
+  "updated_at": "2026-10-08T06:20:42.001Z",
+  "labels": {
+    "CropAndWeed:537": {
+      "label": "medium",
+      "file_name": "ave-0138-0013.jpg",
+      "labelled_at": "2026-10-08T06:09:17.282Z"
+    },
+    "CropAndWeed:5895": {
+      "label": "low",
+      "file_name": "vwg-0785-0013.jpg",
+      "labelled_at": "2026-10-08T06:09:21.270Z"
+    },
+    "CropAndWeed:3217": {
+      "label": "skip",
+      "file_name": "vwg-0026-0002.jpg",
+      "labelled_at": "2026-10-08T06:09:40.124Z"
+    },
+    "CottonWeedDet12:1945": {
+      "label": "low",
+      "file_name": "20210820_iPhoneSE_YL_1476.jpg",
+      "labelled_at": "2026-10-08T06:09:44.956Z"
+    },
+    "CropAndWeed:6131": {
+      "label": "medium",
+      "file_name": "vwg-0821-0007.jpg",
+      "labelled_at": "2026-10-08T06:09:49.592Z"
+    },
+    "CottonWeedDet12:4527": {
+      "label": "low",
+      "file_name": "20210910_iPhone11Pro_BT_57.jpg",
+      "labelled_at": "2026-10-08T06:09:51.373Z"
+    },
+    "CropAndWeed:1083": {
+      "label": "medium",
+      "file_name": "ave-0246-0016.jpg",
+      "labelled_at": "2026-10-08T06:09:53.149Z"
+    },
+    "CropAndWeed:4653": {
+      "label": "high",
+      "file_name": "vwg-0532-0012.jpg",
+      "labelled_at": "2026-10-08T06:10:00.709Z"
+    },
+    "CropAndWeed:3916": {
+      "label": "low",
+      "file_name": "vwg-0206-0007.jpg",
+      "labelled_at": "2026-10-08T06:10:03.059Z"
+    },
+    "MultipleWeedSpeciesDetection:337": {
+      "label": "low",
+      "file_name": "GOPR0687_JPG.rf.892060074ef74eeedff9c1fc06bbc49d.jpg",
+      "labelled_at": "2026-10-08T06:10:07.041Z"
+    },
+    "CropAndWeed:3768": {
+      "label": "low",
+      "file_name": "vwg-0152-0016.jpg",
+      "labelled_at": "2026-10-08T06:10:08.466Z"
+    },
+    "CropAndWeed:6600": {
+      "label": "medium",
+      "file_name": "vwg-0965-0009.jpg",
+      "labelled_at": "2026-10-08T06:10:10.754Z"
+    },
+    "ImageWeeds-beta-vulgaris:16": {
+      "label": "low",
+      "file_name": "UASs_1400.jpg",
+      "labelled_at": "2026-10-08T06:10:12.650Z"
+    },
+    "CropAndWeed:6038": {
+      "label": "high",
+      "file_name": "vwg-0799-0004.jpg",
+      "labelled_at": "2026-10-08T06:10:16.004Z"
+    },
+    "CropAndWeed:5988": {
+      "label": "high",
+      "file_name": "vwg-0794-0003.jpg",
+      "labelled_at": "2026-10-08T06:10:22.494Z"
+    },
+    "CropAndWeed:2755": {
+      "label": "low",
+      "file_name": "ave-0540-0046.jpg",
+      "labelled_at": "2026-10-08T06:10:25.216Z"
+    },
+    "CropAndWeed:5976": {
+      "label": "medium",
+      "file_name": "vwg-0793-0006.jpg",
+      "labelled_at": "2026-10-08T06:10:27.127Z"
+    },
+    "CropAndWeed:4595": {
+      "label": "high",
+      "file_name": "vwg-0513-0009.jpg",
+      "labelled_at": "2026-10-08T06:10:29.112Z"
+    },
+    "CropAndWeed:4402": {
+      "label": "medium",
+      "file_name": "vwg-0436-0019.jpg",
+      "labelled_at": "2026-10-08T06:10:32.510Z"
+    },
+    "CropAndWeed:1885": {
+      "label": "medium",
+      "file_name": "ave-0325-0028.jpg",
+      "labelled_at": "2026-10-08T06:10:33.784Z"
+    },
+    "CropAndWeed:3314": {
+      "label": "low",
+      "file_name": "vwg-0042-0021.jpg",
+      "labelled_at": "2026-10-08T06:10:35.289Z"
+    },
+    "MultipleWeedSpeciesDetection:809": {
+      "label": "low",
+      "file_name": "GOPR2339_JPG.rf.c1dd4c3590adf1a81811c2f6bc07dd0a.jpg",
+      "labelled_at": "2026-10-08T06:10:45.675Z"
+    },
+    "CottonWeedDet12:2180": {
+      "label": "low",
+      "file_name": "20210827_iPhone11Pro_BT_258.jpg",
+      "labelled_at": "2026-10-08T06:10:46.768Z"
+    },
+    "CropAndWeed:4369": {
+      "label": "low",
+      "file_name": "vwg-0423-0001.jpg",
+      "labelled_at": "2026-10-08T06:10:49.638Z"
+    },
+    "CropAndWeed:5991": {
+      "label": "high",
+      "file_name": "vwg-0794-0006.jpg",
+      "labelled_at": "2026-10-08T06:10:52.489Z"
+    },
+    "CropAndWeed:5514": {
+      "label": "high",
+      "file_name": "vwg-0698-0018.jpg",
+      "labelled_at": "2026-10-08T06:10:53.388Z"
+    },
+    "CropAndWeed:4377": {
+      "label": "high",
+      "file_name": "vwg-0425-0001.jpg",
+      "labelled_at": "2026-10-08T06:10:54.346Z"
+    },
+    "ImageWeeds-flax:37": {
+      "label": "low",
+      "file_name": "UASs_139.jpg",
+      "labelled_at": "2026-10-08T06:10:56.033Z"
+    },
+    "ImageWeeds-brassica:32": {
+      "label": "low",
+      "file_name": "UASs_380.jpg",
+      "labelled_at": "2026-10-08T06:10:57.290Z"
+    },
+    "ImageWeeds-flax:58": {
+      "label": "low",
+      "file_name": "UASs_19.jpg",
+      "labelled_at": "2026-10-08T06:11:00.438Z"
+    },
+    "CropAndWeed:1413": {
+      "label": "high",
+      "file_name": "ave-0279-0002.jpg",
+      "labelled_at": "2026-10-08T06:11:02.208Z"
+    },
+    "CropAndWeed:4590": {
+      "label": "low",
+      "file_name": "vwg-0510-0004.jpg",
+      "labelled_at": "2026-10-08T06:11:03.987Z"
+    },
+    "CropAndWeed:3737": {
+      "label": "low",
+      "file_name": "vwg-0148-0002.jpg",
+      "labelled_at": "2026-10-08T06:11:05.026Z"
+    },
+    "CottonWeedDet12:5519": {
+      "label": "low",
+      "file_name": "20210913_iPhoneSE_YL_148.jpg",
+      "labelled_at": "2026-10-08T06:11:06.029Z"
+    },
+    "CottonWeedDet12:3887": {
+      "label": "low",
+      "file_name": "20210906_iPhoneSE_YL_350.jpg",
+      "labelled_at": "2026-10-08T06:11:06.930Z"
+    },
+    "MultipleWeedSpeciesDetection:176": {
+      "label": "medium",
+      "file_name": "GOPR0364_JPG.rf.7bea20a659f0eb901216c1515dc3a654.jpg",
+      "labelled_at": "2026-10-08T06:11:09.024Z"
+    },
+    "CropAndWeed:3925": {
+      "label": "low",
+      "file_name": "vwg-0216-0001.jpg",
+      "labelled_at": "2026-10-08T06:11:10.175Z"
+    },
+    "CropAndWeed:5441": {
+      "label": "medium",
+      "file_name": "vwg-0686-0008.jpg",
+      "labelled_at": "2026-10-08T06:11:11.618Z"
+    },
+    "CropAndWeed:5300": {
+      "label": "medium",
+      "file_name": "vwg-0654-0001.jpg",
+      "labelled_at": "2026-10-08T06:11:12.452Z"
+    },
+    "CropAndWeed:578": {
+      "label": "high",
+      "file_name": "ave-0146-0001.jpg",
+      "labelled_at": "2026-10-08T06:11:13.966Z"
+    },
+    "CropAndWeed:1350": {
+      "label": "low",
+      "file_name": "ave-0269-0010.jpg",
+      "labelled_at": "2026-10-08T06:11:17.697Z"
+    },
+    "CottonWeedDet12:388": {
+      "label": "low",
+      "file_name": "20210712_iPhoneSE_YL_27.jpg",
+      "labelled_at": "2026-10-08T06:11:18.927Z"
+    },
+    "CropAndWeed:5198": {
+      "label": "low",
+      "file_name": "vwg-0641-0017.jpg",
+      "labelled_at": "2026-10-08T06:11:20.527Z"
+    },
+    "CropAndWeed:3095": {
+      "label": "none",
+      "file_name": "vwg-0008-0019.jpg",
+      "labelled_at": "2026-10-08T06:11:22.614Z"
+    },
+    "CottonWeedDet12:5207": {
+      "label": "low",
+      "file_name": "20210912_CanonEOS4000D_YL_23.jpg",
+      "labelled_at": "2026-10-08T06:11:24.163Z"
+    },
+    "CropAndWeed:3060": {
+      "label": "low",
+      "file_name": "vwg-0005-0004.jpg",
+      "labelled_at": "2026-10-08T06:11:26.442Z"
+    },
+    "CropAndWeed:4568": {
+      "label": "medium",
+      "file_name": "vwg-0504-0002.jpg",
+      "labelled_at": "2026-10-08T06:11:28.023Z"
+    },
+    "CropAndWeed:1900": {
+      "label": "low",
+      "file_name": "ave-0327-0003.jpg",
+      "labelled_at": "2026-10-08T06:11:29.253Z"
+    },
+    "MultipleWeedSpeciesDetection:169": {
+      "label": "low",
+      "file_name": "GOPR0354_JPG.rf.e735cc6ff7f41faed4167301c8afb2b0.jpg",
+      "labelled_at": "2026-10-08T06:11:32.927Z"
+    },
+    "CottonWeedDet12:4915": {
+      "label": "high",
+      "file_name": "20210910_NIKOND3300_YL_18.jpg",
+      "labelled_at": "2026-10-08T06:11:42.999Z"
+    },
+    "CottonWeedDet12:4348": {
+      "label": "low",
+      "file_name": "20210909_NIKOND3300_YL_73.jpg",
+      "labelled_at": "2026-10-08T06:12:34.133Z"
+    },
+    "ImageWeeds-fieldpeas:41": {
+      "label": "low",
+      "file_name": "UASs_274.jpg",
+      "labelled_at": "2026-10-08T06:12:36.381Z"
+    },
+    "CropAndWeed:3405": {
+      "label": "low",
+      "file_name": "vwg-0055-0017.jpg",
+      "labelled_at": "2026-10-08T06:12:37.515Z"
+    },
+    "CottonWeedDet12:4776": {
+      "label": "medium",
+      "file_name": "20210910_iPhoneSE_YL_53.jpg",
+      "labelled_at": "2026-10-08T06:12:38.589Z"
+    },
+    "MultipleWeedSpeciesDetection:75": {
+      "label": "low",
+      "file_name": "GOPR0237_JPG.rf.89d07af797a337b7deb35f2075a732fb.jpg",
+      "labelled_at": "2026-10-08T06:12:40.266Z"
+    },
+    "CropAndWeed:6249": {
+      "label": "low",
+      "file_name": "vwg-0842-0010.jpg",
+      "labelled_at": "2026-10-08T06:12:41.168Z"
+    },
+    "ImageWeeds-glycine_max:50": {
+      "label": "low",
+      "file_name": "UASs_1411.jpg",
+      "labelled_at": "2026-10-08T06:12:42.338Z"
+    },
+    "CropAndWeed:3765": {
+      "label": "low",
+      "file_name": "vwg-0152-0013.jpg",
+      "labelled_at": "2026-10-08T06:12:43.988Z"
+    },
+    "ImageWeeds-beta-vulgaris:22": {
+      "label": "low",
+      "file_name": "UASs_323.jpg",
+      "labelled_at": "2026-10-08T06:12:45.801Z"
+    },
+    "CottonWeedDet12:4053": {
+      "label": "medium",
+      "file_name": "20210906_iPhoneSE_YL_8.jpg",
+      "labelled_at": "2026-10-08T06:12:48.092Z"
+    },
+    "ImageWeeds-brassica:10": {
+      "label": "medium",
+      "file_name": "UASs_117.jpg",
+      "labelled_at": "2026-10-08T06:12:50.101Z"
+    },
+    "CropAndWeed:3660": {
+      "label": "low",
+      "file_name": "vwg-0137-0010.jpg",
+      "labelled_at": "2026-10-08T06:12:51.664Z"
+    },
+    "ImageWeeds-flax:9": {
+      "label": "low",
+      "file_name": "UASs_1043.jpg",
+      "labelled_at": "2026-10-08T06:12:53.202Z"
+    },
+    "CottonWeedDet12:4254": {
+      "label": "medium",
+      "file_name": "20210909_NIKOND3300_YL_104.jpg",
+      "labelled_at": "2026-10-08T06:12:55.294Z"
+    },
+    "CropAndWeed:6296": {
+      "label": "high",
+      "file_name": "vwg-0849-0014.jpg",
+      "labelled_at": "2026-10-08T06:13:18.561Z"
+    },
+    "CropAndWeed:6075": {
+      "label": "low",
+      "file_name": "vwg-0803-0011.jpg",
+      "labelled_at": "2026-10-08T06:13:27.021Z"
+    },
+    "CropAndWeed:5386": {
+      "label": "none",
+      "file_name": "vwg-0682-0003.jpg",
+      "labelled_at": "2026-10-08T06:13:28.828Z"
+    },
+    "CropAndWeed:5509": {
+      "label": "low",
+      "file_name": "vwg-0698-0013.jpg",
+      "labelled_at": "2026-10-08T06:13:31.866Z"
+    },
+    "CropAndWeed:4441": {
+      "label": "high",
+      "file_name": "vwg-0445-0003.jpg",
+      "labelled_at": "2026-10-08T06:13:33.059Z"
+    },
+    "ImageWeeds-beta-vulgaris:19": {
+      "label": "medium",
+      "file_name": "UASs_174.jpg",
+      "labelled_at": "2026-10-08T06:13:47.879Z"
+    },
+    "ImageWeeds-glycine_max:74": {
+      "label": "low",
+      "file_name": "UASs_319.jpg",
+      "labelled_at": "2026-10-08T06:13:49.834Z"
+    },
+    "CropAndWeed:588": {
+      "label": "high",
+      "file_name": "ave-0148-0003.jpg",
+      "labelled_at": "2026-10-08T06:13:51.086Z"
+    },
+    "CropAndWeed:4527": {
+      "label": "high",
+      "file_name": "vwg-0485-0006.jpg",
+      "labelled_at": "2026-10-08T06:13:52.046Z"
+    },
+    "MultipleWeedSpeciesDetection:201": {
+      "label": "low",
+      "file_name": "GOPR0520_JPG.rf.acfbc73cd6a17168b3f3af890c4b97fc.jpg",
+      "labelled_at": "2026-10-08T06:13:53.934Z"
+    },
+    "CropAndWeed:7011": {
+      "label": "low",
+      "file_name": "vwg-1235-0005.jpg",
+      "labelled_at": "2026-10-08T06:14:16.675Z"
+    },
+    "CottonWeedDet12:4091": {
+      "label": "medium",
+      "file_name": "20210908_iPhoneSE_YL_113.jpg",
+      "labelled_at": "2026-10-08T06:14:18.749Z"
+    },
+    "CropAndWeed:3241": {
+      "label": "medium",
+      "file_name": "vwg-0030-0011.jpg",
+      "labelled_at": "2026-10-08T06:14:20.770Z"
+    },
+    "MultipleWeedSpeciesDetection:433": {
+      "label": "low",
+      "file_name": "GOPR0794_JPG.rf.8f9428baec40a6df26c8a6500572f427.jpg",
+      "labelled_at": "2026-10-08T06:14:22.253Z"
+    },
+    "MultipleWeedSpeciesDetection:161": {
+      "label": "medium",
+      "file_name": "GOPR0327_JPG.rf.1305c837a7ea6fecaf33c099531bf2ca.jpg",
+      "labelled_at": "2026-10-08T06:14:25.268Z"
+    },
+    "CropAndWeed:4225": {
+      "label": "high",
+      "file_name": "vwg-0374-0017.jpg",
+      "labelled_at": "2026-10-08T06:14:26.358Z"
+    },
+    "CottonWeedDet12:2225": {
+      "label": "low",
+      "file_name": "20210827_iPhone11Pro_BT_299.jpg",
+      "labelled_at": "2026-10-08T06:14:27.639Z"
+    },
+    "CropAndWeed:3854": {
+      "label": "low",
+      "file_name": "vwg-0178-0009.jpg",
+      "labelled_at": "2026-10-08T06:14:30.048Z"
+    },
+    "CropAndWeed:1412": {
+      "label": "medium",
+      "file_name": "ave-0278-0021.jpg",
+      "labelled_at": "2026-10-08T06:14:32.889Z"
+    },
+    "BroadleafWeedsInCommonCouch:36": {
+      "label": "none",
+      "file_name": "images/c180bce84dd09f3409f6.jpg",
+      "labelled_at": "2026-10-08T06:14:34.234Z"
+    },
+    "ImageWeeds-fieldpeas:7": {
+      "label": "low",
+      "file_name": "UASs_1279.jpg",
+      "labelled_at": "2026-10-08T06:14:35.755Z"
+    },
+    "CropAndWeed:8024": {
+      "label": "medium",
+      "file_name": "vwg-1358-0008.jpg",
+      "labelled_at": "2026-10-08T06:14:39.089Z"
+    },
+    "CropAndWeed:587": {
+      "label": "high",
+      "file_name": "ave-0148-0001.jpg",
+      "labelled_at": "2026-10-08T06:14:40.075Z"
+    },
+    "CropAndWeed:6723": {
+      "label": "high",
+      "file_name": "vwg-1128-0021.jpg",
+      "labelled_at": "2026-10-08T06:14:41.113Z"
+    },
+    "CropAndWeed:3484": {
+      "label": "low",
+      "file_name": "vwg-0080-0004.jpg",
+      "labelled_at": "2026-10-08T06:14:43.063Z"
+    },
+    "CropAndWeed:4790": {
+      "label": "low",
+      "file_name": "vwg-0586-0009.jpg",
+      "labelled_at": "2026-10-08T06:14:44.420Z"
+    },
+    "CropAndWeed:4564": {
+      "label": "medium",
+      "file_name": "vwg-0501-0019.jpg",
+      "labelled_at": "2026-10-08T06:14:46.372Z"
+    },
+    "MultipleWeedSpeciesDetection:710": {
+      "label": "medium",
+      "file_name": "GOPR2240_JPG.rf.080094bebbf388ac8d9d501ee3f60ddd.jpg",
+      "labelled_at": "2026-10-08T06:14:49.087Z"
+    },
+    "CropAndWeed:4508": {
+      "label": "high",
+      "file_name": "vwg-0476-0002.jpg",
+      "labelled_at": "2026-10-08T06:14:50.238Z"
+    },
+    "ImageWeeds-lentils:16": {
+      "label": "low",
+      "file_name": "UASs_496.jpg",
+      "labelled_at": "2026-10-08T06:14:51.710Z"
+    },
+    "ImageWeeds-glycine_max:65": {
+      "label": "medium",
+      "file_name": "UASs_23.jpg",
+      "labelled_at": "2026-10-08T06:14:53.161Z"
+    },
+    "MultipleWeedSpeciesDetection:354": {
+      "label": "low",
+      "file_name": "GOPR0709_JPG.rf.882d0225c80781a5e0b2701f70f49391.jpg",
+      "labelled_at": "2026-10-08T06:15:02.700Z"
+    },
+    "ImageWeeds-fieldpeas:38": {
+      "label": "low",
+      "file_name": "UASs_271.jpg",
+      "labelled_at": "2026-10-08T06:15:03.874Z"
+    },
+    "CropAndWeed:3210": {
+      "label": "low",
+      "file_name": "vwg-0025-0010.jpg",
+      "labelled_at": "2026-10-08T06:15:05.756Z"
+    },
+    "CropAndWeed:3195": {
+      "label": "low",
+      "file_name": "vwg-0024-0009.jpg",
+      "labelled_at": "2026-10-08T06:15:06.889Z"
+    },
+    "CottonWeedDet12:1875": {
+      "label": "low",
+      "file_name": "20210820_iPhoneSE_YL_1405.jpg",
+      "labelled_at": "2026-10-08T06:15:10.660Z"
+    },
+    "CropAndWeed:3327": {
+      "label": "high",
+      "file_name": "vwg-0044-0005.jpg",
+      "labelled_at": "2026-10-08T06:15:13.701Z"
+    },
+    "ImageWeeds-beta-vulgaris:18": {
+      "label": "medium",
+      "file_name": "UASs_158.jpg",
+      "labelled_at": "2026-10-08T06:15:16.242Z"
+    },
+    "ImageWeeds-zeamays:51": {
+      "label": "low",
+      "file_name": "UASs_276.jpg",
+      "labelled_at": "2026-10-08T06:15:50.010Z"
+    },
+    "CropAndWeed:301": {
+      "label": "medium",
+      "file_name": "ave-0081-0008.jpg",
+      "labelled_at": "2026-10-08T06:15:52.711Z"
+    },
+    "CropAndWeed:4947": {
+      "label": "medium",
+      "file_name": "vwg-0593-0007.jpg",
+      "labelled_at": "2026-10-08T06:15:54.424Z"
+    },
+    "CropAndWeed:3749": {
+      "label": "medium",
+      "file_name": "vwg-0150-0009.jpg",
+      "labelled_at": "2026-10-08T06:15:59.342Z"
+    },
+    "CropAndWeed:4424": {
+      "label": "high",
+      "file_name": "vwg-0441-0013.jpg",
+      "labelled_at": "2026-10-08T06:16:00.452Z"
+    },
+    "ImageWeeds-beta-vulgaris:1": {
+      "label": "low",
+      "file_name": "UASs_1015.jpg",
+      "labelled_at": "2026-10-08T06:16:01.924Z"
+    },
+    "CottonWeedDet12:2802": {
+      "label": "low",
+      "file_name": "20210903_iPhone11Pro_BT_44.jpg",
+      "labelled_at": "2026-10-08T06:16:02.925Z"
+    },
+    "MultipleWeedSpeciesDetection:101": {
+      "label": "low",
+      "file_name": "GOPR0263_JPG.rf.0dbfe9a42f3b9023ff9825e09297eb4b.jpg",
+      "labelled_at": "2026-10-08T06:16:04.454Z"
+    },
+    "CropAndWeed:3239": {
+      "label": "low",
+      "file_name": "vwg-0030-0005.jpg",
+      "labelled_at": "2026-10-08T06:16:06.852Z"
+    },
+    "CottonWeedDet12:2206": {
+      "label": "low",
+      "file_name": "20210827_iPhone11Pro_BT_281.jpg",
+      "labelled_at": "2026-10-08T06:16:07.671Z"
+    },
+    "CropAndWeed:4363": {
+      "label": "high",
+      "file_name": "vwg-0422-0014.jpg",
+      "labelled_at": "2026-10-08T06:16:09.431Z"
+    },
+    "CropAndWeed:2358": {
+      "label": "medium",
+      "file_name": "ave-0364-0039.jpg",
+      "labelled_at": "2026-10-08T06:16:12.207Z"
+    },
+    "CropAndWeed:5191": {
+      "label": "low",
+      "file_name": "vwg-0641-0010.jpg",
+      "labelled_at": "2026-10-08T06:16:13.469Z"
+    },
+    "CropAndWeed:5340": {
+      "label": "low",
+      "file_name": "vwg-0680-0004.jpg",
+      "labelled_at": "2026-10-08T06:16:14.767Z"
+    },
+    "CropAndWeed:3487": {
+      "label": "low",
+      "file_name": "vwg-0082-0002.jpg",
+      "labelled_at": "2026-10-08T06:17:44.732Z"
+    },
+    "CropAndWeed:581": {
+      "label": "high",
+      "file_name": "ave-0146-0015.jpg",
+      "labelled_at": "2026-10-08T06:17:46.197Z"
+    },
+    "ImageWeeds-glycine_max:51": {
+      "label": "low",
+      "file_name": "UASs_1412.jpg",
+      "labelled_at": "2026-10-08T06:17:47.484Z"
+    },
+    "BroadleafWeedsInCommonCouch:70": {
+      "label": "none",
+      "file_name": "images/cce324f1c0004646ae8c.jpg",
+      "labelled_at": "2026-10-08T06:17:49.351Z"
+    },
+    "CropAndWeed:7308": {
+      "label": "low",
+      "file_name": "vwg-1261-0014.jpg",
+      "labelled_at": "2026-10-08T06:18:37.186Z"
+    },
+    "CropAndWeed:7315": {
+      "label": "low",
+      "file_name": "vwg-1262-0006.jpg",
+      "labelled_at": "2026-10-08T06:18:44.153Z"
+    },
+    "CropAndWeed:1339": {
+      "label": "medium",
+      "file_name": "ave-0268-0017.jpg",
+      "labelled_at": "2026-10-08T06:18:45.818Z"
+    },
+    "CropAndWeed:4553": {
+      "label": "medium",
+      "file_name": "vwg-0500-0007.jpg",
+      "labelled_at": "2026-10-08T06:18:47.993Z"
+    },
+    "CottonWeedDet12:4070": {
+      "label": "low",
+      "file_name": "20210906_iPhoneSE_YL_95.jpg",
+      "labelled_at": "2026-10-08T06:18:49.504Z"
+    },
+    "ImageWeeds-zeamays:66": {
+      "label": "medium",
+      "file_name": "UASs_408.jpg",
+      "labelled_at": "2026-10-08T06:18:55.567Z"
+    },
+    "CropAndWeed:3216": {
+      "label": "low",
+      "file_name": "vwg-0025-0020.jpg",
+      "labelled_at": "2026-10-08T06:18:56.720Z"
+    },
+    "ImageWeeds-fieldpeas:22": {
+      "label": "low",
+      "file_name": "UASs_1334.jpg",
+      "labelled_at": "2026-10-08T06:18:57.833Z"
+    },
+    "CropAndWeed:5873": {
+      "label": "high",
+      "file_name": "vwg-0784-0002.jpg",
+      "labelled_at": "2026-10-08T06:18:59.602Z"
+    },
+    "CropAndWeed:4472": {
+      "label": "low",
+      "file_name": "vwg-0458-0005.jpg",
+      "labelled_at": "2026-10-08T06:19:01.850Z"
+    },
+    "CropAndWeed:6761": {
+      "label": "high",
+      "file_name": "vwg-1179-0014.jpg",
+      "labelled_at": "2026-10-08T06:19:03.399Z"
+    },
+    "CropAndWeed:7063": {
+      "label": "low",
+      "file_name": "vwg-1238-0011.jpg",
+      "labelled_at": "2026-10-08T06:19:05.054Z"
+    },
+    "CropAndWeed:4513": {
+      "label": "high",
+      "file_name": "vwg-0477-0004.jpg",
+      "labelled_at": "2026-10-08T06:19:07.211Z"
+    },
+    "CropAndWeed:5591": {
+      "label": "low",
+      "file_name": "vwg-0712-0011.jpg",
+      "labelled_at": "2026-10-08T06:19:09.515Z"
+    },
+    "CropAndWeed:85": {
+      "label": "high",
+      "file_name": "ave-0045-0001.jpg",
+      "labelled_at": "2026-10-08T06:19:10.979Z"
+    },
+    "MultipleWeedSpeciesDetection:410": {
+      "label": "low",
+      "file_name": "GOPR0769_JPG.rf.603e911360cc62113886a374e756d752.jpg",
+      "labelled_at": "2026-10-08T06:19:13.060Z"
+    },
+    "CropAndWeed:1269": {
+      "label": "medium",
+      "file_name": "ave-0262-0016.jpg",
+      "labelled_at": "2026-10-08T06:19:14.347Z"
+    },
+    "CottonWeedDet12:2233": {
+      "label": "low",
+      "file_name": "20210827_iPhone11Pro_BT_305.jpg",
+      "labelled_at": "2026-10-08T06:19:16.598Z"
+    },
+    "ImageWeeds-fieldpeas:67": {
+      "label": "low",
+      "file_name": "UASs_76.jpg",
+      "labelled_at": "2026-10-08T06:19:17.484Z"
+    },
+    "CottonWeedDet12:1871": {
+      "label": "high",
+      "file_name": "20210820_iPhoneSE_YL_1401.jpg",
+      "labelled_at": "2026-10-08T06:19:18.662Z"
+    },
+    "CottonWeedDet12:2239": {
+      "label": "low",
+      "file_name": "20210827_iPhone11Pro_BT_310.jpg",
+      "labelled_at": "2026-10-08T06:19:20.149Z"
+    },
+    "MultipleWeedSpeciesDetection:174": {
+      "label": "medium",
+      "file_name": "GOPR0360_JPG.rf.2573062871e21e9b8761f17093d9eb44.jpg",
+      "labelled_at": "2026-10-08T06:19:22.364Z"
+    },
+    "ImageWeeds-zeamays:38": {
+      "label": "medium",
+      "file_name": "UASs_199.jpg",
+      "labelled_at": "2026-10-08T06:19:31.227Z"
+    },
+    "ImageWeeds-brassica:22": {
+      "label": "medium",
+      "file_name": "UASs_221.jpg",
+      "labelled_at": "2026-10-08T06:19:32.565Z"
+    },
+    "CottonWeedDet12:5524": {
+      "label": "low",
+      "file_name": "20210913_iPhoneSE_YL_152.jpg",
+      "labelled_at": "2026-10-08T06:19:33.558Z"
+    },
+    "ImageWeeds-glycine_max:59": {
+      "label": "low",
+      "file_name": "UASs_160.jpg",
+      "labelled_at": "2026-10-08T06:19:34.420Z"
+    },
+    "ImageWeeds-fieldpeas:46": {
+      "label": "low",
+      "file_name": "UASs_414.jpg",
+      "labelled_at": "2026-10-08T06:19:35.257Z"
+    },
+    "ImageWeeds-flax:25": {
+      "label": "low",
+      "file_name": "UASs_1325.jpg",
+      "labelled_at": "2026-10-08T06:19:35.973Z"
+    },
+    "CottonWeedDet12:2807": {
+      "label": "low",
+      "file_name": "20210903_iPhone11Pro_BT_49.jpg",
+      "labelled_at": "2026-10-08T06:19:36.721Z"
+    },
+    "CropAndWeed:3757": {
+      "label": "low",
+      "file_name": "vwg-0152-0002.jpg",
+      "labelled_at": "2026-10-08T06:19:38.094Z"
+    },
+    "ImageWeeds-brassica:33": {
+      "label": "medium",
+      "file_name": "UASs_381.jpg",
+      "labelled_at": "2026-10-08T06:19:39.162Z"
+    },
+    "CropAndWeed:103": {
+      "label": "high",
+      "file_name": "ave-0048-0006.jpg",
+      "labelled_at": "2026-10-08T06:19:40.599Z"
+    },
+    "CropAndWeed:722": {
+      "label": "high",
+      "file_name": "ave-0186-0007.jpg",
+      "labelled_at": "2026-10-08T06:19:41.404Z"
+    },
+    "CottonWeedDet12:2339": {
+      "label": "low",
+      "file_name": "20210827_iPhoneSE_YL_117.jpg",
+      "labelled_at": "2026-10-08T06:19:43.400Z"
+    },
+    "CropAndWeed:4579": {
+      "label": "low",
+      "file_name": "vwg-0509-0013.jpg",
+      "labelled_at": "2026-10-08T06:19:45.185Z"
+    },
+    "CropAndWeed:733": {
+      "label": "low",
+      "file_name": "ave-0189-0001.jpg",
+      "labelled_at": "2026-10-08T06:19:46.061Z"
+    },
+    "CropAndWeed:3764": {
+      "label": "low",
+      "file_name": "vwg-0152-0011.jpg",
+      "labelled_at": "2026-10-08T06:19:47.923Z"
+    },
+    "CropAndWeed:7752": {
+      "label": "medium",
+      "file_name": "vwg-1309-0004.jpg",
+      "labelled_at": "2026-10-08T06:19:49.718Z"
+    },
+    "CottonWeedDet12:1911": {
+      "label": "medium",
+      "file_name": "20210820_iPhoneSE_YL_1441.jpg",
+      "labelled_at": "2026-10-08T06:19:50.632Z"
+    },
+    "CropAndWeed:1364": {
+      "label": "medium",
+      "file_name": "ave-0270-0004.jpg",
+      "labelled_at": "2026-10-08T06:19:54.751Z"
+    },
+    "MultipleWeedSpeciesDetection:0": {
+      "label": "low",
+      "file_name": "G0030412_JPG.rf.aee989756be7f401518dc929dcb04f33.jpg",
+      "labelled_at": "2026-10-08T06:19:56.245Z"
+    },
+    "CropAndWeed:3489": {
+      "label": "low",
+      "file_name": "vwg-0082-0010.jpg",
+      "labelled_at": "2026-10-08T06:20:03.035Z"
+    },
+    "CropAndWeed:4393": {
+      "label": "high",
+      "file_name": "vwg-0431-0016.jpg",
+      "labelled_at": "2026-10-08T06:20:04.115Z"
+    },
+    "CropAndWeed:7118": {
+      "label": "low",
+      "file_name": "vwg-1244-0016.jpg",
+      "labelled_at": "2026-10-08T06:20:05.462Z"
+    },
+    "CottonWeedDet12:1411": {
+      "label": "low",
+      "file_name": "20210812_iPhoneSE_YL_737.jpg",
+      "labelled_at": "2026-10-08T06:20:06.870Z"
+    },
+    "MultipleWeedSpeciesDetection:683": {
+      "label": "low",
+      "file_name": "GOPR2213_JPG.rf.3b215a950e3c9370da12d138912d9372.jpg",
+      "labelled_at": "2026-10-08T06:20:07.813Z"
+    },
+    "CropAndWeed:3632": {
+      "label": "low",
+      "file_name": "vwg-0133-0010.jpg",
+      "labelled_at": "2026-10-08T06:20:08.724Z"
+    },
+    "CropAndWeed:1860": {
+      "label": "high",
+      "file_name": "ave-0325-0002.jpg",
+      "labelled_at": "2026-10-08T06:20:09.916Z"
+    },
+    "CropAndWeed:1867": {
+      "label": "high",
+      "file_name": "ave-0325-0010.jpg",
+      "labelled_at": "2026-10-08T06:20:10.702Z"
+    },
+    "MultipleWeedSpeciesDetection:645": {
+      "label": "medium",
+      "file_name": "GOPR2175_JPG.rf.860e411d4f14281a4521774c6f5b79f6.jpg",
+      "labelled_at": "2026-10-08T06:20:11.777Z"
+    },
+    "CottonWeedDet12:5008": {
+      "label": "low",
+      "file_name": "20210910_NIKOND3300_YL_50.jpg",
+      "labelled_at": "2026-10-08T06:20:12.894Z"
+    },
+    "CropAndWeed:5445": {
+      "label": "low",
+      "file_name": "vwg-0686-0013.jpg",
+      "labelled_at": "2026-10-08T06:20:14.224Z"
+    },
+    "CropAndWeed:7432": {
+      "label": "low",
+      "file_name": "vwg-1273-0013.jpg",
+      "labelled_at": "2026-10-08T06:20:14.929Z"
+    },
+    "ImageWeeds-lentils:14": {
+      "label": "low",
+      "file_name": "UASs_328.jpg",
+      "labelled_at": "2026-10-08T06:20:15.707Z"
+    },
+    "ImageWeeds-flax:85": {
+      "label": "medium",
+      "file_name": "UASs_356.jpg",
+      "labelled_at": "2026-10-08T06:20:17.008Z"
+    },
+    "CropAndWeed:739": {
+      "label": "medium",
+      "file_name": "ave-0189-0007.jpg",
+      "labelled_at": "2026-10-08T06:20:18.704Z"
+    },
+    "BroadleafWeedsInCommonCouch:22": {
+      "label": "low",
+      "file_name": "images/75316cd69f2a956346f1.jpg",
+      "labelled_at": "2026-10-08T06:20:19.570Z"
+    },
+    "ImageWeeds-glycine_max:71": {
+      "label": "medium",
+      "file_name": "UASs_294.jpg",
+      "labelled_at": "2026-10-08T06:20:21.244Z"
+    },
+    "BroadleafWeedsInCommonCouch:75": {
+      "label": "low",
+      "file_name": "images/ee23fc7262c53fa09c09.jpg",
+      "labelled_at": "2026-10-08T06:20:25.341Z"
+    },
+    "CropAndWeed:4358": {
+      "label": "high",
+      "file_name": "vwg-0422-0004.jpg",
+      "labelled_at": "2026-10-08T06:20:26.533Z"
+    },
+    "CropAndWeed:6345": {
+      "label": "high",
+      "file_name": "vwg-0856-0004.jpg",
+      "labelled_at": "2026-10-08T06:20:28.529Z"
+    },
+    "CropAndWeed:6226": {
+      "label": "low",
+      "file_name": "vwg-0839-0012.jpg",
+      "labelled_at": "2026-10-08T06:20:29.310Z"
+    },
+    "ImageWeeds-zeamays:70": {
+      "label": "medium",
+      "file_name": "UASs_42.jpg",
+      "labelled_at": "2026-10-08T06:20:30.661Z"
+    },
+    "CottonWeedDet12:2823": {
+      "label": "low",
+      "file_name": "20210903_iPhone11Pro_BT_64.jpg",
+      "labelled_at": "2026-10-08T06:20:31.700Z"
+    },
+    "ImageWeeds-flax:87": {
+      "label": "low",
+      "file_name": "UASs_359.jpg",
+      "labelled_at": "2026-10-08T06:20:32.556Z"
+    },
+    "ImageWeeds-glycine_max:7": {
+      "label": "medium",
+      "file_name": "UASs_104.jpg",
+      "labelled_at": "2026-10-08T06:20:35.876Z"
+    },
+    "CropAndWeed:655": {
+      "label": "medium",
+      "file_name": "ave-0157-0002.jpg",
+      "labelled_at": "2026-10-08T06:20:36.781Z"
+    },
+    "ImageWeeds-glycine_max:15": {
+      "label": "low",
+      "file_name": "UASs_106.jpg",
+      "labelled_at": "2026-10-08T06:20:38.592Z"
+    },
+    "ImageWeeds-fieldpeas:48": {
+      "label": "medium",
+      "file_name": "UASs_416.jpg",
+      "labelled_at": "2026-10-08T06:20:39.590Z"
+    },
+    "CropAndWeed:3869": {
+      "label": "low",
+      "file_name": "vwg-0183-0006.jpg",
+      "labelled_at": "2026-10-08T06:20:40.814Z"
+    },
+    "CropAndWeed:6114": {
+      "label": "high",
+      "file_name": "vwg-0815-0004.jpg",
+      "labelled_at": "2026-10-08T06:20:42.001Z"
+    }
+  }
+}

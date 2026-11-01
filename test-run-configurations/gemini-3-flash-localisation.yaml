@@ -1,0 +1,40 @@
+# Gemini 3 Flash on the weed localisation task only
+# (docs/WEED-LOCALISATION.md):
+#
+#   uv run src/weedvlm/scripts/run-evaluation.py --config test-run-configurations/gemini-3-flash-localisation.yaml
+
+questions_dir: questions/
+output_dir: results/
+run_name: gemini-3-flash-localisation-mixed
+
+tasks:
+  species_id: true
+  fine_grained: true
+  density: true
+  grounded_vqa: true
+  localisation: true
+
+models:
+  - id: openai/gpt-4o-mini
+    # Gemini answers in [ymin, xmin, ymax, xmax] on 0-1000 and nearly
+    # always says so; fixed here for the odd reply that says "pixels".
+    bbox_format: yxyx_1000
+
+concurrency: 8
+
+defaults:
+  temperature: 0.0
+  # Gemini spends part of this on hidden thinking; a reply cut off by the
+  # limit is recorded as a failure.
+  max_tokens: 4096
+  timeout_seconds: 120
+
+retry:
+  max_retries: 5
+  max_parse_retries: 2
+  backoff_base_seconds: 2
+  backoff_max_seconds: 60
+  model_failure_threshold: 25
+
+seed: 0
+progress_interval_seconds: 5
