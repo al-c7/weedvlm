@@ -14,15 +14,25 @@ when pooling models, where the same question appears once per model.
 
 from __future__ import annotations
 
+import math
 from collections.abc import Callable, Sequence
 
 import numpy as np
 import polars as pl
 
-from weedvlm.evaluation.metrics import wilson_interval
-
 DEFAULT_BOOTSTRAPS = 2000
 DEFAULT_SEED = 69420
+
+
+def wilson_interval(successes: int, n: int, z: float = 1.96) -> tuple[float, float] | None:
+    """Wilson score interval for `successes` out of `n`, None when n is 0."""
+    if n == 0:
+        return None
+    p = successes / n
+    denominator = 1 + z**2 / n
+    centre = (p + z**2 / (2 * n)) / denominator
+    half = z * math.sqrt(p * (1 - p) / n + z**2 / (4 * n**2)) / denominator
+    return max(0.0, centre - half), min(1.0, centre + half)
 
 
 def wilson_table(
