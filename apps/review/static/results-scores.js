@@ -395,8 +395,11 @@ export function renderScores(container, ctx, state) {
         "div",
         { class: "notice" },
         h("strong", {}, "This run hasn't been scored. "),
-        "Score it to get accuracy per suite: ",
-        h("code", {}, `uv run src/weedvlm/scripts/score-evaluation.py results/${ctx.runName}`),
+        "Run ",
+        h("code", {}, "notebooks/scoring.ipynb"),
+        " to get accuracy per suite (or start the server with ",
+        h("code", {}, "--scores <scored.parquet>"),
+        ").",
       ),
     );
     return;

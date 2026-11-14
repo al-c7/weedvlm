@@ -1,38 +1,22 @@
 /**
  * Reads evaluation runs from a results directory: one subdirectory per run,
  * as written by run-evaluation.py (responses.jsonl, run.json, progress.json,
- * run.log) and score-evaluation.py (scores.json, scored-responses.csv).
+ * run.log).
  *
  * responses.jsonl is the source of truth for what the models answered -- the
- * consolidated responses.json is only rewritten when a session ends, so it
- * can lag behind. Scores come from scored-responses.csv, but only where they
- * still describe the response on disk (a response re-asked since scoring is
- * "unscored", not silently given its old outcome).
+ * consolidated responses.parquet is only rewritten when a session ends, so it
+ * can lag behind. Scores come from the scored responses parquet that
+ * notebooks/scoring.ipynb writes (all runs in one file, see src/scores.ts),
+ * but only where they still describe the response on disk: a response
+ * re-asked since scoring is "unscored", not silently given its old outcome.
  */
-import { parse as parseCsv } from "@std/csv/parse";
 import { join } from "@std/path";
-import type {
-  Outcome,
-  ResponseRecord,
-  ResponseStatus,
-  ResponseSummary,
-  RunSummary,
-  ScoredRow,
-} from "./types.ts";
+import { readParquet } from "./parquet.ts";
+import { computeMetrics, SCORED_COLUMNS, scoredRowFromParquet, suiteName } from "./scores.ts";
+import type { Outcome, ResponseRecord, ResponseSummary, RunSummary, ScoredRow } from "./types.ts";
 
 const RESPONSES_JSONL = "responses.jsonl";
-const SCORES_JSON = "scores.json";
-const SCORED_CSV = "scored-responses.csv";
-const RUN_FILES = [RESPONSES_JSONL, "run.json", "progress.json", SCORES_JSON, SCORED_CSV];
-
-const OUTCOMES: readonly Outcome[] = [
-  "correct",
-  "incorrect",
-  "unsure",
-  "invalid",
-  "scored",
-  "failed",
-];
+const RUN_FILES = [RESPONSES_JSONL, "run.json", "progress.json"];
 
 export interface ProblemGroup {
   model: string;
@@ -98,54 +82,67 @@ async function readRecords(path: string): Promise<Map<string, ResponseRecord>> {
   return latest;
 }
 
-function numberOrNull(value: string | undefined): number | null {
-  if (value === undefined || value === "") return null;
-  const n = Number(value);
-  return Number.isFinite(n) ? n : null;
+/** The scored responses parquet, parsed once per change of the file. */
+interface ScoresFile {
+  mtime: number | null;
+  /** run -> (model, question) -> score */
+  byRun: Map<string, Map<string, ScoredRow>>;
 }
 
-function boxesOrNull(value: string | undefined): number[][] | null {
-  if (!value) return null;
-  try {
-    const boxes = JSON.parse(value);
-    return Array.isArray(boxes) ? boxes : null;
-  } catch {
-    return null;
+let scoresFile: ScoresFile = { mtime: null, byRun: new Map() };
+
+async function loadScoresFile(path: string | null): Promise<ScoresFile> {
+  const stamp = path ? await mtime(path) : null;
+  if (stamp === scoresFile.mtime) return scoresFile;
+  const byRun = new Map<string, Map<string, ScoredRow>>();
+  if (path && stamp !== null) {
+    try {
+      for (const raw of await readParquet(await Deno.readFile(path), SCORED_COLUMNS)) {
+        const row = scoredRowFromParquet(raw);
+        if (!row) continue;
+        const run = String(raw.run);
+        if (!byRun.has(run)) byRun.set(run, new Map());
+        byRun.get(run)!.set(responseKey(row.model, row.question_id), row);
+      }
+    } catch (err) {
+      console.error(`Failed to read scores from ${path}: ${(err as Error).message}`);
+      return scoresFile; // keep what we had; retried when the file changes again
+    }
   }
+  scoresFile = { mtime: stamp, byRun };
+  return scoresFile;
 }
 
-async function readScoredRows(path: string): Promise<Map<string, ScoredRow>> {
-  const rows = new Map<string, ScoredRow>();
-  let text: string;
-  try {
-    text = await Deno.readTextFile(path);
-  } catch {
-    return rows;
-  }
-  for (const raw of parseCsv(text, { skipFirstRow: true }) as Record<string, string>[]) {
-    const outcome = OUTCOMES.find((o) => o === raw.outcome);
-    if (!outcome) continue;
-    rows.set(responseKey(raw.model, raw.question_id), {
-      question_id: raw.question_id,
-      model: raw.model,
-      task: raw.task,
-      suite: raw.suite,
-      dataset: raw.dataset,
-      benchmark_class: raw.benchmark_class,
-      annotated: raw.annotated === "True",
-      ablation_of: raw.ablation_of || null,
-      status: raw.status as ResponseStatus,
-      outcome,
-      expected: raw.expected,
-      answer: raw.answer === "" ? null : raw.answer,
-      localisation_score: numberOrNull(raw.localisation_score),
-      pred_boxes: boxesOrNull(raw.pred_boxes),
-      cost_usd: numberOrNull(raw.cost_usd),
-      latency_seconds: numberOrNull(raw.latency_seconds),
-      attempts: numberOrNull(raw.attempts),
-    });
-  }
-  return rows;
+/** A failed response, as a row the metrics count (as wrong, when failures are counted). */
+function failedRow(record: ResponseRecord): ScoredRow {
+  return {
+    question_id: record.question_id,
+    model: record.model,
+    task: record.task,
+    suite: suiteName(record.question_type, record.annotated),
+    dataset: record.dataset_name,
+    benchmark_class: record.benchmark_class,
+    annotated: record.annotated,
+    ablation_of: null,
+    status: "failed",
+    created_at: record.created_at,
+    outcome: "failed",
+    expected: "",
+    answer: null,
+    predicted_label: null,
+    chance: null,
+    count_error: null,
+    coverage_error_pp: null,
+    category_rank_error: null,
+    localisation_score: null,
+    matched_iou: null,
+    box_count_error: null,
+    pred_boxes: null,
+    cost_usd: record.cost_usd ?? null,
+    total_tokens: (record.usage?.total_tokens as number | undefined) ?? null,
+    latency_seconds: record.latency_seconds ?? null,
+    attempts: record.attempts,
+  };
 }
 
 /** The answer as text, before scoring: localisation answers with `bboxes`, not `answer`. */
@@ -155,10 +152,16 @@ function rawAnswer(parsed: Record<string, unknown> | null | undefined): string |
   return null;
 }
 
-function summarise(record: ResponseRecord | undefined, scored: ScoredRow | undefined) {
-  // A score describes a response only if it's for the same outcome-relevant
-  // state: the record is no newer than the scoring, and agrees on status.
-  const current = scored && (!record || record.status === scored.status) ? scored : undefined;
+/**
+ * `scored` is only passed when it describes this very response; `question`
+ * is any score for the pair, whose question fields hold even when stale.
+ */
+function summarise(
+  record: ResponseRecord | undefined,
+  scored: ScoredRow | undefined,
+  question: ScoredRow | undefined,
+) {
+  const current = scored;
   const base = record ?? scored;
   if (!base) throw new Error("summarise needs a record or a scored row");
   const outcome: Outcome = current?.outcome ?? (base.status === "failed" ? "failed" : "unscored");
@@ -171,7 +174,7 @@ function summarise(record: ResponseRecord | undefined, scored: ScoredRow | undef
     benchmark_class: base.benchmark_class,
     annotated: base.annotated,
     // A property of the question, so it holds even where the score is stale.
-    ablation_of: scored?.ablation_of ?? null,
+    ablation_of: question?.ablation_of ?? null,
     status: base.status,
     outcome,
     expected: current?.expected ?? null,
@@ -207,43 +210,47 @@ function collectProblems(records: Iterable<ResponseRecord>): ProblemGroup[] {
 
 const cache = new Map<string, { signature: string; run: LoadedRun }>();
 
-export async function loadRun(resultsDir: string, name: string): Promise<LoadedRun | null> {
+export async function loadRun(
+  resultsDir: string,
+  name: string,
+  scoresPath: string | null,
+): Promise<LoadedRun | null> {
   // A run is a direct child directory of the results dir.
   if (!name || name === "." || name === ".." || /[\\/]/.test(name)) return null;
   const dir = join(resultsDir, name);
   const mtimes = await Promise.all(RUN_FILES.map((f) => mtime(join(dir, f))));
   if (mtimes.every((m) => m === null)) return null;
-  const signature = mtimes.join("|");
+  const scores = await loadScoresFile(scoresPath);
+  const signature = [...mtimes, scores.mtime].join("|");
   const hit = cache.get(dir);
   if (hit?.signature === signature) return hit.run;
 
-  const [records, scoredRows, scores, runJson, progress] = await Promise.all([
+  const [records, runJson, progress] = await Promise.all([
     readRecords(join(dir, RESPONSES_JSONL)),
-    readScoredRows(join(dir, SCORED_CSV)),
-    readJson(join(dir, SCORES_JSON)),
     readJson(join(dir, "run.json")),
     readJson(join(dir, "progress.json")),
   ]);
+  const scoredRows = scores.byRun.get(name) ?? new Map<string, ScoredRow>();
 
-  const scoredAt = typeof scores?.scored_at === "string"
-    ? scores.scored_at
-    : mtimes[RUN_FILES.indexOf(SCORED_CSV)] !== null
-    ? new Date(mtimes[RUN_FILES.indexOf(SCORED_CSV)] as number).toISOString()
-    : null;
-  const scoredAtMs = scoredAt ? Date.parse(scoredAt) : null;
-
-  // Only trust a score for a response that hasn't been re-answered since.
+  // Only trust a score for the exact response on disk (same created_at). A
+  // run with no responses.jsonl (e.g. moved) shows its scored rows as they are.
   const usable = new Map<string, ScoredRow>();
+  let stale = false;
   for (const [key, row] of scoredRows) {
     const record = records.get(key);
-    const newer = record && scoredAtMs !== null && Date.parse(record.created_at) > scoredAtMs;
-    if (!newer) usable.set(key, row);
+    if (!record || record.created_at === row.created_at) usable.set(key, row);
+    else stale = true;
+  }
+  if (scoredRows.size > 0) {
+    for (const [key, record] of records) {
+      if (record.status === "ok" && !scoredRows.has(key)) stale = true;
+    }
   }
 
   const summaries: ResponseSummary[] = [];
   const imagePaths = new Map<string, string>();
   for (const key of new Set([...records.keys(), ...usable.keys()])) {
-    summaries.push(summarise(records.get(key), usable.get(key)));
+    summaries.push(summarise(records.get(key), usable.get(key), scoredRows.get(key)));
   }
   for (const record of records.values()) {
     if (record.image_path && !imagePaths.has(record.question_id)) {
@@ -251,25 +258,39 @@ export async function loadRun(resultsDir: string, name: string): Promise<LoadedR
     }
   }
 
-  const responsesMtime = mtimes[RUN_FILES.indexOf(RESPONSES_JSONL)];
+  const scoredAt = usable.size > 0 && scores.mtime !== null
+    ? new Date(scores.mtime).toISOString()
+    : null;
+  let metrics: Record<string, unknown> | null = null;
+  if (usable.size > 0) {
+    const rows = [...usable.values()];
+    for (const [key, record] of records) {
+      if (record.status === "failed" && !usable.has(key)) rows.push(failedRow(record));
+    }
+    metrics = { scored_at: scoredAt, models: computeMetrics(rows) };
+  }
+
   const run: LoadedRun = {
     name,
     records,
     summaries,
     imagePaths,
-    scores,
+    scores: metrics,
     scoredAt,
     runJson,
     progress,
     problems: collectProblems(records.values()),
     hasResponses: summaries.length > 0,
-    scoresStale: scoredAtMs !== null && responsesMtime !== null && responsesMtime > scoredAtMs,
+    scoresStale: stale,
   };
   cache.set(dir, { signature, run });
   return run;
 }
 
-export async function listRuns(resultsDir: string): Promise<RunSummary[]> {
+export async function listRuns(
+  resultsDir: string,
+  scoresPath: string | null,
+): Promise<RunSummary[]> {
   const names: string[] = [];
   try {
     for await (const entry of Deno.readDir(resultsDir)) {
@@ -281,7 +302,7 @@ export async function listRuns(resultsDir: string): Promise<RunSummary[]> {
 
   const runs: RunSummary[] = [];
   for (const name of names.sort()) {
-    const run = await loadRun(resultsDir, name);
+    const run = await loadRun(resultsDir, name, scoresPath);
     if (!run) continue;
     const models = [...new Set(run.summaries.map((s) => s.model))].sort();
     const failed = run.summaries.filter((s) => s.status === "failed").length;

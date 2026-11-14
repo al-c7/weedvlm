@@ -91,16 +91,16 @@ export interface FlagStore {
   flags: Record<string, QuestionFlag>;
 }
 
-// -- Evaluation runs (results/<run>/, written by run-evaluation.py and
-// score-evaluation.py) --------------------------------------------------
+// -- Evaluation runs (results/<run>/, written by run-evaluation.py; scores
+// from notebooks/weedvlm_scored_responses.parquet) ----------------------
 
 export type ResponseStatus = "ok" | "failed";
 
 /**
- * How a response scored. Everything but "unscored" comes from
- * score-evaluation.py; "unscored" means the run hasn't been scored, or
- * the response changed since it was. Localisation responses are "scored"
- * (on box count and IoU) rather than correct or incorrect.
+ * How a response scored, from the scored responses parquet written by
+ * notebooks/scoring.ipynb (see src/scores.ts). "unscored" means the
+ * response isn't in it, or was re-asked since. Localisation responses are
+ * "scored" (on box count and IoU) rather than correct or incorrect.
  */
 export type Outcome =
   | "correct"
@@ -146,7 +146,7 @@ export interface ResponseRecord {
   created_at: string;
 }
 
-/** A row of scored-responses.csv, with the columns the app uses parsed. */
+/** One scored response (src/scores.ts), with what the metrics need. */
 export interface ScoredRow {
   question_id: string;
   model: string;
@@ -158,13 +158,26 @@ export interface ScoredRow {
   /** Open-ended ablations only: the multiple-choice question this re-asks. */
   ablation_of: string | null;
   status: ResponseStatus;
+  /** The scored response's created_at, to tell whether it's still the one on disk. */
+  created_at: string | null;
   outcome: Outcome;
   expected: string;
   answer: string | null;
+  /** The option / density category the answer maps to, null if none. */
+  predicted_label: string | null;
+  /** Random-guess accuracy (null for open-ended and localisation). */
+  chance: number | null;
+  /** Density only: estimate minus truth, and category distance. */
+  count_error: number | null;
+  coverage_error_pp: number | null;
+  category_rank_error: number | null;
   /** Localisation only: the score, and the model's boxes as [x1, y1, x2, y2] in image pixels. */
   localisation_score: number | null;
+  matched_iou: number | null;
+  box_count_error: number | null;
   pred_boxes: number[][] | null;
   cost_usd: number | null;
+  total_tokens: number | null;
   latency_seconds: number | null;
   attempts: number | null;
 }

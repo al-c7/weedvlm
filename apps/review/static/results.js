@@ -142,7 +142,7 @@ function header() {
         { class: "notice" },
         `Responses were written after this run was last scored (${
           when(detail.scored_at)
-        }), so scores may be out of date. Re-run score-evaluation.py.`,
+        }), so scores may be out of date. Re-run notebooks/scoring.ipynb.`,
       ),
     );
   }

@@ -16,8 +16,8 @@ can start the server with whatever you have.
 
 - [Deno](https://deno.com) (any recent version).
 - For **Questions**: generated questions (`src/weedvlm/scripts/generate-all-questions.py`).
-- For **Results**: at least one run from `run-evaluation.py`. Scores need `score-evaluation.py` to
-  have been run on it.
+- For **Results**: at least one run from `run-evaluation.py`. Scores need `notebooks/scoring.ipynb`
+  to have written `notebooks/weedvlm_scored_responses.parquet` with that run in it.
 
 ## Running
 
@@ -35,9 +35,10 @@ are linkable (`#datasets`, `#questions`, `#results`).
 | `--dataset <file>`    | none                                                   | A WeedCOCO JSON to review. Enables **Datasets**. |
 | `--images <dir>`      | `<dataset dir>/images`, else that dir                  | Where the dataset's images are.                  |
 | `--review-out <file>` | `<dataset dir>/review.json`                            | Where accept/reject decisions are saved.         |
-| `--questions <file>`  | `<repo>/questions/all-questions.json` if it exists     | Questions to load; repeatable.                   |
+| `--questions <file>`  | `<repo>/questions/questions.parquet` if it exists      | Questions to load; repeatable.                   |
 | `--flags-out <file>`  | `question-flags.json` next to the first questions file | Where question flags are saved.                  |
 | `--results <dir>`     | `<repo>/results` if it exists                          | Directory of run subdirectories.                 |
+| `--scores <file>`     | `<repo>/notebooks/weedvlm_scored_responses.parquet`    | Scored responses (all runs) for **Scores**.      |
 | `--port <n>`          | `8787`                                                 |                                                  |
 
 For example, to review one dataset alongside everything else:
@@ -74,14 +75,16 @@ Pick a run in the sidebar. Runs are read straight from `results/<run>/`:
 | File                   | Used for                                                    |
 | ---------------------- | ----------------------------------------------------------- |
 | `responses.jsonl`      | Every response, including raw replies, errors, and retries. |
-| `scores.json`          | The **Scores** tables.                                      |
-| `scored-responses.csv` | Each response's outcome (correct, incorrect, ...).          |
 | `progress.json`        | The run's state, and models stopped early by failures.      |
 | `run.log`              | The log at the bottom of **Errors**.                        |
 
-The app never re-scores anything: scores are exactly what `score-evaluation.py` wrote. If responses
-were written after the last scoring, the run is marked "scores out of date", and those responses
-show as `unscored` rather than with a stale outcome.
+Scores come from the scored responses parquet (`--scores`), which `notebooks/scoring.ipynb`
+writes for every run at once. The app doesn't re-score answers. It reads each response's `match`
+(and, for localisation, `outcome` and `localisation_score`), splits non-matches into `unsure` /
+`invalid` / `incorrect`, and aggregates per suite (`src/scores.ts`). A score is used only for the
+exact response it was computed from (same `created_at`). If a response was re-asked or added
+since, the run is marked "scores out of date", and that response shows as `unscored` rather than
+with a stale outcome.
 
 - **Scores**: outcome counts per model, accuracy per suite and model (bar = accuracy over answered
   questions, tick = random-guess accuracy; tick "Count failed responses as wrong" to include

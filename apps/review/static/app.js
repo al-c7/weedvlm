@@ -20,7 +20,7 @@ const VIEWS = {
     module: questions,
     available: (c) => c.questions,
     hint: "No questions loaded. Run generate-all-questions.py, or start the server with " +
-      "--questions <questions.json>.",
+      "--questions <questions.parquet>.",
     summary: (c) => `${c.questions.count} question${c.questions.count === 1 ? "" : "s"}`,
   },
   results: {

@@ -10,16 +10,18 @@
  *
  * Usage (no "--" needed before the flags — deno task forwards args as-is):
  *   deno task serve [--dataset path/to/weedcoco.json [--images dir] [--review-out review.json]]
- *     [--questions questions.json [--questions more.json]] [--flags-out question-flags.json]
- *     [--results results/] [--port 8787]
+ *     [--questions questions.parquet [--questions more.parquet]] [--flags-out question-flags.json]
+ *     [--results results/] [--scores scored.parquet] [--port 8787]
  *
- * Defaults: --questions is <repo root>/questions/all-questions.json and
- * --results is <repo root>/results, each used only if it exists. There is no
- * default dataset.
+ * Defaults: --questions is <repo root>/questions/questions.parquet, --results
+ * is <repo root>/results and --scores is
+ * <repo root>/notebooks/weedvlm_scored_responses.parquet, each used only if it
+ * exists. There is no default dataset.
  */
 import { parseArgs } from "@std/cli/parse-args";
 import { dirname, join, resolve } from "@std/path";
 import { loadJson, resolveWithin, saveJson, serveFile } from "./src/http.ts";
+import { readQuestions } from "./src/parquet.ts";
 import { listRuns, loadRun, readLogTail, responseKey } from "./src/results.ts";
 import type { FlagStore, QuestionBase, ReviewStore, WeedCocoDataset } from "./src/types.ts";
 
@@ -32,7 +34,16 @@ const repoRoot = join(scriptDir, "..", "..");
 // positional text instead of flags.
 const rawArgs = Deno.args[0] === "--" ? Deno.args.slice(1) : Deno.args;
 const args = parseArgs(rawArgs, {
-  string: ["dataset", "images", "review-out", "questions", "flags-out", "results", "port"],
+  string: [
+    "dataset",
+    "images",
+    "review-out",
+    "questions",
+    "flags-out",
+    "results",
+    "scores",
+    "port",
+  ],
   collect: ["questions"],
 });
 
@@ -93,7 +104,7 @@ if (args.dataset) {
 
 // -- Questions -----------------------------------------------------------
 
-const defaultQuestionsPath = join(repoRoot, "questions", "all-questions.json");
+const defaultQuestionsPath = join(repoRoot, "questions", "questions.parquet");
 let questionPaths: string[] = ((args.questions as string[] | undefined) ?? []).map((p) =>
   resolve(p)
 );
@@ -123,14 +134,11 @@ async function loadQuestions(): Promise<void> {
   const signature = await questionFilesSignature();
   const loaded: QuestionBase[] = [];
   for (const path of questionPaths) {
-    let parsed;
     try {
-      parsed = JSON.parse(await Deno.readTextFile(path));
+      loaded.push(...await readQuestions(await Deno.readFile(path)));
     } catch (err) {
-      throw new Error(`Failed to read/parse questions at ${path}: ${(err as Error).message}`);
+      throw new Error(`Failed to read questions at ${path}: ${(err as Error).message}`);
     }
-    if (!Array.isArray(parsed)) throw new Error(`${path}: expected a JSON array of questions`);
-    for (const q of parsed) loaded.push(q);
   }
   questions = loaded;
   questionImagePaths = new Map(loaded.map((q) => [q.id, q.image_path]));
@@ -168,7 +176,7 @@ if (questionPaths.length > 0) {
   console.log(`Flags:     ${flagsPath}`);
 } else {
   console.log(
-    "Questions: none (run generate-all-questions.py, or pass --questions <questions.json>)",
+    "Questions: none (run generate-all-questions.py, or pass --questions <questions.parquet>)",
   );
 }
 
@@ -181,6 +189,17 @@ console.log(
     ? `Results:   ${resultsDir}`
     : `Results:   none (${resultsDir} doesn't exist; pass --results <dir>)`,
 );
+const scoresPath = resolve(
+  args.scores ?? join(repoRoot, "notebooks", "weedvlm_scored_responses.parquet"),
+);
+const hasScores = await exists(scoresPath);
+if (hasResults) {
+  console.log(
+    hasScores
+      ? `Scores:    ${scoresPath}`
+      : `Scores:    none (${scoresPath} doesn't exist; run notebooks/scoring.ipynb or pass --scores <file>)`,
+  );
+}
 
 // -- HTTP ----------------------------------------------------------------
 
@@ -188,7 +207,7 @@ const notConfigured = (what: string) => new Response(`${what} isn't configured`,
 
 /** Serves a run's image for a question: the one the model was shown, else the question's own. */
 async function serveResultImage(runName: string, questionId: string): Promise<Response> {
-  const run = await loadRun(resultsDir, runName);
+  const run = await loadRun(resultsDir, runName, scoresPath);
   if (!run) return new Response("Unknown run", { status: 404 });
   const path = run.imagePaths.get(questionId) ?? questionImagePaths.get(questionId);
   if (!path) return new Response("No image recorded for this question", { status: 404 });
@@ -199,10 +218,10 @@ async function handleRuns(url: URL, req: Request): Promise<Response> {
   if (!hasResults) return notConfigured("Results directory");
   const segments = url.pathname.split("/").filter(Boolean).slice(2).map(decodeURIComponent);
   // /api/runs
-  if (segments.length === 0) return Response.json(await listRuns(resultsDir));
+  if (segments.length === 0) return Response.json(await listRuns(resultsDir, scoresPath));
 
   const [name, part] = segments;
-  const run = await loadRun(resultsDir, name);
+  const run = await loadRun(resultsDir, name, scoresPath);
   if (!run) return new Response("Unknown run", { status: 404 });
   if (req.method !== "GET") return new Response("Method not allowed", { status: 405 });
 
@@ -267,7 +286,7 @@ async function handle(req: Request): Promise<Response> {
       questions: questionPaths.length > 0
         ? { files: questionPaths, count: questions.length }
         : null,
-      results: hasResults ? { dir: resultsDir } : null,
+      results: hasResults ? { dir: resultsDir, scores: hasScores ? scoresPath : null } : null,
     });
   }
 
