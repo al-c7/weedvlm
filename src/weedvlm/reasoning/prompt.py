@@ -1,6 +1,6 @@
 """
 Builds the prompt to send to OpenRouter for the reasoning evaluation.
-The image is pulled from the database and the prompt provides a render
+The image is read from disk and the prompt provides a render
 with all of the ground truth provided.
 
 The overall template for each judge prompt is the same, the judge context
@@ -17,11 +17,9 @@ from pathlib import Path
 from typing import Literal
 
 import yaml
-import sqlite3
-import threading
 
 from weedvlm.reasoning.runner import JudgeItem
-from weedvlm.storage.database import read_image
+from weedvlm.storage.parquet import read_image
 from PIL import Image as PILImage, ImageDraw, ImageFont
 from weedvlm.evaluation.prompts import density_rules_text, load_density_config
 
@@ -394,21 +392,16 @@ class ReasoningPrompt:
     attach_image: bool
 
 class JudgeBuilder:
-    conn: sqlite3.Connection
     density_rules: str
 
     def __init__(
         self,
-        conn: sqlite3.Connection,
         generation_config_path: str,
         species_descriptions: dict[str, str],
     ):
-        self.conn = conn
         self.species_descriptions = {
             name.strip().lower(): text.strip() for name, text in species_descriptions.items()
         }
-        # The connection is shared with worker threads that read images.
-        self._db_lock = threading.Lock()
         self.generation_config_path = Path(generation_config_path)
         self.density_rules = density_rules_text(load_density_config(self.generation_config_path))
 
@@ -455,24 +448,17 @@ class JudgeBuilder:
             "described need be visible in this particular image."
         )
 
-    def load_image(self, image_id: int) -> tuple[bytes, str]:
-        """An image's (bytes, media type): from the database if they were
-        stored, else from the file at its path."""
-        with self._db_lock:
-            row = self.conn.execute(
-                "SELECT path, data, media_type FROM images WHERE id = ?", (image_id,)
-            ).fetchone()
-        if row is None:
-            raise KeyError(f"{image_id} doesn't correspond to an image in this benchmark")
-        data = row["data"] if row["data"] is not None else Path(row["path"]).read_bytes()
-        return data, row["media_type"]
+    @staticmethod
+    def load_image(image_path: str) -> tuple[bytes, str]:
+        """An image's (bytes, media type), read from its file."""
+        return read_image(image_path)
 
     def image_for(self, item: JudgeItem) -> tuple[bytes, str]:
         """The (bytes, media type) of the image to attach for this item:
         the localisation render, else the stored image."""
         if item.task == "localisation":
             return self.render_localisation(item), "image/jpeg"
-        return self.load_image(item.image_id)
+        return self.load_image(item.image_path)
 
     def render_localisation(self, item: JudgeItem) -> bytes:
         """The image for a localisation question as JPEG bytes: ground truth
@@ -480,7 +466,7 @@ class JudgeBuilder:
         strip above the image."""
         if item.boxes is None:
             raise ValueError("No ground truth boxes attached")
-        image = PILImage.open(io.BytesIO(self.load_image(item.image_id)[0]))
+        image = PILImage.open(io.BytesIO(self.load_image(item.image_path)[0]))
         return render_localisation_image(image, item.boxes, item.pred_boxes or [])
 
     def __load_weed_id_item(self, item: JudgeItem, visual: bool) -> str:

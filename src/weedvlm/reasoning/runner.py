@@ -53,7 +53,7 @@ class JudgeItem:
     task: str
     question_type: str
     question_text: str
-    image_id: int
+    image_path: str
     reasoning: str
     answer: str | None = None
     expected_answer: str | None = None
@@ -84,7 +84,7 @@ class JudgeItem:
             f"[{self.task} / {self.question_type}] response {self.response_id}",
             f"  run:      {self.run} ({self.model})",
             f"  question: {self.question_id}",
-            f"  image:    {self.image_id}",
+            f"  image:    {self.image_path}",
             f"  text:     {self.question_text}",
         ]
         if self.answer is not None or self.expected_answer is not None:
@@ -92,7 +92,7 @@ class JudgeItem:
 
         # Task-specific scores: only the ones this item has.
         shown = {"response_id", "run", "model", "question_id", "task", "question_type",
-                 "question_text", "image_id", "reasoning", "answer", "expected_answer"}
+                 "question_text", "image_path", "reasoning", "answer", "expected_answer"}
         extras = [
             f"{f.name}={value:g}" if isinstance(value, float) else f"{f.name}={value}"
             for f in fields(self)

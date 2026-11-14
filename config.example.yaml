@@ -22,32 +22,6 @@ seed: 42
 # Used by generate-all-questions.py (--out-dir fallback).
 out_dir: questions/
 
-# Used by the individual generate-<task>-questions.py scripts (--out
-# fallback) when not run through generate-all-questions.py.
-outputs:
-  species_id: questions/species-id.json
-  fine_grained: questions/fine-grained.json
-  density: questions/density.json
-  grounded_vqa: questions/grounded-vqa.json
-  localisation: questions/localisation.json
-
-# How the questions are stored (--format / --database override these).
-#   json    one JSON file per task in out_dir, plus all-questions.json and
-#           generation-config.yaml. The default.
-#   sqlite  one SQLite database holding the questions and the images they
-#           use (docs/DATABASE.md). Evaluation runs with the same setting
-#           then write their responses and scores into it too.
-storage:
-  format: json
-  # sqlite only. Default: benchmark.db inside out_dir.
-  # database: questions/benchmark.db
-  # sqlite only: also store the bytes of each image the benchmark uses
-  # (never ones that were rendered but not selected), making the
-  # database self-contained -- several GB for the full benchmark. With
-  # false, only each image's path and hash are stored, and the files must
-  # stay where they are.
-  store_images: true
-
 # Where box-annotated images get rendered to. Default: 'rendered/'
 # alongside out_dir (generate-all) or the --out file (individual
 # scripts).

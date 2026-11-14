@@ -321,7 +321,7 @@ class JudgeRunner:
 
     def _prepare(self, job: JudgeJob) -> tuple[ReasoningPrompt, list[dict[str, Any]]]:
         """The prompt and chat messages for a job. Blocking (reads the
-        database, renders and encodes the image), so run in a thread."""
+        disk, renders and encodes the image), so run in a thread."""
         prompt = self.builder.build(job.item, job.kind)
         content: list[dict[str, Any]] = []
         if prompt.attach_image:
@@ -349,7 +349,7 @@ class JudgeRunner:
             "question_id": item.question_id,
             "task": item.task,
             "question_type": item.question_type,
-            "image_id": item.image_id,
+            "image_path": item.image_path,
             "match": item.match,
         }
 

@@ -5,16 +5,9 @@ both), fine-grained ID, density estimation, grounded weed VQA,
 and weed localisation -- so you don't need to invoke each generate-*.py
 script separately with the same --dataset list.
 
-With the default storage format ("json"), each task is still written to
-its own file (species-id.json, fine-grained.json, density.json,
-grounded-vqa.json, localisation.json) inside --out-dir,
-plus a combined all-questions.json concatenating all of them, so the
-previewer can be pointed at either the whole set or a single task. All
-tasks share one rendered-images directory.
-
-With --format sqlite (or `storage.format: sqlite` in the config), the
-questions go into a SQLite database instead (default: benchmark.db inside
---out-dir), together with the images they use -- see docs/DATABASE.md.
+Every task's questions are written to one questions.parquet inside
+--out-dir (see docs/DATABASE.md), next to generation-config.yaml and the
+rendered/ images they use. All tasks share one rendered-images directory.
 
 Usage:
     python src/weedvlm/generate-all-questions.py --out-dir questions/
@@ -33,7 +26,6 @@ value for that field.
 """
 
 import argparse
-import json
 import random
 import shlex
 import sys
@@ -61,8 +53,7 @@ from weedvlm.generation.species_id import (
     generate_species_id_unannotated_questions,
     select_species_id_questions,
 )
-from weedvlm.storage import database
-from weedvlm.types.questions import TASK_FILES
+from weedvlm.storage import parquet
 
 
 def _generation_config_text(config_path: Path | None) -> str:
@@ -76,10 +67,6 @@ def _generation_config_text(config_path: Path | None) -> str:
     else:
         body = f"# Config file: {config_path}\n" + config_path.read_text(encoding="utf-8")
     return header + body
-
-
-def _write(questions: list, path: Path) -> None:
-    path.write_text(json.dumps([q.model_dump(mode="json") for q in questions], indent=2))
 
 
 def main() -> None:
@@ -105,22 +92,8 @@ def main() -> None:
         "--out-dir",
         type=Path,
         default=None,
-        help="Directory to write <task>.json, all-questions.json, and rendered/ into. "
+        help="Directory to write questions.parquet, generation-config.yaml and rendered/ into. "
         "Default: config's out_dir.",
-    )
-    parser.add_argument(
-        "--format",
-        choices=["json", "sqlite"],
-        default=None,
-        help="Store the questions as JSON files in --out-dir, or in a SQLite database. "
-        "Default: config's storage.format.",
-    )
-    parser.add_argument(
-        "--database",
-        type=Path,
-        default=None,
-        help="The database to write with --format sqlite. Default: config's storage.database, "
-        "or benchmark.db inside --out-dir.",
     )
     parser.add_argument(
         "--open-ended-fraction",
@@ -174,17 +147,6 @@ def main() -> None:
     open_ended_fraction = merged(args.open_ended_fraction, cfg.open_ended_fraction)
     seed = merged(args.seed, cfg.seed)
     workers = merged(args.workers, cfg.workers)
-    storage_format = merged(args.format, cfg.storage.format)
-    database_path = args.database or cfg.storage.resolved_database(out_dir)
-    conn = None
-    if storage_format == "sqlite":
-        # Opened before any work is done, so a database that can't take a
-        # new benchmark is found out now rather than after rendering.
-        try:
-            conn = database.connect(database_path, create=True)
-            database.check_replaceable(conn)
-        except (database.BenchmarkInUseError, ValueError) as e:
-            sys.exit(f"error: {e}")
 
     run_species_id = cfg.tasks.species_id and not args.skip_species_id
     run_fine_grained = cfg.tasks.fine_grained and not args.skip_fine_grained
@@ -350,32 +312,15 @@ def main() -> None:
     num_rendered = render_all(all_questions, workers=workers)
     print(f"Rendered {num_rendered} box-annotated images to {rendered_images_dir}")
 
-    generation_config = _generation_config_text(config_path)
-    if conn is not None:
-        try:
-            num_images = database.write_benchmark(
-                conn,
-                [(task, q) for task, questions in tasks.items() for q in questions],
-                generation_config=generation_config,
-                store_images=cfg.storage.store_images,
-            )
-        except (database.BenchmarkInUseError, ValueError) as e:
-            sys.exit(f"error: {e}")
-        conn.close()
-        print(
-            f"Wrote {len(all_questions)} questions and {num_images} images "
-            f"({'stored' if cfg.storage.store_images else 'by path only'}) to {database_path}"
+    questions_path = out_dir / parquet.QUESTIONS_FILE
+    try:
+        num_images = parquet.write_questions(
+            questions_path, [(task, q) for task, questions in tasks.items() for q in questions]
         )
-        return
-
-    for task, questions in tasks.items():
-        _write(questions, out_dir / TASK_FILES[task])
-
-    _write(all_questions, out_dir / "all-questions.json")
-    (out_dir / GENERATION_CONFIG_NAME).write_text(generation_config, encoding="utf-8")
-
-    print(f"Wrote {len(all_questions)} questions total to {out_dir}")
-    print("  all-questions.json combines all of the above")
+    except ValueError as e:
+        sys.exit(f"error: {e}")
+    (out_dir / GENERATION_CONFIG_NAME).write_text(_generation_config_text(config_path), encoding="utf-8")
+    print(f"Wrote {len(all_questions)} questions using {num_images} images to {questions_path}")
 
 
 if __name__ == "__main__":

@@ -17,7 +17,6 @@ import yaml
 from pydantic import BaseModel, Field, field_validator, model_validator
 
 from weedvlm.generation.config import TaskToggles
-from weedvlm.storage.config import StorageConfig
 
 # Hard ceiling on concurrent requests. OpenRouter rate-limits per key and
 # per upstream provider, and every request carries a multi-megabyte
@@ -107,7 +106,6 @@ class ReasoningConfig(BaseModel):
     concurrency: int = Field(default=8, ge=1, le=MAX_CONCURRENCY)
     defaults: RequestDefaults = Field(default_factory=RequestDefaults)
     retry: RetryConfig = Field(default_factory=RetryConfig)
-    storage: StorageConfig = Field(default_factory=lambda: StorageConfig(format="sqlite"))
     responses_to_evaluate: list[str]
 
     base_url: str = "https://openrouter.ai/api/v1"
@@ -133,8 +131,6 @@ class ReasoningConfig(BaseModel):
 
     @model_validator(mode="after")
     def _check(self) -> ReasoningConfig:
-        if self.storage.format != "sqlite":
-            raise ValueError("storage: format must be sqlite, the images are read from the database")
         resolve_wrong_per_task(self.wrong_per_task)
         if not any(self.tasks.model_dump().values()):
             raise ValueError("tasks: every task is disabled, nothing to run")
@@ -148,9 +144,6 @@ class ReasoningConfig(BaseModel):
 
     def enabled_tasks(self) -> set[str]:
         return {task for task, on in self.tasks.model_dump().items() if on}
-
-    def resolved_database(self) -> Path:
-        return self.storage.resolved_database(self.questions_dir)
 
     def temperature_for(self, model: ModelConfig) -> float:
         return self.defaults.temperature if model.temperature is None else model.temperature

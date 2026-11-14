@@ -383,25 +383,12 @@ covering small plants. The palette is duplicated in the review app's
 4. Run `render_all` once across the union of all selected questions, so one
    rendered-images directory is shared and de-duplication works across
    tasks.
-5. Store the questions in the configured format (below), together with the
-   generation-config text: the timestamp, the full command line and the
-   config file's contents, so the output's provenance survives later edits
-   to the config file.
-
-The `tasks` dict is keyed by task name (`species_id`, ...), which is what
-both formats need.
-
-- **JSON** (`storage.format: json`, the default). Each task is written to
-  its file from `TASK_FILES` with `model_dump(mode="json")`, which drops
-  `render` because it is excluded from the model. `all-questions.json` and
-  `generation-config.yaml` are written alongside.
-- **SQLite** (`storage.format: sqlite`). `database.write_benchmark` stores
-  the (task, question) pairs, the images they use and the config text in one
-  database ([DATABASE.md](DATABASE.md)). Because it only looks at the
-  selected questions, images that were rendered for nothing never reach the
-  database. The database is opened, and checked for existing responses,
-  before any generation work starts, so a database that can't accept a new
-  benchmark fails immediately instead of after rendering.
+5. Write every (task, question) pair to `questions.parquet` with
+   `storage.parquet.write_questions` ([DATABASE.md](DATABASE.md)), which
+   records each image's sha256 and checks ids and ablation references.
+   `generation-config.yaml` is written alongside: the timestamp, the full
+   command line and the config file's contents, so the output's provenance
+   survives later edits to the config file.
 
 Because all tasks draw from one shared RNG in a fixed order, a seed makes
 the whole run reproducible, and disabling an earlier task shifts the

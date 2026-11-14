@@ -16,7 +16,6 @@ from pathlib import Path
 import yaml
 from pydantic import BaseModel, Field, model_validator
 
-from weedvlm.storage.config import StorageConfig
 from weedvlm.types.species import Role
 
 
@@ -137,27 +136,14 @@ class LocalisationConfig(SpeciesSelection):
 
 
 class TaskToggles(BaseModel):
-    """Which tasks generate-all-questions.py runs. Ignored by the
-    individual generate-<task>-questions.py scripts, which only ever
-    generate their own task."""
+    """Which tasks are generated (generate-all-questions.py), evaluated
+    or judged."""
 
     species_id: bool = True
     fine_grained: bool = True
     density: bool = True
     grounded_vqa: bool = True
     localisation: bool = True
-
-
-class Outputs(BaseModel):
-    """Per-task output paths, used as the --out fallback by the
-    individual generate-<task>-questions.py scripts (generate-all-
-    questions.py uses out_dir instead, and ignores this)."""
-
-    species_id: Path | None = None
-    fine_grained: Path | None = None
-    density: Path | None = None
-    grounded_vqa: Path | None = None
-    localisation: Path | None = None
 
 
 class PipelineConfig(BaseModel):
@@ -169,10 +155,6 @@ class PipelineConfig(BaseModel):
     rendered_images_dir: Path | None = None
     # Processes used for image decoding/rendering. None = every CPU.
     workers: int | None = None
-    outputs: Outputs = Field(default_factory=Outputs)
-    # Whether the questions are written as JSON files in out_dir, or into
-    # a SQLite database along with the images they use (docs/DATABASE.md).
-    storage: StorageConfig = Field(default_factory=StorageConfig)
 
     open_ended_fraction: float = 0.2
 
@@ -186,8 +168,7 @@ class PipelineConfig(BaseModel):
 
 
 # Written into out_dir by generate-all-questions.py: the config text and
-# command line that produced that output. The SQLite storage format keeps
-# the same text in its meta table instead.
+# command line that produced that output.
 GENERATION_CONFIG_NAME = "generation-config.yaml"
 
 # src/weedvlm/pipeline/config.py -> repo root

@@ -95,18 +95,6 @@ class LocalisationQuestion(QuestionBase):
     boxes: list[Box]
 
 
-# Task name (as used in the configs' `tasks` toggles) -> the file
-# generate-all-questions.py writes it to in the JSON storage format.
-# species-id.json holds both the multiple-choice questions and their
-# open-ended ablations.
-TASK_FILES = {
-    "species_id": "species-id.json",
-    "fine_grained": "fine-grained.json",
-    "density": "density.json",
-    "grounded_vqa": "grounded-vqa.json",
-    "localisation": "localisation.json",
-}
-
 _QUESTION_MODELS: dict[QuestionType, type[QuestionBase]] = {
     QuestionType.SPECIES_ID_MULTIPLE_CHOICE: MultipleChoiceQuestion,
     QuestionType.SPECIES_ID_OPEN_ENDED: OpenEndedQuestion,

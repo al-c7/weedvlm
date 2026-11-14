@@ -17,7 +17,7 @@ questions_dir: questions/
 # generation_config: questions/generation-config.yaml
 
 # Results go to <output_dir>/<run_name>/ -- responses.jsonl (appended as
-# each answer lands), responses.json (everything, when the run ends),
+# each answer lands), responses.parquet (everything, when the run ends),
 # progress.json (live status), run.log (retries and errors).
 #
 # Re-running with the same run_name resumes it: answered questions are

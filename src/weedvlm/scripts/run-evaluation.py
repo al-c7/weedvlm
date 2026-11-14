@@ -6,11 +6,10 @@ how failures are retried are all set in a YAML config (see
 evaluation.example.yaml at the repo root). Every (question, model) pair is
 sent the question's image plus a prompt asking for a JSON reply -- an
 `answer` (an option verbatim, or a species) and a two-sentence `reasoning`
--- and each response is stored, keyed by question id, as it arrives. Where
-depends on the config's `storage.format`: "json" (the default) reads the
-question files and writes <output_dir>/<run_name>/ (responses.jsonl as it
-goes, responses.json when done); "sqlite" reads the questions from, and
-writes the responses to, a benchmark database (docs/DATABASE.md). The
+-- and each response is stored, keyed by question id, as it arrives. The
+questions come from <questions_dir>/questions.parquet; responses go to
+<output_dir>/<run_name>/ (responses.jsonl as they arrive,
+responses.parquet when the session ends -- see docs/DATABASE.md). The
 terminal shows live progress; progress.json holds the same for anything
 else that wants to watch.
 

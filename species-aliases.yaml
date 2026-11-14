@@ -1,7 +1,7 @@
 # Accepted alternative names for open-ended species-ID answers
 # (docs/SPECIES-ID.md: variations are handled with a manually constructed
-# lookup for common and scientific names). Used by score-evaluation.py
-# with --aliases species-aliases.yaml.
+# lookup for common and scientific names). Loaded by notebooks/scoring.ipynb
+# through weedvlm.evaluation.scoring.load_aliases.
 #
 # Key: the species name as it appears in the benchmark (case-insensitive).
 # Value: names that should also count as correct. An answer matches if it,

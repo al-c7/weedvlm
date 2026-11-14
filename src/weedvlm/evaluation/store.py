@@ -1,23 +1,20 @@
 """
-Result storage for a run, in either storage format (see
-weedvlm.storage.config).
+Result storage for a run, everything inside <output_dir>/<run_name>/:
 
-RunStore is the JSON format, everything inside <output_dir>/<run_name>/:
+    responses.jsonl    append-only log, one JSON response per line, flushed
+                       as each finishes -- the durable record, and what a
+                       resumed run reads to know what's already done
+    responses.parquet  the latest attempt per question x model, one flat
+                       row each (see docs/DATABASE.md), written when each
+                       session of the run ends
+    run.json           the config the run was started with, and a
+                       fingerprint of each model's request settings
+    progress.json      live status, rewritten every few seconds
+    run.log            errors and retries, one line each
 
-    responses.jsonl  append-only log, one JSON response per line, flushed
-                     as each finishes -- the durable record, and what a
-                     resumed run reads to know what's already done
-    responses.json   the same responses as one JSON array (latest attempt
-                     per question x model), written when the run ends
-    run.json         the config the run was started with, and a
-                     fingerprint of each model's request settings
-    progress.json    live status, rewritten every few seconds
-    run.log          errors and retries, one line each
-
-SqliteRunStore keeps the responses and the run's settings in the benchmark
-database instead (the runs and responses tables, docs/DATABASE.md), next to
-the questions they answer. The run directory then only holds progress.json
-and run.log.
+Parquet can't be appended to row by row, which is why the jsonl log stays
+the record while a run is going. To analyse every run at once:
+    pl.scan_parquet("results/*/responses.parquet")
 
 A response never embeds the ground truth; it relates back to its question
 by `question_id` (plus enough of the question's identity to be useful on
@@ -29,22 +26,20 @@ from __future__ import annotations
 import hashlib
 import json
 import os
-import sqlite3
-from collections.abc import Iterable
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import TYPE_CHECKING, Any, Literal
 
+import polars as pl
 from pydantic import BaseModel, Field
 
-from weedvlm.storage import database
+from weedvlm.storage.parquet import write_atomic
 
 if TYPE_CHECKING:
     from weedvlm.evaluation.config import EvaluationConfig
-    from weedvlm.evaluation.scoring import ScoredResponse
 
 RESPONSES_JSONL = "responses.jsonl"
-RESPONSES_JSON = "responses.json"
+RESPONSES_PARQUET = "responses.parquet"
 RUN_JSON = "run.json"
 PROGRESS_JSON = "progress.json"
 RUN_LOG = "run.log"
@@ -170,41 +165,19 @@ class RunStore:
             self._file = None
 
     def write_consolidated(self, order: list[tuple[str, str]]) -> int:
-        """responses.json: the latest record per (model, question_id), in
-        question order then model order. Returns how many were written."""
+        """responses.parquet: the latest record per (model, question_id),
+        in question order then model order. Returns how many were written."""
         latest = self.load_records()
-        records = [latest[key].model_dump(mode="json") for key in order if key in latest]
-        _atomic_write(self.path(RESPONSES_JSON), json.dumps(records, indent=2))
-        return len(records)
-
-    # -- scores -------------------------------------------------------
-
-    def write_scores(self, scored: list[ScoredResponse], summary: dict[str, Any]) -> str:
-        """Stores a scoring pass (see score-evaluation.py): one row per
-        scored response, and `summary`, the aggregate metrics with how
-        they were produced. Returns what was written, for a message."""
-        import pandas as pd
-
-        self.path("scores.json").write_text(json.dumps(summary, indent=2), encoding="utf-8")
-        frame = pd.DataFrame([vars(s) for s in scored])
-        frame.to_csv(self.path("scored-responses.csv"), index=False)
-
-        # Open-ended answers judged wrong, to check for name variants the
-        # matcher missed.
-        mismatches = frame[
-            frame["suite"].str.startswith("species_id/open_ended") & (frame["outcome"] == "incorrect")
-        ]
-        self.path("open-ended-mismatches.json").write_text(
-            json.dumps(
-                mismatches[["question_id", "model", "expected", "answer"]].to_dict("records"),
-                indent=2,
-            ),
-            encoding="utf-8",
-        )
-        return (
-            "scores.json, scored-responses.csv and open-ended-mismatches.json to "
-            f"{self.run_dir}/"
-        )
+        run = self.run_dir.name
+        # Keep the ids already given out (a run migrated from SQLite has
+        # its original ones), so tables joined on them stay valid.
+        existing: dict[tuple[str, str], int] = {}
+        if self.path(RESPONSES_PARQUET).exists():
+            previous = pl.read_parquet(self.path(RESPONSES_PARQUET), columns=["model", "question_id", "id"])
+            existing = {(m, q): i for m, q, i in previous.iter_rows()}
+        rows = [response_row(run, latest[key], existing.get(key)) for key in order if key in latest]
+        write_atomic(pl.DataFrame(rows, schema=RESPONSE_SCHEMA), self.path(RESPONSES_PARQUET))
+        return len(rows)
 
 
 def _json_or_none(value: Any) -> str | None:
@@ -219,226 +192,82 @@ def _text_or_none(value: Any) -> str | None:
     return json.dumps(value)
 
 
-# ScoredResponse fields stored in the scores table. The rest of a
-# ScoredResponse repeats what the questions and responses tables hold.
-_SCORE_COLUMNS = (
-    "suite",
-    "outcome",
-    "predicted_label",
-    "chance",
-    "true_count",
-    "est_count",
-    "count_error",
-    "true_coverage_pct",
-    "est_coverage_pct",
-    "coverage_error_pp",
-    "category_rank_error",
-    "true_box_count",
-    "pred_box_count",
-    "box_count_error",
-    "matched_iou",
-    "localisation_score",
-    "bbox_format",
-    "pred_boxes",
-)
+def response_id(run: str, model: str, question_id: str) -> int:
+    """A response's `id`: stable across sessions and re-consolidation, and
+    unique across runs, so tables joined on it (the scored responses, the
+    reasoning judgements) stay valid. Runs migrated from SQLite keep their
+    original small integer ids instead; these are 62-bit, so never clash."""
+    digest = hashlib.sha256(f"{run}\x1f{model}\x1f{question_id}".encode()).digest()
+    return int.from_bytes(digest[:8]) >> 2
 
 
-class SqliteRunStore(RunStore):
-    """A run kept in the benchmark database. run_dir, where progress.json
-    and run.log still go, is only needed while a run is in progress."""
-
-    def __init__(self, database_path: Path, run_name: str, run_dir: Path | None = None):
-        if run_dir is not None:
-            super().__init__(run_dir)
-        self.database_path = database_path
-        self.run_name = run_name
-        self._conn = database.connect(database_path)
-
-    @property
-    def location(self) -> str:
-        return f"{self.database_path} (run '{self.run_name}')"
-
-    def load_records(self) -> dict[tuple[str, str], ResponseRecord]:
-        rows = self._conn.execute(
-            "SELECT r.*, q.task, q.question_type, q.annotated, q.benchmark_class, "
-            "q.dataset_name, q.source_image_id, i.path AS image_path "
-            "FROM responses r JOIN questions q ON q.id = r.question_id "
-            "JOIN images i ON i.id = q.image_id WHERE r.run = ?",
-            (self.run_name,),
-        )
-        return {(row["model"], row["question_id"]): _record_from_row(row) for row in rows}
-
-    def read_run_info(self) -> dict[str, Any] | None:
-        row = self._conn.execute("SELECT * FROM runs WHERE name = ?", (self.run_name,)).fetchone()
-        if row is None:
-            return None
-        return {
-            "run_name": row["name"],
-            "prompt_version": row["prompt_version"],
-            "config": json.loads(row["config"]),
-            "model_fingerprints": json.loads(row["model_fingerprints"]),
-            "sessions": json.loads(row["sessions"]),
-        }
-
-    def write_run_info(self, data: dict[str, Any]) -> None:
-        with self._conn:
-            self._conn.execute(
-                "INSERT INTO runs (name, prompt_version, config, model_fingerprints, sessions) "
-                "VALUES (?, ?, ?, ?, ?) ON CONFLICT (name) DO UPDATE SET "
-                "prompt_version = excluded.prompt_version, config = excluded.config, "
-                "model_fingerprints = excluded.model_fingerprints, sessions = excluded.sessions",
-                (
-                    self.run_name,
-                    data["prompt_version"],
-                    json.dumps(data["config"]),
-                    json.dumps(data["model_fingerprints"]),
-                    json.dumps(data["sessions"]),
-                ),
-            )
-
-    def append(self, record: ResponseRecord) -> None:
-        self.append_many([record])
-
-    def append_many(self, records: Iterable[ResponseRecord]) -> None:
-        """Stores each record as the answer to its (model, question),
-        replacing an earlier attempt -- and dropping that attempt's score,
-        which was for a different answer. Committed together."""
-        with self._conn:
-            for record in records:
-                row = self._response_row(record)
-                assignments = ", ".join(
-                    f"{column} = excluded.{column}"
-                    for column in row
-                    if column not in ("run", "model", "question_id")
-                )
-                (response_id,) = self._conn.execute(
-                    f"INSERT INTO responses ({', '.join(row)}) "
-                    f"VALUES ({', '.join(':' + column for column in row)}) "
-                    f"ON CONFLICT (run, model, question_id) DO UPDATE SET {assignments} "
-                    "RETURNING id",
-                    row,
-                ).fetchone()
-                self._conn.execute("DELETE FROM scores WHERE response_id = ?", (response_id,))
-
-    def _response_row(self, record: ResponseRecord) -> dict[str, Any]:
-        parsed = record.parsed or {}
-        error = record.error
-        return {
-            "run": self.run_name,
-            "model": record.model,
-            "question_id": record.question_id,
-            "status": record.status,
-            "answer": _text_or_none(parsed.get("answer", parsed.get("bboxes"))),
-            "reasoning": _text_or_none(parsed.get("reasoning")),
-            "parsed": _json_or_none(record.parsed),
-            "raw_response": record.raw_response,
-            "warnings": json.dumps(record.warnings),
-            "error_kind": error.kind if error else None,
-            "error_message": error.message if error else None,
-            "error_http_status": error.http_status if error else None,
-            "attempts": record.attempts,
-            "retry_log": json.dumps(record.retry_log),
-            "finish_reason": record.finish_reason,
-            "latency_seconds": record.latency_seconds,
-            "usage": _json_or_none(record.usage),
-            "total_tokens": (record.usage or {}).get("total_tokens"),
-            "cost_usd": record.cost_usd,
-            "generation_id": record.generation_id,
-            "provider": record.provider,
-            "image_sha256": record.image_sha256,
-            "prompt_version": record.prompt_version,
-            "created_at": record.created_at,
-        }
-
-    def question_ids(self) -> set[str]:
-        """Ids of the questions in the database, which are the only ones
-        a response can be stored for."""
-        return {row["id"] for row in self._conn.execute("SELECT id FROM questions")}
-
-    def close(self) -> None:
-        self._conn.close()
-
-    def write_consolidated(self, order: list[tuple[str, str]]) -> int:
-        """Nothing to consolidate -- the table already holds one row per
-        (model, question). Returns how many of `order` are answered."""
-        stored = {
-            (row["model"], row["question_id"])
-            for row in self._conn.execute(
-                "SELECT model, question_id FROM responses WHERE run = ?", (self.run_name,)
-            )
-        }
-        return sum(key in stored for key in order)
-
-    def write_scores(self, scored: list[ScoredResponse], summary: dict[str, Any]) -> str:
-        with self._conn:
-            self._conn.execute(
-                "DELETE FROM scores WHERE response_id IN (SELECT id FROM responses WHERE run = ?)",
-                (self.run_name,),
-            )
-            self._conn.executemany(
-                f"INSERT INTO scores (response_id, {', '.join(_SCORE_COLUMNS)}) "
-                f"SELECT id, {', '.join(':' + column for column in _SCORE_COLUMNS)} "
-                "FROM responses WHERE run = :run AND model = :model AND question_id = :question_id",
-                [vars(s) | {"run": self.run_name} for s in scored],
-            )
-            self._conn.execute(
-                "INSERT OR REPLACE INTO scoring_runs (run, scored_at, aliases_file, "
-                "skipped_missing_questions, skipped_changed_images, metrics) "
-                "VALUES (?, ?, ?, ?, ?, ?)",
-                (
-                    self.run_name,
-                    summary["scored_at"],
-                    summary["aliases_file"],
-                    summary["skipped_missing_questions"],
-                    summary["skipped_changed_images"],
-                    json.dumps(summary["models"]),
-                ),
-            )
-        return f"the scores and scoring_runs tables of {self.location}"
+RESPONSE_SCHEMA = {
+    "id": pl.Int64,
+    "run": pl.String,
+    "model": pl.String,
+    "question_id": pl.String,
+    "status": pl.String,
+    "answer": pl.String,
+    "reasoning": pl.String,
+    "parsed": pl.String,
+    "raw_response": pl.String,
+    "warnings": pl.String,
+    "error_kind": pl.String,
+    "error_message": pl.String,
+    "error_http_status": pl.Int64,
+    "attempts": pl.Int64,
+    "retry_log": pl.String,
+    "finish_reason": pl.String,
+    "latency_seconds": pl.Float64,
+    "usage": pl.String,
+    "total_tokens": pl.Int64,
+    "cost_usd": pl.Float64,
+    "generation_id": pl.String,
+    "provider": pl.String,
+    "image_sha256": pl.String,
+    "prompt_version": pl.Int64,
+    "created_at": pl.String,
+}
 
 
-def _record_from_row(row: sqlite3.Row) -> ResponseRecord:
-    error = None
-    if row["error_kind"] is not None:
-        error = ResponseError(
-            kind=row["error_kind"],
-            message=row["error_message"],
-            http_status=row["error_http_status"],
-        )
-    return ResponseRecord(
-        question_id=row["question_id"],
-        model=row["model"],
-        task=row["task"],
-        question_type=row["question_type"],
-        annotated=bool(row["annotated"]),
-        benchmark_class=row["benchmark_class"],
-        dataset_name=row["dataset_name"],
-        source_image_id=row["source_image_id"],
-        image_path=row["image_path"],
-        image_sha256=row["image_sha256"],
-        prompt_version=row["prompt_version"],
-        status=row["status"],
-        parsed=json.loads(row["parsed"]) if row["parsed"] is not None else None,
-        raw_response=row["raw_response"],
-        warnings=json.loads(row["warnings"]),
-        error=error,
-        attempts=row["attempts"],
-        retry_log=json.loads(row["retry_log"]),
-        finish_reason=row["finish_reason"],
-        latency_seconds=row["latency_seconds"],
-        usage=json.loads(row["usage"]) if row["usage"] is not None else None,
-        cost_usd=row["cost_usd"],
-        generation_id=row["generation_id"],
-        provider=row["provider"],
-        created_at=row["created_at"],
-    )
+def response_row(run: str, record: ResponseRecord, id: int | None = None) -> dict[str, Any]:
+    """A record as one flat responses.parquet row: the answer and
+    reasoning pulled out of `parsed`, the error split into columns, nested
+    values as JSON text."""
+    parsed = record.parsed or {}
+    error = record.error
+    return {
+        "id": response_id(run, record.model, record.question_id) if id is None else id,
+        "run": run,
+        "model": record.model,
+        "question_id": record.question_id,
+        "status": record.status,
+        "answer": _text_or_none(parsed.get("answer", parsed.get("bboxes"))),
+        "reasoning": _text_or_none(parsed.get("reasoning")),
+        "parsed": _json_or_none(record.parsed),
+        "raw_response": record.raw_response,
+        "warnings": json.dumps(record.warnings),
+        "error_kind": error.kind if error else None,
+        "error_message": error.message if error else None,
+        "error_http_status": error.http_status if error else None,
+        "attempts": record.attempts,
+        "retry_log": json.dumps(record.retry_log),
+        "finish_reason": record.finish_reason,
+        "latency_seconds": record.latency_seconds,
+        "usage": _json_or_none(record.usage),
+        "total_tokens": (record.usage or {}).get("total_tokens"),
+        "cost_usd": record.cost_usd,
+        "generation_id": record.generation_id,
+        "provider": record.provider,
+        "image_sha256": record.image_sha256,
+        "prompt_version": record.prompt_version,
+        "created_at": record.created_at,
+    }
 
 
 def open_run_store(config: EvaluationConfig) -> RunStore:
-    """The store for a run about to start (or resume), in the format its
-    config names. Creates the run directory."""
+    """The store for a run about to start (or resume). Creates the run
+    directory."""
     run_dir = config.output_dir / config.run_name
     run_dir.mkdir(parents=True, exist_ok=True)
-    if config.storage.format == "sqlite":
-        return SqliteRunStore(config.resolved_database(), config.run_name, run_dir)
     return RunStore(run_dir)

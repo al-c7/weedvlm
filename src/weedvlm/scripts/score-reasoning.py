@@ -37,7 +37,6 @@ from weedvlm.reasoning.config import (
 from weedvlm.reasoning.runner import get_question_samples, JudgeItem
 from weedvlm.reasoning.judge import JUDGE_KINDS, run_judges
 from weedvlm.reasoning.prompt import JudgeBuilder, load_species_descriptions
-from weedvlm.storage.database import connect
 
 from weedvlm.evaluation.runner import FatalRunError
 
@@ -115,9 +114,7 @@ def main() -> int:
             tasks=config.enabled_tasks(),
         )
         config.run_dir().mkdir(parents=True, exist_ok=True)
-        conn = connect(config.resolved_database())
         builder = JudgeBuilder(
-            conn,
             str(config.resolved_generation_config()),
             load_species_descriptions(config.species_descriptions),
         )

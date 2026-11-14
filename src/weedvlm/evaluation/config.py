@@ -17,7 +17,7 @@ from pydantic import BaseModel, Field, field_validator, model_validator
 
 from weedvlm.evaluation.bboxes import parse_bbox_format
 from weedvlm.generation.config import TaskToggles
-from weedvlm.storage.config import StorageConfig
+from weedvlm.storage.parquet import QUESTIONS_FILE
 
 # Hard ceiling on concurrent requests. OpenRouter rate-limits per key and
 # per upstream provider, and every request carries a multi-megabyte
@@ -44,8 +44,9 @@ class ModelConfig(BaseModel):
     extra_body: dict[str, Any] = Field(default_factory=dict)
     # Localisation only: the box format this model answers in, as
     # "<order>_<scale>" (e.g. yxyx_1000, xyxy_pixel; see
-    # weedvlm.evaluation.bboxes.parse_bbox_format). Used when scoring in
-    # place of the `response_format` the model gives with each answer.
+    # weedvlm.evaluation.bboxes.parse_bbox_format). Not used by the runner;
+    # recorded in run.json so scoring can use it in place of the
+    # `response_format` the model gives with each answer.
     bbox_format: str | None = None
 
     @field_validator("bbox_format")
@@ -83,21 +84,15 @@ class RetryConfig(BaseModel):
 
 
 class EvaluationConfig(BaseModel):
-    # Directory holding the generated question files (the out_dir of
-    # generate-all-questions.py): species-id.json, fine-grained.json,
-    # density.json, grounded-vqa.json and localisation.json.
+    # Directory holding the generated benchmark (the out_dir of
+    # generate-all-questions.py): questions.parquet and
+    # generation-config.yaml.
     questions_dir: Path = Path("questions")
     # The generation config that produced those questions. Density's
     # category rules are explained to the VLM using the thresholds from
     # here, so the prompt always matches how the ground truth was
     # labelled. Default: generation-config.yaml inside questions_dir.
     generation_config: Path | None = None
-
-    # Whether the questions are read from, and the results written to,
-    # JSON files or a SQLite database (docs/DATABASE.md). With sqlite the
-    # database (default: benchmark.db inside questions_dir) holds both;
-    # <output_dir>/<run_name>/ then only gets run.log and progress.json.
-    storage: StorageConfig = Field(default_factory=StorageConfig)
 
     # Results go to <output_dir>/<run_name>/. Re-running with the same
     # run_name resumes: questions already answered (status "ok") are
@@ -164,8 +159,8 @@ class EvaluationConfig(BaseModel):
     def resolved_generation_config(self) -> Path:
         return self.generation_config or self.questions_dir / "generation-config.yaml"
 
-    def resolved_database(self) -> Path:
-        return self.storage.resolved_database(self.questions_dir)
+    def questions_file(self) -> Path:
+        return self.questions_dir / QUESTIONS_FILE
 
     def temperature_for(self, model: ModelConfig) -> float:
         return self.defaults.temperature if model.temperature is None else model.temperature

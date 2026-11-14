@@ -24,12 +24,6 @@ questions_dir: questions/
 # generation-config.yaml inside questions_dir.
 # generation_config: questions/generation-config.yaml
 
-# The images come from the benchmark database, so this must be sqlite,
-# which is also the default (docs/DATABASE.md).
-storage:
-  format: sqlite
-  # database: questions/benchmark.db   # default: benchmark.db in questions_dir
-
 # Reference descriptions of the target species, shown to both judges for
 # species ID, grounded VQA and localisation questions (see the file for the
 # format). Every species in the sampled questions needs one.

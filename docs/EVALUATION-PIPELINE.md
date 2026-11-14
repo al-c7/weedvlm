@@ -1,18 +1,19 @@
 # Evaluation pipeline: how the code works
 
 This explains the internals of the code that sends the benchmark to VLMs
-and records their answers. It records answers only and does no marking; see
-[SCORING-PIPELINE.md](SCORING-PIPELINE.md) for that.
+and records their answers. It records answers only and does no marking.
+Scoring is done in `notebooks/scoring.ipynb`, using the helpers in
+`evaluation/scoring.py` (open-ended name matching) and `evaluation/bboxes.py`
+(box formats and IoU).
 
 Code: `src/weedvlm/evaluation/` (`config`, `questions`, `prompts`,
 `openrouter`, `parsing`, `runner`, `store`, `progress`) and the entry script
 `src/weedvlm/scripts/run-evaluation.py`.
 
-Questions and results can live in JSON files or in a SQLite database. The
-runner doesn't know which: it talks to a `Benchmark` (questions and images)
-and a `RunStore` (results), each with a JSON and a SQLite implementation
-chosen by the config's `storage.format`. The database itself is documented
-in [DATABASE.md](DATABASE.md).
+Questions are read from `questions.parquet` and results are written to a run
+directory, ending in `responses.parquet`. The runner talks to a `Benchmark`
+(questions and images) and a `RunStore` (results). The file layout is
+documented in [DATABASE.md](DATABASE.md).
 
 ## Design goals
 
@@ -67,45 +68,43 @@ The final state is one of `finished`, `stopped` (a model was dropped),
   `extra_body`, `bbox_format`). The accessors `temperature_for(model)` and
   `max_tokens_for(model)` apply the "model value, else default" fallback.
   `bbox_format` is validated at load time by calling
-  `parse_bbox_format`, so a typo fails immediately and not during scoring.
+  `parse_bbox_format`, so a typo fails immediately. The runner doesn't use
+  it; it's kept in `run.json` for scoring.
 - `tasks` reuses `TaskToggles` from the generation config, so the task
   names are shared between the two pipelines.
 - `concurrency` is bounded at 32 by `MAX_CONCURRENCY`.
 - `extra_body` is passed straight into the request body, so OpenRouter
   features (reasoning effort, provider routing) need no code support.
-- `storage` is the shared `StorageConfig`. `resolved_database()` gives the
-  database path, defaulting to `benchmark.db` in `questions_dir`.
-- The whole config is stored with the run, and the scoring script
-  re-validates it from there.
+- `questions_file()` is `questions.parquet` in `questions_dir`.
+- The whole config is stored with the run (`run.json`).
 
 ## Loading the benchmark (`questions.py`)
 
-`open_benchmark(config)` returns a `Benchmark`: `JsonBenchmark` or
-`SqliteBenchmark`. Its `questions` attribute is a flat `[(task, question)]`
-list in generation order. The rest of the interface is what the runner and
-the scorer need from the images and the generation settings:
+`open_benchmark(config)` returns a `Benchmark` read from `questions.parquet`
+(`storage/parquet.py`). Its `questions` attribute is a flat
+`[(task, question)]` list in generation order. The rest of the interface is
+what the runner needs from the images and the generation settings:
 
-| Method | JSON | SQLite |
-| --- | --- | --- |
-| `read_image(question)` | reads the file at `image_path` | the stored bytes, or the file if bytes weren't stored |
-| `image_hashes()` | hashes every question's image file | the hashes in the `images` table |
-| `answer_is_current(question, record)` | image file's mtime is not newer than the answer | the answer's `image_sha256` equals the image's stored hash |
-| `density_config()` | from `generation-config.yaml` | from the `generation_config` entry in `meta` |
+| Method | What it does |
+| --- | --- |
+| `read_image(question)` | reads the file at `image_path` |
+| `image_hashes()` | the `image_sha256` recorded in `questions.parquet` |
+| `answer_is_current(question, record)` | the answer's `image_sha256` equals the image's recorded hash |
+| `density_config()` | from `generation-config.yaml` |
 
 The question classes are parsed by `parse_question` in `types/questions.py`,
 which maps each `QuestionType` to its Pydantic class (grounded VQA and
 fine-grained are both `MultipleChoiceQuestion`; species ID covers both MC
-and open-ended). `TASK_FILES`, in the same module, maps each task toggle to
-its JSON file.
+and open-ended).
 
-Both implementations validate eagerly, because failures here cost nothing
-while failures after paid requests do:
+Loading validates eagerly, because failures here cost nothing while
+failures after paid requests do:
 
-- an enabled task with no question file (JSON) or no rows (SQLite) is an
-  error,
-- ids must be unique across all loaded tasks, and
-- every image must be readable: the file must exist, unless its bytes are
-  in the database.
+- an enabled task with no rows is an error, and
+- every question's image file must exist.
+
+(Unique ids and valid ablation references are checked when the file is
+written.)
 
 The shared `_select` step then cuts each task's list down, in two stages.
 
@@ -123,12 +122,10 @@ species, density category and image format keeps its share. Within a group:
 - open-ended groups are processed first, recording the id each kept
   ablation points at (`ablation_of`). When the multiple-choice groups are
   cut, those ids are moved to the front of the shuffled order (a stable
-  sort), so an ablation is never kept without its original. The
-  MC-versus-open-ended comparison in `metrics.py` joins on that pair.
+  sort), so an ablation is never kept without its original, and the
+  MC-versus-open-ended comparison can always join on that pair.
 
-The kept questions are returned in their original order. The scorer rebuilds
-the same subset, because it opens the benchmark with the config saved in the
-run info.
+The kept questions are returned in their original order.
 
 `max_questions_per_task` is applied after that. It takes a seeded
 `rng.sample` of indices, sorted so the subset stays in order. This is a
@@ -306,40 +303,23 @@ id, image path, `image_sha256`, `prompt_version`), `status`
 usage data. It has no ground truth. The identifying fields are denormalised
 copies so a response is useful alone, but the question id is the join key.
 
-`open_run_store(config)` returns the store for the configured format. Both
-have the same interface.
+`open_run_store(config)` returns the `RunStore` for
+`<output_dir>/<run_name>/`:
 
-`RunStore` is the JSON format and manages the run directory:
-
-- `append` writes one JSON line and flushes. This is the durable record.
+- `append` writes one JSON line to `responses.jsonl` and flushes. This is the
+  durable record while a run is going.
 - `load_records` replays `responses.jsonl` into a dict keyed by
   `(model, question_id)`, so the **latest line wins**. A truncated trailing
   line from a crash fails validation and is ignored, so that pair is
   simply asked again. This is what makes retries of failed pairs work
   without ever editing the file.
-- `write_consolidated` produces `responses.json` from the latest records,
-  ordered by the question-then-model order computed at start.
+- `write_consolidated` writes `responses.parquet` from the latest records,
+  ordered by the question-then-model order computed at start, one flat row
+  each (`response_row`). Ids already in an existing `responses.parquet` are
+  kept; new ones come from `response_id(run, model, question_id)`.
 - `read_run_info` and `write_run_info` read and write `run.json`.
 - `write_run_info` and `write_progress` use `_atomic_write` (write to a temp
   file, then `os.replace`), so a reader never sees a half-written file.
-
-`SqliteRunStore` subclasses it and keeps the same data in the benchmark
-database:
-
-- `append` upserts one row into `responses` and commits, which gives the
-  same durability as flushing a line. A new answer for the same model and
-  question replaces the old row, so "latest wins" is built into the table
-  and earlier failed attempts aren't kept. Any score for the replaced answer
-  is deleted.
-- `load_records` joins `responses` to `questions` and `images` to rebuild
-  full `ResponseRecord`s, since a row doesn't repeat the question's fields.
-- `read_run_info` and `write_run_info` use one row of the `runs` table.
-- `write_consolidated` has nothing to write and just counts the answered
-  pairs.
-- `write_progress` and the log are inherited: `progress.json` and `run.log`
-  still go in the run directory.
-
-Both stores also have `write_scores`, used by the scoring script.
 
 ## Progress reporting (`progress.py`)
 
