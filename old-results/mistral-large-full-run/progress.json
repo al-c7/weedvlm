@@ -1,0 +1,28 @@
+{
+  "state": "interrupted",
+  "started_at": "2026-10-08T07:12:24.738052+00:00",
+  "updated_at": "2026-10-08T08:46:37.260206+00:00",
+  "elapsed_seconds": 5652.5,
+  "total": 2790,
+  "answered": 1877,
+  "failed": 77,
+  "remaining": 836,
+  "in_flight": 0,
+  "retries": 1,
+  "requests_per_second": 0.133,
+  "eta_seconds": 6270,
+  "cost_usd": 12.839983,
+  "models": {
+    "mistralai/mistral-large-4-0": {
+      "total": 2790,
+      "already_done": 0,
+      "ok": 1877,
+      "failed": 77,
+      "retries": 1,
+      "in_flight": 0,
+      "cost_usd": 12.839983,
+      "tokens": 9271098,
+      "stopped_early": false
+    }
+  }
+}

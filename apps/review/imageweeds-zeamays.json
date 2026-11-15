@@ -1,0 +1,577 @@
+{
+  "dataset": "/home/alex/Projects/weedvlm/.datasets/ImageWeeds-zeamays/weedcoco.json",
+  "updated_at": "2026-09-09T06:20:01.050Z",
+  "decisions": {
+    "0": {
+      "file_name": "UASs_1029.jpg",
+      "decision": "bad",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:17:32.260Z"
+    },
+    "1": {
+      "file_name": "UASs_1030.jpg",
+      "decision": "bad",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:17:37.271Z"
+    },
+    "2": {
+      "file_name": "UASs_1031.jpg",
+      "decision": "bad",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:17:31.449Z"
+    },
+    "3": {
+      "file_name": "UASs_1032.jpg",
+      "decision": "bad",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:19:33.779Z"
+    },
+    "4": {
+      "file_name": "UASs_1033.jpg",
+      "decision": "bad",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:17:19.413Z"
+    },
+    "5": {
+      "file_name": "UASs_1034.jpg",
+      "decision": "bad",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:19:43.632Z"
+    },
+    "6": {
+      "file_name": "UASs_1289.jpg",
+      "decision": "good",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:18:36.887Z"
+    },
+    "7": {
+      "file_name": "UASs_1290.jpg",
+      "decision": "bad",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:18:38.553Z"
+    },
+    "8": {
+      "file_name": "UASs_1291.jpg",
+      "decision": "bad",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:17:26.916Z"
+    },
+    "9": {
+      "file_name": "UASs_1292.jpg",
+      "decision": "good",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:17:12.574Z"
+    },
+    "10": {
+      "file_name": "UASs_1294.jpg",
+      "decision": "bad",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:19:00.440Z"
+    },
+    "11": {
+      "file_name": "UASs_1342.jpg",
+      "decision": "bad",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:17:25.932Z"
+    },
+    "12": {
+      "file_name": "UASs_1343.jpg",
+      "decision": "bad",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:19:13.818Z"
+    },
+    "13": {
+      "file_name": "UASs_1344.jpg",
+      "decision": "bad",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:17:04.514Z"
+    },
+    "14": {
+      "file_name": "UASs_1345.jpg",
+      "decision": "bad",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:19:27.007Z"
+    },
+    "15": {
+      "file_name": "UASs_1346.jpg",
+      "decision": "good",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:18:41.929Z"
+    },
+    "16": {
+      "file_name": "UASs_1347.jpg",
+      "decision": "good",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:19:57.486Z"
+    },
+    "17": {
+      "file_name": "UASs_1376.jpg",
+      "decision": "bad",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:20:01.050Z"
+    },
+    "18": {
+      "file_name": "UASs_1377.jpg",
+      "decision": "bad",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:18:42.820Z"
+    },
+    "19": {
+      "file_name": "UASs_1378.jpg",
+      "decision": "bad",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:17:40.479Z"
+    },
+    "20": {
+      "file_name": "UASs_1379.jpg",
+      "decision": "bad",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:19:40.342Z"
+    },
+    "21": {
+      "file_name": "UASs_1380.jpg",
+      "decision": "bad",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:18:50.948Z"
+    },
+    "22": {
+      "file_name": "UASs_1381.jpg",
+      "decision": "good",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:19:28.082Z"
+    },
+    "23": {
+      "file_name": "UASs_1382.jpg",
+      "decision": "bad",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:16:58.792Z"
+    },
+    "24": {
+      "file_name": "UASs_1383.jpg",
+      "decision": "bad",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:19:46.226Z"
+    },
+    "25": {
+      "file_name": "UASs_1384.jpg",
+      "decision": "bad",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:17:10.197Z"
+    },
+    "26": {
+      "file_name": "UASs_1436.jpg",
+      "decision": "good",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:17:47.773Z"
+    },
+    "27": {
+      "file_name": "UASs_1437.jpg",
+      "decision": "bad",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:17:30.521Z"
+    },
+    "28": {
+      "file_name": "UASs_1438.jpg",
+      "decision": "good",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:19:50.382Z"
+    },
+    "29": {
+      "file_name": "UASs_1439.jpg",
+      "decision": "good",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:19:35.099Z"
+    },
+    "30": {
+      "file_name": "UASs_1440.jpg",
+      "decision": "good",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:17:34.276Z"
+    },
+    "31": {
+      "file_name": "UASs_1441.jpg",
+      "decision": "bad",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:19:45.321Z"
+    },
+    "32": {
+      "file_name": "UASs_17.jpg",
+      "decision": "bad",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:19:39.534Z"
+    },
+    "33": {
+      "file_name": "UASs_170.jpg",
+      "decision": "bad",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:17:43.326Z"
+    },
+    "34": {
+      "file_name": "UASs_178.jpg",
+      "decision": "bad",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:19:06.233Z"
+    },
+    "35": {
+      "file_name": "UASs_179.jpg",
+      "decision": "bad",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:19:31.654Z"
+    },
+    "36": {
+      "file_name": "UASs_18.jpg",
+      "decision": "bad",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:17:15.464Z"
+    },
+    "37": {
+      "file_name": "UASs_198.jpg",
+      "decision": "bad",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:18:39.625Z"
+    },
+    "38": {
+      "file_name": "UASs_199.jpg",
+      "decision": "bad",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:18:59.345Z"
+    },
+    "39": {
+      "file_name": "UASs_200.jpg",
+      "decision": "bad",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:18:37.734Z"
+    },
+    "40": {
+      "file_name": "UASs_205.jpg",
+      "decision": "bad",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:19:41.995Z"
+    },
+    "41": {
+      "file_name": "UASs_21.jpg",
+      "decision": "bad",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:19:26.126Z"
+    },
+    "42": {
+      "file_name": "UASs_216.jpg",
+      "decision": "bad",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:17:17.391Z"
+    },
+    "43": {
+      "file_name": "UASs_22.jpg",
+      "decision": "bad",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:17:20.327Z"
+    },
+    "44": {
+      "file_name": "UASs_238.jpg",
+      "decision": "bad",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:19:15.784Z"
+    },
+    "45": {
+      "file_name": "UASs_243.jpg",
+      "decision": "bad",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:17:38.243Z"
+    },
+    "46": {
+      "file_name": "UASs_245.jpg",
+      "decision": "bad",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:17:45.970Z"
+    },
+    "47": {
+      "file_name": "UASs_252.jpg",
+      "decision": "bad",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:18:58.489Z"
+    },
+    "48": {
+      "file_name": "UASs_253.jpg",
+      "decision": "bad",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:16:56.896Z"
+    },
+    "49": {
+      "file_name": "UASs_27.jpg",
+      "decision": "bad",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:17:24.001Z"
+    },
+    "50": {
+      "file_name": "UASs_275.jpg",
+      "decision": "bad",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:19:49.064Z"
+    },
+    "51": {
+      "file_name": "UASs_276.jpg",
+      "decision": "bad",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:18:51.841Z"
+    },
+    "52": {
+      "file_name": "UASs_277.jpg",
+      "decision": "bad",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:19:14.867Z"
+    },
+    "53": {
+      "file_name": "UASs_28.jpg",
+      "decision": "bad",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:17:33.331Z"
+    },
+    "54": {
+      "file_name": "UASs_335.jpg",
+      "decision": "bad",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:17:05.430Z"
+    },
+    "55": {
+      "file_name": "UASs_348.jpg",
+      "decision": "bad",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:17:11.515Z"
+    },
+    "56": {
+      "file_name": "UASs_352.jpg",
+      "decision": "bad",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:19:38.681Z"
+    },
+    "57": {
+      "file_name": "UASs_353.jpg",
+      "decision": "bad",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:18:40.434Z"
+    },
+    "58": {
+      "file_name": "UASs_354.jpg",
+      "decision": "bad",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:19:47.079Z"
+    },
+    "59": {
+      "file_name": "UASs_355.jpg",
+      "decision": "bad",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:17:14.544Z"
+    },
+    "60": {
+      "file_name": "UASs_365.jpg",
+      "decision": "bad",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:19:32.520Z"
+    },
+    "61": {
+      "file_name": "UASs_366.jpg",
+      "decision": "bad",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:17:39.615Z"
+    },
+    "62": {
+      "file_name": "UASs_38.jpg",
+      "decision": "bad",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:17:44.278Z"
+    },
+    "63": {
+      "file_name": "UASs_405.jpg",
+      "decision": "bad",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:17:23.063Z"
+    },
+    "64": {
+      "file_name": "UASs_406.jpg",
+      "decision": "bad",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:19:02.370Z"
+    },
+    "65": {
+      "file_name": "UASs_407.jpg",
+      "decision": "good",
+      "annotations": {
+        "306": "bad"
+      },
+      "reviewed_at": "2026-09-09T06:19:22.573Z"
+    },
+    "66": {
+      "file_name": "UASs_408.jpg",
+      "decision": "good",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:17:36.252Z"
+    },
+    "67": {
+      "file_name": "UASs_409.jpg",
+      "decision": "good",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:19:30.787Z"
+    },
+    "68": {
+      "file_name": "UASs_41.jpg",
+      "decision": "bad",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:17:24.910Z"
+    },
+    "69": {
+      "file_name": "UASs_410.jpg",
+      "decision": "good",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:18:49.975Z"
+    },
+    "70": {
+      "file_name": "UASs_42.jpg",
+      "decision": "bad",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:17:48.702Z"
+    },
+    "71": {
+      "file_name": "UASs_427.jpg",
+      "decision": "good",
+      "annotations": {
+        "352": "bad"
+      },
+      "reviewed_at": "2026-09-09T06:18:47.318Z"
+    },
+    "72": {
+      "file_name": "UASs_428.jpg",
+      "decision": "good",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:17:50.935Z"
+    },
+    "73": {
+      "file_name": "UASs_429.jpg",
+      "decision": "good",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:17:13.541Z"
+    },
+    "74": {
+      "file_name": "UASs_430.jpg",
+      "decision": "good",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:19:58.421Z"
+    },
+    "75": {
+      "file_name": "UASs_44.jpg",
+      "decision": "bad",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:16:57.942Z"
+    },
+    "76": {
+      "file_name": "UASs_467.jpg",
+      "decision": "good",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:19:35.169Z"
+    },
+    "77": {
+      "file_name": "UASs_468.jpg",
+      "decision": "good",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:17:18.454Z"
+    },
+    "78": {
+      "file_name": "UASs_469.jpg",
+      "decision": "good",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:18:49.058Z"
+    },
+    "79": {
+      "file_name": "UASs_470.jpg",
+      "decision": "bad",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:17:29.676Z"
+    },
+    "80": {
+      "file_name": "UASs_48.jpg",
+      "decision": "bad",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:17:27.743Z"
+    },
+    "81": {
+      "file_name": "UASs_488.jpg",
+      "decision": "good",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:17:41.403Z"
+    },
+    "82": {
+      "file_name": "UASs_489.jpg",
+      "decision": "good",
+      "annotations": {
+        "408": "bad",
+        "409": "bad"
+      },
+      "reviewed_at": "2026-09-09T06:19:11.098Z"
+    },
+    "83": {
+      "file_name": "UASs_49.jpg",
+      "decision": "good",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:19:05.373Z"
+    },
+    "84": {
+      "file_name": "UASs_490.jpg",
+      "decision": "good",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:19:52.459Z"
+    },
+    "85": {
+      "file_name": "UASs_491.jpg",
+      "decision": "good",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:18:57.566Z"
+    },
+    "86": {
+      "file_name": "UASs_59.jpg",
+      "decision": "bad",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:19:59.670Z"
+    },
+    "87": {
+      "file_name": "UASs_61.jpg",
+      "decision": "good",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:19:54.455Z"
+    },
+    "88": {
+      "file_name": "UASs_7.jpg",
+      "decision": "bad",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:19:03.151Z"
+    },
+    "89": {
+      "file_name": "UASs_74.jpg",
+      "decision": "good",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:17:16.417Z"
+    },
+    "90": {
+      "file_name": "UASs_79.jpg",
+      "decision": "bad",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:17:35.298Z"
+    },
+    "91": {
+      "file_name": "UASs_8.jpg",
+      "decision": "bad",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:19:53.386Z"
+    },
+    "92": {
+      "file_name": "UASs_82.jpg",
+      "decision": "bad",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:19:25.116Z"
+    },
+    "93": {
+      "file_name": "UASs_86.jpg",
+      "decision": "good",
+      "annotations": {},
+      "reviewed_at": "2026-09-09T06:17:28.806Z"
+    }
+  }
+}

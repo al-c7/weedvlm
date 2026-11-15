@@ -1,0 +1,28 @@
+{
+  "state": "finished",
+  "started_at": "2026-10-03T04:03:55.478985+00:00",
+  "updated_at": "2026-10-03T04:16:30.041031+00:00",
+  "elapsed_seconds": 754.6,
+  "total": 400,
+  "answered": 396,
+  "failed": 4,
+  "remaining": 0,
+  "in_flight": 0,
+  "retries": 10,
+  "requests_per_second": 0.167,
+  "eta_seconds": null,
+  "cost_usd": 0.391914,
+  "models": {
+    "google/gemini-3-flash-preview": {
+      "total": 400,
+      "already_done": 5,
+      "ok": 391,
+      "failed": 4,
+      "retries": 10,
+      "in_flight": 0,
+      "cost_usd": 0.391914,
+      "tokens": 551094,
+      "stopped_early": false
+    }
+  }
+}

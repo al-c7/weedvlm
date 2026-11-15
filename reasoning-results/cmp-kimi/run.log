@@ -1,0 +1,3 @@
+2026-10-25 19:09:24,336 WARNING FAILED visual judge of response 11422 after 1 attempt(s): [parse] reply was cut off at max_tokens before a complete JSON answer (raise max_tokens for this judge; reasoning models spend it on thinking)
+2026-10-25 19:12:56,862 WARNING interrupt: finishing in-flight requests (Ctrl-C again to abandon them)
+2026-10-25 19:12:57,069 INFO run interrupted

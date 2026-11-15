@@ -1,0 +1,175 @@
+{
+  "run": "gemini-3-flash-localisation-mixed",
+  "scored_at": "2026-10-03T05:03:56.313877+00:00",
+  "aliases_file": null,
+  "skipped_missing_questions": 0,
+  "skipped_changed_images": 0,
+  "models": {
+    "google/gemini-3-flash-preview": {
+      "usage": {
+        "requests": 250,
+        "failed": 1,
+        "total_cost_usd": 0.262579,
+        "mean_cost_usd": 0.001050316,
+        "mean_total_tokens": 1419.912,
+        "mean_latency_seconds": 17.12036546184739,
+        "retried_requests": 5
+      },
+      "suites": {
+        "localisation": {
+          "n_total": 250,
+          "n_answered": 249,
+          "n_failed": 1,
+          "localisation": {
+            "n_scored": 249,
+            "n_invalid": 0,
+            "mean_score": 0.6759817189324471,
+            "median_score": 0.8462911491232974,
+            "mean_score_all": 0.6732777920567173,
+            "mean_matched_iou": 0.8406568607122246,
+            "count_exact_rate": 0.7028112449799196,
+            "count_mean_abs_error": 0.7630522088353414,
+            "count_mean_signed_error": 0.4899598393574297
+          },
+          "by_class": {
+            "Amaranthus tuberculatus": {
+              "n": 10,
+              "mean_score": 0.7078232787272469
+            },
+            "Ambrosia artemisiifolia": {
+              "n": 10,
+              "mean_score": 0.7277632107447176
+            },
+            "Bassia scoparia": {
+              "n": 10,
+              "mean_score": 0.35180549462880606
+            },
+            "Cockspur grass": {
+              "n": 10,
+              "mean_score": 0.5675887240660249
+            },
+            "Common corn cockle": {
+              "n": 10,
+              "mean_score": 0.926527071226501
+            },
+            "Copse bindweed": {
+              "n": 10,
+              "mean_score": 0.9045841757986196
+            },
+            "Cornflower": {
+              "n": 10,
+              "mean_score": 0.905113035691868
+            },
+            "Creeping thistle": {
+              "n": 10,
+              "mean_score": 0.8211366118274211
+            },
+            "Eclipta": {
+              "n": 10,
+              "mean_score": 0.7146469169512153
+            },
+            "Eleusine indica": {
+              "n": 10,
+              "mean_score": 0.7349725699510948
+            },
+            "Field bindweed": {
+              "n": 10,
+              "mean_score": 0.4008837054964653
+            },
+            "Field milk thistle": {
+              "n": 10,
+              "mean_score": 0.6113127989127827
+            },
+            "Geraniums": {
+              "n": 10,
+              "mean_score": 0.5829972608462936
+            },
+            "German chamomile": {
+              "n": 10,
+              "mean_score": 0.8305958733506771
+            },
+            "Hybrid goosefoot": {
+              "n": 10,
+              "mean_score": 0.7969565637803949
+            },
+            "Ipomoea indica": {
+              "n": 10,
+              "mean_score": 0.8414703763920699
+            },
+            "Meadow grass": {
+              "n": 10,
+              "mean_score": 0.4933599699050605
+            },
+            "Mercuries": {
+              "n": 9,
+              "mean_score": 0.7860060089414591
+            },
+            "Mollugo verticillata": {
+              "n": 10,
+              "mean_score": 0.3837420691700928
+            },
+            "Physalis angulata": {
+              "n": 10,
+              "mean_score": 0.6023171479356949
+            },
+            "Portulaca oleracea": {
+              "n": 10,
+              "mean_score": 0.703821059486317
+            },
+            "Potato weed": {
+              "n": 10,
+              "mean_score": 0.31223849997014275
+            },
+            "Red root amaranth": {
+              "n": 10,
+              "mean_score": 0.5580407183480756
+            },
+            "Sida rhombifolia": {
+              "n": 10,
+              "mean_score": 0.8817649586417605
+            },
+            "White goosefoot": {
+              "n": 10,
+              "mean_score": 0.7630773015212774
+            }
+          },
+          "by_dataset": {
+            "CottonWeedDet12": {
+              "n": 86,
+              "mean_score": 0.7214015683891446
+            },
+            "CropAndWeed": {
+              "n": 149,
+              "mean_score": 0.6833434710596589
+            },
+            "ImageWeeds-brassica": {
+              "n": 1,
+              "mean_score": 0.21416336354903745
+            },
+            "ImageWeeds-fieldpeas": {
+              "n": 2,
+              "mean_score": 0.2513256440512004
+            },
+            "ImageWeeds-flax": {
+              "n": 2,
+              "mean_score": 0.5145086970078233
+            },
+            "ImageWeeds-glycine_max": {
+              "n": 1,
+              "mean_score": 0.17930301790815897
+            },
+            "ImageWeeds-lentils": {
+              "n": 1,
+              "mean_score": 0.2581299339122789
+            },
+            "ImageWeeds-zeamays": {
+              "n": 7,
+              "mean_score": 0.3253529924766006
+            }
+          }
+        }
+      },
+      "species_id_multiple_choice_vs_open_ended": {}
+    }
+  }
+}

@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>weedvlm review</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <h1>weedvlm review</h1>
+      <nav class="tabs" role="tablist">
+        <button class="tab" role="tab" data-tab="datasets">Datasets</button>
+        <button class="tab" role="tab" data-tab="questions">Questions</button>
+        <button class="tab" role="tab" data-tab="results">Results</button>
+      </nav>
+      <div id="summary" class="muted"></div>
+    </header>
+
+    <!-- Datasets: review the boxes in a WeedCOCO dataset -->
+    <div class="layout tab-panel" id="panel-datasets" role="tabpanel" hidden>
+      <aside class="sidebar">
+        <section>
+          <h2>1. Select species</h2>
+          <div class="row">
+            <button id="ds-select-all">All</button>
+            <button id="ds-select-none">None</button>
+          </div>
+          <ul id="ds-category-list" class="category-list"></ul>
+        </section>
+
+        <section>
+          <h2>2. Sample size</h2>
+          <label class="row">
+            Images per species (N)
+            <input id="ds-sample-n" type="number" min="1" value="20" />
+          </label>
+          <label class="row">
+            <input id="ds-unreviewed-only" type="checkbox" />
+            Only sample unreviewed images
+          </label>
+          <button id="ds-build-queue" class="primary">Build review queue</button>
+        </section>
+
+        <section>
+          <h2>Progress</h2>
+          <div id="ds-progress" class="muted">No queue yet</div>
+          <div class="progress-bar">
+            <div id="ds-progress-fill" class="progress-fill"></div>
+          </div>
+          <a id="ds-download-review" href="/api/review"
+            download="review.json">Download review.json</a>
+        </section>
+      </aside>
+
+      <main class="viewer" id="ds-viewer">
+        <p class="empty-state">Select species and build a review queue to start.</p>
+      </main>
+    </div>
+
+    <!-- Questions: QA generated questions -->
+    <div class="layout tab-panel" id="panel-questions" role="tabpanel" hidden>
+      <aside class="sidebar">
+        <section>
+          <h2>Filter</h2>
+          <label class="row">
+            Dataset
+            <select id="qp-filter-dataset"></select>
+          </label>
+          <label class="row">
+            Question type
+            <select id="qp-filter-type"></select>
+          </label>
+          <label class="row">
+            <input id="qp-filter-flagged-only" type="checkbox" />
+            Only flagged
+          </label>
+          <label class="row">
+            <input id="qp-shuffle-order" type="checkbox" checked />
+            Shuffle order
+          </label>
+          <button id="qp-build-queue" class="primary">Build preview queue</button>
+        </section>
+
+        <section>
+          <h2>Progress</h2>
+          <div id="qp-progress" class="muted">No queue yet</div>
+          <div class="progress-bar">
+            <div id="qp-progress-fill" class="progress-fill"></div>
+          </div>
+        </section>
+      </aside>
+
+      <main class="viewer" id="qp-viewer">
+        <p class="empty-state">Pick filters and build a preview queue to start.</p>
+      </main>
+    </div>
+
+    <!-- Results: evaluation runs -->
+    <div class="layout tab-panel" id="panel-results" role="tabpanel" hidden>
+      <aside class="sidebar">
+        <section>
+          <h2>Runs</h2>
+          <button id="rs-refresh">Refresh</button>
+          <ul id="rs-run-list" class="run-list"></ul>
+        </section>
+      </aside>
+
+      <main class="viewer" id="rs-main">
+        <p class="empty-state">Pick a run to see its results.</p>
+      </main>
+    </div>
+
+    <p id="unavailable" class="viewer empty-state" hidden></p>
+
+    <template id="ds-viewer-template">
+      <div class="viewer-header">
+        <span id="ds-position" class="position"></span>
+        <span id="ds-filename" class="muted"></span>
+        <span id="ds-save-status" class="muted"></span>
+      </div>
+      <div class="image-stage">
+        <img id="ds-image" alt="current review image" />
+        <canvas id="ds-canvas"></canvas>
+      </div>
+      <ul id="ds-annotation-list" class="annotation-list"></ul>
+      <div class="decision-bar">
+        <button id="ds-prev">&larr; Prev (←)</button>
+        <button id="ds-reject" class="reject">Reject image (B)</button>
+        <button id="ds-accept" class="accept">Accept image (G)</button>
+        <button id="ds-next">Next (→) &rarr;</button>
+      </div>
+      <p class="hint muted">
+        Shortcuts: G accept &middot; B reject &middot; ←/→ navigate &middot; number keys toggle an
+        annotation's good/bad flag
+      </p>
+    </template>
+
+    <template id="qp-viewer-template">
+      <div class="viewer-header">
+        <span id="qp-position" class="position"></span>
+        <span id="qp-badge" class="badge"></span>
+        <span id="qp-annotated" class="badge badge-muted"></span>
+        <span id="qp-source" class="muted"></span>
+        <span id="qp-save-status" class="muted"></span>
+      </div>
+      <div class="image-stage">
+        <img id="qp-image" alt="question image" />
+      </div>
+      <p id="qp-question" class="question-text"></p>
+      <ul id="qp-choice-list" class="choice-list"></ul>
+      <dl id="qp-answer-panel" class="answer-panel" hidden></dl>
+      <div class="decision-bar">
+        <button id="qp-prev">&larr; Prev (←)</button>
+        <button id="qp-reveal">Reveal answer (Space)</button>
+        <button id="qp-flag" class="reject">Flag issue (B)</button>
+        <button id="qp-unflag" class="accept">Looks good (G)</button>
+        <button id="qp-next">Next (→) &rarr;</button>
+      </div>
+      <p class="hint muted">
+        Shortcuts: Space reveal answer &middot; G looks good &middot; B flag issue &middot; ←/→
+        navigate
+      </p>
+    </template>
+
+    <script type="module" src="/app.js"></script>
+  </body>
+</html>

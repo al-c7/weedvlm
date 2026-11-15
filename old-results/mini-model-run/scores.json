@@ -1,0 +1,1835 @@
+{
+  "run": "mini-model-run",
+  "scored_at": "2026-09-27T04:04:20.004689+00:00",
+  "aliases_file": null,
+  "skipped_missing_questions": 0,
+  "skipped_changed_images": 0,
+  "models": {
+    "google/gemma-4-31b-it": {
+      "usage": {
+        "requests": 2541,
+        "failed": 0,
+        "total_cost_usd": 0.28297652,
+        "mean_cost_usd": 0.00011136423455332547,
+        "mean_total_tokens": 568.0362062180244,
+        "mean_latency_seconds": 6.90925974025974,
+        "retried_requests": 1
+      },
+      "suites": {
+        "density/boxed": {
+          "n_total": 300,
+          "n_answered": 300,
+          "n_failed": 0,
+          "correct": 136,
+          "incorrect": 164,
+          "unsure": 0,
+          "invalid": 0,
+          "accuracy": 0.4533333333333333,
+          "accuracy_ci95": [
+            0.3979441581242692,
+            0.5099025620088528
+          ],
+          "accuracy_all": 0.4533333333333333,
+          "unsure_rate": 0.0,
+          "chance_accuracy": 0.25,
+          "macro_f1": 0.4158460331935479,
+          "by_class": {
+            "high": {
+              "n": 75,
+              "correct": 10,
+              "accuracy": 0.13333333333333333
+            },
+            "low": {
+              "n": 75,
+              "correct": 74,
+              "accuracy": 0.9866666666666667
+            },
+            "medium": {
+              "n": 75,
+              "correct": 24,
+              "accuracy": 0.32
+            },
+            "none": {
+              "n": 75,
+              "correct": 28,
+              "accuracy": 0.37333333333333335
+            }
+          },
+          "by_dataset": {
+            "CottonWeedDet12": {
+              "n": 69,
+              "correct": 43,
+              "accuracy": 0.6231884057971014
+            },
+            "CropAndWeed": {
+              "n": 218,
+              "correct": 85,
+              "accuracy": 0.38990825688073394
+            },
+            "ImageWeeds-beta-vulgaris": {
+              "n": 2,
+              "correct": 1,
+              "accuracy": 0.5
+            },
+            "ImageWeeds-flax": {
+              "n": 1,
+              "correct": 0,
+              "accuracy": 0.0
+            },
+            "ImageWeeds-glycine_max": {
+              "n": 2,
+              "correct": 0,
+              "accuracy": 0.0
+            },
+            "ImageWeeds-lentils": {
+              "n": 1,
+              "correct": 1,
+              "accuracy": 1.0
+            },
+            "ImageWeeds-zeamays": {
+              "n": 1,
+              "correct": 1,
+              "accuracy": 1.0
+            },
+            "MultipleWeedSpeciesDetection": {
+              "n": 6,
+              "correct": 5,
+              "accuracy": 0.8333333333333334
+            }
+          },
+          "density": {
+            "count": {
+              "n": 300,
+              "mean_abs_error": 2.32,
+              "median_abs_error": 0.0,
+              "mean_signed_error": -0.8133333333333334
+            },
+            "coverage_pp": {
+              "n": 300,
+              "mean_abs_error": 6.2436040725377735,
+              "median_abs_error": 1.5,
+              "mean_signed_error": -5.78412701678175
+            },
+            "mean_category_distance": 0.62,
+            "confusion_truth_by_predicted": {
+              "none": {
+                "none": 28,
+                "low": 45,
+                "medium": 2,
+                "high": 0
+              },
+              "low": {
+                "none": 0,
+                "low": 74,
+                "medium": 1,
+                "high": 0
+              },
+              "medium": {
+                "none": 0,
+                "low": 50,
+                "medium": 24,
+                "high": 1
+              },
+              "high": {
+                "none": 0,
+                "low": 20,
+                "medium": 45,
+                "high": 10
+              }
+            }
+          }
+        },
+        "density/unannotated": {
+          "n_total": 100,
+          "n_answered": 100,
+          "n_failed": 0,
+          "correct": 37,
+          "incorrect": 63,
+          "unsure": 0,
+          "invalid": 0,
+          "accuracy": 0.37,
+          "accuracy_ci95": [
+            0.28182212569509163,
+            0.46779652424866885
+          ],
+          "accuracy_all": 0.37,
+          "unsure_rate": 0.0,
+          "chance_accuracy": 0.25,
+          "macro_f1": 0.30212481510979633,
+          "by_class": {
+            "high": {
+              "n": 25,
+              "correct": 0,
+              "accuracy": 0.0
+            },
+            "low": {
+              "n": 25,
+              "correct": 24,
+              "accuracy": 0.96
+            },
+            "medium": {
+              "n": 25,
+              "correct": 5,
+              "accuracy": 0.2
+            },
+            "none": {
+              "n": 25,
+              "correct": 8,
+              "accuracy": 0.32
+            }
+          },
+          "by_dataset": {
+            "CottonWeedDet12": {
+              "n": 26,
+              "correct": 16,
+              "accuracy": 0.6153846153846154
+            },
+            "CropAndWeed": {
+              "n": 69,
+              "correct": 19,
+              "accuracy": 0.2753623188405797
+            },
+            "ImageWeeds-beta-vulgaris": {
+              "n": 1,
+              "correct": 0,
+              "accuracy": 0.0
+            },
+            "ImageWeeds-flax": {
+              "n": 1,
+              "correct": 0,
+              "accuracy": 0.0
+            },
+            "MultipleWeedSpeciesDetection": {
+              "n": 3,
+              "correct": 2,
+              "accuracy": 0.6666666666666666
+            }
+          },
+          "density": {
+            "count": {
+              "n": 100,
+              "mean_abs_error": 5.11,
+              "median_abs_error": 2.0,
+              "mean_signed_error": -0.95
+            },
+            "coverage_pp": {
+              "n": 100,
+              "mean_abs_error": 9.72333673698286,
+              "median_abs_error": 4.278416053921568,
+              "mean_signed_error": -8.9012499987737
+            },
+            "mean_category_distance": 0.76,
+            "confusion_truth_by_predicted": {
+              "none": {
+                "none": 8,
+                "low": 17,
+                "medium": 0,
+                "high": 0
+              },
+              "low": {
+                "none": 0,
+                "low": 24,
+                "medium": 0,
+                "high": 1
+              },
+              "medium": {
+                "none": 1,
+                "low": 17,
+                "medium": 5,
+                "high": 2
+              },
+              "high": {
+                "none": 0,
+                "low": 11,
+                "medium": 14,
+                "high": 0
+              }
+            }
+          }
+        },
+        "fine_grained": {
+          "n_total": 400,
+          "n_answered": 400,
+          "n_failed": 0,
+          "correct": 315,
+          "incorrect": 84,
+          "unsure": 1,
+          "invalid": 0,
+          "accuracy": 0.7875,
+          "accuracy_ci95": [
+            0.7447731098540312,
+            0.8247571218011523
+          ],
+          "accuracy_all": 0.7875,
+          "unsure_rate": 0.0025,
+          "chance_accuracy": 0.5,
+          "macro_f1": 0.7869739630638813,
+          "by_class": {
+            "different_species": {
+              "n": 200,
+              "correct": 141,
+              "accuracy": 0.705
+            },
+            "same_species": {
+              "n": 200,
+              "correct": 174,
+              "accuracy": 0.87
+            }
+          },
+          "by_dataset": {
+            "CottonWeedDet12": {
+              "n": 249,
+              "correct": 192,
+              "accuracy": 0.7710843373493976
+            },
+            "CropAndWeed": {
+              "n": 150,
+              "correct": 122,
+              "accuracy": 0.8133333333333334
+            },
+            "MultipleWeedSpeciesDetection": {
+              "n": 1,
+              "correct": 1,
+              "accuracy": 1.0
+            }
+          }
+        },
+        "localisation/crop_baseline": {
+          "n_total": 1,
+          "n_answered": 1,
+          "n_failed": 0,
+          "correct": 1,
+          "incorrect": 0,
+          "unsure": 0,
+          "invalid": 0,
+          "accuracy": 1.0,
+          "accuracy_ci95": [
+            0.20654329147389294,
+            1.0
+          ],
+          "accuracy_all": 1.0,
+          "unsure_rate": 0.0,
+          "chance_accuracy": 0.5,
+          "macro_f1": null,
+          "by_class": {
+            "Sugar beet": {
+              "n": 1,
+              "correct": 1,
+              "accuracy": 1.0
+            }
+          },
+          "by_dataset": {
+            "CropAndWeed": {
+              "n": 1,
+              "correct": 1,
+              "accuracy": 1.0
+            }
+          }
+        },
+        "localisation/weed": {
+          "n_total": 300,
+          "n_answered": 300,
+          "n_failed": 0,
+          "correct": 262,
+          "incorrect": 37,
+          "unsure": 0,
+          "invalid": 1,
+          "accuracy": 0.8733333333333333,
+          "accuracy_ci95": [
+            0.8309179640519985,
+            0.9063082748830255
+          ],
+          "accuracy_all": 0.8733333333333333,
+          "unsure_rate": 0.0,
+          "chance_accuracy": 0.4296468253968254,
+          "macro_f1": null,
+          "by_class": {
+            "Amaranthus tuberculatus": {
+              "n": 20,
+              "correct": 19,
+              "accuracy": 0.95
+            },
+            "Ambrosia artemisiifolia": {
+              "n": 20,
+              "correct": 17,
+              "accuracy": 0.85
+            },
+            "Cockspur grass": {
+              "n": 20,
+              "correct": 17,
+              "accuracy": 0.85
+            },
+            "Creeping thistle": {
+              "n": 20,
+              "correct": 18,
+              "accuracy": 0.9
+            },
+            "Eclipta": {
+              "n": 20,
+              "correct": 18,
+              "accuracy": 0.9
+            },
+            "Eleusine indica": {
+              "n": 20,
+              "correct": 19,
+              "accuracy": 0.95
+            },
+            "Euphorbia maculata": {
+              "n": 20,
+              "correct": 18,
+              "accuracy": 0.9
+            },
+            "Field milk thistle": {
+              "n": 20,
+              "correct": 15,
+              "accuracy": 0.75
+            },
+            "German chamomile": {
+              "n": 20,
+              "correct": 19,
+              "accuracy": 0.95
+            },
+            "Hybrid goosefoot": {
+              "n": 20,
+              "correct": 19,
+              "accuracy": 0.95
+            },
+            "Ipomoea indica": {
+              "n": 20,
+              "correct": 19,
+              "accuracy": 0.95
+            },
+            "Mollugo verticillata": {
+              "n": 20,
+              "correct": 14,
+              "accuracy": 0.7
+            },
+            "Physalis angulata": {
+              "n": 20,
+              "correct": 14,
+              "accuracy": 0.7
+            },
+            "Portulaca oleracea": {
+              "n": 20,
+              "correct": 19,
+              "accuracy": 0.95
+            },
+            "Red root amaranth": {
+              "n": 20,
+              "correct": 17,
+              "accuracy": 0.85
+            }
+          },
+          "by_dataset": {
+            "CottonWeedDet12": {
+              "n": 180,
+              "correct": 157,
+              "accuracy": 0.8722222222222222
+            },
+            "CropAndWeed": {
+              "n": 120,
+              "correct": 105,
+              "accuracy": 0.875
+            }
+          }
+        },
+        "species_id/multiple_choice/boxed": {
+          "n_total": 800,
+          "n_answered": 800,
+          "n_failed": 0,
+          "correct": 613,
+          "incorrect": 169,
+          "unsure": 18,
+          "invalid": 0,
+          "accuracy": 0.76625,
+          "accuracy_ci95": [
+            0.7356927801990337,
+            0.7942623751450041
+          ],
+          "accuracy_all": 0.76625,
+          "unsure_rate": 0.0225,
+          "chance_accuracy": 0.25,
+          "macro_f1": 0.7957668053171445,
+          "by_class": {
+            "Amaranthus tuberculatus": {
+              "n": 40,
+              "correct": 12,
+              "accuracy": 0.3
+            },
+            "Ambrosia artemisiifolia": {
+              "n": 40,
+              "correct": 38,
+              "accuracy": 0.95
+            },
+            "Chenopodium album": {
+              "n": 40,
+              "correct": 5,
+              "accuracy": 0.125
+            },
+            "Cockspur grass": {
+              "n": 40,
+              "correct": 28,
+              "accuracy": 0.7
+            },
+            "Creeping thistle": {
+              "n": 40,
+              "correct": 24,
+              "accuracy": 0.6
+            },
+            "Eclipta": {
+              "n": 40,
+              "correct": 21,
+              "accuracy": 0.525
+            },
+            "Euphorbia maculata": {
+              "n": 40,
+              "correct": 28,
+              "accuracy": 0.7
+            },
+            "German chamomile": {
+              "n": 40,
+              "correct": 36,
+              "accuracy": 0.9
+            },
+            "Hybrid goosefoot": {
+              "n": 40,
+              "correct": 39,
+              "accuracy": 0.975
+            },
+            "Ipomoea indica": {
+              "n": 40,
+              "correct": 39,
+              "accuracy": 0.975
+            },
+            "Mollugo verticillata": {
+              "n": 40,
+              "correct": 29,
+              "accuracy": 0.725
+            },
+            "Physalis angulata": {
+              "n": 40,
+              "correct": 28,
+              "accuracy": 0.7
+            },
+            "Portulaca oleracea": {
+              "n": 40,
+              "correct": 39,
+              "accuracy": 0.975
+            },
+            "Red root amaranth": {
+              "n": 40,
+              "correct": 35,
+              "accuracy": 0.875
+            },
+            "Senna obtusifolia": {
+              "n": 40,
+              "correct": 39,
+              "accuracy": 0.975
+            },
+            "Sida rhombifolia": {
+              "n": 40,
+              "correct": 29,
+              "accuracy": 0.725
+            },
+            "Taraxacum officinale": {
+              "n": 40,
+              "correct": 39,
+              "accuracy": 0.975
+            },
+            "Thorn apple": {
+              "n": 40,
+              "correct": 36,
+              "accuracy": 0.9
+            },
+            "White goosefoot": {
+              "n": 40,
+              "correct": 38,
+              "accuracy": 0.95
+            },
+            "Xanthium strumarium": {
+              "n": 40,
+              "correct": 31,
+              "accuracy": 0.775
+            }
+          },
+          "by_dataset": {
+            "CottonWeedDet12": {
+              "n": 399,
+              "correct": 301,
+              "accuracy": 0.7543859649122807
+            },
+            "CropAndWeed": {
+              "n": 280,
+              "correct": 236,
+              "accuracy": 0.8428571428571429
+            },
+            "MultipleWeedSpeciesDetection": {
+              "n": 121,
+              "correct": 76,
+              "accuracy": 0.628099173553719
+            }
+          }
+        },
+        "species_id/multiple_choice/unannotated": {
+          "n_total": 400,
+          "n_answered": 400,
+          "n_failed": 0,
+          "correct": 345,
+          "incorrect": 51,
+          "unsure": 4,
+          "invalid": 0,
+          "accuracy": 0.8625,
+          "accuracy_ci95": [
+            0.825287326885749,
+            0.8928160086794825
+          ],
+          "accuracy_all": 0.8625,
+          "unsure_rate": 0.01,
+          "chance_accuracy": 0.25,
+          "macro_f1": 0.8982915311463877,
+          "by_class": {
+            "Ambrosia artemisiifolia": {
+              "n": 40,
+              "correct": 38,
+              "accuracy": 0.95
+            },
+            "Eclipta": {
+              "n": 40,
+              "correct": 13,
+              "accuracy": 0.325
+            },
+            "Ipomoea indica": {
+              "n": 40,
+              "correct": 38,
+              "accuracy": 0.95
+            },
+            "Portulaca oleracea": {
+              "n": 40,
+              "correct": 39,
+              "accuracy": 0.975
+            },
+            "Red root amaranth": {
+              "n": 40,
+              "correct": 39,
+              "accuracy": 0.975
+            },
+            "Senna obtusifolia": {
+              "n": 40,
+              "correct": 39,
+              "accuracy": 0.975
+            },
+            "Sida rhombifolia": {
+              "n": 40,
+              "correct": 33,
+              "accuracy": 0.825
+            },
+            "Taraxacum officinale": {
+              "n": 40,
+              "correct": 40,
+              "accuracy": 1.0
+            },
+            "White goosefoot": {
+              "n": 40,
+              "correct": 38,
+              "accuracy": 0.95
+            },
+            "Xanthium strumarium": {
+              "n": 40,
+              "correct": 28,
+              "accuracy": 0.7
+            }
+          },
+          "by_dataset": {
+            "CottonWeedDet12": {
+              "n": 240,
+              "correct": 200,
+              "accuracy": 0.8333333333333334
+            },
+            "CropAndWeed": {
+              "n": 80,
+              "correct": 77,
+              "accuracy": 0.9625
+            },
+            "MultipleWeedSpeciesDetection": {
+              "n": 80,
+              "correct": 68,
+              "accuracy": 0.85
+            }
+          }
+        },
+        "species_id/open_ended/boxed": {
+          "n_total": 156,
+          "n_answered": 156,
+          "n_failed": 0,
+          "correct": 26,
+          "incorrect": 119,
+          "unsure": 11,
+          "invalid": 0,
+          "accuracy": 0.16666666666666666,
+          "accuracy_ci95": [
+            0.11634948845469845,
+            0.23300637384898215
+          ],
+          "accuracy_all": 0.16666666666666666,
+          "unsure_rate": 0.07051282051282051,
+          "chance_accuracy": null,
+          "macro_f1": null,
+          "by_class": {
+            "Amaranthus tuberculatus": {
+              "n": 8,
+              "correct": 0,
+              "accuracy": 0.0
+            },
+            "Ambrosia artemisiifolia": {
+              "n": 8,
+              "correct": 4,
+              "accuracy": 0.5
+            },
+            "Chenopodium album": {
+              "n": 3,
+              "correct": 3,
+              "accuracy": 1.0
+            },
+            "Cockspur grass": {
+              "n": 7,
+              "correct": 0,
+              "accuracy": 0.0
+            },
+            "Creeping thistle": {
+              "n": 4,
+              "correct": 0,
+              "accuracy": 0.0
+            },
+            "Eclipta": {
+              "n": 6,
+              "correct": 0,
+              "accuracy": 0.0
+            },
+            "Euphorbia maculata": {
+              "n": 6,
+              "correct": 1,
+              "accuracy": 0.16666666666666666
+            },
+            "German chamomile": {
+              "n": 9,
+              "correct": 0,
+              "accuracy": 0.0
+            },
+            "Hybrid goosefoot": {
+              "n": 9,
+              "correct": 0,
+              "accuracy": 0.0
+            },
+            "Ipomoea indica": {
+              "n": 10,
+              "correct": 0,
+              "accuracy": 0.0
+            },
+            "Mollugo verticillata": {
+              "n": 8,
+              "correct": 0,
+              "accuracy": 0.0
+            },
+            "Physalis angulata": {
+              "n": 7,
+              "correct": 0,
+              "accuracy": 0.0
+            },
+            "Portulaca oleracea": {
+              "n": 9,
+              "correct": 9,
+              "accuracy": 1.0
+            },
+            "Red root amaranth": {
+              "n": 10,
+              "correct": 0,
+              "accuracy": 0.0
+            },
+            "Senna obtusifolia": {
+              "n": 7,
+              "correct": 0,
+              "accuracy": 0.0
+            },
+            "Sida rhombifolia": {
+              "n": 10,
+              "correct": 3,
+              "accuracy": 0.3
+            },
+            "Taraxacum officinale": {
+              "n": 8,
+              "correct": 6,
+              "accuracy": 0.75
+            },
+            "Thorn apple": {
+              "n": 10,
+              "correct": 0,
+              "accuracy": 0.0
+            },
+            "White goosefoot": {
+              "n": 10,
+              "correct": 0,
+              "accuracy": 0.0
+            },
+            "Xanthium strumarium": {
+              "n": 7,
+              "correct": 0,
+              "accuracy": 0.0
+            }
+          },
+          "by_dataset": {
+            "CottonWeedDet12": {
+              "n": 79,
+              "correct": 17,
+              "accuracy": 0.21518987341772153
+            },
+            "CropAndWeed": {
+              "n": 59,
+              "correct": 0,
+              "accuracy": 0.0
+            },
+            "MultipleWeedSpeciesDetection": {
+              "n": 18,
+              "correct": 9,
+              "accuracy": 0.5
+            }
+          }
+        },
+        "species_id/open_ended/unannotated": {
+          "n_total": 84,
+          "n_answered": 84,
+          "n_failed": 0,
+          "correct": 20,
+          "incorrect": 54,
+          "unsure": 10,
+          "invalid": 0,
+          "accuracy": 0.23809523809523808,
+          "accuracy_ci95": [
+            0.15974570781689024,
+            0.3393526692618514
+          ],
+          "accuracy_all": 0.23809523809523808,
+          "unsure_rate": 0.11904761904761904,
+          "chance_accuracy": null,
+          "macro_f1": null,
+          "by_class": {
+            "Ambrosia artemisiifolia": {
+              "n": 9,
+              "correct": 4,
+              "accuracy": 0.4444444444444444
+            },
+            "Eclipta": {
+              "n": 9,
+              "correct": 0,
+              "accuracy": 0.0
+            },
+            "Ipomoea indica": {
+              "n": 10,
+              "correct": 0,
+              "accuracy": 0.0
+            },
+            "Portulaca oleracea": {
+              "n": 12,
+              "correct": 12,
+              "accuracy": 1.0
+            },
+            "Red root amaranth": {
+              "n": 6,
+              "correct": 0,
+              "accuracy": 0.0
+            },
+            "Senna obtusifolia": {
+              "n": 5,
+              "correct": 0,
+              "accuracy": 0.0
+            },
+            "Sida rhombifolia": {
+              "n": 12,
+              "correct": 0,
+              "accuracy": 0.0
+            },
+            "Taraxacum officinale": {
+              "n": 5,
+              "correct": 3,
+              "accuracy": 0.6
+            },
+            "White goosefoot": {
+              "n": 9,
+              "correct": 0,
+              "accuracy": 0.0
+            },
+            "Xanthium strumarium": {
+              "n": 7,
+              "correct": 1,
+              "accuracy": 0.14285714285714285
+            }
+          },
+          "by_dataset": {
+            "CottonWeedDet12": {
+              "n": 57,
+              "correct": 16,
+              "accuracy": 0.2807017543859649
+            },
+            "CropAndWeed": {
+              "n": 15,
+              "correct": 0,
+              "accuracy": 0.0
+            },
+            "MultipleWeedSpeciesDetection": {
+              "n": 12,
+              "correct": 4,
+              "accuracy": 0.3333333333333333
+            }
+          }
+        }
+      },
+      "species_id_multiple_choice_vs_open_ended": {
+        "unannotated": {
+          "n_pairs": 84,
+          "multiple_choice_accuracy": 0.8333333333333334,
+          "open_ended_accuracy": 0.23809523809523808
+        },
+        "boxed": {
+          "n_pairs": 156,
+          "multiple_choice_accuracy": 0.8141025641025641,
+          "open_ended_accuracy": 0.16666666666666666
+        }
+      }
+    },
+    "qwen/qwen3.7-flash": {
+      "usage": {
+        "requests": 111,
+        "failed": 75,
+        "total_cost_usd": 0.022161440000000004,
+        "mean_cost_usd": 0.00019965261261261266,
+        "mean_total_tokens": 3497.5495495495497,
+        "mean_latency_seconds": 21.02586111111111,
+        "retried_requests": 1
+      },
+      "suites": {
+        "species_id/multiple_choice/boxed": {
+          "n_total": 111,
+          "n_answered": 36,
+          "n_failed": 75,
+          "correct": 36,
+          "incorrect": 0,
+          "unsure": 0,
+          "invalid": 0,
+          "accuracy": 1.0,
+          "accuracy_ci95": [
+            0.9035781695514236,
+            1.0
+          ],
+          "accuracy_all": 0.32432432432432434,
+          "unsure_rate": 0.0,
+          "chance_accuracy": 0.25,
+          "macro_f1": 1.0,
+          "by_class": {
+            "Ambrosia artemisiifolia": {
+              "n": 5,
+              "correct": 5,
+              "accuracy": 1.0
+            },
+            "Portulaca oleracea": {
+              "n": 30,
+              "correct": 30,
+              "accuracy": 1.0
+            },
+            "Red root amaranth": {
+              "n": 1,
+              "correct": 1,
+              "accuracy": 1.0
+            }
+          },
+          "by_dataset": {
+            "CottonWeedDet12": {
+              "n": 35,
+              "correct": 35,
+              "accuracy": 1.0
+            },
+            "CropAndWeed": {
+              "n": 1,
+              "correct": 1,
+              "accuracy": 1.0
+            }
+          }
+        }
+      },
+      "species_id_multiple_choice_vs_open_ended": {}
+    },
+    "z-ai/glm-5.3-flashx": {
+      "usage": {
+        "requests": 2541,
+        "failed": 239,
+        "total_cost_usd": 7.05858727,
+        "mean_cost_usd": 0.002777877713498623,
+        "mean_total_tokens": 6460.116096025187,
+        "mean_latency_seconds": 7.526922675933972,
+        "retried_requests": 8
+      },
+      "suites": {
+        "density/boxed": {
+          "n_total": 300,
+          "n_answered": 204,
+          "n_failed": 96,
+          "correct": 143,
+          "incorrect": 61,
+          "unsure": 0,
+          "invalid": 0,
+          "accuracy": 0.7009803921568627,
+          "accuracy_ci95": [
+            0.6349115575344513,
+            0.7596196623945715
+          ],
+          "accuracy_all": 0.4766666666666667,
+          "unsure_rate": 0.0,
+          "chance_accuracy": 0.25,
+          "macro_f1": 0.6513748643035813,
+          "by_class": {
+            "high": {
+              "n": 23,
+              "correct": 8,
+              "accuracy": 0.34782608695652173
+            },
+            "low": {
+              "n": 74,
+              "correct": 74,
+              "accuracy": 1.0
+            },
+            "medium": {
+              "n": 45,
+              "correct": 34,
+              "accuracy": 0.7555555555555555
+            },
+            "none": {
+              "n": 62,
+              "correct": 27,
+              "accuracy": 0.43548387096774194
+            }
+          },
+          "by_dataset": {
+            "CottonWeedDet12": {
+              "n": 58,
+              "correct": 47,
+              "accuracy": 0.8103448275862069
+            },
+            "CropAndWeed": {
+              "n": 137,
+              "correct": 88,
+              "accuracy": 0.6423357664233577
+            },
+            "ImageWeeds-beta-vulgaris": {
+              "n": 2,
+              "correct": 2,
+              "accuracy": 1.0
+            },
+            "ImageWeeds-flax": {
+              "n": 1,
+              "correct": 1,
+              "accuracy": 1.0
+            },
+            "ImageWeeds-lentils": {
+              "n": 1,
+              "correct": 1,
+              "accuracy": 1.0
+            },
+            "MultipleWeedSpeciesDetection": {
+              "n": 5,
+              "correct": 4,
+              "accuracy": 0.8
+            }
+          },
+          "density": {
+            "count": {
+              "n": 204,
+              "mean_abs_error": 0.7450980392156863,
+              "median_abs_error": 0.0,
+              "mean_signed_error": 0.10784313725490197
+            },
+            "coverage_pp": {
+              "n": 204,
+              "mean_abs_error": 7.4054014550063885,
+              "median_abs_error": 0.9443981694240196,
+              "mean_signed_error": -7.034963578171426
+            },
+            "mean_category_distance": 0.30392156862745096,
+            "confusion_truth_by_predicted": {
+              "none": {
+                "none": 27,
+                "low": 34,
+                "medium": 1,
+                "high": 0
+              },
+              "low": {
+                "none": 0,
+                "low": 74,
+                "medium": 0,
+                "high": 0
+              },
+              "medium": {
+                "none": 0,
+                "low": 11,
+                "medium": 34,
+                "high": 0
+              },
+              "high": {
+                "none": 0,
+                "low": 0,
+                "medium": 15,
+                "high": 8
+              }
+            }
+          }
+        },
+        "density/unannotated": {
+          "n_total": 100,
+          "n_answered": 68,
+          "n_failed": 32,
+          "correct": 37,
+          "incorrect": 31,
+          "unsure": 0,
+          "invalid": 0,
+          "accuracy": 0.5441176470588235,
+          "accuracy_ci95": [
+            0.4265639778429344,
+            0.6569530930463552
+          ],
+          "accuracy_all": 0.37,
+          "unsure_rate": 0.0,
+          "chance_accuracy": 0.25,
+          "macro_f1": 0.4767995818399044,
+          "by_class": {
+            "high": {
+              "n": 12,
+              "correct": 2,
+              "accuracy": 0.16666666666666666
+            },
+            "low": {
+              "n": 22,
+              "correct": 20,
+              "accuracy": 0.9090909090909091
+            },
+            "medium": {
+              "n": 12,
+              "correct": 5,
+              "accuracy": 0.4166666666666667
+            },
+            "none": {
+              "n": 22,
+              "correct": 10,
+              "accuracy": 0.45454545454545453
+            }
+          },
+          "by_dataset": {
+            "CottonWeedDet12": {
+              "n": 18,
+              "correct": 13,
+              "accuracy": 0.7222222222222222
+            },
+            "CropAndWeed": {
+              "n": 48,
+              "correct": 23,
+              "accuracy": 0.4791666666666667
+            },
+            "ImageWeeds-beta-vulgaris": {
+              "n": 1,
+              "correct": 0,
+              "accuracy": 0.0
+            },
+            "MultipleWeedSpeciesDetection": {
+              "n": 1,
+              "correct": 1,
+              "accuracy": 1.0
+            }
+          },
+          "density": {
+            "count": {
+              "n": 68,
+              "mean_abs_error": 3.323529411764706,
+              "median_abs_error": 1.0,
+              "mean_signed_error": 0.11764705882352941
+            },
+            "coverage_pp": {
+              "n": 68,
+              "mean_abs_error": 11.414864254064806,
+              "median_abs_error": 3.1127163756127447,
+              "mean_signed_error": -11.113106188140298
+            },
+            "mean_category_distance": 0.4852941176470588,
+            "confusion_truth_by_predicted": {
+              "none": {
+                "none": 10,
+                "low": 12,
+                "medium": 0,
+                "high": 0
+              },
+              "low": {
+                "none": 0,
+                "low": 20,
+                "medium": 2,
+                "high": 0
+              },
+              "medium": {
+                "none": 0,
+                "low": 6,
+                "medium": 5,
+                "high": 1
+              },
+              "high": {
+                "none": 0,
+                "low": 2,
+                "medium": 8,
+                "high": 2
+              }
+            }
+          }
+        },
+        "fine_grained": {
+          "n_total": 400,
+          "n_answered": 368,
+          "n_failed": 32,
+          "correct": 306,
+          "incorrect": 38,
+          "unsure": 24,
+          "invalid": 0,
+          "accuracy": 0.8315217391304348,
+          "accuracy_ci95": [
+            0.7898988608141017,
+            0.866294529059436
+          ],
+          "accuracy_all": 0.765,
+          "unsure_rate": 0.06521739130434782,
+          "chance_accuracy": 0.5,
+          "macro_f1": 0.8577962413452027,
+          "by_class": {
+            "different_species": {
+              "n": 184,
+              "correct": 139,
+              "accuracy": 0.7554347826086957
+            },
+            "same_species": {
+              "n": 184,
+              "correct": 167,
+              "accuracy": 0.907608695652174
+            }
+          },
+          "by_dataset": {
+            "CottonWeedDet12": {
+              "n": 234,
+              "correct": 209,
+              "accuracy": 0.8931623931623932
+            },
+            "CropAndWeed": {
+              "n": 133,
+              "correct": 96,
+              "accuracy": 0.7218045112781954
+            },
+            "MultipleWeedSpeciesDetection": {
+              "n": 1,
+              "correct": 1,
+              "accuracy": 1.0
+            }
+          }
+        },
+        "localisation/crop_baseline": {
+          "n_total": 1,
+          "n_answered": 1,
+          "n_failed": 0,
+          "correct": 1,
+          "incorrect": 0,
+          "unsure": 0,
+          "invalid": 0,
+          "accuracy": 1.0,
+          "accuracy_ci95": [
+            0.20654329147389294,
+            1.0
+          ],
+          "accuracy_all": 1.0,
+          "unsure_rate": 0.0,
+          "chance_accuracy": 0.5,
+          "macro_f1": null,
+          "by_class": {
+            "Sugar beet": {
+              "n": 1,
+              "correct": 1,
+              "accuracy": 1.0
+            }
+          },
+          "by_dataset": {
+            "CropAndWeed": {
+              "n": 1,
+              "correct": 1,
+              "accuracy": 1.0
+            }
+          }
+        },
+        "localisation/weed": {
+          "n_total": 300,
+          "n_answered": 287,
+          "n_failed": 13,
+          "correct": 277,
+          "incorrect": 10,
+          "unsure": 0,
+          "invalid": 0,
+          "accuracy": 0.9651567944250871,
+          "accuracy_ci95": [
+            0.937059557285553,
+            0.9809659246262504
+          ],
+          "accuracy_all": 0.9233333333333333,
+          "unsure_rate": 0.0,
+          "chance_accuracy": 0.4296468253968254,
+          "macro_f1": null,
+          "by_class": {
+            "Amaranthus tuberculatus": {
+              "n": 17,
+              "correct": 16,
+              "accuracy": 0.9411764705882353
+            },
+            "Ambrosia artemisiifolia": {
+              "n": 20,
+              "correct": 20,
+              "accuracy": 1.0
+            },
+            "Cockspur grass": {
+              "n": 19,
+              "correct": 18,
+              "accuracy": 0.9473684210526315
+            },
+            "Creeping thistle": {
+              "n": 20,
+              "correct": 19,
+              "accuracy": 0.95
+            },
+            "Eclipta": {
+              "n": 19,
+              "correct": 18,
+              "accuracy": 0.9473684210526315
+            },
+            "Eleusine indica": {
+              "n": 20,
+              "correct": 20,
+              "accuracy": 1.0
+            },
+            "Euphorbia maculata": {
+              "n": 20,
+              "correct": 20,
+              "accuracy": 1.0
+            },
+            "Field milk thistle": {
+              "n": 19,
+              "correct": 15,
+              "accuracy": 0.7894736842105263
+            },
+            "German chamomile": {
+              "n": 18,
+              "correct": 18,
+              "accuracy": 1.0
+            },
+            "Hybrid goosefoot": {
+              "n": 18,
+              "correct": 17,
+              "accuracy": 0.9444444444444444
+            },
+            "Ipomoea indica": {
+              "n": 20,
+              "correct": 20,
+              "accuracy": 1.0
+            },
+            "Mollugo verticillata": {
+              "n": 20,
+              "correct": 19,
+              "accuracy": 0.95
+            },
+            "Physalis angulata": {
+              "n": 17,
+              "correct": 17,
+              "accuracy": 1.0
+            },
+            "Portulaca oleracea": {
+              "n": 20,
+              "correct": 20,
+              "accuracy": 1.0
+            },
+            "Red root amaranth": {
+              "n": 20,
+              "correct": 20,
+              "accuracy": 1.0
+            }
+          },
+          "by_dataset": {
+            "CottonWeedDet12": {
+              "n": 173,
+              "correct": 170,
+              "accuracy": 0.9826589595375722
+            },
+            "CropAndWeed": {
+              "n": 114,
+              "correct": 107,
+              "accuracy": 0.9385964912280702
+            }
+          }
+        },
+        "species_id/multiple_choice/boxed": {
+          "n_total": 800,
+          "n_answered": 786,
+          "n_failed": 14,
+          "correct": 762,
+          "incorrect": 23,
+          "unsure": 1,
+          "invalid": 0,
+          "accuracy": 0.9694656488549618,
+          "accuracy_ci95": [
+            0.9549679113172208,
+            0.9793966498808725
+          ],
+          "accuracy_all": 0.9525,
+          "unsure_rate": 0.001272264631043257,
+          "chance_accuracy": 0.25,
+          "macro_f1": 0.9748501109854798,
+          "by_class": {
+            "Amaranthus tuberculatus": {
+              "n": 37,
+              "correct": 32,
+              "accuracy": 0.8648648648648649
+            },
+            "Ambrosia artemisiifolia": {
+              "n": 40,
+              "correct": 40,
+              "accuracy": 1.0
+            },
+            "Chenopodium album": {
+              "n": 40,
+              "correct": 39,
+              "accuracy": 0.975
+            },
+            "Cockspur grass": {
+              "n": 39,
+              "correct": 37,
+              "accuracy": 0.9487179487179487
+            },
+            "Creeping thistle": {
+              "n": 40,
+              "correct": 39,
+              "accuracy": 0.975
+            },
+            "Eclipta": {
+              "n": 40,
+              "correct": 40,
+              "accuracy": 1.0
+            },
+            "Euphorbia maculata": {
+              "n": 40,
+              "correct": 39,
+              "accuracy": 0.975
+            },
+            "German chamomile": {
+              "n": 40,
+              "correct": 38,
+              "accuracy": 0.95
+            },
+            "Hybrid goosefoot": {
+              "n": 40,
+              "correct": 40,
+              "accuracy": 1.0
+            },
+            "Ipomoea indica": {
+              "n": 39,
+              "correct": 38,
+              "accuracy": 0.9743589743589743
+            },
+            "Mollugo verticillata": {
+              "n": 40,
+              "correct": 40,
+              "accuracy": 1.0
+            },
+            "Physalis angulata": {
+              "n": 38,
+              "correct": 35,
+              "accuracy": 0.9210526315789473
+            },
+            "Portulaca oleracea": {
+              "n": 40,
+              "correct": 39,
+              "accuracy": 0.975
+            },
+            "Red root amaranth": {
+              "n": 40,
+              "correct": 39,
+              "accuracy": 0.975
+            },
+            "Senna obtusifolia": {
+              "n": 40,
+              "correct": 40,
+              "accuracy": 1.0
+            },
+            "Sida rhombifolia": {
+              "n": 39,
+              "correct": 37,
+              "accuracy": 0.9487179487179487
+            },
+            "Taraxacum officinale": {
+              "n": 37,
+              "correct": 36,
+              "accuracy": 0.972972972972973
+            },
+            "Thorn apple": {
+              "n": 39,
+              "correct": 38,
+              "accuracy": 0.9743589743589743
+            },
+            "White goosefoot": {
+              "n": 40,
+              "correct": 40,
+              "accuracy": 1.0
+            },
+            "Xanthium strumarium": {
+              "n": 38,
+              "correct": 36,
+              "accuracy": 0.9473684210526315
+            }
+          },
+          "by_dataset": {
+            "CottonWeedDet12": {
+              "n": 392,
+              "correct": 379,
+              "accuracy": 0.9668367346938775
+            },
+            "CropAndWeed": {
+              "n": 278,
+              "correct": 271,
+              "accuracy": 0.9748201438848921
+            },
+            "MultipleWeedSpeciesDetection": {
+              "n": 116,
+              "correct": 112,
+              "accuracy": 0.9655172413793104
+            }
+          }
+        },
+        "species_id/multiple_choice/unannotated": {
+          "n_total": 400,
+          "n_answered": 395,
+          "n_failed": 5,
+          "correct": 390,
+          "incorrect": 5,
+          "unsure": 0,
+          "invalid": 0,
+          "accuracy": 0.9873417721518988,
+          "accuracy_ci95": [
+            0.9707140457331274,
+            0.9945814500225814
+          ],
+          "accuracy_all": 0.975,
+          "unsure_rate": 0.0,
+          "chance_accuracy": 0.25,
+          "macro_f1": 0.990836669317682,
+          "by_class": {
+            "Ambrosia artemisiifolia": {
+              "n": 39,
+              "correct": 38,
+              "accuracy": 0.9743589743589743
+            },
+            "Eclipta": {
+              "n": 40,
+              "correct": 40,
+              "accuracy": 1.0
+            },
+            "Ipomoea indica": {
+              "n": 40,
+              "correct": 39,
+              "accuracy": 0.975
+            },
+            "Portulaca oleracea": {
+              "n": 40,
+              "correct": 40,
+              "accuracy": 1.0
+            },
+            "Red root amaranth": {
+              "n": 40,
+              "correct": 40,
+              "accuracy": 1.0
+            },
+            "Senna obtusifolia": {
+              "n": 40,
+              "correct": 40,
+              "accuracy": 1.0
+            },
+            "Sida rhombifolia": {
+              "n": 40,
+              "correct": 40,
+              "accuracy": 1.0
+            },
+            "Taraxacum officinale": {
+              "n": 38,
+              "correct": 36,
+              "accuracy": 0.9473684210526315
+            },
+            "White goosefoot": {
+              "n": 40,
+              "correct": 40,
+              "accuracy": 1.0
+            },
+            "Xanthium strumarium": {
+              "n": 38,
+              "correct": 37,
+              "accuracy": 0.9736842105263158
+            }
+          },
+          "by_dataset": {
+            "CottonWeedDet12": {
+              "n": 239,
+              "correct": 237,
+              "accuracy": 0.9916317991631799
+            },
+            "CropAndWeed": {
+              "n": 80,
+              "correct": 80,
+              "accuracy": 1.0
+            },
+            "MultipleWeedSpeciesDetection": {
+              "n": 76,
+              "correct": 73,
+              "accuracy": 0.9605263157894737
+            }
+          }
+        },
+        "species_id/open_ended/boxed": {
+          "n_total": 156,
+          "n_answered": 124,
+          "n_failed": 32,
+          "correct": 41,
+          "incorrect": 80,
+          "unsure": 3,
+          "invalid": 0,
+          "accuracy": 0.33064516129032256,
+          "accuracy_ci95": [
+            0.2540245934622476,
+            0.4174438487349713
+          ],
+          "accuracy_all": 0.26282051282051283,
+          "unsure_rate": 0.024193548387096774,
+          "chance_accuracy": null,
+          "macro_f1": null,
+          "by_class": {
+            "Amaranthus tuberculatus": {
+              "n": 5,
+              "correct": 1,
+              "accuracy": 0.2
+            },
+            "Ambrosia artemisiifolia": {
+              "n": 4,
+              "correct": 1,
+              "accuracy": 0.25
+            },
+            "Chenopodium album": {
+              "n": 3,
+              "correct": 3,
+              "accuracy": 1.0
+            },
+            "Cockspur grass": {
+              "n": 4,
+              "correct": 0,
+              "accuracy": 0.0
+            },
+            "Creeping thistle": {
+              "n": 4,
+              "correct": 0,
+              "accuracy": 0.0
+            },
+            "Eclipta": {
+              "n": 4,
+              "correct": 3,
+              "accuracy": 0.75
+            },
+            "Euphorbia maculata": {
+              "n": 6,
+              "correct": 5,
+              "accuracy": 0.8333333333333334
+            },
+            "German chamomile": {
+              "n": 8,
+              "correct": 0,
+              "accuracy": 0.0
+            },
+            "Hybrid goosefoot": {
+              "n": 9,
+              "correct": 0,
+              "accuracy": 0.0
+            },
+            "Ipomoea indica": {
+              "n": 6,
+              "correct": 0,
+              "accuracy": 0.0
+            },
+            "Mollugo verticillata": {
+              "n": 8,
+              "correct": 7,
+              "accuracy": 0.875
+            },
+            "Physalis angulata": {
+              "n": 4,
+              "correct": 1,
+              "accuracy": 0.25
+            },
+            "Portulaca oleracea": {
+              "n": 9,
+              "correct": 9,
+              "accuracy": 1.0
+            },
+            "Red root amaranth": {
+              "n": 9,
+              "correct": 0,
+              "accuracy": 0.0
+            },
+            "Senna obtusifolia": {
+              "n": 5,
+              "correct": 5,
+              "accuracy": 1.0
+            },
+            "Sida rhombifolia": {
+              "n": 5,
+              "correct": 0,
+              "accuracy": 0.0
+            },
+            "Taraxacum officinale": {
+              "n": 7,
+              "correct": 3,
+              "accuracy": 0.42857142857142855
+            },
+            "Thorn apple": {
+              "n": 9,
+              "correct": 0,
+              "accuracy": 0.0
+            },
+            "White goosefoot": {
+              "n": 10,
+              "correct": 0,
+              "accuracy": 0.0
+            },
+            "Xanthium strumarium": {
+              "n": 5,
+              "correct": 3,
+              "accuracy": 0.6
+            }
+          },
+          "by_dataset": {
+            "CottonWeedDet12": {
+              "n": 56,
+              "correct": 32,
+              "accuracy": 0.5714285714285714
+            },
+            "CropAndWeed": {
+              "n": 53,
+              "correct": 0,
+              "accuracy": 0.0
+            },
+            "MultipleWeedSpeciesDetection": {
+              "n": 15,
+              "correct": 9,
+              "accuracy": 0.6
+            }
+          }
+        },
+        "species_id/open_ended/unannotated": {
+          "n_total": 84,
+          "n_answered": 69,
+          "n_failed": 15,
+          "correct": 28,
+          "incorrect": 40,
+          "unsure": 1,
+          "invalid": 0,
+          "accuracy": 0.4057971014492754,
+          "accuracy_ci95": [
+            0.29788729078613463,
+            0.5236432631830259
+          ],
+          "accuracy_all": 0.3333333333333333,
+          "unsure_rate": 0.014492753623188406,
+          "chance_accuracy": null,
+          "macro_f1": null,
+          "by_class": {
+            "Ambrosia artemisiifolia": {
+              "n": 6,
+              "correct": 2,
+              "accuracy": 0.3333333333333333
+            },
+            "Eclipta": {
+              "n": 6,
+              "correct": 3,
+              "accuracy": 0.5
+            },
+            "Ipomoea indica": {
+              "n": 7,
+              "correct": 0,
+              "accuracy": 0.0
+            },
+            "Portulaca oleracea": {
+              "n": 12,
+              "correct": 12,
+              "accuracy": 1.0
+            },
+            "Red root amaranth": {
+              "n": 5,
+              "correct": 0,
+              "accuracy": 0.0
+            },
+            "Senna obtusifolia": {
+              "n": 5,
+              "correct": 4,
+              "accuracy": 0.8
+            },
+            "Sida rhombifolia": {
+              "n": 8,
+              "correct": 1,
+              "accuracy": 0.125
+            },
+            "Taraxacum officinale": {
+              "n": 5,
+              "correct": 2,
+              "accuracy": 0.4
+            },
+            "White goosefoot": {
+              "n": 9,
+              "correct": 0,
+              "accuracy": 0.0
+            },
+            "Xanthium strumarium": {
+              "n": 6,
+              "correct": 4,
+              "accuracy": 0.6666666666666666
+            }
+          },
+          "by_dataset": {
+            "CottonWeedDet12": {
+              "n": 44,
+              "correct": 22,
+              "accuracy": 0.5
+            },
+            "CropAndWeed": {
+              "n": 14,
+              "correct": 0,
+              "accuracy": 0.0
+            },
+            "MultipleWeedSpeciesDetection": {
+              "n": 11,
+              "correct": 6,
+              "accuracy": 0.5454545454545454
+            }
+          }
+        }
+      },
+      "species_id_multiple_choice_vs_open_ended": {
+        "unannotated": {
+          "n_pairs": 68,
+          "multiple_choice_accuracy": 0.9852941176470589,
+          "open_ended_accuracy": 0.4117647058823529
+        },
+        "boxed": {
+          "n_pairs": 122,
+          "multiple_choice_accuracy": 0.9918032786885246,
+          "open_ended_accuracy": 0.3360655737704918
+        }
+      }
+    }
+  }
+}

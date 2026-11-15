@@ -1,0 +1,39 @@
+{
+  "state": "finished",
+  "started_at": "2026-10-29T11:52:27.305020+00:00",
+  "updated_at": "2026-10-29T11:53:04.027837+00:00",
+  "elapsed_seconds": 36.7,
+  "total": 40,
+  "answered": 40,
+  "failed": 0,
+  "remaining": 0,
+  "in_flight": 0,
+  "retries": 0,
+  "requests_per_second": 1.089,
+  "eta_seconds": null,
+  "cost_usd": 0.108383,
+  "models": {
+    "textual": {
+      "total": 20,
+      "already_done": 0,
+      "ok": 20,
+      "failed": 0,
+      "retries": 0,
+      "in_flight": 0,
+      "cost_usd": 0.046259,
+      "tokens": 30651,
+      "stopped_early": false
+    },
+    "visual": {
+      "total": 20,
+      "already_done": 0,
+      "ok": 20,
+      "failed": 0,
+      "retries": 0,
+      "in_flight": 0,
+      "cost_usd": 0.062124,
+      "tokens": 49152,
+      "stopped_early": false
+    }
+  }
+}

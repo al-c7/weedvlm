@@ -1,0 +1,45 @@
+# Qwen 3.7 Flash on the weed localisation task only
+# (docs/WEED-LOCALISATION.md):
+#
+#   uv run src/weedvlm/scripts/run-evaluation.py --config test-run-configurations/qwen-3.7-flash-localisation.yaml
+
+questions_dir: questions/
+output_dir: results/
+run_name: qwen-3.7-flash-localisation-mixed
+
+tasks:
+  species_id: false
+  fine_grained: false
+  density: false
+  grounded_vqa: false
+  localisation: true
+
+models:
+  # Reasoning off: at the default each answer took 50-95 s and 2000-4400
+  # thinking tokens, and `effort: low` made no difference.
+  - id: qwen/qwen3.7-flash
+    extra_body:
+      reasoning: {enabled: false}
+    # Qwen's own response_format is unreliable (it says [y_min, x_min, ...]
+    # or "pixels" for boxes that are [xmin, ymin, xmax, ymax] on 0-1000).
+    bbox_format: xyxy_1000
+
+concurrency: 16
+
+defaults:
+  temperature: 0.0
+  # Qwen is a reasoning model and spends most of this on hidden thinking
+  # (1024 cut every reply off in mini-model-run); a reply cut off by the
+  # limit is recorded as a failure.
+  max_tokens: 16384
+  timeout_seconds: 300          # replies take 50-95 s with the thinking
+
+retry:
+  max_retries: 5
+  max_parse_retries: 2
+  backoff_base_seconds: 2
+  backoff_max_seconds: 60
+  model_failure_threshold: 25
+
+seed: 0
+progress_interval_seconds: 5

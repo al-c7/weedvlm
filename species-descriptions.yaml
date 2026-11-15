@@ -1,0 +1,424 @@
+# Reference descriptions of the target species, shown to both rationale
+# judges (src/weedvlm/reasoning) for questions that involve a particular
+# species: species ID (the correct species), grounded VQA (the species asked
+# about) and weed localisation (the target species). Fine-grained and density
+# questions name no species, so they get none. The VLM being judged is never
+# given these.
+#
+# Key: the species name as it appears in the benchmark (case-insensitive).
+# description: a short description of how to recognise the species -- leaf
+#   shape, arrangement, stem, flowers, growth habit, and look-alikes to
+#   avoid confusing it with -- so the judge can tell whether a rationale
+#   cites features the species really has. A sampled question whose species
+#   is missing or left empty here stops the run before anything is sent.
+# sources: links the description was written from. Kept for provenance;
+#   never shown to the judges.
+#
+# The list below is every species named by the questions in
+# notebooks/weedvlm_scored_responses.parquet.
+
+Amaranthus tuberculatus:
+  description: >-
+    Tall waterhemp, a summer annual. What sets it apart from similar Amaranthus species is that
+    its stems and leaves lack hair, which gives the leaves a bright, glossy appearance. The stem
+    is erect and slender, green or red, up to about three feet long. The plant is dioecious:
+    female seedhead branches are numerous, short and smooth, while male seedhead branches are
+    fewer, longer and more slender. It has terminal spike inflorescences with very short bracts
+    and simple to highly branched flowers, and the seed is reddish to black and under 1/32 inch
+    across. It emerges over several months, often later in the season than other annual weeds.
+  sources:
+    - https://www.inaturalist.org/taxa/75400-Amaranthus-tuberculatus
+
+Ambrosia artemisiifolia:
+  description: >-
+    Common ragweed, an annual that emerges in late spring and spreads by seed. It is much-branched
+    and grows up to 70 cm tall. The leaves are pinnately divided, soft and hairy, 3-12 cm long,
+    and were thought to resemble the leaves of Artemisia (wormwood), which gives the species its
+    name. It blooms from July to October in North America, with wind-dispersed pollen that is a
+    strong hay fever allergen. The fruit is a 2-4 mm obconic green to brown structure, set in late
+    summer or autumn.
+  sources:
+    - https://www.inaturalist.org/taxa/53587-Ambrosia-artemisiifolia
+
+Bassia scoparia:
+  description: >-
+    Kochia (also summer cypress, mock-cypress, burningbush, Mexican fireweed), a large annual herb
+    in the Amaranthaceae, native to Eurasia and introduced to North America, where it grows in
+    grassland, prairie and desert shrub. The names burningbush, Mexican firebrush and Mexican
+    fireweed refer to its red autumn foliage. The fruit, with the calyx attached, is dull brown,
+    and the seeds are dull black to dark blackish-brown. At maturity the whole plant detaches and
+    rolls in the wind as a tumbleweed.
+  sources:
+    - https://www.inaturalist.org/taxa/159194-Bassia-scoparia
+
+Chenopodium album:
+  description: >-
+    Chenopodium album (white goosefoot; also lamb's quarters, melde, fat-hen, wild spinach) is a
+    fast-growing annual in the Amaranthaceae. It grows upright at first, 10-150 cm (rarely to 3
+    m), then typically becomes recumbent after flowering unless supported by other plants. Leaves
+    are alternate and varied: the first leaves near the base are toothed and roughly diamond-
+    shaped, 3-7 cm long and 3-6 cm broad, while leaves on the upper flowering stems are entire and
+    lanceolate-rhomboid, 1-5 cm long and 0.4-2 cm broad. The leaves are waxy-coated, unwettable
+    and mealy in appearance, with a whitish coat on the underside. The small flowers are radially
+    symmetrical, with five tepals that are mealy on the outer surface and five stamens, and grow
+    in small cymes on a dense branched inflorescence 10-40 cm long. The consistently white-mealy
+    leaves and flower clusters separate it from maple-leaf goosefoot (Chenopodium hybridum), whose
+    leaves are bright green, smooth and sharply lobed.
+  sources:
+    - https://www.inaturalist.org/taxa/58127-Chenopodium-album
+
+Cockspur grass:
+  description: >-
+    Echinochloa crus-galli (cockspur, barnyard grass, barnyard millet, water grass), a wild grass
+    originating from tropical Asia. It can reach 1.5 m tall and has long, flat leaves that are
+    often purplish at the base. Most stems are upright but some spread over the ground, and the
+    stems are flattened at the base. The seed heads are distinctive: often purplish, with large
+    millet-like seeds in crowded spikelets. Barnyard grass can refer to any species of the genus
+    Echinochloa.
+  sources:
+    - https://www.inaturalist.org/taxa/60283-Echinochloa-crus-galli
+
+Common corn cockle:
+  description: >-
+    Agrostemma githago (common corn-cockle), a herbaceous annual in the pink (carnation) family.
+    It is an erect plant covered in fine hairs, with a stem to 100 cm and few branches, each
+    tipped with a single deep pink to purple, scentless flower 25-50 mm across (up to 5 cm),
+    produced in summer. The five narrow, pointed sepals are much longer than the petals and are
+    joined at the base into a rigid, ten-ribbed tube; each petal bears two or three discontinuous
+    black lines, and there are ten stamens. Leaves are pale green, opposite, narrowly lanceolate
+    and held nearly erect against the stem, 45-145 mm long. The fruit is a many-seeded capsule. It
+    is found in fields, roadsides, railway lines, waste places and other disturbed areas.
+  sources:
+    - https://www.inaturalist.org/taxa/75310-Agrostemma-githago
+
+Copse bindweed:
+  description: >-
+    Fallopia dumetorum (thicket bindweed), an annual climbing herb native to east Asia and
+    introduced to New England, where it occurs in waste areas, roadsides, back dunes and pond
+    shores; the species name refers to a climbing bramble. Leaves are simple, alternate, with
+    entire edges (no teeth or lobes). The flowers are radially symmetrical with five tepals fused
+    into a cup or tube, in green to brown, pink to red or white, with eight stamens. The fruit is
+    dry, does not split open when ripe, and is 2-4 mm long.
+  sources:
+    - https://www.inaturalist.org/taxa/204320-Fallopia-dumetorum
+
+Cornflower:
+  description: >-
+    Centaurea cyanus (cornflower, bachelor's button), an annual in the Asteraceae native to Europe
+    that formerly grew as a weed of cornfields. It grows 20-100 cm tall with grey-green branched
+    stems and lanceolate leaves 3-10 cm long. The flowers are most commonly an intense blue,
+    arranged in flowerheads 1.5-3 cm across with a ring of a few large, spreading ray florets
+    around a central cluster of disc florets. Fruits are about 3.5 mm long with 2-3 mm pappus
+    bristles. It flowers all summer.
+  sources:
+    - https://www.inaturalist.org/taxa/933404-Centaurea-cyanus
+
+Creeping thistle:
+  description: >-
+    Cirsium arvense, a herbaceous perennial in the Asteraceae, commonly misnamed Canada thistle or
+    field thistle. It grows up to 150 cm and forms extensive clonal colonies from thickened roots
+    that send up numerous erect shoots. Stems are 30-150 cm, slender, green, freely branched,
+    smooth and hairless, mostly without spiny wings. Leaves are alternate, sessile and clasping or
+    shortly decurrent, very spiny and lobed, up to 15-20 cm long and 2-3 cm broad, smaller on the
+    upper stem. The flower heads are 10-22 mm across and pink-purple, with all florets of similar
+    form (no division into disc and ray florets), one to five heads per branch. The seeds are 4-5
+    mm long with a feathery pappus. It is a ruderal (disturbed-ground) species.
+  sources:
+    - https://www.inaturalist.org/taxa/60132-Cirsium-arvense
+
+Eclipta:
+  description: >-
+    Eclipta prostrata (false daisy, tattoo plant), a weedy member of the Asteraceae found in moist
+    places such as marsh edges, lake shores and river banks. It has solid, circular, purplish
+    stems with fine white hairs, growing 0.3-1.5 m tall. Leaves are arranged in opposite pairs,
+    hairy on both sides, lanceolate and serrated, 2-12.5 cm long and 5-35 mm wide. The solitary
+    flower heads are 6-8 mm across with white florets, and the achenes are bumpy, compressed and
+    narrowly winged. (The benchmark class is the genus; this describes E. prostrata, the species
+    present.)
+  sources:
+    - https://www.inaturalist.org/taxa/76765-Eclipta-prostrata
+
+Eleusine indica:
+  description: >-
+    Goosegrass (also Indian goosegrass, yard-grass, wiregrass, crowfootgrass), a small, low-
+    growing, tufted annual or short-lived grass that thrives in disturbed, compacted soils in full
+    sun, including lawns and cultivated crops, and can set seed even when closely mown. Stems are
+    spreading or semi-upright, up to 60 cm tall. The leaf sheaths are prominently keeled with a
+    membranous ligule 0.5-1 mm long at the base of the blade; the narrow leaf blades are 3-35 cm
+    long and 3-8 mm wide and mostly hairless. The seed-heads have 1-15 branches (3.5-15.5 cm long)
+    radiating outwards from the same point, with numerous spikelets (3.5-7 mm long) densely
+    arranged along them. It germinates later in spring than most temperate weeds such as
+    crabgrasses.
+  sources:
+    - https://www.inaturalist.org/taxa/76790-Eleusine-indica
+    - https://weeds.brisbane.qld.gov.au/weeds/crowsfoot-grass
+
+Euphorbia maculata:
+  description: >-
+    Spotted spurge (also prostrate spurge, milk purslane), a fast-growing annual in the
+    Euphorbiaceae found in disturbed soils such as garden beds, railroad tracks and cracks in
+    pavement. It is typically prostrate, rarely above 30 cm tall, with stems spreading in a mat
+    along the ground, each rarely longer than 45 cm. The leaves are small, oblong to oval but
+    rather elongate (up to 3 cm), opposite, hairy, with a generally crenate (scalloped) edge, and
+    each is marked with a small brown spot in the centre. The cyathia (flower structures) are very
+    small, with four white, sometimes pink, petal-like appendages. The fruit is a small, hairy,
+    3-lobed capsule. The sap is milky and a mild skin irritant. It is similar to Euphorbia
+    prostrata, which has shorter, more rounded leaves, and E. serpens, which has very short,
+    rounded leaves.
+  sources:
+    - https://www.inaturalist.org/taxa/58893-Euphorbia-maculata
+
+Field bindweed:
+  description: >-
+    Convolvulus arvensis, a rhizomatous perennial vine, climbing or creeping, with stems 0.5-2 m
+    long, usually found at ground level. The leaves are alternate, linear to arrowhead-shaped, 2-5
+    cm long, on petioles 1-3 cm long. The flowers are trumpet-shaped, 1-2.5 cm across, white or
+    pale pink with five slightly darker pink radial stripes, subtended by small bracts, and appear
+    in mid summer. The fruit is light brown, rounded and 3-4 mm wide, with two or four seeds. The
+    stems climb by twisting counter-clockwise around other plant stems.
+  sources:
+    - https://www.inaturalist.org/taxa/53021-Convolvulus-arvensis
+
+Field milk thistle:
+  description: >-
+    Perennial sow-thistle (Sonchus arvensis), a perennial herb that spreads by long creeping roots
+    or stems, with milky white sap throughout. Stems are upright, simple or branched near the top,
+    finely grooved, hollow and 50-150 cm tall. Leaves are alternate, firm, dark green (paler
+    beneath), hairless and lance-shaped, variably divided with coarsely toothed edges and pointed
+    lobes bent downward; rosette and lower leaves are 15-35 cm long and 3-10 cm wide, divided
+    about halfway to the midrib, while upper leaves are less lobed and narrow-triangular. Stem
+    leaves clasp the stem and have no stalks. The branched inflorescence has numerous flower heads
+    40-50 mm across, made up entirely of yellow ligulate florets (no tubular ones), each
+    surrounded by 25-45 bracts that are hairless or covered in white tangled hairs and long yellow
+    glandular hairs. The fruits are dark brown, ribbed and wrinkled, topped by a tuft of silky
+    white pappus hairs.
+  sources:
+    - https://weeds.org.au/profiles/perennial-sow-thistle/
+
+Geraniums:
+  description: >-
+    Geranium maculatum (wild or spotted geranium, wood geranium), a perennial herbaceous plant
+    growing up to 60 cm tall with upright, usually unbranched stems, flowering in spring to early
+    summer. The leaves are palmately lobed with five or seven deeply cut lobes, 10-12.5 cm broad,
+    on petioles up to 30 cm long arising from the rootstock; they are deeply parted into three or
+    five divisions, each of which is again cleft and toothed. The flowers are 2.5-4 cm across,
+    with five rose-purple, pale or violet-purple (rarely white) petals and ten stamens, grouped in
+    loose corymbs or umbels of two to five at the top of the flower stems. The fruit is a capsule
+    of five cells, each holding one seed, joined to a long, beak-like column 2-3 cm long
+    (resembling a crane's bill) that springs open when ripe. It has a long, thick, branched
+    rhizome. (The benchmark class is the genus Geranium; this describes G. maculatum, a
+    representative species.)
+  sources:
+    - https://www.inaturalist.org/taxa/47699-Geranium-maculatum
+
+German chamomile:
+  description: >-
+    Matricaria chamomilla (synonym M. recutita; also wild chamomile, scented mayweed), an annual
+    in the Asteraceae. It has a branched, erect, smooth stem growing 15-60 cm tall, with long,
+    narrow bipinnate or tripinnate leaves. The flowers are borne in paniculate flower heads
+    (capitula) with white ray florets and yellow disc florets, and are fragrant, blooming in early
+    to midsummer. The hollow, swollen receptacle lacks scales, which distinguishes it from corn
+    chamomile (Anthemis arvensis), whose receptacle has scales.
+  sources:
+    - https://www.inaturalist.org/taxa/77965-Matricaria-chamomilla
+
+Hybrid goosefoot:
+  description: >-
+    Maple-leaf goosefoot (Chenopodium hybridum; also treated as Chenopodiastrum simplex or
+    Chenopodium gigantospermum), an annual found mostly in moist, usually shaded, rocky or sandy
+    soils and less weedy than most other Chenopodium species. It is one of the easier Chenopodium
+    species to identify. Leaves are alternate, 1.5 to over 6 inches long and up to about 4 inches
+    wide, triangular to egg-shaped in outline, irregularly lobed with a few large, sharply
+    pointed, tooth-like lobes separated by a broad, rounded sinus, with a heart-shaped to straight
+    base. They are bright green, hairless and smooth, only sparsely white-mealy when young, and
+    the lower leaves are largest, on stalks up to about 1 inch long. Stems are usually erect,
+    green and smooth. The tiny petal-less flowers are packed in rounded clusters (glomerules) in
+    spike-like, heavily branched arrangements at the stem tips and upper leaf axils; the calyx
+    usually has five lobes, and the flowers are sometimes pinkish and may redden with age. The
+    fruit matures from green to brown, and the seeds are flattened, shiny black, 1-2 mm long and
+    larger than most other goosefoots. By comparison, other Chenopodium species have rounded or
+    unlobed leaves, consistently white-mealy leaves and flower clusters, only 3 (or 4) calyx
+    lobes, and seeds under 1 mm that are brown or more deeply pitted.
+  sources:
+    - https://www.minnesotawildflowers.info/flower/maple-leaf-goosefoot
+
+Ipomoea indica:
+  description: >-
+    Blue morning glory (also oceanblue morning glory), a vigorous, long-lived perennial twining
+    vine that climbs over other plants, walls and slopes, found in disturbed forests, forest
+    edges, roadsides and waterways. The stems are herbaceous and more or less densely hairy, with
+    backward-pointing hairs. The leaves have petioles 2-18 cm long and egg-shaped or round blades
+    5-15 cm long and 3.5-14 cm wide, with a heart-shaped base, an entire or three-lobed margin and
+    a pointed tip; the underside is densely hairy and the top more or less sparsely hairy. The
+    flowers are funnel-shaped, 5-8 cm across, smooth, bright blue or bluish purple with a slightly
+    paler centre, ageing to reddish purple or red.
+  sources:
+    - https://www.inaturalist.org/taxa/77496-Ipomoea-indica
+
+Meadow grass:
+  description: >-
+    Poa, a genus of about 570 grass species with both annual and perennial members, known as
+    meadow-grass (Europe and Asia) or bluegrass (North America). The leaves are narrow, linear,
+    folded or flat blades that often end in a boat-shaped tip, with open or closed sheaths (the
+    basal sheath flattened or sometimes thickened) and a membranous ligule. Bluegrass has green
+    leaves and is named for its seed heads, which are blue when the plant grows to its natural
+    height of two to three feet.
+  sources:
+    - https://www.inaturalist.org/taxa/52809-Poa
+
+Mercuries:
+  description: >-
+    Mercurialis, a genus in the spurge family (Euphorbiaceae) of slender herbs and rhizomatous or
+    woody perennials native to Europe, North Africa and Asia. Dog's mercury (M. perennis) is a
+    poisonous, downy woodland perennial with erect stems and simple, serrate leaves, forming dense
+    carpets on woodland floors and beneath hedgerows; its green flowers are inconspicuous, borne
+    February to April. Annual mercury (M. annua) is an annual herb 30-50 cm tall (up to 1 m) of
+    bare sandy soils and an agricultural and urban weed. It has an erect, branched, mostly
+    hairless stem with two strong ridges that change sides at each node, and a watery sap rather
+    than the white latex of other spurges. Its leaves are opposite, ovate with a pointed tip,
+    about 7 cm by 3.5 cm, on a short petiole with tiny green stipules, with up to about ten blunt
+    teeth along each side. Male flowers are on long stalks from the leaf axils projecting beyond
+    the leaves, female flowers are in sessile clusters of one to four at the nodes, and flowers
+    have three yellowish-green perianth segments about 2 mm long. The fruit is a warty, spiky
+    capsule up to 4 mm long that splits in two.
+  sources:
+    - https://www.inaturalist.org/taxa/68845-Mercurialis
+    - https://en.wikipedia.org/wiki/Mercurialis_perennis
+    - https://en.wikipedia.org/wiki/Mercurialis_annua
+
+Mollugo verticillata:
+  description: >-
+    Green carpetweed (Indian chickweed), a rapidly spreading annual from tropical America and a
+    common weed of disturbed areas. It forms a prostrate circular mat that sprawls across the soil
+    and can climb over nearby plants. The narrow leaves are whorled, three to eight at each node,
+    obovate, 1-3 cm long, with a rounded to acute apex; the plant may lose its basal rosette at
+    maturity. The flowers are in clusters of two to five on tiny stalks 5-15 mm long, white or
+    greenish white, blooming July to September, and quickly become egg-shaped capsules 1.5-4 mm
+    long that open at maturity, with tiny red to rusty-brown seeds 0.5 mm long.
+  sources:
+    - https://www.inaturalist.org/taxa/78090-Mollugo-verticillata
+
+Physalis angulata:
+  description: >-
+    An erect herbaceous annual in the nightshade family. The leaves are dark green and roughly
+    ovate, often with serrate margins. The flowers are five-sided and pale yellow, and the yellow-
+    orange fruits are borne inside a balloon-like calyx. It is widely naturalized in tropical and
+    subtropical regions worldwide.
+  sources:
+    - https://www.inaturalist.org/taxa/61374-Physalis-angulata
+
+Portulaca oleracea:
+  description: >-
+    Common purslane (little hogweed, pursley), a succulent, usually annual plant growing from a
+    taproot, reaching up to 40 cm tall. It has smooth, reddish, mostly prostrate stems, and the
+    leaves, which may be alternate or opposite, are clustered at the stem joints and ends. The
+    yellow flowers have five regular parts and are up to 6 mm wide, opening singly at the centre
+    of the leaf cluster for only a few hours on sunny mornings. The fruit is a many-seeded capsule
+    (pod) that opens when the seeds mature.
+  sources: [https://www.inaturalist.org/taxa/1571188-Portulaca-oleracea]
+
+Potato weed:
+  description: >-
+    Galinsoga parviflora (gallant soldier, quickweed), a branched herb in the daisy family growing
+    up to 75 cm tall. It has opposite, stalked leaves that are toothed at the margins. The flowers
+    are in small heads with three to eight white ray florets about 10 mm long and three-lobed,
+    around central yellow, tubular disc florets.
+  sources:
+    - https://www.inaturalist.org/taxa/48178-Galinsoga-parviflora
+
+Red root amaranth:
+  description: >-
+    Amaranthus retroflexus (redroot pigweed, red-rooted pigweed, common amaranth), an erect annual
+    herb growing to about 1 m that forms a tumbleweed and is a weed outside its native range. The
+    leaves reach nearly 15 cm long on large plants: those higher on the stem are lance-shaped and
+    those lower down are diamond-shaped or oval. The plant is monoecious (each plant bears male
+    and female flowers). The inflorescence is a large, dense cluster of flowers interspersed with
+    spiny green bracts. The fruit is a capsule under 2 mm long with a lid that opens to reveal a
+    tiny black seed.
+  sources:
+    - https://www.inaturalist.org/taxa/58776-Amaranthus-retroflexus
+
+Senna obtusifolia:
+  description: >-
+    Sicklepod, a branched annual herb in the bean family (Fabaceae) growing to 2-5 feet tall and
+    wide in open woodlands and fields, in full sun. The bright green leaves are pinnately divided,
+    with rounded leaflets that have a point at the tip (obtusifolia means blunt-leaved). It bears
+    showy, yellow, five-petaled flowers from late summer into fall, followed by sickle-shaped bean
+    pods, which give the plant its common name.
+  sources:
+    - https://plants.ces.ncsu.edu/plants/senna-obtusifolia/
+
+Sida rhombifolia:
+  description: >-
+    Arrowleaf sida (rhombus-leaved sida, Paddy's lucerne, jelly leaf), a perennial or sometimes
+    annual plant in the Malvaceae. The stems are erect to sprawling and branched, 50-120 cm tall,
+    woody in the lower sections. The dark green, diamond-shaped leaves are alternate, 4-8 cm long,
+    on petioles less than a third the leaf length, paler below with short greyish hairs; the
+    apical half of the leaf has toothed or serrated margins and the rest is smooth. The petioles
+    have small spiny stipules at their bases. The flowers are single on stalks arising between
+    stem and petiole, with five asymmetric, overlapping petals 4-8 mm long, creamy to orange-
+    yellow and sometimes reddish in the centre, and the stamens are united in a short column. The
+    fruit is a ribbed capsule that breaks into 8-10 segments. It blooms throughout the year.
+  sources:
+    - https://www.inaturalist.org/taxa/79077-Sida-rhombifolia
+
+Taraxacum officinale:
+  description: >-
+    Common dandelion, a herbaceous perennial in the daisy family growing from a generally
+    unbranched taproot, with milky latex. All the leaves are basal, 5-45 cm long and 1-10 cm wide,
+    oblanceolate, oblong or obovate and gradually narrowing to the petiole, with margins that are
+    shallowly to deeply lobed and often lacerate or toothed. The hollow, leafless flower stems are
+    typically 5-40 cm tall (up to 70 cm), sometimes tinted purplish, and each bears no bracts and
+    a single flower head held as tall or taller than the foliage. The yellow flower heads have all
+    florets ligulate (40 to over 100 per head), with a green to brownish-green involucre whose
+    outer bracts (12-18) are reflexed. The fruit (cypsela) is 2-3 mm long with a slender beak and
+    a silky white pappus, and the heads turn into round balls of silver-tufted fruit ('clocks' or
+    'blowballs') dispersed by wind. It grows in moist soils and is often a weed of lawns.
+  sources:
+    - https://www.inaturalist.org/taxa/47602-Taraxacum-officinale
+
+Thorn apple:
+  description: >-
+    Datura stramonium (thornapple, jimsonweed, stink blade), a poisonous, erect, annual, freely
+    branching herb in the nightshade family that forms a bush 60-150 cm tall; an aggressive
+    invasive weed in temperate and tropical climates. The root is long, thick, fibrous and white.
+    The stem is stout, erect, leafy and smooth, pale yellow-green to reddish purple, and forks
+    repeatedly, with each fork forming a leaf and a single erect flower. The leaves are about 8-20
+    cm long, smooth, toothed, soft and irregularly undulated, darker green above and light green
+    below. It flowers throughout the summer: the flowers are trumpet-shaped, white to creamy or
+    violet, 6-9 cm long, fragrant, and borne on short stems from the leaf axils or the forks of
+    the branches; they open at night. The calyx is long, tubular, swollen at the bottom and
+    sharply angled, topped by five sharp teeth, and the white, funnel-shaped corolla has prominent
+    ribs and is folded and only partly open. The egg-shaped seed capsule is 3-8 cm across, either
+    covered with spines or smooth, and at maturity splits into four chambers, each holding dozens
+    of small black seeds.
+  sources:
+    - https://www.inaturalist.org/taxa/55854-Datura-stramonium
+
+White goosefoot:
+  description: >-
+    Chenopodium album (white goosefoot; also lamb's quarters, melde, fat-hen, wild spinach) is a
+    fast-growing annual in the Amaranthaceae. It grows upright at first, 10-150 cm (rarely to 3
+    m), then typically becomes recumbent after flowering unless supported by other plants. Leaves
+    are alternate and varied: the first leaves near the base are toothed and roughly diamond-
+    shaped, 3-7 cm long and 3-6 cm broad, while leaves on the upper flowering stems are entire and
+    lanceolate-rhomboid, 1-5 cm long and 0.4-2 cm broad. The leaves are waxy-coated, unwettable
+    and mealy in appearance, with a whitish coat on the underside. The small flowers are radially
+    symmetrical, with five tepals that are mealy on the outer surface and five stamens, and grow
+    in small cymes on a dense branched inflorescence 10-40 cm long. The consistently white-mealy
+    leaves and flower clusters separate it from maple-leaf goosefoot (Chenopodium hybridum), whose
+    leaves are bright green, smooth and sharply lobed.
+  sources:
+    - https://www.inaturalist.org/taxa/58127-Chenopodium-album
+
+Xanthium strumarium:
+  description: >-
+    A coarse annual herb to 1.5 m tall, with stems that are scabridulous (finely rough) and often
+    reddish. The leaves are broadly deltate or broadly ovate, simple or three- to five-lobed, 5-12
+    cm long and 4-18 cm wide, with a cordate (heart-shaped) to broadly wedge-shaped base, coarsely
+    crenate margins and an acute or obtuse apex, rough on both surfaces and three-veined from the
+    base, on a petiole up to 12 cm long. Male flower heads are terminal on short axillary
+    branches, and female heads are up to 4 mm long with a fused involucre. The fruit is ellipsoid,
+    1.5-2.3 cm long, covered in hooked spines 3-4 mm long, with an acute apex.
+  sources:
+    - https://powo.science.kew.org/taxon/urn:lsid:ipni.org:names:260893-1/general-information

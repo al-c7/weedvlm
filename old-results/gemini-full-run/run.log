@@ -1,0 +1,497 @@
+2026-09-26 14:58:25,505 INFO retry google/gemini-3.8-flash x MultipleWeedSpeciesDetection:534:xanthium strumarium:species_id_multiple_choice: unusable reply: no JSON object found in the reply
+2026-09-26 15:00:51,394 INFO retry google/gemini-3.8-flash x CottonWeedDet12:3581:euphorbia maculata:species_id_multiple_choice: unusable reply: no JSON object found in the reply
+2026-09-26 15:01:21,709 INFO retry google/gemini-3.8-flash x CropAndWeed:4644:german chamomile:species_id_multiple_choice: unusable reply: no JSON object found in the reply
+2026-09-26 15:01:34,727 INFO retry google/gemini-3.8-flash x CropAndWeed:4287:german chamomile:species_id_multiple_choice: unusable reply: no JSON object found in the reply
+2026-09-26 15:01:49,582 INFO retry google/gemini-3.8-flash x CropAndWeed:4287:german chamomile:species_id_multiple_choice: unusable reply: no JSON object found in the reply
+2026-09-26 15:02:09,674 INFO retry google/gemini-3.8-flash x CropAndWeed:4639:cockspur grass:species_id_multiple_choice: unusable reply: no JSON object found in the reply
+2026-09-26 15:02:09,924 INFO retry google/gemini-3.8-flash x CropAndWeed:4314:cockspur grass:species_id_multiple_choice: unusable reply: no JSON object found in the reply
+2026-09-26 15:02:20,545 INFO retry google/gemini-3.8-flash x CropAndWeed:4314:cockspur grass:species_id_multiple_choice: unusable reply: no JSON object found in the reply
+2026-09-26 15:02:22,112 INFO retry google/gemini-3.8-flash x CropAndWeed:4639:cockspur grass:species_id_multiple_choice: unusable reply: no JSON object found in the reply
+2026-09-26 15:02:33,628 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:4639:cockspur grass:species_id_multiple_choice after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:02:35,035 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:4314:cockspur grass:species_id_multiple_choice after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:03:52,614 INFO retry google/gemini-3.8-flash x CropAndWeed:4598:thorn apple:species_id_multiple_choice: JSON error injected into SSE stream (retry in 1.3s)
+2026-09-26 15:04:17,959 INFO retry google/gemini-3.8-flash x CropAndWeed:3576:thorn apple:species_id_multiple_choice: unusable reply: no JSON object found in the reply
+2026-09-26 15:04:31,132 INFO retry google/gemini-3.8-flash x CropAndWeed:4477:hybrid goosefoot:species_id_multiple_choice: google/gemini-3.8-flash is temporarily rate-limited upstream. Please retry shortly, or add your own key to accumulate yo (retry in 1.5s)
+2026-09-26 15:07:04,282 INFO retry google/gemini-3.8-flash x CottonWeedDet12:1599:portulaca oleracea:species_id_multiple_choice:unannotated: Provider returned error (error code: 520
+) (retry in 1.5s)
+2026-09-26 15:07:53,053 INFO retry google/gemini-3.8-flash x CottonWeedDet12:5199:ambrosia artemisiifolia:species_id_multiple_choice:unannotated: unusable reply: no JSON object found in the reply
+2026-09-26 15:07:58,208 INFO retry google/gemini-3.8-flash x CottonWeedDet12:5595:ambrosia artemisiifolia:species_id_multiple_choice:unannotated: unusable reply: no JSON object found in the reply
+2026-09-26 15:07:58,298 INFO retry google/gemini-3.8-flash x CottonWeedDet12:3932:ambrosia artemisiifolia:species_id_multiple_choice:unannotated: unusable reply: no JSON object found in the reply
+2026-09-26 15:12:27,773 INFO retry google/gemini-3.8-flash x MultipleWeedSpeciesDetection:539:xanthium strumarium:species_id_multiple_choice:unannotated: unusable reply: no JSON object found in the reply
+2026-09-26 15:14:27,670 INFO retry google/gemini-3.8-flash x CottonWeedDet12:3262:sida rhombifolia:species_id_multiple_choice:unannotated: unusable reply: no JSON object found in the reply
+2026-09-26 15:15:33,677 INFO retry google/gemini-3.8-flash x CottonWeedDet12:3688:eclipta:species_id_multiple_choice:unannotated:open_ended: unusable reply: no JSON object found in the reply
+2026-09-26 15:15:45,381 INFO retry google/gemini-3.8-flash x CottonWeedDet12:3901:amaranthus tuberculatus:species_id_multiple_choice:open_ended: unusable reply: no JSON object found in the reply
+2026-09-26 15:15:53,109 INFO retry google/gemini-3.8-flash x CottonWeedDet12:3688:eclipta:species_id_multiple_choice:unannotated:open_ended: unusable reply: no JSON object found in the reply
+2026-09-26 15:16:10,353 WARNING FAILED google/gemini-3.8-flash x CottonWeedDet12:3688:eclipta:species_id_multiple_choice:unannotated:open_ended after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:16:26,173 INFO retry google/gemini-3.8-flash x CottonWeedDet12:3693:eclipta:species_id_multiple_choice:unannotated:open_ended: unusable reply: no JSON object found in the reply
+2026-09-26 15:16:46,633 INFO retry google/gemini-3.8-flash x MultipleWeedSpeciesDetection:440:taraxacum officinale:species_id_multiple_choice:unannotated:open_ended: unusable reply: no JSON object found in the reply
+2026-09-26 15:16:48,024 INFO retry google/gemini-3.8-flash x CottonWeedDet12:3084:ambrosia artemisiifolia:species_id_multiple_choice:open_ended: unusable reply: no JSON object found in the reply
+2026-09-26 15:17:02,882 INFO retry google/gemini-3.8-flash x CottonWeedDet12:3084:ambrosia artemisiifolia:species_id_multiple_choice:open_ended: unusable reply: no JSON object found in the reply
+2026-09-26 15:17:05,930 INFO retry google/gemini-3.8-flash x CottonWeedDet12:4944:mollugo verticillata:species_id_multiple_choice:open_ended: unusable reply: no JSON object found in the reply
+2026-09-26 15:17:12,230 INFO retry google/gemini-3.8-flash x CottonWeedDet12:877:ipomoea indica:species_id_multiple_choice:open_ended: unusable reply: no JSON object found in the reply
+2026-09-26 15:17:18,743 WARNING FAILED google/gemini-3.8-flash x CottonWeedDet12:3084:ambrosia artemisiifolia:species_id_multiple_choice:open_ended after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:17:29,999 INFO retry google/gemini-3.8-flash x CottonWeedDet12:4268:mollugo verticillata:species_id_multiple_choice:open_ended: JSON error injected into SSE stream (retry in 1.9s)
+2026-09-26 15:17:30,366 INFO retry google/gemini-3.8-flash x CottonWeedDet12:4944:mollugo verticillata:species_id_multiple_choice:open_ended: unusable reply: no JSON object found in the reply
+2026-09-26 15:17:40,321 INFO retry google/gemini-3.8-flash x MultipleWeedSpeciesDetection:501:xanthium strumarium:species_id_multiple_choice:open_ended: unusable reply: no JSON object found in the reply
+2026-09-26 15:17:45,346 WARNING FAILED google/gemini-3.8-flash x CottonWeedDet12:4944:mollugo verticillata:species_id_multiple_choice:open_ended after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:17:55,465 INFO retry google/gemini-3.8-flash x MultipleWeedSpeciesDetection:501:xanthium strumarium:species_id_multiple_choice:open_ended: unusable reply: no JSON object found in the reply
+2026-09-26 15:18:27,713 INFO retry google/gemini-3.8-flash x CropAndWeed:3856:cockspur grass:species_id_multiple_choice:open_ended: unusable reply: no JSON object found in the reply
+2026-09-26 15:18:41,532 INFO retry google/gemini-3.8-flash x CropAndWeed:3856:cockspur grass:species_id_multiple_choice:open_ended: unusable reply: no JSON object found in the reply
+2026-09-26 15:18:55,854 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:3856:cockspur grass:species_id_multiple_choice:open_ended after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:19:13,639 INFO retry google/gemini-3.8-flash x CottonWeedDet12:5600:ambrosia artemisiifolia:species_id_multiple_choice:unannotated:open_ended: unusable reply: no JSON object found in the reply
+2026-09-26 15:19:15,192 INFO retry google/gemini-3.8-flash x CottonWeedDet12:2276:physalis angulata:species_id_multiple_choice:open_ended: unusable reply: no JSON object found in the reply
+2026-09-26 15:19:23,311 INFO retry google/gemini-3.8-flash x CottonWeedDet12:2381:sida rhombifolia:species_id_multiple_choice:open_ended: unusable reply: no JSON object found in the reply
+2026-09-26 15:19:37,594 INFO retry google/gemini-3.8-flash x CottonWeedDet12:2381:sida rhombifolia:species_id_multiple_choice:open_ended: unusable reply: no JSON object found in the reply
+2026-09-26 15:19:51,226 WARNING FAILED google/gemini-3.8-flash x CottonWeedDet12:2381:sida rhombifolia:species_id_multiple_choice:open_ended after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:22:09,840 INFO retry google/gemini-3.8-flash x CottonWeedDet12:4866:7925-7926:fine_grained_id: unusable reply: no JSON object found in the reply
+2026-09-26 15:22:11,353 INFO retry google/gemini-3.8-flash x CottonWeedDet12:483:545-547:fine_grained_id: unusable reply: no JSON object found in the reply
+2026-09-26 15:22:26,231 INFO retry google/gemini-3.8-flash x CottonWeedDet12:483:545-547:fine_grained_id: unusable reply: no JSON object found in the reply
+2026-09-26 15:22:26,349 INFO retry google/gemini-3.8-flash x CottonWeedDet12:4866:7925-7926:fine_grained_id: unusable reply: no JSON object found in the reply
+2026-09-26 15:22:41,168 WARNING FAILED google/gemini-3.8-flash x CottonWeedDet12:483:545-547:fine_grained_id after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:22:44,267 WARNING FAILED google/gemini-3.8-flash x CottonWeedDet12:4866:7925-7926:fine_grained_id after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:24:13,531 INFO retry google/gemini-3.8-flash x CropAndWeed:4438:55407-55424:fine_grained_id: unusable reply: no JSON object found in the reply
+2026-09-26 15:24:23,485 INFO retry google/gemini-3.8-flash x CottonWeedDet12:2880:4218-4219:fine_grained_id: unusable reply: no JSON object found in the reply
+2026-09-26 15:24:48,849 INFO retry google/gemini-3.8-flash x CropAndWeed:4521:56537-56542:fine_grained_id: unusable reply: no JSON object found in the reply
+2026-09-26 15:25:03,300 INFO retry google/gemini-3.8-flash x CropAndWeed:4521:56537-56542:fine_grained_id: unusable reply: no JSON object found in the reply
+2026-09-26 15:25:14,397 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:4521:56537-56542:fine_grained_id after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:25:42,692 INFO retry google/gemini-3.8-flash x CottonWeedDet12:1109:1323-1324:fine_grained_id: unusable reply: no JSON object found in the reply
+2026-09-26 15:26:38,558 INFO retry google/gemini-3.8-flash x CropAndWeed:4458:55687-55685:fine_grained_id: unusable reply: no JSON object found in the reply
+2026-09-26 15:26:44,369 INFO retry google/gemini-3.8-flash x CropAndWeed:4560:57082-57081:fine_grained_id: unusable reply: no JSON object found in the reply
+2026-09-26 15:27:49,703 INFO retry google/gemini-3.8-flash x CropAndWeed:5027:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:28:11,861 INFO retry google/gemini-3.8-flash x ImageWeeds-zeamays:41:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:28:20,011 INFO retry google/gemini-3.8-flash x CropAndWeed:5632:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:28:24,161 INFO retry google/gemini-3.8-flash x CottonWeedDet12:1755:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:28:26,332 INFO retry google/gemini-3.8-flash x ImageWeeds-zeamays:41:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:28:26,899 INFO retry google/gemini-3.8-flash x CropAndWeed:3375:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:28:35,743 INFO retry google/gemini-3.8-flash x CottonWeedDet12:1755:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:28:38,336 WARNING FAILED google/gemini-3.8-flash x ImageWeeds-zeamays:41:density_estimation:boxed after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:28:40,276 INFO retry google/gemini-3.8-flash x CropAndWeed:3375:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:28:42,970 INFO retry google/gemini-3.8-flash x ImageWeeds-flax:84:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:28:43,446 INFO retry google/gemini-3.8-flash x CropAndWeed:2722:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:28:45,178 INFO retry google/gemini-3.8-flash x CropAndWeed:5297:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:28:47,623 INFO retry google/gemini-3.8-flash x CropAndWeed:2368:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:28:48,214 WARNING FAILED google/gemini-3.8-flash x CottonWeedDet12:1755:density_estimation:boxed after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:28:49,687 INFO retry google/gemini-3.8-flash x CropAndWeed:6045:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:28:52,003 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:3375:density_estimation:boxed after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:28:57,018 INFO retry google/gemini-3.8-flash x CropAndWeed:5297:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:28:59,983 INFO retry google/gemini-3.8-flash x CropAndWeed:6045:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:29:06,553 INFO retry google/gemini-3.8-flash x CottonWeedDet12:4056:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:29:08,623 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:5297:density_estimation:boxed after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:29:10,535 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:6045:density_estimation:boxed after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:29:10,696 INFO retry google/gemini-3.8-flash x ImageWeeds-glycine_max:69:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:29:18,465 INFO retry google/gemini-3.8-flash x CropAndWeed:1340:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:29:24,168 INFO retry google/gemini-3.8-flash x ImageWeeds-glycine_max:69:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:29:24,579 INFO retry google/gemini-3.8-flash x CottonWeedDet12:5567:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:29:25,590 INFO retry google/gemini-3.8-flash x CropAndWeed:7773:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:29:26,862 INFO retry google/gemini-3.8-flash x CropAndWeed:150:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:29:28,861 INFO retry google/gemini-3.8-flash x CropAndWeed:1340:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:29:37,179 INFO retry google/gemini-3.8-flash x CropAndWeed:150:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:29:38,040 INFO retry google/gemini-3.8-flash x CottonWeedDet12:5567:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:29:39,791 WARNING FAILED google/gemini-3.8-flash x ImageWeeds-glycine_max:69:density_estimation:boxed after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:29:40,022 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:1340:density_estimation:boxed after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:29:41,368 INFO retry google/gemini-3.8-flash x CropAndWeed:7955:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:29:45,879 INFO retry google/gemini-3.8-flash x CropAndWeed:36:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:29:46,855 INFO retry google/gemini-3.8-flash x CropAndWeed:64:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:29:47,445 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:150:density_estimation:boxed after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:29:49,069 INFO retry google/gemini-3.8-flash x CropAndWeed:6680:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:29:51,513 INFO retry google/gemini-3.8-flash x CropAndWeed:7071:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:29:51,777 WARNING FAILED google/gemini-3.8-flash x CottonWeedDet12:5567:density_estimation:boxed after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:29:59,316 INFO retry google/gemini-3.8-flash x CropAndWeed:3059:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:29:59,513 INFO retry google/gemini-3.8-flash x CropAndWeed:64:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:30:10,405 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:64:density_estimation:boxed after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:30:10,794 INFO retry google/gemini-3.8-flash x CropAndWeed:3322:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:30:21,565 INFO retry google/gemini-3.8-flash x MultipleWeedSpeciesDetection:285:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:30:22,477 INFO retry google/gemini-3.8-flash x CropAndWeed:7068:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:30:28,809 INFO retry google/gemini-3.8-flash x CropAndWeed:5184:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:30:29,086 INFO retry google/gemini-3.8-flash x CropAndWeed:2341:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:30:33,291 INFO retry google/gemini-3.8-flash x MultipleWeedSpeciesDetection:285:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:30:34,046 INFO retry google/gemini-3.8-flash x CropAndWeed:7068:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:30:40,513 INFO retry google/gemini-3.8-flash x CropAndWeed:2341:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:30:40,751 INFO retry google/gemini-3.8-flash x CropAndWeed:5184:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:30:45,827 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:7068:density_estimation:boxed after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:30:46,265 WARNING FAILED google/gemini-3.8-flash x MultipleWeedSpeciesDetection:285:density_estimation:boxed after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:30:47,217 INFO retry google/gemini-3.8-flash x CropAndWeed:7648:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:30:51,786 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:5184:density_estimation:boxed after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:30:52,364 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:2341:density_estimation:boxed after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:30:57,989 INFO retry google/gemini-3.8-flash x CropAndWeed:4461:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:31:01,320 INFO retry google/gemini-3.8-flash x CottonWeedDet12:1903:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:31:01,658 INFO retry google/gemini-3.8-flash x CropAndWeed:4562:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:31:06,813 INFO retry google/gemini-3.8-flash x CropAndWeed:6749:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:31:07,243 INFO retry google/gemini-3.8-flash x CropAndWeed:4461:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:31:07,563 INFO retry google/gemini-3.8-flash x CropAndWeed:4367:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:31:13,336 INFO retry google/gemini-3.8-flash x CropAndWeed:4562:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:31:13,829 INFO retry google/gemini-3.8-flash x CottonWeedDet12:1903:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:31:15,451 INFO retry google/gemini-3.8-flash x CropAndWeed:6749:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:31:17,586 INFO retry google/gemini-3.8-flash x CropAndWeed:6663:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:31:18,849 INFO retry google/gemini-3.8-flash x CropAndWeed:4367:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:31:19,797 INFO retry google/gemini-3.8-flash x CropAndWeed:89:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:31:20,513 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:4461:density_estimation:boxed after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:31:24,215 INFO retry google/gemini-3.8-flash x CropAndWeed:6723:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:31:24,356 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:4562:density_estimation:boxed after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:31:26,301 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:6749:density_estimation:boxed after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:31:26,604 WARNING FAILED google/gemini-3.8-flash x CottonWeedDet12:1903:density_estimation:boxed after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:31:30,566 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:4367:density_estimation:boxed after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:31:30,620 INFO retry google/gemini-3.8-flash x CropAndWeed:89:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:31:34,666 INFO retry google/gemini-3.8-flash x CropAndWeed:6723:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:31:36,671 INFO retry google/gemini-3.8-flash x CropAndWeed:6131:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:31:36,875 INFO retry google/gemini-3.8-flash x CropAndWeed:4500:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:31:37,242 INFO retry google/gemini-3.8-flash x CottonWeedDet12:4800:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:31:40,400 INFO retry google/gemini-3.8-flash x CropAndWeed:1641:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:31:40,766 INFO retry google/gemini-3.8-flash x CropAndWeed:6568:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:31:41,723 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:89:density_estimation:boxed after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:31:47,524 INFO retry google/gemini-3.8-flash x CropAndWeed:4500:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:31:47,603 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:6723:density_estimation:boxed after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:31:47,814 INFO retry google/gemini-3.8-flash x CropAndWeed:6131:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:31:51,340 INFO retry google/gemini-3.8-flash x CropAndWeed:6568:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:31:52,769 INFO retry google/gemini-3.8-flash x CropAndWeed:1641:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:31:53,635 INFO retry google/gemini-3.8-flash x CropAndWeed:6365:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:31:58,322 INFO retry google/gemini-3.8-flash x CottonWeedDet12:3616:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:31:58,535 INFO retry google/gemini-3.8-flash x CropAndWeed:6761:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:31:58,739 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:4500:density_estimation:boxed after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:31:59,231 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:6131:density_estimation:boxed after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:32:00,159 INFO retry google/gemini-3.8-flash x CropAndWeed:4288:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:32:02,472 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:6568:density_estimation:boxed after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:32:04,964 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:1641:density_estimation:boxed after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:32:08,121 INFO retry google/gemini-3.8-flash x CropAndWeed:6761:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:32:09,275 INFO retry google/gemini-3.8-flash x CropAndWeed:143:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:32:10,149 INFO retry google/gemini-3.8-flash x CropAndWeed:4288:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:32:13,483 INFO retry google/gemini-3.8-flash x CropAndWeed:4573:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:32:13,627 INFO retry google/gemini-3.8-flash x CropAndWeed:4595:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:32:15,895 INFO retry google/gemini-3.8-flash x CropAndWeed:5892:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:32:18,590 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:6761:density_estimation:boxed after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:32:19,528 INFO retry google/gemini-3.8-flash x CropAndWeed:4480:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:32:19,984 INFO retry google/gemini-3.8-flash x CropAndWeed:143:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:32:20,464 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:4288:density_estimation:boxed after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:32:22,215 INFO retry google/gemini-3.8-flash x CropAndWeed:5949:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:32:24,401 INFO retry google/gemini-3.8-flash x CropAndWeed:4573:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:32:25,239 INFO retry google/gemini-3.8-flash x CropAndWeed:4595:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:32:30,121 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:143:density_estimation:boxed after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:32:30,158 INFO retry google/gemini-3.8-flash x CropAndWeed:7860:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:32:30,940 INFO retry google/gemini-3.8-flash x CropAndWeed:4480:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:32:35,943 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:4573:density_estimation:boxed after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:32:36,193 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:4595:density_estimation:boxed after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:32:41,474 INFO retry google/gemini-3.8-flash x CropAndWeed:3745:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:32:42,278 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:4480:density_estimation:boxed after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:32:42,852 INFO retry google/gemini-3.8-flash x CottonWeedDet12:2048:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:32:43,936 INFO retry google/gemini-3.8-flash x CropAndWeed:587:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:32:47,309 INFO retry google/gemini-3.8-flash x CropAndWeed:1854:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:32:53,693 INFO retry google/gemini-3.8-flash x CropAndWeed:3745:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:32:57,253 INFO retry google/gemini-3.8-flash x CropAndWeed:6763:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:32:57,641 INFO retry google/gemini-3.8-flash x CottonWeedDet12:2048:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:32:58,088 INFO retry google/gemini-3.8-flash x CropAndWeed:1854:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:33:05,416 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:3745:density_estimation:boxed after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:33:07,255 INFO retry google/gemini-3.8-flash x CropAndWeed:4378:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:33:07,939 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:1854:density_estimation:boxed after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:33:08,600 INFO retry google/gemini-3.8-flash x CropAndWeed:6763:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:33:12,630 WARNING FAILED google/gemini-3.8-flash x CottonWeedDet12:2048:density_estimation:boxed after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:33:15,688 INFO retry google/gemini-3.8-flash x CropAndWeed:2174:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:33:18,227 INFO retry google/gemini-3.8-flash x CropAndWeed:5989:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:33:18,705 INFO retry google/gemini-3.8-flash x CropAndWeed:4378:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:33:20,353 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:6763:density_estimation:boxed after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:33:21,507 INFO retry google/gemini-3.8-flash x CottonWeedDet12:3421:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:33:22,667 INFO retry google/gemini-3.8-flash x CropAndWeed:4410:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:33:23,722 INFO retry google/gemini-3.8-flash x CropAndWeed:92:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:33:26,697 INFO retry google/gemini-3.8-flash x CropAndWeed:2174:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:33:28,980 INFO retry google/gemini-3.8-flash x CropAndWeed:5989:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:33:29,697 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:4378:density_estimation:boxed after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:33:32,947 INFO retry google/gemini-3.8-flash x CottonWeedDet12:3421:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:33:33,988 INFO retry google/gemini-3.8-flash x CropAndWeed:4410:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:33:37,286 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:2174:density_estimation:boxed after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:33:40,575 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:5989:density_estimation:boxed after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:33:43,444 WARNING FAILED google/gemini-3.8-flash x CottonWeedDet12:3421:density_estimation:boxed after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:33:43,880 INFO retry google/gemini-3.8-flash x CropAndWeed:692:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:33:44,686 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:4410:density_estimation:boxed after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:33:47,271 INFO retry google/gemini-3.8-flash x CropAndWeed:1018:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:33:50,355 INFO retry google/gemini-3.8-flash x CropAndWeed:3356:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:33:51,271 INFO retry google/gemini-3.8-flash x CropAndWeed:1263:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:33:53,663 INFO retry google/gemini-3.8-flash x CropAndWeed:2183:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:33:54,923 INFO retry google/gemini-3.8-flash x CropAndWeed:6431:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:33:58,382 INFO retry google/gemini-3.8-flash x CropAndWeed:1018:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:34:01,613 INFO retry google/gemini-3.8-flash x CropAndWeed:5739:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:34:02,256 INFO retry google/gemini-3.8-flash x CropAndWeed:1410:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:34:02,290 INFO retry google/gemini-3.8-flash x CropAndWeed:1263:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:34:02,389 INFO retry google/gemini-3.8-flash x CropAndWeed:6595:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:34:02,801 INFO retry google/gemini-3.8-flash x CropAndWeed:3356:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:34:03,414 INFO retry google/gemini-3.8-flash x CropAndWeed:2183:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:34:05,284 INFO retry google/gemini-3.8-flash x CropAndWeed:6431:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:34:08,685 INFO retry google/gemini-3.8-flash x CropAndWeed:6595:density_estimation:boxed: JSON error injected into SSE stream (retry in 1.5s)
+2026-09-26 15:34:09,287 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:1018:density_estimation:boxed after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:34:12,256 INFO retry google/gemini-3.8-flash x CropAndWeed:5739:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:34:12,389 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:2183:density_estimation:boxed after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:34:13,673 INFO retry google/gemini-3.8-flash x CropAndWeed:1410:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:34:14,533 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:1263:density_estimation:boxed after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:34:16,442 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:3356:density_estimation:boxed after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:34:16,583 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:6431:density_estimation:boxed after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:34:21,285 INFO retry google/gemini-3.8-flash x CropAndWeed:6595:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:34:21,788 INFO retry google/gemini-3.8-flash x CottonWeedDet12:3414:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:34:22,758 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:5739:density_estimation:boxed after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:34:24,544 INFO retry google/gemini-3.8-flash x CropAndWeed:6621:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:34:24,666 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:1410:density_estimation:boxed after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:34:27,292 INFO retry google/gemini-3.8-flash x CropAndWeed:138:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:34:33,367 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:6595:density_estimation:boxed after 4 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:34:35,294 INFO retry google/gemini-3.8-flash x CottonWeedDet12:3414:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:34:36,103 INFO retry google/gemini-3.8-flash x CropAndWeed:6621:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:34:39,368 INFO retry google/gemini-3.8-flash x CropAndWeed:138:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:34:44,082 INFO retry google/gemini-3.8-flash x CropAndWeed:4057:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:34:45,289 INFO retry google/gemini-3.8-flash x CropAndWeed:4867:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:34:47,132 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:6621:density_estimation:boxed after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:34:50,949 INFO retry google/gemini-3.8-flash x CropAndWeed:1668:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:34:51,253 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:138:density_estimation:boxed after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:34:57,084 INFO retry google/gemini-3.8-flash x CropAndWeed:4867:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:34:57,872 INFO retry google/gemini-3.8-flash x CropAndWeed:1981:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:34:58,412 INFO retry google/gemini-3.8-flash x CropAndWeed:4057:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:35:10,511 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:4867:density_estimation:boxed after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:35:13,424 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:4057:density_estimation:boxed after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:35:16,311 INFO retry google/gemini-3.8-flash x CropAndWeed:6407:density_estimation:boxed: JSON error injected into SSE stream (retry in 1.7s)
+2026-09-26 15:35:19,710 INFO retry google/gemini-3.8-flash x CropAndWeed:1384:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:35:24,702 INFO retry google/gemini-3.8-flash x CropAndWeed:450:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:35:32,720 INFO retry google/gemini-3.8-flash x CropAndWeed:1384:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:35:39,393 INFO retry google/gemini-3.8-flash x CropAndWeed:450:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:35:44,891 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:1384:density_estimation:boxed after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:35:45,911 INFO retry google/gemini-3.8-flash x CropAndWeed:2985:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:35:55,321 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:450:density_estimation:boxed after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:35:57,933 INFO retry google/gemini-3.8-flash x CropAndWeed:1493:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:36:00,232 INFO retry google/gemini-3.8-flash x CropAndWeed:2985:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:36:03,715 INFO retry google/gemini-3.8-flash x CropAndWeed:5666:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:36:07,391 INFO retry google/gemini-3.8-flash x CropAndWeed:2791:density_estimation:boxed: JSON error injected into SSE stream (retry in 1.9s)
+2026-09-26 15:36:16,032 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:2985:density_estimation:boxed after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:36:19,367 INFO retry google/gemini-3.8-flash x CropAndWeed:877:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:36:35,028 INFO retry google/gemini-3.8-flash x CropAndWeed:877:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:36:51,025 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:877:density_estimation:boxed after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:37:00,562 INFO retry google/gemini-3.8-flash x CropAndWeed:3362:density_estimation:unannotated: unusable reply: no JSON object found in the reply
+2026-09-26 15:37:13,892 INFO retry google/gemini-3.8-flash x CropAndWeed:5445:density_estimation:unannotated: unusable reply: no JSON object found in the reply
+2026-09-26 15:37:14,731 INFO retry google/gemini-3.8-flash x CropAndWeed:36:density_estimation:unannotated: unusable reply: no JSON object found in the reply
+2026-09-26 15:37:28,813 INFO retry google/gemini-3.8-flash x CropAndWeed:5445:density_estimation:unannotated: unusable reply: no JSON object found in the reply
+2026-09-26 15:37:31,750 INFO retry google/gemini-3.8-flash x CropAndWeed:36:density_estimation:unannotated: unusable reply: no JSON object found in the reply
+2026-09-26 15:37:42,962 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:5445:density_estimation:unannotated after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:37:44,605 INFO retry google/gemini-3.8-flash x CropAndWeed:2341:density_estimation:unannotated: unusable reply: no JSON object found in the reply
+2026-09-26 15:37:45,704 INFO retry google/gemini-3.8-flash x CropAndWeed:6680:density_estimation:unannotated: unusable reply: no JSON object found in the reply
+2026-09-26 15:37:56,467 INFO retry google/gemini-3.8-flash x CropAndWeed:1340:density_estimation:unannotated: unusable reply: no JSON object found in the reply
+2026-09-26 15:38:14,574 INFO retry google/gemini-3.8-flash x CottonWeedDet12:3616:density_estimation:unannotated: unusable reply: no JSON object found in the reply
+2026-09-26 15:38:18,331 INFO retry google/gemini-3.8-flash x CropAndWeed:7860:density_estimation:unannotated: unusable reply: no JSON object found in the reply
+2026-09-26 15:38:18,493 INFO retry google/gemini-3.8-flash x CropAndWeed:4562:density_estimation:unannotated: unusable reply: no JSON object found in the reply
+2026-09-26 15:38:22,139 INFO retry google/gemini-3.8-flash x CropAndWeed:5892:density_estimation:unannotated: unusable reply: no JSON object found in the reply
+2026-09-26 15:38:30,673 INFO retry google/gemini-3.8-flash x CottonWeedDet12:3616:density_estimation:unannotated: unusable reply: no JSON object found in the reply
+2026-09-26 15:38:31,127 INFO retry google/gemini-3.8-flash x CropAndWeed:4562:density_estimation:unannotated: unusable reply: no JSON object found in the reply
+2026-09-26 15:38:34,605 INFO retry google/gemini-3.8-flash x CropAndWeed:1263:density_estimation:unannotated: unusable reply: no JSON object found in the reply
+2026-09-26 15:38:36,575 INFO retry google/gemini-3.8-flash x CropAndWeed:5892:density_estimation:unannotated: unusable reply: no JSON object found in the reply
+2026-09-26 15:38:42,196 INFO retry google/gemini-3.8-flash x CropAndWeed:4573:density_estimation:unannotated: unusable reply: no JSON object found in the reply
+2026-09-26 15:38:45,184 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:4562:density_estimation:unannotated after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:38:46,913 WARNING FAILED google/gemini-3.8-flash x CottonWeedDet12:3616:density_estimation:unannotated after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:38:47,771 INFO retry google/gemini-3.8-flash x CropAndWeed:1263:density_estimation:unannotated: unusable reply: no JSON object found in the reply
+2026-09-26 15:38:48,687 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:5892:density_estimation:unannotated after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:39:02,112 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:1263:density_estimation:unannotated after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:39:17,425 INFO retry google/gemini-3.8-flash x CropAndWeed:7833:density_estimation:unannotated: unusable reply: no JSON object found in the reply
+2026-09-26 15:39:32,789 INFO retry google/gemini-3.8-flash x CropAndWeed:7833:density_estimation:unannotated: unusable reply: no JSON object found in the reply
+2026-09-26 15:39:47,334 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:7833:density_estimation:unannotated after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:40:37,217 INFO retry google/gemini-3.8-flash x CropAndWeed:4639:cockspur grass:species_localisation: unusable reply: no JSON object found in the reply
+2026-09-26 15:40:47,651 INFO retry google/gemini-3.8-flash x CropAndWeed:4639:cockspur grass:species_localisation: unusable reply: no JSON object found in the reply
+2026-09-26 15:40:59,561 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:4639:cockspur grass:species_localisation after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:41:12,665 INFO retry google/gemini-3.8-flash x CropAndWeed:4246:red root amaranth:species_localisation: unusable reply: no JSON object found in the reply
+2026-09-26 15:41:25,815 INFO retry google/gemini-3.8-flash x CropAndWeed:4594:red root amaranth:species_localisation: unusable reply: no JSON object found in the reply
+2026-09-26 15:41:33,141 INFO retry google/gemini-3.8-flash x CottonWeedDet12:4717:eclipta:species_localisation: unusable reply: no JSON object found in the reply
+2026-09-26 15:41:34,470 INFO retry google/gemini-3.8-flash x CottonWeedDet12:4575:eclipta:species_localisation: unusable reply: no JSON object found in the reply
+2026-09-26 15:41:38,020 INFO retry google/gemini-3.8-flash x CropAndWeed:4594:red root amaranth:species_localisation: unusable reply: no JSON object found in the reply
+2026-09-26 15:41:48,179 INFO retry google/gemini-3.8-flash x CottonWeedDet12:4575:eclipta:species_localisation: unusable reply: no JSON object found in the reply
+2026-09-26 15:41:50,406 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:4594:red root amaranth:species_localisation after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:41:57,277 INFO retry google/gemini-3.8-flash x CottonWeedDet12:3247:amaranthus tuberculatus:species_localisation: unusable reply: no JSON object found in the reply
+2026-09-26 15:42:06,509 INFO retry google/gemini-3.8-flash x CottonWeedDet12:4206:amaranthus tuberculatus:species_localisation: unusable reply: no JSON object found in the reply
+2026-09-26 15:42:11,251 INFO retry google/gemini-3.8-flash x CottonWeedDet12:3247:amaranthus tuberculatus:species_localisation: unusable reply: no JSON object found in the reply
+2026-09-26 15:42:11,763 INFO retry google/gemini-3.8-flash x CottonWeedDet12:4717:amaranthus tuberculatus:species_localisation: unusable reply: no JSON object found in the reply
+2026-09-26 15:42:25,041 INFO retry google/gemini-3.8-flash x CottonWeedDet12:5370:amaranthus tuberculatus:species_localisation: Provider returned error (error code: 520
+) (retry in 1.4s)
+2026-09-26 15:42:27,937 WARNING FAILED google/gemini-3.8-flash x CottonWeedDet12:3247:amaranthus tuberculatus:species_localisation after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:42:27,983 INFO retry google/gemini-3.8-flash x CottonWeedDet12:4717:amaranthus tuberculatus:species_localisation: unusable reply: no JSON object found in the reply
+2026-09-26 15:42:30,075 INFO retry google/gemini-3.8-flash x CottonWeedDet12:5392:ambrosia artemisiifolia:species_localisation: unusable reply: no JSON object found in the reply
+2026-09-26 15:42:43,744 INFO retry google/gemini-3.8-flash x CottonWeedDet12:5392:ambrosia artemisiifolia:species_localisation: unusable reply: no JSON object found in the reply
+2026-09-26 15:42:56,304 WARNING FAILED google/gemini-3.8-flash x CottonWeedDet12:5392:ambrosia artemisiifolia:species_localisation after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:43:28,490 INFO retry google/gemini-3.8-flash x CottonWeedDet12:3133:physalis angulata:species_localisation: unusable reply: no JSON object found in the reply
+2026-09-26 15:43:32,193 INFO retry google/gemini-3.8-flash x CottonWeedDet12:3252:physalis angulata:species_localisation: unusable reply: no JSON object found in the reply
+2026-09-26 15:43:32,515 INFO retry google/gemini-3.8-flash x CottonWeedDet12:3119:physalis angulata:species_localisation: unusable reply: no JSON object found in the reply
+2026-09-26 15:43:39,653 INFO retry google/gemini-3.8-flash x CropAndWeed:4554:field milk thistle:species_localisation: unusable reply: no JSON object found in the reply
+2026-09-26 15:43:44,441 INFO retry google/gemini-3.8-flash x CottonWeedDet12:3252:physalis angulata:species_localisation: unusable reply: no JSON object found in the reply
+2026-09-26 15:43:44,705 INFO retry google/gemini-3.8-flash x CottonWeedDet12:3133:physalis angulata:species_localisation: unusable reply: no JSON object found in the reply
+2026-09-26 15:43:46,544 INFO retry google/gemini-3.8-flash x CottonWeedDet12:3119:physalis angulata:species_localisation: unusable reply: no JSON object found in the reply
+2026-09-26 15:43:54,781 INFO retry google/gemini-3.8-flash x CropAndWeed:4554:field milk thistle:species_localisation: unusable reply: no JSON object found in the reply
+2026-09-26 15:43:55,555 INFO retry google/gemini-3.8-flash x CropAndWeed:4524:field milk thistle:species_localisation: unusable reply: no JSON object found in the reply
+2026-09-26 15:43:59,906 WARNING FAILED google/gemini-3.8-flash x CottonWeedDet12:3133:physalis angulata:species_localisation after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:44:00,003 WARNING FAILED google/gemini-3.8-flash x CottonWeedDet12:3252:physalis angulata:species_localisation after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:44:01,993 WARNING FAILED google/gemini-3.8-flash x CottonWeedDet12:3119:physalis angulata:species_localisation after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:44:07,690 INFO retry google/gemini-3.8-flash x CropAndWeed:4555:field milk thistle:species_localisation: unusable reply: no JSON object found in the reply
+2026-09-26 15:44:08,781 INFO retry google/gemini-3.8-flash x CropAndWeed:4524:field milk thistle:species_localisation: unusable reply: no JSON object found in the reply
+2026-09-26 15:44:08,931 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:4554:field milk thistle:species_localisation after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:44:22,608 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:4524:field milk thistle:species_localisation after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:44:22,983 INFO retry google/gemini-3.8-flash x CropAndWeed:4555:field milk thistle:species_localisation: unusable reply: no JSON object found in the reply
+2026-09-26 15:44:37,239 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:4555:field milk thistle:species_localisation after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:45:07,391 INFO run finished: 2541 responses consolidated
+2026-09-26 15:50:45,758 INFO retry google/gemini-3.8-flash x CropAndWeed:4314:cockspur grass:species_id_multiple_choice: unusable reply: no JSON object found in the reply
+2026-09-26 15:50:49,206 INFO retry google/gemini-3.8-flash x CottonWeedDet12:2381:sida rhombifolia:species_id_multiple_choice:open_ended: unusable reply: no JSON object found in the reply
+2026-09-26 15:50:56,689 INFO retry google/gemini-3.8-flash x CottonWeedDet12:4944:mollugo verticillata:species_id_multiple_choice:open_ended: unusable reply: no JSON object found in the reply
+2026-09-26 15:50:58,725 INFO retry google/gemini-3.8-flash x CottonWeedDet12:3688:eclipta:species_id_multiple_choice:unannotated:open_ended: unusable reply: no JSON object found in the reply
+2026-09-26 15:51:00,425 INFO retry google/gemini-3.8-flash x ImageWeeds-zeamays:41:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:51:05,429 INFO retry google/gemini-3.8-flash x CropAndWeed:3375:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:51:06,546 INFO retry google/gemini-3.8-flash x CropAndWeed:5297:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:51:07,580 INFO retry google/gemini-3.8-flash x CropAndWeed:6045:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:51:16,120 INFO retry google/gemini-3.8-flash x ImageWeeds-zeamays:41:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:51:17,461 INFO retry google/gemini-3.8-flash x CropAndWeed:6045:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:51:18,241 INFO retry google/gemini-3.8-flash x CottonWeedDet12:3688:eclipta:species_id_multiple_choice:unannotated:open_ended: unusable reply: no JSON object found in the reply
+2026-09-26 15:51:21,535 INFO retry google/gemini-3.8-flash x CropAndWeed:150:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:51:24,835 INFO retry google/gemini-3.8-flash x CropAndWeed:64:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:51:28,140 INFO retry google/gemini-3.8-flash x MultipleWeedSpeciesDetection:285:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:51:30,667 WARNING FAILED google/gemini-3.8-flash x ImageWeeds-zeamays:41:density_estimation:boxed after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:51:31,597 INFO retry google/gemini-3.8-flash x CropAndWeed:150:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:51:33,763 INFO retry google/gemini-3.8-flash x CropAndWeed:5184:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:51:38,629 WARNING FAILED google/gemini-3.8-flash x CottonWeedDet12:3688:eclipta:species_id_multiple_choice:unannotated:open_ended after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:51:40,210 INFO retry google/gemini-3.8-flash x CropAndWeed:2341:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:51:40,786 INFO retry google/gemini-3.8-flash x MultipleWeedSpeciesDetection:285:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:51:42,055 INFO retry google/gemini-3.8-flash x CropAndWeed:4461:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:51:43,813 INFO retry google/gemini-3.8-flash x CropAndWeed:64:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:51:46,563 INFO retry google/gemini-3.8-flash x CropAndWeed:5184:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:51:50,405 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:150:density_estimation:boxed after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:51:51,559 INFO retry google/gemini-3.8-flash x CropAndWeed:2341:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:51:53,673 INFO retry google/gemini-3.8-flash x CropAndWeed:4461:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:51:55,605 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:64:density_estimation:boxed after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:51:56,438 INFO retry google/gemini-3.8-flash x CropAndWeed:6749:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:51:56,601 INFO retry google/gemini-3.8-flash x CropAndWeed:4562:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:52:00,451 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:5184:density_estimation:boxed after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:52:02,455 WARNING FAILED google/gemini-3.8-flash x MultipleWeedSpeciesDetection:285:density_estimation:boxed after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:52:02,828 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:2341:density_estimation:boxed after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:52:04,715 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:4461:density_estimation:boxed after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:52:04,736 INFO retry google/gemini-3.8-flash x CropAndWeed:89:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:52:08,727 INFO retry google/gemini-3.8-flash x CropAndWeed:6749:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:52:09,099 INFO retry google/gemini-3.8-flash x CropAndWeed:4562:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:52:10,555 INFO retry google/gemini-3.8-flash x CropAndWeed:6723:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:52:12,299 INFO retry google/gemini-3.8-flash x CropAndWeed:6131:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:52:13,737 INFO retry google/gemini-3.8-flash x CropAndWeed:6568:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:52:19,424 INFO retry google/gemini-3.8-flash x CropAndWeed:6761:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:52:19,453 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:6749:density_estimation:boxed after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:52:22,537 INFO retry google/gemini-3.8-flash x CropAndWeed:6723:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:52:24,099 INFO retry google/gemini-3.8-flash x CropAndWeed:6131:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:52:24,547 INFO retry google/gemini-3.8-flash x CropAndWeed:4288:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:52:24,593 INFO retry google/gemini-3.8-flash x CropAndWeed:6568:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:52:25,598 INFO retry google/gemini-3.8-flash x CropAndWeed:143:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:52:28,889 INFO retry google/gemini-3.8-flash x CropAndWeed:4595:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:52:29,021 INFO retry google/gemini-3.8-flash x CropAndWeed:4573:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:52:31,342 INFO retry google/gemini-3.8-flash x CropAndWeed:6761:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:52:34,135 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:6723:density_estimation:boxed after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:52:35,965 INFO retry google/gemini-3.8-flash x CropAndWeed:4288:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:52:36,204 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:6131:density_estimation:boxed after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:52:36,407 INFO retry google/gemini-3.8-flash x CropAndWeed:143:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:52:38,843 INFO retry google/gemini-3.8-flash x CropAndWeed:4595:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:52:41,029 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:6761:density_estimation:boxed after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:52:41,139 INFO retry google/gemini-3.8-flash x CropAndWeed:4573:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:52:43,105 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:6568:density_estimation:boxed after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:52:46,304 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:4288:density_estimation:boxed after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:52:46,345 INFO retry google/gemini-3.8-flash x CropAndWeed:4480:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:52:46,915 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:143:density_estimation:boxed after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:52:47,111 INFO retry google/gemini-3.8-flash x CropAndWeed:3745:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:52:50,253 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:4595:density_estimation:boxed after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:52:52,666 INFO retry google/gemini-3.8-flash x CropAndWeed:1854:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:52:54,799 INFO retry google/gemini-3.8-flash x CottonWeedDet12:2048:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:52:56,470 INFO retry google/gemini-3.8-flash x CropAndWeed:6763:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:52:57,321 INFO retry google/gemini-3.8-flash x CropAndWeed:4378:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:52:58,046 INFO retry google/gemini-3.8-flash x CropAndWeed:3745:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:52:59,535 INFO retry google/gemini-3.8-flash x CropAndWeed:2174:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:53:00,198 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:4573:density_estimation:boxed after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:53:04,512 INFO retry google/gemini-3.8-flash x CropAndWeed:1854:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:53:08,538 INFO retry google/gemini-3.8-flash x CropAndWeed:4410:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:53:08,614 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:3745:density_estimation:boxed after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:53:08,716 INFO retry google/gemini-3.8-flash x CropAndWeed:6763:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:53:09,275 INFO retry google/gemini-3.8-flash x CropAndWeed:4378:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:53:09,554 INFO retry google/gemini-3.8-flash x CropAndWeed:2174:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:53:09,627 INFO retry google/gemini-3.8-flash x CropAndWeed:5989:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:53:12,647 INFO retry google/gemini-3.8-flash x CottonWeedDet12:2048:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:53:15,603 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:1854:density_estimation:boxed after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:53:19,484 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:6763:density_estimation:boxed after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:53:19,501 INFO retry google/gemini-3.8-flash x CropAndWeed:4410:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:53:19,600 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:2174:density_estimation:boxed after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:53:20,729 INFO retry google/gemini-3.8-flash x CottonWeedDet12:3421:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:53:21,044 INFO retry google/gemini-3.8-flash x CropAndWeed:5989:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:53:21,568 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:4378:density_estimation:boxed after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:53:25,303 WARNING FAILED google/gemini-3.8-flash x CottonWeedDet12:2048:density_estimation:boxed after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:53:25,928 INFO retry google/gemini-3.8-flash x CropAndWeed:1018:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:53:28,495 INFO retry google/gemini-3.8-flash x CropAndWeed:1263:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:53:31,288 INFO retry google/gemini-3.8-flash x CropAndWeed:2183:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:53:31,389 INFO retry google/gemini-3.8-flash x CropAndWeed:3356:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:53:32,784 INFO retry google/gemini-3.8-flash x CottonWeedDet12:3421:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:53:32,787 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:5989:density_estimation:boxed after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:53:32,919 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:4410:density_estimation:boxed after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:53:34,713 INFO retry google/gemini-3.8-flash x CropAndWeed:6431:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:53:40,036 INFO retry google/gemini-3.8-flash x CropAndWeed:1263:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:53:42,252 INFO retry google/gemini-3.8-flash x CropAndWeed:1018:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:53:42,346 INFO retry google/gemini-3.8-flash x CropAndWeed:5739:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:53:42,684 INFO retry google/gemini-3.8-flash x CropAndWeed:3356:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:53:43,174 INFO retry google/gemini-3.8-flash x CropAndWeed:2183:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:53:43,189 INFO retry google/gemini-3.8-flash x CropAndWeed:6595:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:53:45,658 INFO retry google/gemini-3.8-flash x CropAndWeed:6431:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:53:46,053 WARNING FAILED google/gemini-3.8-flash x CottonWeedDet12:3421:density_estimation:boxed after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:53:50,719 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:1263:density_estimation:boxed after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:53:52,833 INFO retry google/gemini-3.8-flash x CropAndWeed:5739:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:53:53,371 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:3356:density_estimation:boxed after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:53:53,986 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:1018:density_estimation:boxed after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:53:54,986 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:2183:density_estimation:boxed after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:53:56,139 INFO retry google/gemini-3.8-flash x CropAndWeed:1410:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:53:56,587 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:6431:density_estimation:boxed after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:54:03,341 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:5739:density_estimation:boxed after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:54:04,495 INFO retry google/gemini-3.8-flash x CropAndWeed:138:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:54:06,845 INFO retry google/gemini-3.8-flash x CropAndWeed:4057:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:54:07,373 INFO retry google/gemini-3.8-flash x CropAndWeed:1410:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:54:08,239 INFO retry google/gemini-3.8-flash x CropAndWeed:6621:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:54:08,757 INFO retry google/gemini-3.8-flash x CropAndWeed:4867:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:54:11,596 INFO retry google/gemini-3.8-flash x CropAndWeed:450:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:54:13,877 INFO retry google/gemini-3.8-flash x CropAndWeed:1384:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:54:15,969 INFO retry google/gemini-3.8-flash x CropAndWeed:138:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:54:16,210 INFO retry google/gemini-3.8-flash x CropAndWeed:2985:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:54:18,784 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:1410:density_estimation:boxed after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:54:21,121 INFO retry google/gemini-3.8-flash x CropAndWeed:6621:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:54:21,210 INFO retry google/gemini-3.8-flash x CropAndWeed:4867:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:54:25,306 INFO retry google/gemini-3.8-flash x CropAndWeed:450:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:54:27,538 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:138:density_estimation:boxed after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:54:29,075 INFO retry google/gemini-3.8-flash x CropAndWeed:1384:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:54:30,493 INFO retry google/gemini-3.8-flash x CropAndWeed:2985:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:54:31,429 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:6621:density_estimation:boxed after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:54:33,083 INFO retry google/gemini-3.8-flash x CropAndWeed:5445:density_estimation:unannotated: unusable reply: no JSON object found in the reply
+2026-09-26 15:54:34,214 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:4867:density_estimation:boxed after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:54:34,987 INFO retry google/gemini-3.8-flash x CropAndWeed:877:density_estimation:boxed: unusable reply: no JSON object found in the reply
+2026-09-26 15:54:39,387 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:450:density_estimation:boxed after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:54:41,838 INFO retry google/gemini-3.8-flash x CottonWeedDet12:3616:density_estimation:unannotated: unusable reply: no JSON object found in the reply
+2026-09-26 15:54:43,766 INFO retry google/gemini-3.8-flash x CropAndWeed:4562:density_estimation:unannotated: unusable reply: no JSON object found in the reply
+2026-09-26 15:54:44,299 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:1384:density_estimation:boxed after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:54:44,677 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:2985:density_estimation:boxed after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:54:47,035 INFO retry google/gemini-3.8-flash x CropAndWeed:5445:density_estimation:unannotated: unusable reply: no JSON object found in the reply
+2026-09-26 15:54:47,802 INFO retry google/gemini-3.8-flash x CropAndWeed:5892:density_estimation:unannotated: unusable reply: no JSON object found in the reply
+2026-09-26 15:54:50,732 INFO retry google/gemini-3.8-flash x CropAndWeed:1263:density_estimation:unannotated: unusable reply: no JSON object found in the reply
+2026-09-26 15:54:55,076 INFO retry google/gemini-3.8-flash x CropAndWeed:4639:cockspur grass:species_localisation: unusable reply: no JSON object found in the reply
+2026-09-26 15:54:56,989 INFO retry google/gemini-3.8-flash x CropAndWeed:4562:density_estimation:unannotated: unusable reply: no JSON object found in the reply
+2026-09-26 15:54:57,620 INFO retry google/gemini-3.8-flash x CropAndWeed:7833:density_estimation:unannotated: unusable reply: no JSON object found in the reply
+2026-09-26 15:55:00,047 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:5445:density_estimation:unannotated after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:55:00,743 INFO retry google/gemini-3.8-flash x CropAndWeed:5892:density_estimation:unannotated: unusable reply: no JSON object found in the reply
+2026-09-26 15:55:02,103 INFO retry google/gemini-3.8-flash x CropAndWeed:4594:red root amaranth:species_localisation: unusable reply: no JSON object found in the reply
+2026-09-26 15:55:05,714 INFO retry google/gemini-3.8-flash x CottonWeedDet12:3247:amaranthus tuberculatus:species_localisation: unusable reply: no JSON object found in the reply
+2026-09-26 15:55:08,835 INFO retry google/gemini-3.8-flash x CropAndWeed:4639:cockspur grass:species_localisation: unusable reply: no JSON object found in the reply
+2026-09-26 15:55:11,733 INFO retry google/gemini-3.8-flash x CropAndWeed:7833:density_estimation:unannotated: unusable reply: no JSON object found in the reply
+2026-09-26 15:55:13,263 INFO retry google/gemini-3.8-flash x CottonWeedDet12:5392:ambrosia artemisiifolia:species_localisation: unusable reply: no JSON object found in the reply
+2026-09-26 15:55:14,859 INFO retry google/gemini-3.8-flash x CropAndWeed:4594:red root amaranth:species_localisation: unusable reply: no JSON object found in the reply
+2026-09-26 15:55:16,271 INFO retry google/gemini-3.8-flash x CottonWeedDet12:3133:physalis angulata:species_localisation: unusable reply: no JSON object found in the reply
+2026-09-26 15:55:20,033 INFO retry google/gemini-3.8-flash x CottonWeedDet12:3247:amaranthus tuberculatus:species_localisation: unusable reply: no JSON object found in the reply
+2026-09-26 15:55:20,672 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:4639:cockspur grass:species_localisation after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:55:20,828 INFO retry google/gemini-3.8-flash x CottonWeedDet12:3119:physalis angulata:species_localisation: unusable reply: no JSON object found in the reply
+2026-09-26 15:55:26,170 INFO retry google/gemini-3.8-flash x CottonWeedDet12:3252:physalis angulata:species_localisation: unusable reply: no JSON object found in the reply
+2026-09-26 15:55:26,631 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:7833:density_estimation:unannotated after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:55:27,897 INFO retry google/gemini-3.8-flash x CottonWeedDet12:5392:ambrosia artemisiifolia:species_localisation: unusable reply: no JSON object found in the reply
+2026-09-26 15:55:28,321 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:4594:red root amaranth:species_localisation after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:55:32,856 INFO retry google/gemini-3.8-flash x CropAndWeed:4554:field milk thistle:species_localisation: unusable reply: no JSON object found in the reply
+2026-09-26 15:55:35,343 INFO retry google/gemini-3.8-flash x CottonWeedDet12:3119:physalis angulata:species_localisation: unusable reply: no JSON object found in the reply
+2026-09-26 15:55:35,958 WARNING FAILED google/gemini-3.8-flash x CottonWeedDet12:3247:amaranthus tuberculatus:species_localisation after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:55:37,973 INFO retry google/gemini-3.8-flash x CropAndWeed:4524:field milk thistle:species_localisation: unusable reply: no JSON object found in the reply
+2026-09-26 15:55:39,734 INFO retry google/gemini-3.8-flash x CottonWeedDet12:3133:physalis angulata:species_localisation: unusable reply: no JSON object found in the reply
+2026-09-26 15:55:42,341 INFO retry google/gemini-3.8-flash x CottonWeedDet12:3252:physalis angulata:species_localisation: unusable reply: no JSON object found in the reply
+2026-09-26 15:55:43,387 WARNING FAILED google/gemini-3.8-flash x CottonWeedDet12:5392:ambrosia artemisiifolia:species_localisation after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:55:45,258 INFO retry google/gemini-3.8-flash x CropAndWeed:4554:field milk thistle:species_localisation: unusable reply: no JSON object found in the reply
+2026-09-26 15:55:50,159 INFO retry google/gemini-3.8-flash x CropAndWeed:4524:field milk thistle:species_localisation: unusable reply: no JSON object found in the reply
+2026-09-26 15:55:55,646 WARNING FAILED google/gemini-3.8-flash x CottonWeedDet12:3133:physalis angulata:species_localisation after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:55:58,021 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:4554:field milk thistle:species_localisation after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:55:58,375 WARNING FAILED google/gemini-3.8-flash x CottonWeedDet12:3252:physalis angulata:species_localisation after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:55:58,867 WARNING FAILED google/gemini-3.8-flash x CottonWeedDet12:3119:physalis angulata:species_localisation after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:56:03,039 WARNING FAILED google/gemini-3.8-flash x CropAndWeed:4524:field milk thistle:species_localisation after 3 attempt(s): [parse] no JSON object found in the reply
+2026-09-26 15:56:03,128 INFO run finished: 2541 responses consolidated

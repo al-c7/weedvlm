@@ -1,0 +1,48 @@
+{
+  "run_name": "gpt-oss-run",
+  "prompt_version": 1,
+  "config": {
+    "questions_dir": "questions",
+    "generation_config": null,
+    "output_dir": "results",
+    "run_name": "gpt-oss-run",
+    "tasks": {
+      "species_id": true,
+      "fine_grained": true,
+      "density": true,
+      "localisation": true
+    },
+    "models": [
+      {
+        "id": "openai/gpt-oss-120b",
+        "temperature": null,
+        "max_tokens": null,
+        "extra_body": {}
+      }
+    ],
+    "concurrency": 8,
+    "defaults": {
+      "temperature": 0.0,
+      "max_tokens": 1024,
+      "timeout_seconds": 120.0
+    },
+    "retry": {
+      "max_retries": 5,
+      "max_parse_retries": 2,
+      "backoff_base_seconds": 2.0,
+      "backoff_max_seconds": 60.0,
+      "model_failure_threshold": 25
+    },
+    "base_url": "https://openrouter.ai/api/v1",
+    "api_key_env": "OPENROUTER_API_KEY",
+    "max_questions_per_task": null,
+    "seed": 0,
+    "progress_interval_seconds": 5.0
+  },
+  "model_fingerprints": {
+    "openai/gpt-oss-120b": "03a854c4311a6d6f"
+  },
+  "sessions": [
+    "2026-09-27T04:26:06.115239+00:00"
+  ]
+}

@@ -1,0 +1,72 @@
+{
+  "run_name": "pilot2",
+  "config": {
+    "questions_dir": "questions",
+    "generation_config": null,
+    "output_dir": "reasoning-results",
+    "run_name": "pilot2",
+    "tasks": {
+      "species_id": true,
+      "fine_grained": true,
+      "density": true,
+      "grounded_vqa": true,
+      "localisation": true
+    },
+    "textual_model": {
+      "id": "google/gemini-3.8-flash",
+      "temperature": null,
+      "max_tokens": null,
+      "extra_body": {}
+    },
+    "visual_model": {
+      "id": "google/gemini-3.8-flash",
+      "temperature": null,
+      "max_tokens": null,
+      "extra_body": {}
+    },
+    "species_descriptions": "species-descriptions.yaml",
+    "results_file": "notebooks/weedvlm_scored_responses.parquet",
+    "concurrency": 8,
+    "defaults": {
+      "temperature": 0.0,
+      "max_tokens": 4096,
+      "timeout_seconds": 120.0
+    },
+    "retry": {
+      "max_retries": 5,
+      "max_parse_retries": 2,
+      "backoff_base_seconds": 2.0,
+      "backoff_max_seconds": 60.0,
+      "model_failure_threshold": 25
+    },
+    "storage": {
+      "format": "sqlite",
+      "database": null,
+      "store_images": true
+    },
+    "responses_to_evaluate": [
+      "claude-haiku-full-run",
+      "deepseek-4-1-flash-full-run",
+      "gemma4-31b-full-run",
+      "gpt-6-1-sol-partial-run",
+      "gpt-6-luna-full-run"
+    ],
+    "base_url": "https://openrouter.ai/api/v1",
+    "api_key_env": "OPENROUTER_API_KEY",
+    "reasoning_fraction": 0.2,
+    "wrong_per_task": {
+      "species_id_multiple_choice": 30,
+      "species_id_open_ended": 50,
+      "fine_grained": 50,
+      "grounded_vqa": 5,
+      "density": 50
+    }
+  },
+  "fingerprints": {
+    "textual": "2fe93343b619654b",
+    "visual": "9db66cdb2337d9e5"
+  },
+  "sessions": [
+    "2026-10-25T08:46:02.956498+00:00"
+  ]
+}

@@ -1,0 +1,72 @@
+{
+  "run_name": "cmp-glm-flash",
+  "config": {
+    "questions_dir": "questions",
+    "generation_config": null,
+    "output_dir": "reasoning-results",
+    "run_name": "cmp-glm-flash",
+    "tasks": {
+      "species_id": true,
+      "fine_grained": true,
+      "density": true,
+      "grounded_vqa": true,
+      "localisation": true
+    },
+    "textual_model": {
+      "id": "z-ai/glm-5.3-flash",
+      "temperature": null,
+      "max_tokens": null,
+      "extra_body": {}
+    },
+    "visual_model": {
+      "id": "z-ai/glm-5.3-flash",
+      "temperature": null,
+      "max_tokens": null,
+      "extra_body": {}
+    },
+    "species_descriptions": "species-descriptions.yaml",
+    "results_file": "notebooks/weedvlm_scored_responses.parquet",
+    "concurrency": 16,
+    "defaults": {
+      "temperature": 0.0,
+      "max_tokens": 4096,
+      "timeout_seconds": 120.0
+    },
+    "retry": {
+      "max_retries": 5,
+      "max_parse_retries": 2,
+      "backoff_base_seconds": 2.0,
+      "backoff_max_seconds": 60.0,
+      "model_failure_threshold": 25
+    },
+    "storage": {
+      "format": "sqlite",
+      "database": null,
+      "store_images": true
+    },
+    "responses_to_evaluate": [
+      "claude-haiku-full-run",
+      "deepseek-4-1-flash-full-run",
+      "gemma4-31b-full-run",
+      "gpt-6-1-sol-partial-run",
+      "gpt-6-luna-full-run"
+    ],
+    "base_url": "https://openrouter.ai/api/v1",
+    "api_key_env": "OPENROUTER_API_KEY",
+    "reasoning_fraction": 0.2,
+    "wrong_per_task": {
+      "species_id_multiple_choice": 150,
+      "species_id_open_ended": 150,
+      "fine_grained": 150,
+      "grounded_vqa": 150,
+      "density": 150
+    }
+  },
+  "fingerprints": {
+    "textual": "2c5eaee501ea6cff",
+    "visual": "340199175e0533ff"
+  },
+  "sessions": [
+    "2026-10-30T04:06:08.849412+00:00"
+  ]
+}
