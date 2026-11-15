@@ -154,7 +154,9 @@ export function scoredRowFromParquet(row: Row): ScoredRow | null {
     predicted_label: predicted,
     chance: questionType === "species_id_open_ended" || !choices ? null : 1 / choices.length,
     category_rank_error: density && predicted
-      ? Math.abs(DENSITY_CATEGORIES.indexOf(predicted) - DENSITY_CATEGORIES.indexOf(light(expected)))
+      ? Math.abs(
+        DENSITY_CATEGORIES.indexOf(predicted) - DENSITY_CATEGORIES.indexOf(light(expected)),
+      )
       : null,
   };
 }
@@ -214,7 +216,8 @@ function macroF1(rows: ScoredRow[]): number | null {
   return mean(scores);
 }
 
-const count = (rows: ScoredRow[], outcome: Outcome) => rows.filter((r) => r.outcome === outcome).length;
+const count = (rows: ScoredRow[], outcome: Outcome) =>
+  rows.filter((r) => r.outcome === outcome).length;
 
 function accuracyBlock(group: ScoredRow[]): Metrics {
   const answered = group.filter((r) => r.status === "ok");
@@ -285,7 +288,9 @@ function localisationBlock(group: ScoredRow[]): Metrics {
     median_score: median(scores),
     mean_score_all: group.length ? scores.reduce((a, b) => a + b, 0) / group.length : null,
     mean_matched_iou: mean(numbers(scored.map((r) => r.matched_iou))),
-    count_exact_rate: countErrors.length ? countErrors.filter((e) => e === 0).length / countErrors.length : null,
+    count_exact_rate: countErrors.length
+      ? countErrors.filter((e) => e === 0).length / countErrors.length
+      : null,
     count_mean_abs_error: mean(countErrors.map(Math.abs)),
     count_mean_signed_error: mean(countErrors),
   };
@@ -316,7 +321,9 @@ function suiteMetrics(suite: string, group: ScoredRow[]): Metrics {
   const metrics: Metrics = {
     ...accuracyBlock(group),
     chance_accuracy: mean(numbers(group.map((r) => r.chance))),
-    macro_f1: F1_SUITES.some((s) => suite.startsWith(s)) && answered.length ? macroF1(answered) : null,
+    macro_f1: F1_SUITES.some((s) => suite.startsWith(s)) && answered.length
+      ? macroF1(answered)
+      : null,
     by_class: breakdown(group, (r) => r.benchmark_class),
     by_dataset: breakdown(group, (r) => r.dataset),
   };
@@ -326,17 +333,22 @@ function suiteMetrics(suite: string, group: ScoredRow[]): Metrics {
 
 function mcVsOpenEnded(rows: ScoredRow[]): Metrics {
   const mc = new Map(
-    rows.filter((r) => r.suite.startsWith("species_id/multiple_choice")).map((r) => [r.question_id, r]),
+    rows.filter((r) => r.suite.startsWith("species_id/multiple_choice")).map((
+      r,
+    ) => [r.question_id, r]),
   );
   const pairs = rows
     .filter((r) => r.suite.startsWith("species_id/open_ended") && r.ablation_of)
     .map((oe) => [oe, mc.get(oe.ablation_of as string)] as const)
     .filter(([oe, m]) => m && oe.status === "ok" && m.status === "ok") as [ScoredRow, ScoredRow][];
   const result: Metrics = {};
-  for (const [condition, part] of groupBy(pairs, ([oe]) => (oe.annotated ? "boxed" : "unannotated"))) {
+  for (
+    const [condition, part] of groupBy(pairs, ([oe]) => (oe.annotated ? "boxed" : "unannotated"))
+  ) {
     result[condition] = {
       n_pairs: part.length,
-      multiple_choice_accuracy: part.filter(([, m]) => m.outcome === "correct").length / part.length,
+      multiple_choice_accuracy: part.filter(([, m]) => m.outcome === "correct").length /
+        part.length,
       open_ended_accuracy: part.filter(([oe]) => oe.outcome === "correct").length / part.length,
     };
   }
@@ -352,7 +364,9 @@ function usageBlock(group: ScoredRow[]): Metrics {
     total_cost_usd: costs.reduce((a, b) => a + b, 0),
     mean_cost_usd: mean(costs),
     mean_total_tokens: mean(tokens),
-    mean_latency_seconds: mean(numbers(group.filter((r) => r.status === "ok").map((r) => r.latency_seconds))),
+    mean_latency_seconds: mean(
+      numbers(group.filter((r) => r.status === "ok").map((r) => r.latency_seconds)),
+    ),
     retried_requests: group.filter((r) => (r.attempts ?? 1) > 1).length,
   };
 }

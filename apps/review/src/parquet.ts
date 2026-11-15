@@ -3,7 +3,7 @@
  * Pure functions over bytes -- no file access -- so they can be tested
  * outside Deno.
  */
-import { parquetReadObjects, parquetSchema, parquetMetadata } from "hyparquet";
+import { parquetMetadata, parquetReadObjects, parquetSchema } from "hyparquet";
 import { compressors } from "hyparquet-compressors";
 import type { QuestionBase } from "./types.ts";
 
@@ -19,7 +19,10 @@ function plain(value: unknown): unknown {
  * (so older files missing a column still load). Int64s become numbers.
  */
 export async function readParquet(bytes: Uint8Array, columns?: string[]): Promise<Row[]> {
-  const file = bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength) as ArrayBuffer;
+  const file = bytes.buffer.slice(
+    bytes.byteOffset,
+    bytes.byteOffset + bytes.byteLength,
+  ) as ArrayBuffer;
   let wanted = columns;
   if (columns) {
     const present = new Set(

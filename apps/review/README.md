@@ -72,19 +72,18 @@ Keys: `Space` reveal, `G` looks good, `B` flag, `←`/`→` navigate.
 
 Pick a run in the sidebar. Runs are read straight from `results/<run>/`:
 
-| File                   | Used for                                                    |
-| ---------------------- | ----------------------------------------------------------- |
-| `responses.jsonl`      | Every response, including raw replies, errors, and retries. |
-| `progress.json`        | The run's state, and models stopped early by failures.      |
-| `run.log`              | The log at the bottom of **Errors**.                        |
+| File              | Used for                                                    |
+| ----------------- | ----------------------------------------------------------- |
+| `responses.jsonl` | Every response, including raw replies, errors, and retries. |
+| `progress.json`   | The run's state, and models stopped early by failures.      |
+| `run.log`         | The log at the bottom of **Errors**.                        |
 
-Scores come from the scored responses parquet (`--scores`), which `notebooks/scoring.ipynb`
-writes for every run at once. The app doesn't re-score answers. It reads each response's `match`
-(and, for localisation, `outcome` and `localisation_score`), splits non-matches into `unsure` /
-`invalid` / `incorrect`, and aggregates per suite (`src/scores.ts`). A score is used only for the
-exact response it was computed from (same `created_at`). If a response was re-asked or added
-since, the run is marked "scores out of date", and that response shows as `unscored` rather than
-with a stale outcome.
+Scores come from the scored responses parquet (`--scores`), which `notebooks/scoring.ipynb` writes
+for every run at once. The app doesn't re-score answers. It reads each response's `match` (and, for
+localisation, `outcome` and `localisation_score`), splits non-matches into `unsure` / `invalid` /
+`incorrect`, and aggregates per suite (`src/scores.ts`). A score is used only for the exact response
+it was computed from (same `created_at`). If a response was re-asked or added since, the run is
+marked "scores out of date", and that response shows as `unscored` rather than with a stale outcome.
 
 - **Scores**: outcome counts per model, accuracy per suite and model (bar = accuracy over answered
   questions, tick = random-guess accuracy; tick "Count failed responses as wrong" to include
