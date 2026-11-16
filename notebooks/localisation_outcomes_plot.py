@@ -78,7 +78,7 @@ def legend(ax, keys: list[str]) -> None:
 
 
 def grouped(rates) -> None:
-    fig, ax = plt.subplots(figsize=(11, 5.2), dpi=200)
+    fig, ax = plt.subplots(figsize=(11, 4.0), dpi=200)
     keys = list(CATEGORIES)
     width = 0.15
     for i, k in enumerate(keys):
@@ -90,11 +90,11 @@ def grouped(rates) -> None:
     style(ax, "Weed localisation outcomes by model", 90)
     legend(ax, keys)
     fig.tight_layout()
-    save(fig, "localisation_outcomes_grouped")
+    save(fig, "squashed_localisation_outcomes_grouped")
 
 
 def stacked(rates) -> None:
-    fig, ax = plt.subplots(figsize=(11, 5.2), dpi=200)
+    fig, ax = plt.subplots(figsize=(11, 4.0), dpi=200)
     width = 0.36
     for j, m in enumerate(rates):
         xc, xf = j - width / 2 - 0.015, j + width / 2 + 0.015
@@ -112,7 +112,7 @@ def stacked(rates) -> None:
     style(ax, "Weed localisation: correct vs. failure breakdown", 90)
     legend(ax, list(CATEGORIES))
     fig.tight_layout()
-    save(fig, "localisation_outcomes_stacked")
+    save(fig, "squashed_localisation_outcomes_stacked")
 
 
 def save(fig, name: str) -> None:

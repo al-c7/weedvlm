@@ -54,7 +54,7 @@ def main() -> None:
                          "xtick.color": INK, "ytick.color": MUTED})
 
     props = load_proportions()
-    fig, ax = plt.subplots(figsize=(11, 5.4), dpi=200)
+    fig, ax = plt.subplots(figsize=(11, 4.0), dpi=200)
     width, gap = 0.36, 0.02
     offsets = {q: (i - 0.5) * (width + gap) for i, q in enumerate(FORMATS)}
 
@@ -95,7 +95,7 @@ def main() -> None:
 
     fig.tight_layout()
     for ext in ("png", "pdf"):
-        fig.savefig(HERE / f"species_id_outcomes.{ext}", bbox_inches="tight", facecolor="white")
+        fig.savefig(HERE / f"squashed_species_id_outcomes.{ext}", bbox_inches="tight", facecolor="white")
 
 
 if __name__ == "__main__":
