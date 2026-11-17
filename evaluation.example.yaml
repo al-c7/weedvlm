@@ -1,0 +1,69 @@
+# Example configuration for the evaluation pipeline. run-evaluation.py and
+# show-prompt.py fall back to this file when no --config is given:
+#
+#   uv run src/weedvlm/scripts/show-prompt.py
+#   uv run src/weedvlm/scripts/run-evaluation.py --config evaluation.example.yaml
+#
+# Every field except `models` is optional and falls back to its built-in
+# default (see src/weedvlm/evaluation/config.py). For the question-generation
+# config, see config.example.yaml instead. Real runs are configured under
+# test-run-configurations/.
+
+# The generated benchmark: the out_dir of generate-all-questions.py, holding
+# questions.parquet and generation-config.yaml.
+questions_dir: questions/
+# The generation config that produced those questions. The density prompt
+# explains the category rules using its thresholds. Default:
+# generation-config.yaml inside questions_dir.
+# generation_config: questions/generation-config.yaml
+
+# Results go to <output_dir>/<run_name>/. Re-running with the same run_name
+# resumes: questions already answered are skipped, failed ones are retried.
+output_dir: results/
+run_name: example-run
+
+# Which tasks to run. species_id includes its open-ended ablation.
+tasks:
+  species_id: true
+  fine_grained: true
+  density: true
+  grounded_vqa: true
+  localisation: true
+
+# OpenRouter model ids. Each one is either a bare id or a mapping that
+# overrides the request settings for that model only, e.g.
+#   - id: openai/gpt-6-luna
+#     max_tokens: 8192
+#     extra_body: {reasoning: {effort: low}}
+#     bbox_format: xyxy_pixel   # localisation: read boxes in this format
+models:
+  - anthropic/claude-haiku-5.5
+
+concurrency: 8 # requests in flight (max 32)
+
+defaults:
+  temperature: 0.0
+  # Reasoning models spend part of this on hidden thinking. A reply cut off
+  # by this limit is recorded as a failure.
+  max_tokens: 1024
+  timeout_seconds: 120
+
+retry:
+  max_retries: 5 # transient errors: 429, 5xx, timeouts, dropped connections
+  max_parse_retries: 2 # replies that arrive but hold no usable JSON answer
+  backoff_base_seconds: 2 # doubles each retry, with jitter, honouring Retry-After
+  backoff_max_seconds: 60
+  model_failure_threshold: 25 # stop sending a model questions after this many failures in a row (0 = never)
+
+# Evaluate only this share of the benchmark (a number or a fraction like
+# "1/3"), stratified across every task's groups. Default: all of it.
+# benchmark_fraction: 1/4
+
+# Smoke test before spending real money: a seeded random subset of this
+# many questions from each enabled task.
+# max_questions_per_task: 20
+seed: 0
+progress_interval_seconds: 5
+
+base_url: https://openrouter.ai/api/v1
+api_key_env: OPENROUTER_API_KEY
