@@ -1,0 +1,42 @@
+# WeedVLM: Benchmarking vision-language models for fine-grained weed identification
+
+## Project Abstract
+
+Reliable weed identification is essential for precision weed management. Vision-language models (VLMs) offer a flexible approach to agricultural image analysis by combining visual understanding with natural language understanding. However, their performance in fine-grained weed identification remains poorly understood. We present WeedVLM, the first pipeline for generating weed identification benchmarks from annotated field image datasets, and use it to evaluate five VLMs on 2790 questions across five tasks: species identification, fine-grained identification, grounded visual question answering, localisation, and density estimation. We further assess the post-hoc rationales of responses using two VLM/LLM judges and derive an error taxonomy for incorrect answers. Our findings indicate that VLMs perform well when given visual grounding or a constrained set of options, but accuracy can fall from 49 to 62 percentage points from multiple-choice to open-ended species identification, and no model is able to localise target weeds in images completely more than 40% of the time. Most errors are attributed to knowledge and perception failures, and models tested rarely abstain unless explicitly allowed to. WeedVLM provides researchers with a baseline for testing whether future models reduce these errors and gives industry a basis for deciding where VLMs warrant field trials and where expert verification remains important.
+
+## Repository layout
+
+This project repository features all the configurations and testing performed throughout this thesis project. Some particular parts are not in this repo, including the raw datasets themselves. This repository is sufficient to check the evaluation, but if the generation pipeline is to be run, then they must be placed under `.datasets`, preferably in the WeedCOCO format. CropAndWeed can also be used, and converted into the WeedCOCO format, through a helper script (which Claude implemented, and which was stored separately to this repo). This repository includes the generation pipeline, the evaluation pipeline, and the reasoning-evaluation pipeline, alongside the notebooks used to score and evaluate the results from the evaluation pipelines (benchmark and reasoning). The are described as follows:
+
+- `apps/`: Contains the review app, used to review questions and results manually, as well as the density labeller app, which was briefly used to generate rules for weed density estimation.
+- `docs/`: Documentation used for the initial tasks, such that prototypes could be implemented by Claude, was the grounding for this throughout. Other documentation was generated automatically be Claude when asked to implement a particular feature, or when specifically asked too. This documentation was not used frequently, and may be out of date.
+- `gemini-judge/`: reasoning results for the Gemini 3.8 Flash judge, should be under `reasoning-results/` but broken when moved.
+- `metadata-extraction/`: Used to extract the metadata from each dataset page in WeedVLM, was used only in the very early stages when evaluating the datasets.
+- `notebooks/`: Contains all of the notebooks as well as the scripts to generate some of the plots.
+- `old-results/`: Contains old results from previous runs that were not used in the final benchmark set.
+- `questions/`: Contains the question parquet file alongside the legacy files, including the SQLite DB version.
+- `reasoning-results/`: Contains the raw logs and results for the reasoning evaluation, much of these tests were not used, but the final judge runs that were used are contained in here. The script `src/weedvlm/scripts/append-reasoning-scores.py` appends these raw results to the analysis parquet file.
+- `results/`: Contains the individual responses for each run, now that the entire storage backend uses parquet, there is an individual parquet file for each of these, whereas it was previously stored in a JSON file or a wider SQLite database.
+- `src/weedvlm/evaluation/`: contains the code for the evaluation pipeline through OpenRouter, including left over evaluation functions, such as the bounding box and open-ended scoring.
+- `src/weedvlm/generation/`: Contains all of the code for the generation pipeline.
+- `src/weedvlm/reasoning/`: Contains all of the code for the post-hoc rationale scoring pipeline.
+- `src/weedvlm/scripts/`: Contains all the scripts used to trigger the pipelines, as well as smaller helper scripts to inspect outputs and with migrations to new formats.
+- `src/weedvlm/storage/`: Previously defined the JSON and SQLite storage formats, now only specifies loading the parquet format, and working with that.
+- `src/weedvlm/types/`: Contains some common types used throughout the project.
+- `test-run-configurations/`: Contains the test run configurations for a number of different tests performed.
+
+## AI usage
+
+Below is the AI usage statement from my report:
+
+>With the explicit permission from my supervisor, AI coding tools, specifically Claude Code, was used to generate and assist with coding throughout this project. All ideas and experimental design presented here is original, and GenAI tools were used specifically to help speed up prototyping, iteration, and ‘nice-to-have’ features including configu­ration files, concurrent question evaluation, and the review apps. Additionally, Claude Code was used to help implement some of the pipelines used throughout the WeedVLM project, including the generation pipeline, the evaluation pipeline, and the post-hoc rationale judging pipeline. Particularly sensitive aspects, including the evaluation of the responses, was done by hand, however GenAI tools were consulted to help with debugging. Claude Code was used to write scripts to generate some helper scripts, including ones to create plots, and these were verified against the tables and evaluation performed manually. Additionally, all code generated is reviewed before being used, and correct functionality is used throughout.
+
+### How did we verify the output from Claude?
+
+Throughout the development of this project, the practices used to audit AI generated code evolved substantially. In general, a separate commit is made for each major change by Claude, this was changes could be more easily tracked and reviewed. Before any changes are committed, the diffs are reviewed completely, and any other changes that need to be made are performed. As this project is most often a series of pipelines to generate something given a particular input, correctness could best be assessed by inspecting the output of these pipelines, on top of this, the AI was generally prompted to include a 'smoke-test' flag, such that a subset of the particular pipeline could be tested and manually inspected. Additionally a review app was created in which generated questions and results could be inspected. For these particular pipelines, manual inspection is generally preferred over automated tests, as they could more easily be verified by simply observing the output, as it was generally a written question + image.
+
+For knowledge based tasks, such as the ground truth and species aliases, these were all manually checked, and once again after the initial evaluation runs to ensure no knowledge errors are made. For the ground truth references in the the reasoning evaluation, the descriptions and facts were collated manually from reputable sources, and then summarised into a single paragraph by Claude, these are then checked manually.
+
+For generated code that is used in the evaluation, the extend to which it is used is very limited, and very carefully vetted before being used, such as the bounding box scoring algorithm, and the open-ended species evaluation questions. These specifically were reused from a previous evaluation script that had been generated as a first check, but these 2-3 functions are the only ones carried over from this, as they used rather complex regular expressions.
+
+GenAI was also used to help generate aesthetically pleasing plots for the report, poster, and presentation, as shown in the scripts under 'notebooks', these often re-derived the data from scratch, and therefore had to be checked to ensure the plots are correct. These plots are always based from hand-written dataframes, so all values in these plots were checked against the values in these tables, as well as manually reviewing the code itself.
